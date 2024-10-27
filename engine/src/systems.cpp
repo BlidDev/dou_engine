@@ -14,7 +14,7 @@ namespace engine {
     bool does_intersect_on_axis(float a, float b, float a_m, float b_m);
 
     void actions(entt::registry& registry, float dt) {
-        auto actions = registry.view<Actions>();
+        auto actions = registry.view<ActionsComp>();
 
         for (auto [entity, actns] : actions.each()) {
             for (auto& act : actns.actions) {
@@ -24,7 +24,7 @@ namespace engine {
     }
 
     void renderer(Entity& player, entt::registry& registry) {
-        auto objs = registry.view<Transform,Primitive>();
+        auto objs = registry.view<TransformComp,PrimitiveComp>();
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
@@ -42,7 +42,7 @@ namespace engine {
 
         EndMode3D();
 
-        auto texts = registry.view<Transform,Text>();
+        auto texts = registry.view<TransformComp,TextComp>();
         for (auto [_, pos, tex] : texts.each()) {
             DrawText(tex.body.c_str(), pos.position.x, pos.position.y,tex.font_size, tex.color);
         }
@@ -55,7 +55,7 @@ namespace engine {
 
     
     void physics(entt::registry& registry, float dt) {
-        auto objs = registry.view<Transform,PhysicsBody>();
+        auto objs = registry.view<TransformComp,PhysicsBodyComp>();
         for (auto [e, t, ph] : objs.each()) {
             Vector3 cvel = ph.velocity;
             Vector3 drag = calculate_drag(ph.velocity, ph.gravity, 0.4f);
@@ -73,7 +73,7 @@ namespace engine {
 
 
     int aabb_check(entt::registry& registry, float dt) {
-        auto objs = registry.view<Transform,PhysicsBody>();
+        auto objs = registry.view<TransformComp,PhysicsBodyComp>();
         for (auto [e, t, ph] : objs.each()) {
             Vector3 tp = t.position;
             if (!ph.is_solid)
@@ -144,23 +144,23 @@ namespace engine {
 
     }
 
-    void draw_primitive(engine::Transform& t, engine::Primitive& p) {
+    void draw_primitive(engine::TransformComp& t, engine::PrimitiveComp& p) {
         bool filled = (PRIMITVE_FILLED & p.attributes) == PRIMITVE_FILLED;
         bool wireframe = (PRIMITVE_WIREFRAME & p.attributes) == PRIMITVE_WIREFRAME;
         switch(p.shape) {
-            case Primitive::Shape::PLANE: {
+            case PrimitiveComp::Shape::PLANE: {
                 if (!filled) assert(0 && "ERROR: Plane primitive cannot be not filled");
                 DrawPlane(t.position, Vector2{t.size.x, t.size.z}, p.color);
             }break;
 
-            case Primitive::Shape::CUBE: {
+            case PrimitiveComp::Shape::CUBE: {
                 if(filled)
                     DrawCube(t.position, t.size.x, t.size.y, t.size.z, p.color);
                 if (wireframe)
                     DrawCubeWires(t.position, t.size.x, t.size.y, t.size.z, BLACK);
              }break;
 
-            case Primitive::Shape::SPHERE: {
+            case PrimitiveComp::Shape::SPHERE: {
                 if(filled)
                     DrawSphere(t.position, t.size.x, p.color);
                 if (wireframe)
@@ -172,7 +172,7 @@ namespace engine {
 
 
     void end_actions(entt::registry& registry) {
-        auto actions = registry.view<Actions>();
+        auto actions = registry.view<ActionsComp>();
 
         for (auto [_, act] : actions.each()) {
             for (auto* u : act.actions) {

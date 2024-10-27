@@ -5,7 +5,7 @@
 
 namespace engine {
 
-    void draw_primitive(engine::Transform& transform, engine::Primitive& pri);
+    void draw_primitive(engine::TransformComp& transform, engine::PrimitiveComp& pri);
     void actions(entt::registry& registry, float dt);
     void renderer(Entity& player, entt::registry& registry);
     void physics(entt::registry& registry, float dt);

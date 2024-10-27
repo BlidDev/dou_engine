@@ -6,14 +6,14 @@
 
 namespace engine {
 
-    struct Tag {
+    struct TagComp {
         std::string tag = "";
     };
 
-    struct Transform {
+    struct TransformComp {
         Vector3 position;
         Vector3 size;
-        Transform(Vector3 position = {0.0f, 0.0f, 0.0f},Vector3 size = {1.0f, 1.0f, 1.0f}) {
+        TransformComp(Vector3 position = {0.0f, 0.0f, 0.0f},Vector3 size = {1.0f, 1.0f, 1.0f}) {
             this->position = position;
             this->size = size;
         }
@@ -24,7 +24,7 @@ namespace engine {
 #define PRIMITVE_WIREFRAME 0b0010
 #define PRIMITVE_IMMUNE    0b0100
 
-    struct Primitive {
+    struct PrimitiveComp {
         Color color = PURPLE;
         enum Shape {
             PLANE,
@@ -34,7 +34,7 @@ namespace engine {
 
         int attributes;
 
-        Primitive(
+        PrimitiveComp(
                 Shape shape = Shape::CUBE,
                 Color color = PURPLE, 
                 int attributes = PRIMITVE_FILLED) {
@@ -44,23 +44,26 @@ namespace engine {
         }
     };
 
-    struct UpdateComponent {
+    struct UpdateComp {
         virtual void on_update(entt::registry& registry, entt::entity self, float dt) = 0;
-        virtual ~UpdateComponent() {}
+        virtual ~UpdateComp() {}
     };
 
-    struct Actions {
-        Actions (std::vector<UpdateComponent*> actions) {this->actions = actions;}
-        std::vector<UpdateComponent*> actions;
+    struct ActionsComp {
+        ActionsComp();
+        ActionsComp (std::vector<UpdateComp*> actions) {this->actions = actions;}
+
+        ActionsComp& add(UpdateComp* comp);
+        std::vector<UpdateComp*> actions;
     };
 
-    struct Text {
+    struct TextComp {
         std::string body;
         int font_size;
         Color color;
     };
 
-    struct PhysicsBody {
+    struct PhysicsBodyComp {
         float gravity;
         Vector3 velocity;
         Vector3 acceleration;
@@ -69,5 +72,19 @@ namespace engine {
         Vector3 move_delta = {0.0f,0.0f,0.0f};
 
         int (*intersects_callback)(entt::registry&, entt::entity, entt::entity) = nullptr;
+    };
+
+
+    struct CameraBuilder {
+        CameraBuilder();
+
+        CameraBuilder& target(Vector3 target);
+        CameraBuilder& up(Vector3 up);
+        CameraBuilder& fovy(float fovy);
+        CameraBuilder& projection(CameraProjection projection);
+
+        Camera build();
+    private:
+        Camera camera;
     };
 }

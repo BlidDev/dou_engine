@@ -4,6 +4,8 @@
 #include <stdio.h>
 
 
+using namespace engine;
+
 class WinScene : public engine::Scene {
 public:
     WinScene() : Scene() {
@@ -11,8 +13,8 @@ public:
 
     void on_create() {
         text = registry.create();
-        registry.emplace<engine::Text>(text, "YOU WIN!! :D", 40,BLACK);
-        registry.emplace<engine::Transform>(text, (Vector3){370.0f,2.0f,0.0f});
+        registry.emplace<TextComp>(text, "YOU WIN!! :D", 40,BLACK);
+        registry.emplace<TransformComp>(text, (Vector3){370.0f,2.0f,0.0f});
         EnableCursor();
     }
 
@@ -24,8 +26,8 @@ public:
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
-        auto& tex = registry.get<engine::Text>(text);
-        auto& pos = registry.get<engine::Transform>(text);
+        auto& tex = registry.get<TextComp>(text);
+        auto& pos = registry.get<TransformComp>(text);
 
         DrawText(tex.body.c_str(), pos.position.x, pos.position.y,tex.font_size, tex.color);
         EndDrawing();

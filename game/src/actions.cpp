@@ -7,8 +7,8 @@
 void PlayerAction::on_update(entt::registry& registry, entt::entity self, float dt) {
 
     Camera& p_camera = registry.get<Camera>(self);
-    engine::Transform& p_t = registry.get<engine::Transform>(self);
-    engine::PhysicsBody& p_ph = registry.get<engine::PhysicsBody>(self);
+    engine::TransformComp& p_t = registry.get<engine::TransformComp>(self);
+    engine::PhysicsBodyComp& p_ph = registry.get<engine::PhysicsBodyComp>(self);
     float speed = 1.0f; 
     if (IsKeyDown(KEY_LEFT_SHIFT)) speed *= 3.0f;
     if (IsKeyDown(KEY_SPACE) && p_ph.move_delta.y == 0.0f) p_ph.velocity.y += 10.0f;
@@ -37,14 +37,14 @@ void PlayerAction::on_update(entt::registry& registry, entt::entity self, float 
 
 
 void FPSAction::on_update(entt::registry& registry, entt::entity self, float dt) {
-    engine::Text& text = registry.get<engine::Text>(self);
-    engine::Transform& p = registry.get<engine::Transform>(player);
+    engine::TextComp& text = registry.get<engine::TextComp>(self);
+    engine::TransformComp& p = registry.get<engine::TransformComp>(player);
 
     text.body = TextFormat("FPS: %d | (%f. %f, %f)", GetFPS(),p.position.x, p.position.y, p.position.z);
 }
 
 void CubeAction::on_update(entt::registry &registry, entt::entity self, float dt) {
-    engine::PhysicsBody& physics = registry.get<engine::PhysicsBody>(self);
+    engine::PhysicsBodyComp& physics = registry.get<engine::PhysicsBodyComp>(self);
 
     physics.velocity.z = sin(GetTime() +  (float)self) * 0.5f + 0.5f;
     physics.velocity.x = sin(GetTime() +  (float)self);

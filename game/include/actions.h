@@ -1,19 +1,20 @@
 #pragma once
 #include "engine.h"
+#include <iostream>
 
 
-struct PlayerAction : public engine::UpdateComponent {
+struct PlayerAction : public engine::UpdateComp {
     void on_update(entt::registry& registry, entt::entity self, float dt);
 };
 
 
-struct FPSAction : public engine::UpdateComponent {
+struct FPSAction : public engine::UpdateComp {
     void on_update(entt::registry& registry, entt::entity self, float dt);
     FPSAction(entt::entity player) : player(player){}
     entt::entity player;
 };
 
-struct CubeAction : public engine::UpdateComponent {
+struct CubeAction : public engine::UpdateComp {
     void on_update(entt::registry& registry, entt::entity self, float dt);
 };
 
