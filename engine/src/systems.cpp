@@ -68,12 +68,14 @@ namespace engine {
 
             ph.velocity = cvel;
             ph.move_delta = move_amount;
+            if (!ph.is_solid)
+                t.position += move_amount;
         }
     }
 
 
-    int aabb_check(entt::registry& registry, float dt) {
-        auto objs = registry.view<TransformComp,PhysicsBodyComp>();
+    int aabb_check(Scene& scene, float dt) {
+        auto objs = scene.registry.view<TransformComp,PhysicsBodyComp>();
         for (auto [e, t, ph] : objs.each()) {
             Vector3 tp = t.position;
             if (!ph.is_solid)
@@ -83,7 +85,7 @@ namespace engine {
                 {
                     for (auto [o, ot, oph] : objs.each()) {
                         if (e != o && aabb_3d_intersects(t.position, t.size, ot.position, ot.size)) {
-                            if (ph.intersects_callback(registry,e,o))
+                            if (ph.intersects_callback(scene,e,o))
                                 return 1;
                         }
                     }
@@ -109,7 +111,7 @@ namespace engine {
                 HANDLE_AABB(tmp, t, ot, ph, oph, z);
 
                 if(ph.intersects_callback) {
-                    if (ph.intersects_callback(registry,e,o))
+                    if (ph.intersects_callback(scene,e,o))
                         return 1;
                 }
                     

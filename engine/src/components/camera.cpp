@@ -1,16 +1,6 @@
-#include "component.h"
-
+#include "components/camera.h"
 
 namespace engine {
-    ActionsComp::ActionsComp() {
-        actions = {};
-    }
-
-    ActionsComp& ActionsComp::add(UpdateComp* comp) {
-        actions.push_back(comp);
-        return *this;
-    }
-
     CameraBuilder::CameraBuilder() {
         camera = { 
             .position = (Vector3){ 0.0f, 0.0f, 0.0f },    // Camera positionl
@@ -19,6 +9,11 @@ namespace engine {
             .fovy = 90.0f,                                // Camera field-of-view Y
             .projection = CAMERA_PERSPECTIVE
         };
+    }
+
+    CameraBuilder& CameraBuilder::position(Vector3 position) {
+        camera.position = position;
+        return *this;
     }
 
     CameraBuilder& CameraBuilder::target(Vector3 target) {

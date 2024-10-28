@@ -2,6 +2,7 @@
 file(GLOB engine_SRC
     "src/*.c"
     "src/*.cpp"
+    "src/components/*.cpp"
     )
 add_library(engine STATIC ${engine_SRC})
 

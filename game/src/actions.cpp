@@ -9,7 +9,7 @@ void PlayerAction::on_update(entt::registry& registry, entt::entity self, float 
     Camera& p_camera = registry.get<Camera>(self);
     engine::TransformComp& p_t = registry.get<engine::TransformComp>(self);
     engine::PhysicsBodyComp& p_ph = registry.get<engine::PhysicsBodyComp>(self);
-    float speed = 1.0f; 
+    float speed = 0.5f; 
     if (IsKeyDown(KEY_LEFT_SHIFT)) speed *= 3.0f;
     if (IsKeyDown(KEY_SPACE) && p_ph.move_delta.y == 0.0f) p_ph.velocity.y += 10.0f;
 
@@ -51,12 +51,68 @@ void CubeAction::on_update(entt::registry &registry, entt::entity self, float dt
 }
 
 
-int win_cube(entt::registry& registry,entt::entity self, entt::entity other) {
-    auto& win_cube = registry.get<WinCube>(self);
+int win_cube(engine::Scene& scene,entt::entity self, entt::entity other) {
+    auto& win_cube = scene.registry.get<WinCube>(self);
     if (win_cube.player == other){
         win_cube.manager->set_current("win");
         return 1;
     }
 
     return 0;
+}
+
+void GameCameraAction::on_update(entt::registry& registry, entt::entity self, float dt) {
+    Camera& p_camera = registry.get<Camera>(self);
+    engine::TransformComp& p_t = registry.get<engine::TransformComp>(self);
+
+    p_camera.target += p_t.position - p_camera.position;
+    p_camera.position = p_t.position;
+}
+
+void GameAction::on_update(entt::registry& registry, entt::entity self, float dt) {
+
+    engine::TransformComp& p_t = registry.get<engine::TransformComp>(self);
+    engine::PhysicsBodyComp& p_ph = registry.get<engine::PhysicsBodyComp>(self);
+    float speed = 5.0f; 
+
+
+    //engine::handle_mouse_delta(&p_camera, {
+    //            GetMouseDelta().x * 0.05f,
+    //            GetMouseDelta().y * 0.05f, 
+    //            0.0f
+    //        }, true);
+
+    int v = IsKeyDown(KEY_UP) - (IsKeyDown(KEY_DOWN));
+    int h = IsKeyDown(KEY_RIGHT) - (IsKeyDown(KEY_LEFT));
+
+    p_ph.velocity.x += -(float)h * speed;
+    p_ph.velocity.y  =  (float)v * speed;
+
+    //std::cout<<p_t.position<<'\n';
+}
+
+ObstAction::ObstAction(bool* create, int* score, float speed) {
+    this->speed = speed;
+    this->score = score;
+    this->create_obst = create; 
+}
+
+void ObstAction::on_update(entt::registry& registry, entt::entity self, float dt) {
+    engine::PhysicsBodyComp& ph = registry.get<engine::PhysicsBodyComp>(self);
+    engine::TransformComp& t = registry.get<engine::TransformComp>(self);
+
+    ph.velocity.z = speed;
+
+    if (t.position.z <= -1.0f) {
+        registry.destroy(self);
+        *create_obst = true;
+    }
+}
+
+
+void ScoreAction::on_update(entt::registry& registry, entt::entity self, float dt) {
+
+    engine::TextComp& text = registry.get<engine::TextComp>(self);
+
+    text.body = TextFormat("FPS: %d | SCORE: %d", GetFPS(), *score);
 }

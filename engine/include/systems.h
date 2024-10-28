@@ -9,6 +9,6 @@ namespace engine {
     void actions(entt::registry& registry, float dt);
     void renderer(Entity& player, entt::registry& registry);
     void physics(entt::registry& registry, float dt);
-    int  aabb_check(entt::registry& registry, float dt);
+    int  aabb_check(Scene& scene, float dt);
     void end_actions(entt::registry& registry);
 }

@@ -51,7 +51,7 @@ public:
     void on_update(float dt) {
         engine::actions(registry, dt);
         engine::physics(registry, dt);
-        if(engine::aabb_check(registry, dt)) return;
+        if(engine::aabb_check(*this, dt)) return;
         engine::renderer(player, registry);
     }
 
