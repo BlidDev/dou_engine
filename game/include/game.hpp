@@ -69,7 +69,6 @@ public:
         player.add_component<Camera>(CameraBuilder().position({ 2.0f, 2.0f, 0.0f }).target({ 2.0f, 2.0f, 2.0f }).build());
         player.add_component<ActionsComp>(ActionsComp().add(new GameAction).add(new GameCameraAction));
         player.add_component<PhysicsBodyComp>();
-        player.add_component<TagComp>("Player");
 
         Entity text = create_entity();
         text.add_component<TransformComp>(TransformBuilder().position({ 0.0f, 0.0f, 0.0f }));
@@ -83,6 +82,7 @@ public:
                 PrimitiveComp::CUBE, 
                 DARKGREEN, PRIMITVE_WIREFRAME );
         tmp.add_component<PhysicsBodyComp>();
+        tmp.add_component<TagComp>("Player");
 
         generate_obst();
         make_walls();
