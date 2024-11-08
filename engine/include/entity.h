@@ -37,6 +37,9 @@ namespace engine {
             scene->registry.remove<T>(entity_id);
         }
 
+        bool operator ! () const {
+            return (entity_id == entt::null);
+        }
         void terminate() {
             check_null();
             scene->registry.destroy(entity_id);

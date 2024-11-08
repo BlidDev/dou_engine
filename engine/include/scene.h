@@ -1,5 +1,6 @@
 #pragma once
 #include <entt.hpp>
+#include <string.h>
 
 namespace engine {
 
@@ -7,8 +8,8 @@ namespace engine {
     class Entity;
     class Scene {
     public:
-        Scene() {}
-        virtual void on_create() = 0;
+        Scene(const std::string name) : name(name) {}
+        virtual void on_create();
         virtual void on_update(float dt)  {};
         virtual void on_end() {};
         
@@ -19,6 +20,7 @@ namespace engine {
     public:
         entt::registry registry;
         SceneManager* manager;
+        const std::string name;
     };
 
 
@@ -30,6 +32,10 @@ namespace engine {
         void set_current(const char* name);
         void end_scene(Scene* scene);
         void end();
+
+        void write_scene_to_file(const char* path, Scene* scene);
+        Scene* scene_from_file(const char* path);
+
         Scene* get_current();
         ~SceneManager();
 

@@ -1,6 +1,10 @@
+#include "components/action.h"
 #include "systems.h"
+#include <yaml-cpp/yaml.h>
 #include "scene.h"
 #include "entity.h"
+#include "yaml-cpp/emittermanip.h"
+#include <yaml-cpp/yaml.h>
 
 namespace engine 
 {
@@ -64,5 +68,41 @@ namespace engine
             delete scene.second;
         }
     }
+
+
+    static void write_entity_to_file(YAML::Emitter& out, Entity& entity) {
+        out<<YAML::BeginMap;
+        out<<YAML::Key<<"Entity"<<YAML::Value<<"1234";
+
+        if (entity.has_component<TagComp>()) {
+            out<<YAML::Key<<"TagComp"<<YAML::BeginMap;
+        }
+
+        out<<YAML::EndMap;
+    }
+    void SceneManager::write_scene_to_file(const char* path, Scene* scene) {
+        YAML::Emitter out;
+        out<<YAML::BeginMap;
+        out<<YAML::Key<<"Scene"<<YAML::Value<<scene->name;
+        out<<YAML::Key<<"Entities"<<YAML::Value<<YAML::BeginSeq;
+
+        for (auto e : scene->registry.view<entt::entity>()) {
+            Entity entity(scene, e);
+            write_entity_to_file(out, entity);
+            if (!entity)
+                return;
+            write_entity_to_file(out, entity);
+        }
+
+        out<<YAML::EndSeq;
+        out<<YAML::EndMap;
+    }
+
+    Scene* SceneManager::scene_from_file(const char* path) {
+        Scene* scene = new Scene("");
+
+        return scene;
+    }
+    
 
 }
