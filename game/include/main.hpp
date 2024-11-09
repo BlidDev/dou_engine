@@ -15,7 +15,6 @@ public:
         DisableCursor();
         player = create_entity();
         player.add_component<TransformComp>((Vector3){ 0.0f, 3.0f, 4.0f }, (Vector3){0.5f, 1.0f, 0.5f});
-        
 
         player.add_component<Camera>(CameraBuilder().target((Vector3){ 3.0f, 0.0f, -4.0f }).build());
         player.add_component<ActionsComp>(ActionsComp().add(new PlayerAction));
