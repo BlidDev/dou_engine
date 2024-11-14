@@ -11,14 +11,12 @@ target_include_directories(game PRIVATE
     ${CMAKE_SOURCE_DIR}/engine/include
     ${CMAKE_SOURCE_DIR}/game/include
     ${CMAKE_SOURCE_DIR}/vendor/entt
-    ${CMAKE_SOURCE_DIR}/vendor/yaml-cpp/include
+    ${YAML_CPP_INCLUDE_DIRS}
     ${RAYLIB_DIR}/src
 )
 
-link_directories(game PRIVATE
-    ${CMAKE_SOURCE_DIR}/vendor/yaml-cpp/build/libyaml-cpp.a
-)
 
+link_directories(game ${YAML_CPP_LIBRARIES})
 
 
 

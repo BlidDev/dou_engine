@@ -9,7 +9,7 @@ namespace engine {
     class Scene {
     public:
         Scene(const std::string name) : name(name) {}
-        virtual void on_create();
+        virtual void on_create() {};
         virtual void on_update(float dt)  {};
         virtual void on_end() {};
         

@@ -8,7 +8,7 @@ using namespace engine;
 
 class WinScene : public engine::Scene {
 public:
-    WinScene() : Scene() {
+    WinScene() : Scene("win") {
     }
 
     void on_create() {

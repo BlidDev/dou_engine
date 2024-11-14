@@ -1,6 +1,7 @@
 #pragma once
 #include "engine.h"
 #include "actions.h"
+#include "entity.h"
 #include <raylib.h>
 #include <stdio.h>
 #include <iostream>
@@ -53,7 +54,8 @@ int intersects_callback(Scene& scene,entt::entity self, entt::entity other);
 
 class GameScene : public engine::Scene {
 public:
-    GameScene() : Scene() {}
+    GameScene() : Scene("game") {
+    }
 
     void on_create() {
         begin = std::chrono::steady_clock::now();

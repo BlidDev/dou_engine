@@ -15,9 +15,7 @@ target_include_directories(engine PUBLIC
     ${RAYLIB_DIR}/src
 )
 
-link_directories(engine PRIVATE
-    ${CMAKE_SOURCE_DIR}/vendor/yaml-cpp/build/libyaml-cpp.a
-)
+link_directories(game ${YAML_CPP_LIBRARIES})
 
 # Link raylib to the engine library
 target_link_libraries(engine PRIVATE raylib yaml-cpp)

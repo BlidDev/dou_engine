@@ -1,3 +1,4 @@
+#include "components/tag.h"
 #include "engine.h"
 #include "actions.h"
 #include <raylib.h>
@@ -8,7 +9,7 @@ using namespace engine;
 
 class MainScene : public engine::Scene {
 public:
-    MainScene() : Scene() {
+    MainScene() : Scene("main") {
     }
 
     void on_create() {
@@ -16,28 +17,33 @@ public:
         player = create_entity();
         player.add_component<TransformComp>((Vector3){ 0.0f, 3.0f, 4.0f }, (Vector3){0.5f, 1.0f, 0.5f});
 
+        player.add_component<TagComp>("Player");
         player.add_component<Camera>(CameraBuilder().target((Vector3){ 3.0f, 0.0f, -4.0f }).build());
         player.add_component<ActionsComp>(ActionsComp().add(new PlayerAction));
         player.add_component<PhysicsBodyComp>(0.2f, (Vector3){0.0f,0.0f,0.0f},(Vector3){0.0f,0.0f,0.0f}, true, false);
         player.add_component<PrimitiveComp>(PrimitiveComp::Shape::CUBE, BLACK,PRIMITVE_WIREFRAME);
 
         Entity text = create_entity();
+        text.add_component<TagComp>("Text");
         text.add_component<TextComp>("", 40, BLACK);
         text.add_component<TransformComp>((Vector3){0.0f,2.0f,0.0});
         text.add_component<ActionsComp>(ActionsComp().add(new FPSAction(player.id())));
 
 
         Entity plane = create_entity();
+        plane.add_component<TagComp>("Floor");
         plane.add_component<TransformComp>((Vector3){(float)0.0f,-0.5f,0.0f},(Vector3){(float)1000.0f,0.0f,1000.0f});
         plane.add_component<PrimitiveComp>(PrimitiveComp::Shape::PLANE, DARKGRAY, PRIMITVE_IMMUNE | PRIMITVE_FILLED);
         plane.add_component<PhysicsBodyComp>(0.0f, (Vector3){0.0f,0.0f,0.0f},(Vector3){0.0f,0.0f,0.0f}, true, true);
 
-        for (int i = 0; i < 100; ++i) {
+        int lim = 10;
+        for (int i = 0; i < lim; ++i) {
             Entity entity = create_entity();
+            entity.add_component<TagComp>("Cube");
             entity.add_component<TransformComp>((Vector3){(float)i * 3.0f,(float)i* 0.5f,0.0f});
             entity.add_component<PrimitiveComp>(PrimitiveComp::Shape::CUBE, ColorFromHSV(GetRandomValue(0, 360), 1.0f,1.0f), PRIMITVE_FILLED | PRIMITVE_WIREFRAME);
             auto& ph = entity.add_component<PhysicsBodyComp>(0.0f, (Vector3){0.0f,0.0f,0.0f},(Vector3){0.0f,0.0f,0.0f}, true, true);
-            if (i == 99)
+            if (i == lim -1)
             {
                 ph.is_solid = false;
                 ph.intersects_callback = win_cube;
@@ -55,6 +61,7 @@ public:
     }
 
     void on_end() {
+        manager->write_scene_to_file("res/main.scene", this);
         printf("main end called\n");
     }
 

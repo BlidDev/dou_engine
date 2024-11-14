@@ -1,0 +1,294 @@
+Scene: main
+Entities:
+  - Entity: 1234
+    Tag:
+      Tag: Cube
+    Transform:
+      Position: [29.069622, 4.5, 3.522733]
+      Size: [1, 1, 1]
+    Primitive:
+      Color: ["\x00", "\xff", "?", "\xff"]
+      Shape: CUBE
+      Attributes:
+        Filled: true
+        Wireframe: true
+        Immune: false
+    Actions:
+      Actions:
+        - Todo
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [-0.3744923, 0, 0.11275444]
+      Accelaration: [0, 0, 0]
+      Is Solid: false
+      Is Static: true
+      Move Delta: [-0.00625129, 0, 0.0018821768]
+  - Entity: 1234
+    Tag:
+      Tag: Cube
+    Transform:
+      Position: [24.717463, 4, 1.6026875]
+      Size: [1, 1, 1]
+    Primitive:
+      Color: ["\x9d", "\x00", "\xff", "\xff"]
+      Shape: CUBE
+      Attributes:
+        Filled: true
+        Wireframe: true
+        Immune: false
+    Actions:
+      Actions:
+        - Todo
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0.19210996, 0, 0.39605525]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0.0032068354, 0, 0.0066112345]
+  - Entity: 1234
+    Tag:
+      Tag: Cube
+    Transform:
+      Position: [20.740484, 3.5, 1.1142002]
+      Size: [1, 1, 1]
+    Primitive:
+      Color: ["\xff", "\x00", "\x00", "\xff"]
+      Shape: CUBE
+      Attributes:
+        Filled: true
+        Wireframe: true
+        Immune: false
+    Actions:
+      Actions:
+        - Todo
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0.58209944, 0, 0.5910498]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0.009716815, 0, 0.009866221]
+  - Entity: 1234
+    Tag:
+      Tag: Cube
+    Transform:
+      Position: [17.002113, 3, 0.7450121]
+      Size: [1, 1, 1]
+    Primitive:
+      Color: ["\xff", P, "\x00", "\xff"]
+      Shape: CUBE
+      Attributes:
+        Filled: true
+        Wireframe: true
+        Immune: false
+    Actions:
+      Actions:
+        - Todo
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0.4369169, 0, 0.51845837]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0.007293326, 0, 0.008654473]
+  - Entity: 1234
+    Tag:
+      Tag: Cube
+    Transform:
+      Position: [14.181178, 2.5, 0.83454967]
+      Size: [1, 1, 1]
+    Primitive:
+      Color: ["\xff", "\x00", "\x04", "\xff"]
+      Shape: CUBE
+      Attributes:
+        Filled: true
+        Wireframe: true
+        Immune: false
+    Actions:
+      Actions:
+        - Todo
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [-0.109961115, 0, 0.24501935]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [-0.0018355487, 0, 0.0040900363]
+  - Entity: 1234
+    Tag:
+      Tag: Cube
+    Transform:
+      Position: [12.113068, 2, 1.3004931]
+      Size: [1, 1, 1]
+    Primitive:
+      Color: ["\xff", "\xae", "\x00", "\xff"]
+      Shape: CUBE
+      Attributes:
+        Filled: true
+        Wireframe: true
+        Immune: false
+    Actions:
+      Actions:
+        - Todo
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [-0.5557424, 0, 0.022128774]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [-0.009276845, 0, 0.00036938913]
+  - Entity: 1234
+    Tag:
+      Tag: Cube
+    Transform:
+      Position: [9.941009, 1.5, 1.7144599]
+      Size: [1, 1, 1]
+    Primitive:
+      Color: ["\x90", "\xff", "\x00", "\xff"]
+      Shape: CUBE
+      Attributes:
+        Filled: true
+        Wireframe: true
+        Immune: false
+    Actions:
+      Actions:
+        - Todo
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [-0.49058166, 0, 0.054709237]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [-0.008189136, 0, 0.00091324525]
+  - Entity: 1234
+    Tag:
+      Tag: Cube
+    Transform:
+      Position: [6.903794, 1, 1.6958561]
+      Size: [1, 1, 1]
+    Primitive:
+      Color: ["\x00", "\xff", "3", "\xff"]
+      Shape: CUBE
+      Attributes:
+        Filled: true
+        Wireframe: true
+        Immune: false
+    Actions:
+      Actions:
+        - Todo
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0.025613222, 0, 0.31280673]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0.000427554, 0, 0.0052215913]
+  - Entity: 1234
+    Tag:
+      Tag: Cube
+    Transform:
+      Position: [3.0356495, 0.5, 1.2617851]
+      Size: [1, 1, 1]
+    Primitive:
+      Color: ["\xff", "\x00", "\x19", "\xff"]
+      Shape: CUBE
+      Attributes:
+        Filled: true
+        Wireframe: true
+        Immune: false
+    Actions:
+      Actions:
+        - Todo
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0.5182595, 0, 0.55912983]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0.008651154, 0, 0.009333391]
+  - Entity: 1234
+    Tag:
+      Tag: Cube
+    Transform:
+      Position: [-0.86526793, 0, 0.8113257]
+      Size: [1, 1, 1]
+    Primitive:
+      Color: ["\x00", "\xff", Y, "\xff"]
+      Shape: CUBE
+      Attributes:
+        Filled: true
+        Wireframe: true
+        Immune: false
+    Actions:
+      Actions:
+        - Todo
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0.53442526, 0, 0.5672126]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0.008921005, 0, 0.009468313]
+  - Entity: 1234
+    Tag:
+      Tag: Floor
+    Transform:
+      Position: [0, -0.5, 0]
+      Size: [1000, 0, 1000]
+    Primitive:
+      Color: [P, P, P, "\xff"]
+      Shape: PLANE
+      Attributes:
+        Filled: true
+        Wireframe: false
+        Immune: true
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+  - Entity: 1234
+    Tag:
+      Tag: Text
+    Transform:
+      Position: [0, 2, 0]
+      Size: [1, 1, 1]
+    Actions:
+      Actions:
+        - Todo
+    Text:
+      Body: "FPS: 60 | (0.000000. 0.001548, 4.000000)"
+      Font Size: 40
+      Color: ["\x00", "\x00", "\x00", "\xff"]
+  - Entity: 1234
+    Tag:
+      Tag: Player
+    Transform:
+      Position: [0, 0.0015478488, 4]
+      Size: [0.5, 1, 0.5]
+    Primitive:
+      Color: ["\x00", "\x00", "\x00", "\xff"]
+      Shape: CUBE
+      Attributes:
+        Filled: false
+        Wireframe: true
+        Immune: false
+    Actions:
+      Actions:
+        - Todo
+    PhysicsBody:
+      Gravity: 0.2
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: false
+      Move Delta: [0, 0, 0]
+    Camera:
+      Position: [0, 0.0015478488, 4]
+      Target: [2.6803045, -0.5254337, -0.1878705]
+      Up: [0, 1, 0]
+      FovY: 90
+      Projection: 0
