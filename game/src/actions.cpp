@@ -1,7 +1,6 @@
 #include "actions.h"
 #include "util.h"
 #include "ops.hpp"
-#include <raylib.h>
 
 
 void PlayerAction::on_update(entt::registry& registry, entt::entity self, float dt) {
@@ -71,24 +70,13 @@ void GameCameraAction::on_update(entt::registry& registry, entt::entity self, fl
 
 void GameAction::on_update(entt::registry& registry, entt::entity self, float dt) {
 
-    engine::TransformComp& p_t = registry.get<engine::TransformComp>(self);
     engine::PhysicsBodyComp& p_ph = registry.get<engine::PhysicsBodyComp>(self);
     float speed = 5.0f; 
-
-
-    //engine::handle_mouse_delta(&p_camera, {
-    //            GetMouseDelta().x * 0.05f,
-    //            GetMouseDelta().y * 0.05f, 
-    //            0.0f
-    //        }, true);
-
     int v = IsKeyDown(KEY_UP) - (IsKeyDown(KEY_DOWN));
     int h = IsKeyDown(KEY_RIGHT) - (IsKeyDown(KEY_LEFT));
 
     p_ph.velocity.x += -(float)h * speed;
     p_ph.velocity.y  =  (float)v * speed;
-
-    //std::cout<<p_t.position<<'\n';
 }
 
 ObstAction::ObstAction(bool* create, int* score, float speed) {

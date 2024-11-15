@@ -1,10 +1,5 @@
 #pragma once
-#include "engine.h"
 #include "actions.h"
-#include "entity.h"
-#include <raylib.h>
-#include <stdio.h>
-#include <iostream>
 #include <chrono>
 
 char obst1[] {
