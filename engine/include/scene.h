@@ -17,17 +17,19 @@ namespace engine {
         virtual ~Scene() {}
 
         Entity create_entity();
+
+        void add_from_file(const char* path);
     public:
         entt::registry registry;
         SceneManager* manager;
-        const std::string name;
+        std::string name;
     };
 
 
     class SceneManager {
     public:
         SceneManager();
-        void register_scene(const char* name, Scene* scene);
+        Scene* register_scene(const char* name, Scene* scene);
         Scene* get_scene(const char* name);
         void set_current(const char* name);
         void end_scene(Scene* scene);

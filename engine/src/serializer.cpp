@@ -1,7 +1,11 @@
+#include "components/primitive.h"
 #include "scene.h"
+#include <cstdio>
+#include <string>
 #include <yaml-cpp/yaml.h>
 #include "component.h"
 #include "entity.h"
+#include "yaml-cpp/emittermanip.h"
 #include <raylib.h>
 #include <fstream>
 
@@ -21,8 +25,30 @@ namespace YAML {
             if(!node.IsSequence() || node.size() != 3)
                 return false;
             rhs.x = node[0].as<float>();
-            rhs.x = node[1].as<float>();
-            rhs.x = node[2].as<float>();
+            rhs.y = node[1].as<float>();
+            rhs.z = node[2].as<float>();
+            return true;
+        }
+    };
+
+    template <>
+    struct convert<Color> {
+        static Node encode(const Color& rhs) {
+            Node node;
+            node.push_back((int)rhs.r);
+            node.push_back((int)rhs.g);
+            node.push_back((int)rhs.b);
+            node.push_back((int)rhs.a);
+            return node;
+        }
+
+        static bool decode(const Node& node, Color& rhs) {
+            if(!node.IsSequence() || node.size() != 4)
+                return false;
+            rhs.r = (unsigned char)node[0].as<int>();
+            rhs.g = (unsigned char)node[1].as<int>();
+            rhs.b = (unsigned char)node[2].as<int>();
+            rhs.a = (unsigned char)node[3].as<int>();
             return true;
         }
     };
@@ -38,10 +64,21 @@ namespace engine {
 
     YAML::Emitter& operator<<(YAML::Emitter& out, const Color& c) {
         out<<YAML::Flow;
-        out<<YAML::BeginSeq<<c.r<<c.g<<c.b<<c.a<<YAML::EndSeq;
+        out<<YAML::BeginSeq<<(int)c.r<<(int)c.g<<(int)c.b<<(int)c.a<<YAML::EndSeq;
         return out;
     }
 
+    static PrimitiveComp::Shape str_to_shape(const std::string str) {
+        if (str == "PLANE")
+            return PrimitiveComp::PLANE;
+        if (str == "CUBE")
+            return PrimitiveComp::CUBE;
+        if (str == "SPHERE")
+            return PrimitiveComp::SPHERE;
+
+        assert("ERORR: Trying to parse uknown shape");
+        return PrimitiveComp::PLANE;
+    }
 
     static void write_entity_to_file(YAML::Emitter& out, Entity& entity) {
         out<<YAML::BeginMap;
@@ -71,15 +108,23 @@ namespace engine {
                 out<<YAML::Key<<"Attributes"<<YAML::BeginMap;
                     out<<YAML::Key<<"Filled"<<YAML::Value<<((PRIMITVE_FILLED & p.attributes) == PRIMITVE_FILLED);
                     out<<YAML::Key<<"Wireframe"<<YAML::Value<<((PRIMITVE_WIREFRAME & p.attributes) == PRIMITVE_WIREFRAME);
-                    out<<YAML::Key<<"Immune"<<YAML::Value<<((PRIMITVE_IMMUNE & p.attributes) == PRIMITVE_IMMUNE);
+                    out << YAML::Key << "Immune" << YAML::Value
+                        << ((PRIMITVE_IMMUNE & p.attributes) ==
+                            PRIMITVE_IMMUNE);
                     out<<YAML::EndMap;
             out<<YAML::EndMap;
         }
 
         if (entity.has_component<ActionsComp>()) {
-            out<<YAML::Key<<"Actions"<<YAML::BeginMap;
-                out<<YAML::Key<<"Actions"<<YAML::BeginSeq<<"Todo"<<YAML::EndSeq;
-            out<<YAML::EndMap;
+            out<<YAML::Key<<"Native Actions"<<YAML::BeginSeq;
+                ActionsComp& a = entity.get_component<ActionsComp>();
+                for (auto action : a.actions) {
+                    out<<YAML::BeginMap;
+                        out<<YAML::Key<<"Name"<<YAML::Value<<action->inner_name;
+                        action->serialize(out);
+                    out<<YAML::EndMap;
+                }
+            out<<YAML::EndSeq;
         }
 
         if (entity.has_component<TextComp>()) {
@@ -116,6 +161,75 @@ namespace engine {
 
         out<<YAML::EndMap;
     }
+
+    static void read_entity_from_file(YAML::Node& entity, Scene* scene) {
+        uint64_t uuid = entity["Entity"].as<uint64_t>(); 
+
+        Entity read_entity = scene->create_entity();
+
+        auto tag_comp = entity["Tag"];
+        if (tag_comp)
+            read_entity.add_component<TagComp>(tag_comp["Tag"].as<std::string>());
+
+        auto transform_comp = entity["Transform"];
+        if (transform_comp) {
+            TransformComp& tc = read_entity.add_component<TransformComp>();
+            tc.position = transform_comp["Position"].as<Vector3>();
+            tc.size = transform_comp["Size"].as<Vector3>();
+        }
+
+        auto primitive_comp = entity["Primitive"];
+        if (primitive_comp) {
+            PrimitiveComp& p = read_entity.add_component<PrimitiveComp>();
+            p.color = primitive_comp["Color"].as<Color>();
+            const std::string shape = primitive_comp["Shape"].as<std::string>();
+            p.shape = str_to_shape(shape);
+            auto attributes = primitive_comp["Attributes"];
+            p.attributes = 0;
+            p.attributes |= attributes["Filled"].as<bool>() ?    PRIMITVE_FILLED : 0;
+            p.attributes |= attributes["Wireframe"].as<bool>() ? PRIMITVE_WIREFRAME : 0;
+            p.attributes |= attributes["Immune"].as<bool>() ?    PRIMITVE_IMMUNE : 0;
+        }
+
+        auto actions_comp = entity["Native Actions"];
+        if (actions_comp) {
+            ActionsComp& ac = read_entity.add_component<ActionsComp>();
+            for (auto action : actions_comp) {
+                std::string action_name = action["Name"].as<std::string>();
+                UpdateComp* a = ac.add(action_name.c_str()).get_last();
+                a->dserialize(action);
+                printf("Added %s to %d\n",action_name.c_str(), (int)read_entity.id());
+            }
+        }
+        auto text = entity["Text"];
+        if(text) {
+            TextComp& t = read_entity.add_component<TextComp>();
+            t.body = text["Body"].as<std::string>();
+            t.font_size = text["Font Size"].as<int>();
+            t.color = text["Color"].as<Color>();
+        }
+
+        auto physicbody = entity["PhysicsBody"];
+        if(physicbody) {
+            PhysicsBodyComp& ph = read_entity.add_component<PhysicsBodyComp>(); 
+            ph.gravity = physicbody["Gravity"].as<float>();
+            ph.velocity = physicbody["Velocity"].as<Vector3>();
+            ph.is_solid = physicbody["Is Solid"].as<bool>();
+            ph.is_static = physicbody["Is Static"].as<bool>();
+            ph.move_delta = physicbody["Move Delta"].as<Vector3>();
+        }
+
+        auto camera = entity["Camera"];
+        if(camera) {
+            Camera& c = read_entity.add_component<Camera>();
+            c.position = camera["Position"].as<Vector3>();
+            c.target = camera["Target"].as<Vector3>();
+            c.up = camera["Up"].as<Vector3>();
+            c.fovy = camera["FovY"].as<float>();
+            c.projection = camera["Projection"].as<int>();
+        }
+    }
+
     void SceneManager::write_scene_to_file(const char* path, Scene* scene) {
         std::ofstream file(path);
         YAML::Emitter out;
@@ -152,25 +266,34 @@ namespace engine {
         auto entities = data["Entities"];
 
         for (auto entity : entities) {
-            uint64_t uuid = entity["Entity"].as<uint64_t>();
-
-            Entity read_entity = scene->create_entity();
-
-            auto tag_comp = entity["Tag"];
-            if (tag_comp)
-                read_entity.add_component<TagComp>(tag_comp["Tag"].as<std::string>());
-
-            auto transform_comp = entity["Transform"];
-            if (transform_comp) {
-                TransformComp& tc = read_entity.add_component<TransformComp>();
-                tc.position = transform_comp["Position"].as<Vector3>();
-                tc.size = transform_comp["Size"].as<Vector3>();
-            }
-
+            read_entity_from_file(entity, scene);
         }
 
+        printf("Read scene %s:D\n", scene->name.c_str());
 
         return scene;
+    }
+
+    void Scene::add_from_file(const char* path) {
+        std::ifstream stream(path);
+        std::stringstream str_stream;
+        str_stream<<stream.rdbuf();
+
+        YAML::Node data = YAML::Load(str_stream.str());
+
+        if (!data["Scene"])
+            assert("");
+
+        std::string scene_name = data["Scene"].as<std::string>();
+        name = scene_name;
+
+        auto entities = data["Entities"];
+
+        for (auto entity : entities) {
+            read_entity_from_file(entity, this);
+        }
+
+        printf("Read scene %s:D\n", name.c_str());
     }
 
 }

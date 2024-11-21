@@ -18,7 +18,7 @@ public:
 
     void on_update(float dt) {
         if (GetKeyPressed() != 0) {
-            manager->set_current("main");
+            manager->set_current("test");
             return;
         }
         BeginDrawing();

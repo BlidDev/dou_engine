@@ -1,4 +1,4 @@
-Scene: main
+Scene: test
 Entities:
   - Entity: 1234
     Tag:
@@ -7,7 +7,7 @@ Entities:
       Position: [27, 4.5, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [255, 0, 25, 255]
+      Color: [255, 0, 38, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -30,7 +30,7 @@ Entities:
       Position: [24, 4, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [80, 0, 255, 255]
+      Color: [255, 250, 0, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -53,7 +53,7 @@ Entities:
       Position: [21, 3.5, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [0, 114, 255, 255]
+      Color: [229, 255, 0, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -76,7 +76,7 @@ Entities:
       Position: [18, 3, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [255, 157, 0, 255]
+      Color: [255, 221, 0, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -99,7 +99,7 @@ Entities:
       Position: [15, 2.5, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [38, 255, 0, 255]
+      Color: [174, 255, 0, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -122,7 +122,7 @@ Entities:
       Position: [12, 2, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [0, 131, 255, 255]
+      Color: [0, 157, 255, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -145,7 +145,7 @@ Entities:
       Position: [9, 1.5, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [0, 140, 255, 255]
+      Color: [212, 0, 255, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -168,7 +168,7 @@ Entities:
       Position: [6, 1, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [255, 127, 0, 255]
+      Color: [0, 216, 255, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -191,7 +191,7 @@ Entities:
       Position: [3, 0.5, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [0, 229, 255, 255]
+      Color: [255, 0, 178, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -214,7 +214,7 @@ Entities:
       Position: [0, 0, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [255, 0, 127, 255]
+      Color: [255, 0, 55, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -279,3 +279,26 @@ Entities:
       Up: [0, 1, 0]
       FovY: 90
       Projection: 0
+  - Entity: 1234
+    Tag:
+      Tag: Big
+    Transform:
+      Position: [-10, 7, -3]
+      Size: [10,10,10]
+    Primitive:
+      Color: [255, 0, 178, 255]
+      Shape: CUBE
+      Attributes:
+        Filled: true
+        Wireframe: true
+        Immune: false
+    Native Actions:
+      - Name: CubeAction
+        Default: Default
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]

@@ -1,3 +1,5 @@
+- Add uuid
+- Finish support for native scripting
 - Add log library
 - Utilize smart pointers
 - Replace raylib with opengl

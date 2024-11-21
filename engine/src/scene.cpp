@@ -14,11 +14,12 @@ namespace engine
         current = "NONE";
     }
 
-    void SceneManager::register_scene(const char* name, Scene* scene) {
+    Scene* SceneManager::register_scene(const char* name, Scene* scene) {
         if (scenes.contains(name))
             assert("ERROR: Scene name already exists");
         scene->manager = this;
         scenes.insert(std::make_pair(name, scene));
+        return scene;
     }
 
     Scene* SceneManager::get_scene(const char* name) {
