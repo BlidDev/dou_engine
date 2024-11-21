@@ -45,10 +45,10 @@ public:
             {
                 ph.is_solid = false;
                 ph.intersects_callback = win_cube;
-                //entity.add_component<WinCube>(manager,player.id());
+                entity.add_component<WinCube>(manager,player.id());
             }
         }
-        manager->write_scene_to_file("res/main.scene", this);
+        //manager->write_scene_to_file("res/main.scene", this);
     }
 
     void on_update(float dt) {

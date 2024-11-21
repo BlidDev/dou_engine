@@ -7,7 +7,7 @@ Entities:
       Position: [27, 4.5, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [255, 0, 25, 255]
+      Color: [255, 0, 0, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -30,7 +30,7 @@ Entities:
       Position: [24, 4, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [80, 0, 255, 255]
+      Color: [255, 119, 0, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -53,7 +53,7 @@ Entities:
       Position: [21, 3.5, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [0, 114, 255, 255]
+      Color: [255, 0, 161, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -76,7 +76,7 @@ Entities:
       Position: [18, 3, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [255, 157, 0, 255]
+      Color: [255, 0, 204, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -99,7 +99,7 @@ Entities:
       Position: [15, 2.5, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [38, 255, 0, 255]
+      Color: [246, 255, 0, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -122,7 +122,7 @@ Entities:
       Position: [12, 2, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [0, 131, 255, 255]
+      Color: [255, 0, 165, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -145,7 +145,7 @@ Entities:
       Position: [9, 1.5, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [0, 140, 255, 255]
+      Color: [255, 0, 110, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -168,7 +168,7 @@ Entities:
       Position: [6, 1, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [255, 127, 0, 255]
+      Color: [255, 21, 0, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -191,7 +191,7 @@ Entities:
       Position: [3, 0.5, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [0, 229, 255, 255]
+      Color: [255, 0, 182, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -214,7 +214,7 @@ Entities:
       Position: [0, 0, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [255, 0, 127, 255]
+      Color: [85, 255, 0, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -267,7 +267,7 @@ Entities:
       - Name: PlayerAction
         Default: Default
     PhysicsBody:
-      Gravity: 0.2
+      Gravity: 0.200000003
       Velocity: [0, 0, 0]
       Accelaration: [0, 0, 0]
       Is Solid: true

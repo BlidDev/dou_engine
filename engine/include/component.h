@@ -1,4 +1,5 @@
 #pragma once
+#include "components/uuid.h"
 #include "components/tag.h"
 #include "components/transform.h"
 #include "components/primitive.h"

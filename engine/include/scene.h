@@ -1,4 +1,5 @@
 #pragma once
+#include "components/uuid.h"
 #include <entt.hpp>
 #include <string.h>
 
@@ -17,6 +18,7 @@ namespace engine {
         virtual ~Scene() {}
 
         Entity create_entity();
+        Entity create_entity_with_uuid(UUID);
 
         void add_from_file(const char* path);
     public:

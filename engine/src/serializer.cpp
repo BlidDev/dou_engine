@@ -1,5 +1,6 @@
 #include "components/primitive.h"
 #include "scene.h"
+#include <cstdint>
 #include <cstdio>
 #include <string>
 #include <yaml-cpp/yaml.h>
@@ -198,7 +199,7 @@ namespace engine {
                 std::string action_name = action["Name"].as<std::string>();
                 UpdateComp* a = ac.add(action_name.c_str()).get_last();
                 a->dserialize(action);
-                printf("Added %s to %d\n",action_name.c_str(), (int)read_entity.id());
+                //printf("Added %s to %d\n",action_name.c_str(), (int)read_entity.id());
             }
         }
         auto text = entity["Text"];
@@ -269,7 +270,11 @@ namespace engine {
             read_entity_from_file(entity, scene);
         }
 
-        printf("Read scene %s:D\n", scene->name.c_str());
+        uint32_t count = 0;
+        for (auto _ : scene->registry.view<entt::entity>()) {
+            count++;
+        }
+        printf("Finished reading scene %s:D entities %d\n", scene->name.c_str(), count);
 
         return scene;
     }
@@ -293,7 +298,12 @@ namespace engine {
             read_entity_from_file(entity, this);
         }
 
-        printf("Read scene %s:D\n", name.c_str());
+        uint32_t count = 0;
+        for (auto _ : registry.view<entt::entity>()) {
+            count++;
+        }
+
+        printf("Finished reading scene %s:D entities %d\n", name.c_str(), count);
     }
 
 }
