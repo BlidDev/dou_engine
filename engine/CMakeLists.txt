@@ -9,6 +9,7 @@ add_library(engine STATIC ${engine_SRC})
 
 # Include directories for the engine
 target_include_directories(engine PUBLIC
+    ${CMAKE_SOURCE_DIR}/vendor/spdlog/include
     ${CMAKE_SOURCE_DIR}/vendor/entt
     ${CMAKE_SOURCE_DIR}/vendor/yaml-cpp/include
     ${CMAKE_SOURCE_DIR}/engine/include

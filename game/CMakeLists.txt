@@ -10,6 +10,7 @@ add_executable(game ${game_SRC})
 target_include_directories(game PRIVATE
     ${CMAKE_SOURCE_DIR}/engine/include
     ${CMAKE_SOURCE_DIR}/game/include
+    ${CMAKE_SOURCE_DIR}/vendor/spdlog/include
     ${CMAKE_SOURCE_DIR}/vendor/entt
     ${YAML_CPP_INCLUDE_DIRS}
     ${RAYLIB_DIR}/src

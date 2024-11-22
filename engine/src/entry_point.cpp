@@ -5,6 +5,10 @@ using namespace engine;
 
 int main() {
 
+    Log::init();
+    Log::get_core_logger()->info("Inited log!");
+    return 0;
+
     SceneManager manager;
     on_start(&manager);
 
