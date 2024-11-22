@@ -17,6 +17,13 @@ namespace engine
         return tmp;
     }
 
+    Entity Scene::uuid_to_entity(UUID uuid) {
+        assert(uuids.find(uuid) != uuids.end() && "ERROR: Unknown UUID");
+        entt::entity entity = uuids[uuid];
+
+        return {this, entity};
+    }
+
     SceneManager::SceneManager() {
         current = "NONE";
     }

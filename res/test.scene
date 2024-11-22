@@ -1,4 +1,5 @@
 Scene: test
+Main Camera: 7871879277301066557
 Entities:
   - Entity: 16089066111575609446
     Tag:
@@ -258,7 +259,7 @@ Entities:
       Size: [1, 1, 1]
     Native Actions:
       - Name: FPSAction
-        player: 15341929501895225291
+        player: 7871879277301066557
     Text:
       Body: ""
       Font Size: 40

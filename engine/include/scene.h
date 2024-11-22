@@ -20,6 +20,7 @@ namespace engine {
 
         Entity create_entity();
         Entity create_entity_with_uuid(uint64_t uuid);
+        Entity uuid_to_entity(UUID uuid);
 
         void add_from_file(const char* path);
 
@@ -30,9 +31,11 @@ namespace engine {
             assert(registry.any_of<T>(entity) && "ERROR: Trying to get non existant uuid component");
             return registry.get<T>(entity);
         }
+        
     public:
         entt::registry registry;
         SceneManager* manager;
+        UUID main_camera = 0;
         std::string name;
         std::unordered_map<UUID, entt::entity> uuids;
     };

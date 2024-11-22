@@ -18,7 +18,7 @@ public:
         engine::actions(this, dt);
         engine::physics(registry, dt);
         if(engine::aabb_check(*this, dt)) return;
-        Entity player(this, registry.view<Camera>().back());
+        Entity player = uuid_to_entity(main_camera);
         engine::renderer(player, registry);
 
         if (IsKeyPressed(KEY_F)){

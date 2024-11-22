@@ -237,6 +237,7 @@ namespace engine {
         YAML::Emitter out;
         out<<YAML::BeginMap;
         out<<YAML::Key<<"Scene"<<YAML::Value<<scene->name;
+        out<<YAML::Key<<"Main Camera"<<YAML::Value<<(uint64_t)scene->main_camera;
         out<<YAML::Key<<"Entities"<<YAML::Value<<YAML::BeginSeq;
 
         for (auto e : scene->registry.view<entt::entity>()) {
@@ -264,6 +265,8 @@ namespace engine {
 
         std::string scene_name = data["Scene"].as<std::string>();
         Scene* scene = new Scene(scene_name);
+       
+        scene->main_camera = UUID(data["Main Camera"].as<uint64_t>());
 
         auto entities = data["Entities"];
 
@@ -288,6 +291,7 @@ namespace engine {
 
         std::string scene_name = data["Scene"].as<std::string>();
         name = scene_name;
+        main_camera = UUID(data["Main Camera"].as<uint64_t>());
 
         auto entities = data["Entities"];
 
