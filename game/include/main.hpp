@@ -20,11 +20,12 @@ public:
         player.add_component<PhysicsBodyComp>(0.2f, (Vector3){0.0f,0.0f,0.0f},(Vector3){0.0f,0.0f,0.0f}, true, false);
         player.add_component<PrimitiveComp>(PrimitiveComp::Shape::CUBE, BLACK,PRIMITVE_WIREFRAME);
 
-        //Entity text = create_entity();
-        //text.add_component<TagComp>("Text");
-        //text.add_component<TextComp>("", 40, BLACK);
-        //text.add_component<TransformComp>((Vector3){0.0f,2.0f,0.0});
-        //text.add_component<ActionsComp>(ActionsComp().add(new FPSAction(player.id())));
+        Entity text = create_entity();
+        text.add_component<TagComp>("Text");
+        text.add_component<TextComp>("", 40, BLACK);
+        text.add_component<TransformComp>((Vector3){0.0f,2.0f,0.0});
+        text.add_component<ActionsComp>(ActionsComp().add(new FPSAction(player.uuid()), "FPSAction"));
+        
 
 
         Entity plane = create_entity();
@@ -45,14 +46,14 @@ public:
             {
                 ph.is_solid = false;
                 ph.intersects_callback = win_cube;
-                entity.add_component<WinCube>(manager,player.id());
+                //entity.add_component<WinCube>(manager,player.id());
             }
         }
-        //manager->write_scene_to_file("res/main.scene", this);
+        manager->write_scene_to_file("res/main.scene", this);
     }
 
     void on_update(float dt) {
-        engine::actions(registry, dt);
+        engine::actions(this, dt);
         engine::physics(registry, dt);
         if(engine::aabb_check(*this, dt)) return;
         engine::renderer(player, registry);

@@ -3,11 +3,11 @@
 #include "ops.hpp"
 
 
-void PlayerAction::on_update(entt::registry& registry, entt::entity self, float dt) {
+void PlayerAction::on_update(engine::Scene* scene, engine::Entity self, float dt) {
 
-    Camera& p_camera = registry.get<Camera>(self);
-    engine::TransformComp& p_t = registry.get<engine::TransformComp>(self);
-    engine::PhysicsBodyComp& p_ph = registry.get<engine::PhysicsBodyComp>(self);
+    Camera& p_camera = self.get_component<Camera>();
+    engine::TransformComp& p_t = self.get_component<engine::TransformComp>();
+    engine::PhysicsBodyComp& p_ph = self.get_component<engine::PhysicsBodyComp>();
     float speed = 0.5f; 
     if (IsKeyDown(KEY_LEFT_SHIFT)) speed *= 3.0f;
     if (IsKeyDown(KEY_SPACE) && p_ph.move_delta.y == 0.0f) p_ph.velocity.y += 10.0f;
@@ -35,18 +35,18 @@ void PlayerAction::on_update(entt::registry& registry, entt::entity self, float 
 }
 
 
-void FPSAction::on_update(entt::registry& registry, entt::entity self, float dt) {
-    engine::TextComp& text = registry.get<engine::TextComp>(self);
-    engine::TransformComp& p = registry.get<engine::TransformComp>(player);
+void FPSAction::on_update(engine::Scene* scene, engine::Entity self, float dt) {
+    engine::TextComp& text = self.get_component<engine::TextComp>();
+    engine::TransformComp& p = scene->get_uuid_component<engine::TransformComp>(player);
 
     text.body = TextFormat("FPS: %d | (%f. %f, %f)", GetFPS(),p.position.x, p.position.y, p.position.z);
 }
 
-void CubeAction::on_update(entt::registry &registry, entt::entity self, float dt) {
-    engine::PhysicsBodyComp& physics = registry.get<engine::PhysicsBodyComp>(self);
+void CubeAction::on_update(engine::Scene* scene, engine::Entity self, float dt) {
+    engine::PhysicsBodyComp& physics = self.get_component<engine::PhysicsBodyComp>();
 
-    physics.velocity.z = sin(GetTime() +  (float)self) * 0.5f + 0.5f;
-    physics.velocity.x = sin(GetTime() +  (float)self);
+    physics.velocity.z = sin(GetTime() +  (float)self.id()) * 0.5f + 0.5f;
+    physics.velocity.x = sin(GetTime() +  (float)self.id());
 }
 
 
@@ -60,17 +60,17 @@ int win_cube(engine::Scene& scene,entt::entity self, entt::entity other) {
     return 0;
 }
 
-void GameCameraAction::on_update(entt::registry& registry, entt::entity self, float dt) {
-    Camera& p_camera = registry.get<Camera>(self);
-    engine::TransformComp& p_t = registry.get<engine::TransformComp>(self);
+void GameCameraAction::on_update(engine::Scene* scene, engine::Entity self, float dt) {
+    Camera& p_camera = self.get_component<Camera>();
+    engine::TransformComp& p_t = self.get_component<engine::TransformComp>();
 
     p_camera.target += p_t.position - p_camera.position;
     p_camera.position = p_t.position;
 }
 
-void GameAction::on_update(entt::registry& registry, entt::entity self, float dt) {
+void GameAction::on_update(engine::Scene* scene, engine::Entity self, float dt) {
 
-    engine::PhysicsBodyComp& p_ph = registry.get<engine::PhysicsBodyComp>(self);
+    engine::PhysicsBodyComp& p_ph = self.get_component<engine::PhysicsBodyComp>();
     float speed = 5.0f; 
     int v = IsKeyDown(KEY_UP) - (IsKeyDown(KEY_DOWN));
     int h = IsKeyDown(KEY_RIGHT) - (IsKeyDown(KEY_LEFT));
@@ -85,22 +85,22 @@ ObstAction::ObstAction(bool* create, int* score, float speed) {
     this->create_obst = create; 
 }
 
-void ObstAction::on_update(entt::registry& registry, entt::entity self, float dt) {
-    engine::PhysicsBodyComp& ph = registry.get<engine::PhysicsBodyComp>(self);
-    engine::TransformComp& t = registry.get<engine::TransformComp>(self);
+void ObstAction::on_update(engine::Scene* scene, engine::Entity self, float dt) {
+    engine::PhysicsBodyComp& ph = self.get_component<engine::PhysicsBodyComp>();
+    engine::TransformComp& t = self.get_component<engine::TransformComp>();
 
     ph.velocity.z = speed;
 
     if (t.position.z <= -1.0f) {
-        registry.destroy(self);
+        self.terminate();
         *create_obst = true;
     }
 }
 
 
-void ScoreAction::on_update(entt::registry& registry, entt::entity self, float dt) {
+void ScoreAction::on_update(engine::Scene* scene, engine::Entity self, float dt) {
 
-    engine::TextComp& text = registry.get<engine::TextComp>(self);
+    engine::TextComp& text = self.get_component<engine::TextComp>();
 
     text.body = TextFormat("FPS: %d | SCORE: %d", GetFPS(), *score);
 }

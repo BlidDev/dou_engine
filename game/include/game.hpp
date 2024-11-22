@@ -97,7 +97,7 @@ public:
                 create_obst = false;
                 score++;
             }
-            engine::actions(registry, dt);
+            engine::actions(this, dt);
             engine::physics(registry, dt);
             if(engine::aabb_check(*this, dt)) return;
         }

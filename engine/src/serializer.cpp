@@ -9,6 +9,7 @@
 #include "yaml-cpp/emittermanip.h"
 #include <raylib.h>
 #include <fstream>
+#include <iostream>
 
 
 namespace YAML {
@@ -83,7 +84,7 @@ namespace engine {
 
     static void write_entity_to_file(YAML::Emitter& out, Entity& entity) {
         out<<YAML::BeginMap;
-        out<<YAML::Key<<"Entity"<<YAML::Value<<"1234";
+        out<<YAML::Key<<"Entity"<<YAML::Value<<entity.uuid();
 
         if (entity.has_component<TagComp>()) {
             out<<YAML::Key<<"Tag"<<YAML::BeginMap;
@@ -166,7 +167,7 @@ namespace engine {
     static void read_entity_from_file(YAML::Node& entity, Scene* scene) {
         uint64_t uuid = entity["Entity"].as<uint64_t>(); 
 
-        Entity read_entity = scene->create_entity();
+        Entity read_entity = scene->create_entity_with_uuid(uuid);
 
         auto tag_comp = entity["Tag"];
         if (tag_comp)
@@ -270,11 +271,7 @@ namespace engine {
             read_entity_from_file(entity, scene);
         }
 
-        uint32_t count = 0;
-        for (auto _ : scene->registry.view<entt::entity>()) {
-            count++;
-        }
-        printf("Finished reading scene %s:D entities %d\n", scene->name.c_str(), count);
+        printf("Finished reading scene %s:D\n", scene_name.c_str());
 
         return scene;
     }
@@ -298,12 +295,7 @@ namespace engine {
             read_entity_from_file(entity, this);
         }
 
-        uint32_t count = 0;
-        for (auto _ : registry.view<entt::entity>()) {
-            count++;
-        }
-
-        printf("Finished reading scene %s:D entities %d\n", name.c_str(), count);
+        printf("Finished reading scene %s:D\n", scene_name.c_str());
     }
 
 }

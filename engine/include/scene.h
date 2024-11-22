@@ -2,7 +2,8 @@
 #include "components/uuid.h"
 #include <entt.hpp>
 #include <string.h>
-
+#include <unordered_map>
+#include <iostream>
 namespace engine {
 
     class SceneManager;
@@ -18,13 +19,22 @@ namespace engine {
         virtual ~Scene() {}
 
         Entity create_entity();
-        Entity create_entity_with_uuid(UUID);
+        Entity create_entity_with_uuid(uint64_t uuid);
 
         void add_from_file(const char* path);
+
+        template <typename T>
+        T& get_uuid_component(UUID uuid) {
+            assert(uuids.find(uuid) != uuids.end() && "ERROR: Unknown UUID");
+            entt::entity entity = uuids[uuid];
+            assert(registry.any_of<T>(entity) && "ERROR: Trying to get non existant uuid component");
+            return registry.get<T>(entity);
+        }
     public:
         entt::registry registry;
         SceneManager* manager;
         std::string name;
+        std::unordered_map<UUID, entt::entity> uuids;
     };
 
 

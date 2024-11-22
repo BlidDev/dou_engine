@@ -7,7 +7,14 @@ namespace engine
 {
 
     Entity Scene::create_entity() {
-        return Entity(this, registry.create());
+        return create_entity_with_uuid(UUID());
+    }
+
+    Entity Scene::create_entity_with_uuid(uint64_t uuid) {
+        Entity tmp(this, registry.create());
+        tmp.add_component<UUID>(uuid);
+        uuids.insert(std::make_pair(uuid, tmp.id()));
+        return tmp;
     }
 
     SceneManager::SceneManager() {

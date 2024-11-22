@@ -34,6 +34,7 @@ int engine::on_end() {
 
 void register_actions() {
     ActionsComp::register_action("PlayerAction", new PlayerAction);
+    ActionsComp::register_action("FPSAction", new FPSAction(0));
     ActionsComp::register_action("CubeAction", new CubeAction);
 
 }

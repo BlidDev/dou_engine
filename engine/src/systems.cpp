@@ -13,12 +13,13 @@ namespace engine {
     void apply_drag(Vector3& vel, Vector3& drag);
     bool does_intersect_on_axis(float a, float b, float a_m, float b_m);
 
-    void actions(entt::registry& registry, float dt) {
-        auto actions = registry.view<ActionsComp>();
+    void actions(Scene* scene, float dt) {
+        auto actions = scene->registry.view<ActionsComp>();
 
         for (auto [entity, actns] : actions.each()) {
             for (auto& act : actns.actions) {
-                act->on_update(registry,entity, dt);
+                Entity e = {scene, entity};
+                act->on_update(scene, e, dt);
             }
         }
     }

@@ -10,7 +10,8 @@ namespace engine {
         actions = {};
     }
 
-    ActionsComp& ActionsComp::add(UpdateComp* comp) {
+    ActionsComp& ActionsComp::add(UpdateComp* comp, std::string name) {
+        comp->inner_name = name;
         actions.push_back(comp);
         return *this;
     }

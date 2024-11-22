@@ -1,4 +1,5 @@
 #pragma once
+#include "scene.h"
 #include <yaml-cpp/yaml.h>
 #include <unordered_map>
 #include <vector>
@@ -8,7 +9,7 @@
 namespace engine {
     struct UpdateComp {
         UpdateComp() { inner_name = "UNKNOWN"; }
-        virtual void on_update(entt::registry& registry, entt::entity self, float dt) = 0;
+        virtual void on_update(Scene* scene, Entity self, float dt) = 0;
         virtual UpdateComp* copy() = 0;
         virtual void serialize(YAML::Emitter& out) {
             out<<YAML::Key<<"Default"<<YAML::Value<<"Default";
@@ -26,7 +27,7 @@ namespace engine {
         ActionsComp();
         ActionsComp (std::vector<UpdateComp*> actions) {this->actions = actions;}
 
-        ActionsComp& add(UpdateComp* comp);
+        ActionsComp& add(UpdateComp* comp, std::string name = "UNKNOWN");
         ActionsComp& add(const char* action);
         UpdateComp* get_last();
         std::vector<UpdateComp*> actions;

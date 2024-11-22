@@ -15,7 +15,7 @@ public:
 
     void on_update(float dt) {
 
-        engine::actions(registry, dt);
+        engine::actions(this, dt);
         engine::physics(registry, dt);
         if(engine::aabb_check(*this, dt)) return;
         Entity player(this, registry.view<Camera>().back());

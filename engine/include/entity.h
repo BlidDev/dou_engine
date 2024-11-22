@@ -43,8 +43,12 @@ namespace engine {
         void terminate() {
             check_null();
             scene->registry.destroy(entity_id);
+            scene->uuids.erase(uuid());
         }
 
+        const uint64_t uuid() {
+            return get_component<UUID>();
+        }
         const entt::entity id() {
             return entity_id;
         }
