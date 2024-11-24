@@ -1,5 +1,9 @@
-- Add uuid
-- Finish support for native scripting
-- Add log library
+- V Add uuid
+- V Finish support for native scripting
+- V Add log library
+- Lua scripting:
+    - finish function wrappers:
+        - Add a generic get component function
+    - Maybe add lua side classes
 - Utilize smart pointers
 - Replace raylib with opengl

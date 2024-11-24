@@ -7,3 +7,4 @@
 #include "components/text.h"
 #include "components/physicbody.h"
 #include "components/camera.h"
+#include "components/luascript.h"

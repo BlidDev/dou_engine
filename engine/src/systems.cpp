@@ -1,5 +1,6 @@
 #include "systems.h"
 #include "component.h"
+#include "log.h"
 #include "macros.h"
 #include "util.h"
 #include "ops.hpp"
@@ -20,6 +21,19 @@ namespace engine {
             for (auto& act : actns.actions) {
                 Entity e = {scene, entity};
                 act->on_update(scene, e, dt);
+            }
+        }
+    }
+
+
+    void lua_action(Scene* scene, float dt) {
+
+        auto actions = scene->registry.view<LuaActionComp>();
+
+        for (auto [entity, actns] : actions.each()) {
+            for (auto& act : actns.scripts) {
+                EG_CORE_TRACE("Action: {0}", act.path);
+                act.on_update(dt);
             }
         }
     }

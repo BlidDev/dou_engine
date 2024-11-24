@@ -16,7 +16,7 @@ int engine::on_start(engine::SceneManager* manager) {
     manager->register_scene("win", new WinScene());
     manager->register_scene("game", new GameScene());
     manager->register_scene("test", new TestScene());
-    manager->set_current("test");
+    manager->set_current("main");
 
 
 
