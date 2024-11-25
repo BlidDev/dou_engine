@@ -36,7 +36,7 @@ public:
     }
 
     void on_end() {
-        printf("win end called\n");
+        EG_TRACE("win end called\n");
     }
     
     entt::entity text;

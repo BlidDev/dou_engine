@@ -18,21 +18,21 @@ namespace engine {
         template<typename T, typename ...Args>
         T& add_component(Args&&... args) {
             check_null();
-            assert(!has_component<T>() && "ERROR: Entity already has component");
+            EG_ASSERT(has_component<T>(),"Entity already has component {}", typeid(T).name());
             return scene->registry.emplace<T>(entity_id,std::forward<Args>(args)...);
         }
 
         template<typename T>
         T& get_component() {
             check_null();
-            assert(has_component<T>() && "ERROR: Trying to get non existant component from entity");
+            EG_ASSERT(!has_component<T>(), "Tring to get non existant component {} from entity", typeid(T).name());
             return scene->registry.get<T>(entity_id);
         }
 
         template<typename T> 
         void remove() {
             check_null();
-            assert(!has_component<T>() && "ERROR: Trying to delete non existant component from entity");
+            EG_ASSERT(!has_component<T>(), "Trying to delete non existant component {} from entity", typeid(T).name());
             scene->registry.remove<T>(entity_id);
         }
 
@@ -56,7 +56,7 @@ namespace engine {
     private:
         
         void check_null() {
-            assert( (entity_id != entt::null && scene) && "ERROR: Entity used before initializing");
+            EG_ASSERT( ((entity_id == entt::null) || !scene), "Entity being used before initializing" );
         }
 
         entt::entity entity_id = entt::null;

@@ -1,5 +1,6 @@
 #pragma once
 #include "components/uuid.h"
+#include "egassert.h"
 #include <espch.h>
 namespace engine {
 
@@ -23,9 +24,9 @@ namespace engine {
 
         template <typename T>
         T& get_uuid_component(UUID uuid) {
-            assert(uuids.find(uuid) != uuids.end() && "ERROR: Unknown UUID");
+            EG_ASSERT(uuids.find(uuid) == uuids.end(), "Unknown UUID {}", uuid.get_uuid());
             entt::entity entity = uuids[uuid];
-            assert(registry.any_of<T>(entity) && "ERROR: Trying to get non existant uuid component");
+            EG_ASSERT(!registry.any_of<T>(entity), "Trying to get non existant uuid component {} from entity {}", typeid(T).name(), uuid.get_uuid());
             return registry.get<T>(entity);
         }
         

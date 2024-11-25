@@ -18,7 +18,6 @@ struct FPSAction : public engine::UpdateComp {
     }
     void dserialize(const YAML::Node& node) {
         uint64_t uuid = node["player"].as<uint64_t>();
-        //std::cout<<uuid<<'\n';
         player = engine::UUID(uuid);
     }
 

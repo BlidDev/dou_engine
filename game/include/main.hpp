@@ -65,7 +65,7 @@ public:
 
     void on_end() {
         lua_action_end(this);
-        printf("main end called\n");
+        EG_TRACE("main end called");
     }
 
     bool should_close() {

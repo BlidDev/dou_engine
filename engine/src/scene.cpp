@@ -18,7 +18,7 @@ namespace engine
     }
 
     Entity Scene::uuid_to_entity(UUID uuid) {
-        assert(uuids.find(uuid) != uuids.end() && "ERROR: Unknown UUID");
+        EG_ASSERT(uuids.find(uuid) == uuids.end(), "ERROR: Unknown UUID {}", uuid.get_uuid());
         entt::entity entity = uuids[uuid];
 
         return {this, entity};
@@ -29,8 +29,7 @@ namespace engine
     }
 
     Scene* SceneManager::register_scene(const char* name, Scene* scene) {
-        if (scenes.contains(name))
-            assert("ERROR: Scene name already exists");
+        EG_ASSERT(scenes.contains(name), "Scene {} already exists", name);
         scene->manager = this;
         scenes.insert(std::make_pair(name, scene));
         return scene;
@@ -38,8 +37,7 @@ namespace engine
 
     Scene* SceneManager::get_scene(const char* name) {
         Scene* ptr = nullptr;
-        if (!scenes.contains(name))
-            assert("ERROR: Scene name does not exist");
+        EG_ASSERT(scenes.find(name) == scenes.end(),"Scene {} does not exist", name);
         ptr = scenes.at(name);
         return ptr;
     }
@@ -64,8 +62,7 @@ namespace engine
 
     Scene* SceneManager::get_current() {
         Scene* ptr = nullptr;
-        if (current == "NONE")
-            assert("ERROR: Current scene not set");
+        EG_ASSERT(current == "NONE", "Current scene not set");
         ptr = scenes.at(current);
         return ptr;
     }

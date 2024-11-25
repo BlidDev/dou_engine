@@ -186,7 +186,7 @@ namespace engine {
         bool wireframe = (PRIMITVE_WIREFRAME & p.attributes) == PRIMITVE_WIREFRAME;
         switch(p.shape) {
             case PrimitiveComp::Shape::PLANE: {
-                if (!filled) assert(0 && "ERROR: Plane primitive cannot be not filled");
+                EG_ASSERT(!filled, "Plane primitve mut be filled");
                 DrawPlane(t.position, Vector2{t.size.x, t.size.z}, p.color);
             }break;
 

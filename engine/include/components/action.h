@@ -10,8 +10,7 @@ namespace engine {
             out<<YAML::Key<<"Default"<<YAML::Value<<"Default";
         }
         virtual void dserialize(const YAML::Node& node) {
-            if (inner_name == "UNKNOWN")
-                assert("ERROR: Trying to dserialize unspecified action"); 
+            EG_ASSERT(inner_name == "UNKNOWN","Trying to dserialize unspecified action"); 
         }
         virtual ~UpdateComp() {}
 

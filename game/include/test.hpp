@@ -28,7 +28,7 @@ public:
     }
 
     void on_end() {
-        printf("test end called\n");
+        EG_TRACE("test end called\n");
     }
 
     bool should_close() {

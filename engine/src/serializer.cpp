@@ -1,15 +1,7 @@
+#include <espch.h>
 #include "components/primitive.h"
-#include "scene.h"
-#include <cstdint>
-#include <cstdio>
-#include <string>
-#include <yaml-cpp/yaml.h>
 #include "component.h"
 #include "entity.h"
-#include <raylib.h>
-#include <fstream>
-#include <iostream>
-
 
 namespace YAML {
     template <>
@@ -77,7 +69,7 @@ namespace engine {
         if (str == "SPHERE")
             return PrimitiveComp::SPHERE;
 
-        assert("ERORR: Trying to parse uknown shape");
+        EG_ASSERT(true, "Trying to pasrse unkown shape [{}]", str);
         return PrimitiveComp::PLANE;
     }
 
@@ -199,7 +191,6 @@ namespace engine {
                 std::string action_name = action["Name"].as<std::string>();
                 UpdateComp* a = ac.add(action_name.c_str()).get_last();
                 a->dserialize(action);
-                //printf("Added %s to %d\n",action_name.c_str(), (int)read_entity.id());
             }
         }
         auto text = entity["Text"];
@@ -273,7 +264,8 @@ namespace engine {
             read_entity_from_file(entity, scene);
         }
 
-        printf("Finished reading scene %s:D\n", scene_name.c_str());
+
+        EG_CORE_INFO("Finished reading scene {}", scene_name.c_str());
 
         return scene;
     }
@@ -285,10 +277,7 @@ namespace engine {
 
         YAML::Node data = YAML::Load(str_stream.str());
 
-        if (!data["Scene"]) {
-            EG_CORE_CRITICAL("Cannot read {}, scene does not exist", path);
-
-        }
+        EG_ASSERT(!data["Scene"],"Cannot read {}, scene does not exist", path );
 
         std::string scene_name = data["Scene"].as<std::string>();
         name = scene_name;
@@ -300,7 +289,7 @@ namespace engine {
             read_entity_from_file(entity, this);
         }
 
-        printf("Finished reading scene %s:D\n", scene_name.c_str());
+        EG_CORE_INFO("Finished adding to scene {}", scene_name.c_str());
     }
 
 }
