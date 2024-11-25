@@ -6,7 +6,6 @@
 #include <yaml-cpp/yaml.h>
 #include "component.h"
 #include "entity.h"
-#include "yaml-cpp/emittermanip.h"
 #include <raylib.h>
 #include <fstream>
 #include <iostream>
@@ -286,8 +285,10 @@ namespace engine {
 
         YAML::Node data = YAML::Load(str_stream.str());
 
-        if (!data["Scene"])
-            assert("");
+        if (!data["Scene"]) {
+            EG_CORE_CRITICAL("Cannot read {}, scene does not exist", path);
+
+        }
 
         std::string scene_name = data["Scene"].as<std::string>();
         name = scene_name;

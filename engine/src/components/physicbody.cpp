@@ -2,6 +2,25 @@
 
 
 namespace engine {
+
+    PhysicsBodyComp::PhysicsBodyComp() {
+        gravity = 0.0f;
+        velocity = {0.0f,0.0f,0.0f};
+        acceleration = {0.0f,0.0f,0.0f};
+        is_solid = true;
+        is_static = false;
+        move_delta = {0.0f,0.0f,0.0f};
+    }
+
+    PhysicsBodyComp::PhysicsBodyComp(float gravity, Vector3 velocity, Vector3 acceleration, bool is_solid, bool is_static) {
+        this->gravity     =  gravity     ;
+        this->velocity    =  velocity    ;
+        this->acceleration=  acceleration;
+        this->is_solid    =  is_solid    ;
+        this->is_static   =  is_static   ;
+        this->acceleration = {0.0f, 0.0f, 0.0f};
+    }
+
     PhysicsBodyBuilder& PhysicsBodyBuilder::gravity(float gravity) {
         physicbody.gravity = gravity;
         return *this;

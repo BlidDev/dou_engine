@@ -45,7 +45,7 @@ void FPSAction::on_update(engine::Scene* scene, engine::Entity self, float dt) {
 void CubeAction::on_update(engine::Scene* scene, engine::Entity self, float dt) {
     engine::PhysicsBodyComp& physics = self.get_component<engine::PhysicsBodyComp>();
 
-    physics.velocity.z = sin(GetTime() +  (float)self.id()) * 0.5f + 0.5f;
+    physics.velocity.z = sin(GetTime() +  (float)self.id()) * 0.5f;
     physics.velocity.x = sin(GetTime() +  (float)self.id());
 }
 

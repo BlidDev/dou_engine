@@ -1,6 +1,5 @@
 #pragma once
-#include "spdlog/spdlog.h"
-#include <memory>
+#include <espch.h>
 
 
 namespace engine {
@@ -27,3 +26,5 @@ namespace engine {
 #define EG_WARN(...)     Log::get_client_logger()->warn(__VA_ARGS__)
 #define EG_ERROR(...)    Log::get_client_logger()->error(__VA_ARGS__)
 #define EG_CRITICAL(...) Log::get_client_logger()->critical(__VA_ARGS__)
+
+

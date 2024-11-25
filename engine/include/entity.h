@@ -1,6 +1,5 @@
 #pragma once
 #include "scene.h"
-#include <utility>
 
 
 namespace engine {
@@ -26,14 +25,14 @@ namespace engine {
         template<typename T>
         T& get_component() {
             check_null();
-            assert(has_component<T>() && "ERROR: Trying to delete non existant component from entity");
+            assert(has_component<T>() && "ERROR: Trying to get non existant component from entity");
             return scene->registry.get<T>(entity_id);
         }
 
         template<typename T> 
         void remove() {
             check_null();
-            assert(has_component<T>() && "ERROR: Trying to delete non existant component from entity");
+            assert(!has_component<T>() && "ERROR: Trying to delete non existant component from entity");
             scene->registry.remove<T>(entity_id);
         }
 
@@ -42,11 +41,11 @@ namespace engine {
         }
         void terminate() {
             check_null();
-            scene->registry.destroy(entity_id);
             scene->uuids.erase(uuid());
+            scene->registry.destroy(entity_id);
         }
 
-        const uint64_t uuid() {
+        const UUID uuid() {
             return get_component<UUID>();
         }
         const entt::entity id() {

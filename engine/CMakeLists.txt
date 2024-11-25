@@ -20,7 +20,8 @@ target_include_directories(engine PUBLIC
 
 
 set(HEADER_FILES PRIVATE 
-    "${CMAKE_SOURCE_DIR}/vendor/sol2/single/include/sol/sol.hpp")
+    "${CMAKE_SOURCE_DIR}/engine/include/espch.h"
+    )
 
 target_precompile_headers(engine PRIVATE ${HEADER_FILES})
 

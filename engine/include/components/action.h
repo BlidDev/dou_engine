@@ -1,10 +1,5 @@
 #pragma once
 #include "scene.h"
-#include <yaml-cpp/yaml.h>
-#include <unordered_map>
-#include <vector>
-#include <entt.hpp>
-#include <stdio.h>
 
 namespace engine {
     struct UpdateComp {

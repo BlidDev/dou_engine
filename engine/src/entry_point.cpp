@@ -9,6 +9,7 @@ using namespace engine;
 int main() {
 
     Log::init();
+    LuaManager::init();
 
     SceneManager manager;
     on_start(&manager);

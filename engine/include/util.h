@@ -1,6 +1,6 @@
 #pragma once
+#include <espch.h>
 
-#include <raylib.h>
 namespace engine {
     float dist_vec3(Vector3& a, Vector3& b);
     void addop_vec3(Vector3* a, Vector3 b);

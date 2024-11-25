@@ -1,14 +1,14 @@
 Scene: main
 Main Camera: 0
 Entities:
-  - Entity: 14544976381047387618
+  - Entity: 8268106192158279964
     Tag:
       Tag: Cube
     Transform:
       Position: [27, 4.5, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [182, 0, 255, 255]
+      Color: [0, 255, 12, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -24,14 +24,14 @@ Entities:
       Is Solid: false
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 8247612540114565210
+  - Entity: 1469800202165088599
     Tag:
       Tag: Cube
     Transform:
       Position: [24, 4, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [255, 0, 216, 255]
+      Color: [255, 0, 199, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -47,14 +47,14 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 13023829482389047944
+  - Entity: 6450083595924772362
     Tag:
       Tag: Cube
     Transform:
       Position: [21, 3.5, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [255, 0, 191, 255]
+      Color: [255, 0, 0, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -70,14 +70,14 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 11423124907789860739
+  - Entity: 557132088589960557
     Tag:
       Tag: Cube
     Transform:
       Position: [18, 3, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [255, 246, 0, 255]
+      Color: [0, 255, 55, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -93,14 +93,14 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 10501671621461253189
+  - Entity: 13344671024028812281
     Tag:
       Tag: Cube
     Transform:
       Position: [15, 2.5, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [255, 0, 144, 255]
+      Color: [0, 110, 255, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -116,14 +116,14 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 1861681183346701082
+  - Entity: 18383999502582788835
     Tag:
       Tag: Cube
     Transform:
       Position: [12, 2, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [255, 0, 33, 255]
+      Color: [255, 212, 0, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -139,14 +139,14 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 16422334154675588091
+  - Entity: 18358333043629892887
     Tag:
       Tag: Cube
     Transform:
       Position: [9, 1.5, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [16, 0, 255, 255]
+      Color: [135, 0, 255, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -162,14 +162,14 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 11778506974153399614
+  - Entity: 174343124982916957
     Tag:
       Tag: Cube
     Transform:
       Position: [6, 1, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [165, 0, 255, 255]
+      Color: [0, 80, 255, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -185,14 +185,14 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 17342365647463837154
+  - Entity: 12687462964256689881
     Tag:
       Tag: Cube
     Transform:
       Position: [3, 0.5, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [229, 255, 0, 255]
+      Color: [191, 0, 255, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -208,14 +208,14 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 12163576088532326289
+  - Entity: 2265969436489074714
     Tag:
       Tag: Cube
     Transform:
       Position: [0, 0, 0]
       Size: [1, 1, 1]
     Primitive:
-      Color: [0, 25, 255, 255]
+      Color: [255, 242, 0, 255]
       Shape: CUBE
       Attributes:
         Filled: true
@@ -231,7 +231,7 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 3937889118649668726
+  - Entity: 16564816057645734015
     Tag:
       Tag: Floor
     Transform:
@@ -251,7 +251,7 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 11066746112651251776
+  - Entity: 2375389503132127615
     Tag:
       Tag: Text
     Transform:
@@ -259,12 +259,12 @@ Entities:
       Size: [1, 1, 1]
     Native Actions:
       - Name: FPSAction
-        player: 1348220189471786300
+        player: 12363784130166392498
     Text:
       Body: ""
       Font Size: 40
       Color: [0, 0, 0, 255]
-  - Entity: 1348220189471786300
+  - Entity: 12363784130166392498
     Tag:
       Tag: Player
     Transform:

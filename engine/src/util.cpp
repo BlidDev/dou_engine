@@ -1,6 +1,4 @@
 #include "util.h"
-#include <cmath>
-
 
 namespace engine {
     float dist_vec3(Vector3& a, Vector3& b) {

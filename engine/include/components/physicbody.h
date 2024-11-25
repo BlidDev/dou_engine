@@ -1,21 +1,26 @@
 #pragma once
-#include <raylib.h>
-#include <entt.hpp>
+#include <espch.h>
 #include "scene.h"
 
 namespace engine {
     struct PhysicsBodyComp {
-        float gravity = 0.0f;
-        Vector3 velocity = {0.0f,0.0f,0.0f};
-        Vector3 acceleration = {0.0f,0.0f,0.0f};
-        bool is_solid = true;
-        bool is_static = false;
-        Vector3 move_delta = {0.0f,0.0f,0.0f};
+        float gravity;
+        Vector3 velocity;
+        Vector3 acceleration;
+        bool is_solid;
+        bool is_static;
+        Vector3 move_delta;
+        PhysicsBodyComp();
+        PhysicsBodyComp(float gravity, Vector3 velocity, Vector3 acceleration, bool is_solid, bool is_static);
 
         int (*intersects_callback)(Scene&, entt::entity, entt::entity) = nullptr;
     };
 
     struct PhysicsBodyBuilder {
+        PhysicsBodyBuilder() {
+            physicbody = PhysicsBodyComp();
+        }
+
         PhysicsBodyBuilder& gravity(float gravity);
         PhysicsBodyBuilder& velocity(Vector3 velocity);
         PhysicsBodyBuilder& acceleration(Vector3 acceleration);
@@ -29,6 +34,7 @@ namespace engine {
         operator PhysicsBodyComp() {
             return this->physicbody;
         }
+
 
     private:
         PhysicsBodyComp physicbody;

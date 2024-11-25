@@ -1,6 +1,5 @@
 #pragma once
-#include <cstdint>
-#include <unordered_map>
+#include "log.h"
 
 namespace engine {
     
@@ -10,6 +9,9 @@ namespace engine {
         UUID(const UUID&) = default;
 
         operator uint64_t() const {return uuid;}
+
+        inline uint64_t get_uuid() { return uuid; }
+        inline void display() { EG_CORE_INFO("{}", uuid); }
     private:
         uint64_t uuid;
     };

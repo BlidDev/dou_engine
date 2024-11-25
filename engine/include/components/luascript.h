@@ -1,9 +1,7 @@
 #pragma once
 #include "components/uuid.h"
 #include "scene.h"
-#include <sol.hpp>
-#include <string>
-#include <vector>
+#include <espch.h>
 
 namespace engine {
 
@@ -29,6 +27,12 @@ namespace engine {
 
        LuaActionComp& add(Scene* scene, std::string path);
        LuaActionComp& add(LuaUpdate update);
+
+       template<typename T>
+       LuaActionComp& bind_field(std::string name, T value) {
+           scripts.back().env[name] = value;
+           return *this;
+       }
 
        LuaUpdate& get_last();
 

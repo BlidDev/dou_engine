@@ -1,9 +1,6 @@
 #pragma once
 #include "components/uuid.h"
-#include <entt.hpp>
-#include <string.h>
-#include <unordered_map>
-#include <iostream>
+#include <espch.h>
 namespace engine {
 
     class SceneManager;

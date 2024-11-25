@@ -1,44 +1,56 @@
 #include "components/luascript.h"
 #include "log.h"
 #include "luawrapper.h"
+#include "sol.hpp"
 
 namespace engine {
     sol::state LuaManager::state;
 
     void LuaManager::init() {
-        state.open_libraries(sol::lib::base, sol::lib::coroutine, sol::lib::io, sol::lib::math);
+        state.open_libraries(sol::lib::string, sol::lib::base, sol::lib::coroutine, sol::lib::io, sol::lib::math);
     }
 
     LuaUpdate::LuaUpdate(UUID self, Scene* scene, sol::state& state, std::string path) {
         this->self = self;
         this->path = path;
-        env = sol::environment(state,sol::create);
-        state.script_file(path, env);
+        env = sol::environment(state,sol::create, state.globals());
+        state.safe_script_file(path, env, &sol::script_pass_on_error);
         expose_env(env);
         env["this"] = self;
-        env["owner"] = scene;
-        on_init();
+        env["scene"] = scene;
     }
 
     void LuaUpdate::on_init() {
-        auto init = env["on_init"];
-        if (!init.valid() || !init.is<sol::function>())
+        sol::protected_function init = env["on_init"];
+        if (!init) // does exist
             return;
-        init();
+        auto result = init();
+        if (!result.valid()) {
+            sol::error e = result;
+            EG_ERROR("{}", e.what());
+        }
     }
 
     void LuaUpdate::on_update(float dt) {
-        auto update = env["on_update"];
-        if (!update.valid() || !update.is<sol::function>())
+        sol::protected_function update = env["on_update"];
+        if (!update) // does exist
             return;
-        update(dt);
+        auto result = update(dt);
+        if (!result.valid()) {
+            sol::error e = result;
+            EG_ERROR("{}", e.what());
+        }
     }
 
     void LuaUpdate::on_end() {
-        auto end = env["on_end"];
-        if (!end.valid() || !end.is<sol::function>())
+        sol::protected_function end = env["on_end"];
+        if (!end) // does exist
             return;
-        end();
+        auto result = end();
+        if (!result.valid()) {
+            sol::error e = result;
+            EG_ERROR("{}", e.what());
+        }
     }
 
 
