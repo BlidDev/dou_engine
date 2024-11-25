@@ -11,13 +11,13 @@ namespace engine {
     void log_warn(std::string format);
     void log_error(std::string format);
 
-    void expose_env(sol::environment &env){
+    void expose_env(sol::state& env){
         expose_env_types(env);
         expose_env_functions(env);
     }
 
 
-    void expose_env_functions(sol::environment& env) {
+    void expose_env_functions(sol::state& env) {
         env.set_function("get_tag", get_uuid_component<TagComp>);
         env.set_function("get_transfrom", get_uuid_component<TransformComp>);
         env.set_function("get_primitive", get_uuid_component<PrimitiveComp>);
@@ -37,7 +37,7 @@ namespace engine {
     }
 
 
-    void expose_env_types(sol::environment& env) {
+    void expose_env_types(sol::state& env) {
         auto uuid = env.new_usertype<UUID>("UUID",
                  sol::constructors<UUID(), UUID(uint64_t)>());
         uuid["uuid"] = sol::property(&UUID::get_uuid);

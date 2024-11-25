@@ -11,11 +11,13 @@ public:
     void on_create() {
         DisableCursor();
         add_from_file("res/test.scene");
+        lua_action_init(this);
     }
 
     void on_update(float dt) {
 
         engine::actions(this, dt);
+        engine::lua_action_update(this, dt);
         engine::physics(registry, dt);
         if(engine::aabb_check(*this, dt)) return;
         Entity player = uuid_to_entity(main_camera);
@@ -28,7 +30,8 @@ public:
     }
 
     void on_end() {
-        EG_TRACE("test end called\n");
+        lua_action_end(this);
+        EG_TRACE("test end called");
     }
 
     bool should_close() {

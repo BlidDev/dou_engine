@@ -8,10 +8,10 @@ namespace engine {
         return owner->get_uuid_component<T>(uuid);
     }
 
-    void expose_env_types(sol::environment& env);
+    void expose_env_types(sol::state& env);
 
 
-    void expose_env_functions(sol::environment& env);
+    void expose_env_functions(sol::state& env);
 
-    void expose_env(sol::environment& env);
+    void expose_env(sol::state& env);
 }

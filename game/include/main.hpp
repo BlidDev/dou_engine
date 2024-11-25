@@ -19,6 +19,7 @@ public:
         player.add_component<ActionsComp>(ActionsComp().add("PlayerAction"));
         player.add_component<PhysicsBodyComp>(0.2f, (Vector3){0.0f,0.0f,0.0f},(Vector3){0.0f,0.0f,0.0f}, true, false);
         player.add_component<PrimitiveComp>(PrimitiveComp::Shape::CUBE, BLACK,PRIMITVE_WIREFRAME);
+        main_camera = player.uuid();
 
 
         Entity text = create_entity();
@@ -26,8 +27,11 @@ public:
         text.add_component<TextComp>("", 40, BLACK);
         text.add_component<TransformComp>((Vector3){0.0f,2.0f,0.0});
         text.add_component<ActionsComp>(ActionsComp().add(new FPSAction(player.uuid()), "FPSAction"));
-        text.add_component<LuaActionComp>(LuaActionComp(text.uuid()).add(this,"res/scripts/test.lua").bind_field("player", player.uuid()));
-        
+        text.add_component<LuaActionComp>(
+                LuaActionComp(text.uuid())
+                     .add(this,"res/scripts/test.lua").bind_field("player", player.uuid())
+                     .add(this, "res/scripts/thing.lua")
+                );
 
 
         Entity plane = create_entity();

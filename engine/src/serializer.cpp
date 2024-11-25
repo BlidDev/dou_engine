@@ -152,6 +152,26 @@ namespace engine {
             out<<YAML::EndMap;
         }
 
+        if (entity.has_component<LuaActionComp>()) {
+            auto& l = entity.get_component<LuaActionComp>();
+            out<<YAML::Key<<"Lua Actions"<<YAML::BeginSeq;
+                for (auto scp : l.scripts) {
+                    out<<YAML::BeginMap;
+                    out<<YAML::Key<<"Path"<<scp.path;
+                    out<<YAML::Key<<"Fields"<<YAML::BeginMap;
+                        for (auto& [k,v] : scp.env) {
+                            if ( !k.is<std::string>() || v.is<sol::function>() || !v.is<UUID>())
+                                continue;
+                            std::string str = k.as<std::string>();
+                            UUID uuid = v.as<UUID>();
+                            out<<YAML::Key<<str<<YAML::Value<<uuid.get_uuid();
+                        }
+                    out<<YAML::EndMap;
+                    out<<YAML::EndMap;
+                }
+            out<<YAML::EndSeq;
+        }
+
         out<<YAML::EndMap;
     }
 
@@ -219,6 +239,21 @@ namespace engine {
             c.up = camera["Up"].as<Vector3>();
             c.fovy = camera["FovY"].as<float>();
             c.projection = camera["Projection"].as<int>();
+        }
+
+        auto lua_actions = entity["Lua Actions"];
+        if (lua_actions) {
+            auto& ls = read_entity.add_component<LuaActionComp>(LuaActionComp(UUID(uuid)));
+            for (auto m : lua_actions) {
+                std::string path = m["Path"].as<std::string>();
+                ls.add(scene,path);
+
+                for (auto f : m["Fields"]) {
+                    std::string name = f.first.as<std::string>();
+                    uint64_t id = f.second.as<uint64_t>();
+                    ls.bind_field(name, UUID(id));
+                }
+            }
         }
     }
 

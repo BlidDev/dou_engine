@@ -6,7 +6,7 @@
         - X Add a generic get component function
     - ? Maybe add lua side classes
     - Serialize and Deserialize component
-- Make custom asserts
+- V Make custom asserts
 - Utilize smart pointers
 - Replace raylib with opengl
 

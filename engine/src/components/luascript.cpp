@@ -8,6 +8,7 @@ namespace engine {
 
     void LuaManager::init() {
         state.open_libraries(sol::lib::string, sol::lib::base, sol::lib::coroutine, sol::lib::io, sol::lib::math);
+        expose_env(state);
     }
 
     LuaUpdate::LuaUpdate(UUID self, Scene* scene, sol::state& state, std::string path) {
@@ -15,7 +16,6 @@ namespace engine {
         this->path = path;
         env = sol::environment(state,sol::create, state.globals());
         state.safe_script_file(path, env, &sol::script_pass_on_error);
-        expose_env(env);
         env["this"] = self;
         env["scene"] = scene;
     }
@@ -54,6 +54,7 @@ namespace engine {
     }
 
 
+
     LuaActionComp::LuaActionComp(UUID self) {
         this->self = self;
         scripts = {};
@@ -66,7 +67,6 @@ namespace engine {
 
     LuaActionComp& LuaActionComp::add(Scene* scene, std::string path) {
         scripts.push_back(LuaUpdate(self, scene,LuaManager::state,path));
-        EG_CORE_INFO("Added script {0}", path);
         return *this;
     }
 
@@ -78,4 +78,5 @@ namespace engine {
     LuaUpdate& LuaActionComp::get_last() {
         return scripts.back();
     }
+
 }
