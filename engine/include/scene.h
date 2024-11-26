@@ -19,6 +19,7 @@ namespace engine {
         Entity create_entity();
         Entity create_entity_with_uuid(uint64_t uuid);
         Entity uuid_to_entity(UUID uuid);
+        entt::entity uuid_to_entt(UUID uuid);
 
         void add_from_file(const char* path);
 

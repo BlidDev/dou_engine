@@ -18,10 +18,13 @@ namespace engine
     }
 
     Entity Scene::uuid_to_entity(UUID uuid) {
-        EG_ASSERT(uuids.find(uuid) == uuids.end(), "ERROR: Unknown UUID {}", uuid.get_uuid());
-        entt::entity entity = uuids[uuid];
-
+        entt::entity entity = uuid_to_entt(uuid);
         return {this, entity};
+    }
+
+    entt::entity Scene::uuid_to_entt(UUID uuid) {
+        EG_ASSERT(uuids.find(uuid) == uuids.end(), "ERROR: Unknown UUID {}", uuid.get_uuid());
+        return uuids[uuid];
     }
 
     SceneManager::SceneManager() {

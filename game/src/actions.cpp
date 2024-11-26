@@ -19,9 +19,8 @@ void PlayerAction::on_update(engine::Scene* scene, engine::Entity self, float dt
     p_camera.position = p_t.position;
     engine::handle_mouse_delta(&p_camera, {
                 GetMouseDelta().x * 0.05f,
-                GetMouseDelta().y * 0.05f, 
-                0.0f
-            }, true);
+                GetMouseDelta().y * 0.05f}
+            , true);
 
     Vector3 forward = engine::get_forward(p_camera.target, p_t.position) * 3.0f;
     Vector3 right   = engine::get_right(p_camera.target, p_t.position, p_camera.up) * 3.0f;

@@ -14,9 +14,10 @@ Entities:
         Filled: true
         Wireframe: true
         Immune: false
-    Native Actions:
-      - Name: CubeAction
-        Default: Default
+    Lua Actions:
+      - Path: res/scripts/cube.lua
+        Fields:
+          this: 9242988343302432818
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
@@ -37,9 +38,10 @@ Entities:
         Filled: true
         Wireframe: true
         Immune: false
-    Native Actions:
-      - Name: CubeAction
-        Default: Default
+    Lua Actions:
+      - Path: res/scripts/cube.lua
+        Fields:
+          this: 16664006299361324242
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
@@ -60,9 +62,10 @@ Entities:
         Filled: true
         Wireframe: true
         Immune: false
-    Native Actions:
-      - Name: CubeAction
-        Default: Default
+    Lua Actions:
+      - Path: res/scripts/cube.lua
+        Fields:
+          this: 9937442368854410531
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
@@ -83,9 +86,10 @@ Entities:
         Filled: true
         Wireframe: true
         Immune: false
-    Native Actions:
-      - Name: CubeAction
-        Default: Default
+    Lua Actions:
+      - Path: res/scripts/cube.lua
+        Fields:
+          this: 8326144523830472329
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
@@ -106,9 +110,10 @@ Entities:
         Filled: true
         Wireframe: true
         Immune: false
-    Native Actions:
-      - Name: CubeAction
-        Default: Default
+    Lua Actions:
+      - Path: res/scripts/cube.lua
+        Fields:
+          this: 9415979431727186849
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
@@ -129,9 +134,10 @@ Entities:
         Filled: true
         Wireframe: true
         Immune: false
-    Native Actions:
-      - Name: CubeAction
-        Default: Default
+    Lua Actions:
+      - Path: res/scripts/cube.lua
+        Fields:
+          this: 829186951079565767
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
@@ -152,9 +158,10 @@ Entities:
         Filled: true
         Wireframe: true
         Immune: false
-    Native Actions:
-      - Name: CubeAction
-        Default: Default
+    Lua Actions:
+      - Path: res/scripts/cube.lua
+        Fields:
+          this:  18401334670107391363
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
@@ -175,9 +182,10 @@ Entities:
         Filled: true
         Wireframe: true
         Immune: false
-    Native Actions:
-      - Name: CubeAction
-        Default: Default
+    Lua Actions:
+      - Path: res/scripts/cube.lua
+        Fields:
+          this: 11270563716566200800
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
@@ -198,9 +206,10 @@ Entities:
         Filled: true
         Wireframe: true
         Immune: false
-    Native Actions:
-      - Name: CubeAction
-        Default: Default
+    Lua Actions:
+      - Path: res/scripts/cube.lua
+        Fields:
+          this: 4770958868356095721
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
@@ -221,9 +230,10 @@ Entities:
         Filled: true
         Wireframe: true
         Immune: false
-    Native Actions:
-      - Name: CubeAction
-        Default: Default
+    Lua Actions:
+      - Path: res/scripts/cube.lua
+        Fields:
+          this: 231106170213096743
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
@@ -251,25 +261,18 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-    Lua Actions:
-      - Path: res/scripts/thing.lua
-        Fields:
-          this: 2937649829976544379
   - Entity: 8948647409503082945
     Tag:
       Tag: Text
     Transform:
       Position: [0, 2, 0]
       Size: [1, 1, 1]
-    Native Actions:
-      - Name: FPSAction
-        player: 10059032757938881527
     Text:
       Body: ""
       Font Size: 40
       Color: [0, 0, 0, 255]
     Lua Actions:
-      - Path: res/scripts/test.lua
+      - Path: res/scripts/fps.lua
         Fields:
           player: 10059032757938881527
           this: 8948647409503082945
@@ -284,11 +287,12 @@ Entities:
       Shape: CUBE
       Attributes:
         Filled: false
-        Wireframe: true
+        Wireframe: false
         Immune: false
-    Native Actions:
-      - Name: PlayerAction
-        Default: Default
+    Lua Actions:
+      - Path: res/scripts/player.lua
+        Fields:
+          this: 10059032757938881527
     PhysicsBody:
       Gravity: 0.2
       Velocity: [0, 0, 0]

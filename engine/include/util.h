@@ -22,7 +22,7 @@ namespace engine {
 
     void camera_yaw(Camera* camera, float angle);
     void camera_pitch(Camera* camera, float angle, bool lock);
-    void handle_mouse_delta(Camera* camera, Vector3 delta, bool lock);
+    void handle_mouse_delta(Camera* camera, Vector2 delta, bool lock);
 
     bool aabb_3d_intersects(Vector3 a, Vector3 a_s, Vector3 b, Vector3 b_s);
 

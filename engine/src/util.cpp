@@ -186,7 +186,7 @@ namespace engine {
 
     }
 
-    void handle_mouse_delta(Camera* camera, Vector3 delta, bool lock) { 
+    void handle_mouse_delta(Camera* camera, Vector2 delta, bool lock) { 
         camera_yaw(camera, -delta.x * DEG2RAD);
         camera_pitch(camera, -delta.y * DEG2RAD, lock);
     }

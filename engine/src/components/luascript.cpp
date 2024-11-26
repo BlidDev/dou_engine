@@ -9,6 +9,7 @@ namespace engine {
     void LuaManager::init() {
         state.open_libraries(sol::lib::string, sol::lib::base, sol::lib::coroutine, sol::lib::io, sol::lib::math);
         expose_env(state);
+        state.require_file("util", "res/scripts/util.lua");
     }
 
     LuaUpdate::LuaUpdate(UUID self, Scene* scene, sol::state& state, std::string path) {
@@ -16,6 +17,7 @@ namespace engine {
         this->path = path;
         env = sol::environment(state,sol::create, state.globals());
         state.safe_script_file(path, env, &sol::script_pass_on_error);
+        env["util"] = state["util"];
         env["this"] = self;
         env["scene"] = scene;
     }

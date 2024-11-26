@@ -5,8 +5,9 @@
     - finish function wrappers:
         - X Add a generic get component function
     - ? Maybe add lua side classes
-    - Serialize and Deserialize component
+    - V Serialize and Deserialize component
 - V Make custom asserts
+- Add lighting 
 - Utilize smart pointers
 - Replace raylib with opengl
 
