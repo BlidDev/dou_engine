@@ -13,7 +13,7 @@ end
 function on_update(dt)
 
     speed =  0.5
-    if is_key_down(util.KeyboardKey.LEFT_SHIFT) then speed = speed * 3.0 end
+    if is_key_down(util.KeyboardKey.LEFT_SHIFT) then speed = speed * 6.0 end
     if is_key_down(util.KeyboardKey.SPACE) and ph.move_delta.y == 0.0 then ph.velocity.y =  ph.velocity.y + 10.0 end
 
     if is_key_down(util.KeyboardKey.LEFT_CONTROL) then ph.gravity = 0.0 end

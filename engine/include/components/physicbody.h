@@ -1,8 +1,10 @@
 #pragma once
 #include <espch.h>
 #include "scene.h"
+#include "components/luascript.h"
 
 namespace engine {
+
     struct PhysicsBodyComp {
         float gravity;
         Vector3 velocity;
@@ -14,6 +16,7 @@ namespace engine {
         PhysicsBodyComp(float gravity, Vector3 velocity, Vector3 acceleration, bool is_solid, bool is_static);
 
         int (*intersects_callback)(Scene&, entt::entity, entt::entity) = nullptr;
+        LuaCallback lua_callback;
     };
 
     struct PhysicsBodyBuilder {
@@ -28,6 +31,7 @@ namespace engine {
         PhysicsBodyBuilder& is_static(bool is_static);
 
         PhysicsBodyBuilder& intersects_callback(int (*intersects_callback)(Scene&, entt::entity, entt::entity));
+        PhysicsBodyBuilder& bind_intersects_callback(std::string path, std::string function);
 
         PhysicsBodyComp build();
 

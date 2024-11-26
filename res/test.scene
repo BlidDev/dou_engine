@@ -18,6 +18,7 @@ Entities:
       - Path: res/scripts/cube.lua
         Fields:
           this: 9242988343302432818
+          thing: 3
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
@@ -25,6 +26,7 @@ Entities:
       Is Solid: false
       Is Static: true
       Move Delta: [0, 0, 0]
+      Intersect Callback: [res/scripts/cube.lua, inter]
   - Entity: 16664006299361324242
     Tag:
       Tag: Cube
@@ -234,13 +236,15 @@ Entities:
       - Path: res/scripts/cube.lua
         Fields:
           this: 231106170213096743
+          thing: 2
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
       Accelaration: [0, 0, 0]
-      Is Solid: true
+      Is Solid: false
       Is Static: true
       Move Delta: [0, 0, 0]
+      Intersect Callback: [res/scripts/cube.lua, inter]
   - Entity: 2937649829976544379
     Tag:
       Tag: Floor
@@ -294,7 +298,7 @@ Entities:
         Fields:
           this: 10059032757938881527
     PhysicsBody:
-      Gravity: 0.2
+      Gravity: 0.1
       Velocity: [0, 0, 0]
       Accelaration: [0, 0, 0]
       Is Solid: true

@@ -3,6 +3,7 @@
 
 #include "macros.h"
 #include "components/action.h"
+#include "actions.h"
 #include "main.hpp"
 #include "game.hpp"
 #include "win.hpp"

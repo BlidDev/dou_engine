@@ -5,36 +5,13 @@ using namespace engine;
 
 class TestScene : public engine::Scene {
 public:
-    TestScene() : Scene("test") {
-    }
+    TestScene();
 
-    void on_create() {
-        DisableCursor();
-        add_from_file("res/test.scene");
-        lua_action_init(this);
-    }
+    void on_create();
 
-    void on_update(float dt) {
+    void on_update(float dt);
 
-        engine::actions(this, dt);
-        engine::lua_action_update(this, dt);
-        engine::physics(registry, dt);
-        if(engine::aabb_check(*this, dt)) return;
-        Entity player = uuid_to_entity(main_camera);
-        engine::renderer(player, registry);
+    void on_end();
 
-        if (IsKeyPressed(KEY_F)){
-           manager->set_current("win");
-           return;
-        }
-    }
-
-    void on_end() {
-        lua_action_end(this);
-        EG_TRACE("test end called");
-    }
-
-    bool should_close() {
-        return WindowShouldClose();
-    }
+    bool should_close(); 
 };

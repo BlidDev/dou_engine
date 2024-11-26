@@ -108,46 +108,49 @@ namespace engine {
         }
     }
 
+    int handle_callback(Scene& scene, PhysicsBodyComp& ph, entt::entity e, entt::entity o) {
+        if(ph.intersects_callback != nullptr) {
+            if(ph.intersects_callback(scene, e, o))
+                return 1;
+        }
+        else if (ph.lua_callback) {
+            EG_ASSERT(!scene.registry.any_of<LuaActionComp>(e), 
+                    "LuaCallback is set to ({}, {}) but entity does not have any scripts attached", ph.lua_callback.path, ph.lua_callback.function);
+            LuaActionComp lua_a = scene.registry.get<LuaActionComp>(e);
+            UUID eu = scene.registry.get<UUID>(e);
+            UUID ou = scene.registry.get<UUID>(o);
+            if (lua_a.call_at(ph.lua_callback, eu, ou))
+                return 1;
+        }
+
+
+        return 0;
+    }
 
     int aabb_check(Scene& scene, float dt) {
         auto objs = scene.registry.view<TransformComp,PhysicsBodyComp>();
+        bool allowed_x = true, allowed_y = true, allowed_z = true;
+        int res = 0;
         for (auto [e, t, ph] : objs.each()) {
             Vector3 tp = t.position;
-            if (!ph.is_solid)
-            {
-                t.position += ph.move_delta;
-                if (ph.intersects_callback)
-                {
-                    for (auto [o, ot, oph] : objs.each()) {
-                        if (e != o && aabb_3d_intersects(t.position, t.size, ot.position, ot.size)) {
-                            if (ph.intersects_callback(scene,e,o))
-                                return 1;
-                        }
-                    }
-                }
-                continue;
-            }
-            bool allowed_x = true, allowed_y = true, allowed_z = true;
-
             for (auto [o, ot, oph] : objs.each()) {
                 Vector3 tmp = t.position + ph.move_delta;
                 if (e == o || 
-                    !oph.is_solid || 
                     dist_vec3(tmp, ot.position) > std::max({t.size.x,t.size.y,t.size.z}) + std::max({ot.size.x,ot.size.y,ot.size.z}) ||
                     !aabb_3d_intersects(t.position + ph.move_delta, t.size, ot.position, ot.size)) continue;
+                if (ph.is_solid && oph.is_solid) {
+                    tmp = Vector3{tp.x + ph.move_delta.x, tp.y, tp.z};
+                    HANDLE_AABB(tmp, t, ot, ph, oph, x);
 
-                tmp = Vector3{tp.x + ph.move_delta.x, tp.y, tp.z};
-                HANDLE_AABB(tmp, t, ot, ph, oph, x);
+                    tmp = Vector3{tp.x, tp.y + ph.move_delta.y, tp.z};
+                    HANDLE_AABB(tmp, t, ot, ph, oph, y);
 
-                tmp = Vector3{tp.x, tp.y + ph.move_delta.y, tp.z};
-                HANDLE_AABB(tmp, t, ot, ph, oph, y);
+                    tmp = Vector3{tp.x, tp.y, tp.z + ph.move_delta.z};
+                    HANDLE_AABB(tmp, t, ot, ph, oph, z);
+                }
 
-                tmp = Vector3{tp.x, tp.y, tp.z + ph.move_delta.z};
-                HANDLE_AABB(tmp, t, ot, ph, oph, z);
-
-                if(ph.intersects_callback) {
-                    if (ph.intersects_callback(scene,e,o))
-                        return 1;
+                if(ph.intersects_callback || ph.lua_callback) {
+                    res = handle_callback(scene,ph,e,o);
                 }
                     
 
@@ -157,7 +160,7 @@ namespace engine {
             t.position.z += (allowed_z) ? ph.move_delta.z : 0.0f;
         }
 
-        return 0;
+        return res;
     }
 
     Vector3 calculate_drag(Vector3& vel, float gravity, float mul) {

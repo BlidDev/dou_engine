@@ -25,6 +25,24 @@ namespace YAML {
     };
 
     template <>
+    struct convert<engine::LuaCallback> {
+        static Node encode(const engine::LuaCallback& rhs) {
+            Node node;
+            node.push_back(rhs.path);
+            node.push_back(rhs.function);
+            return node;
+        }
+
+        static bool decode(const Node& node, engine::LuaCallback& rhs) {
+            if(!node.IsSequence() || node.size() != 2)
+                return false;
+            rhs.path     = node[0].as<std::string>();
+            rhs.function = node[1].as<std::string>();
+            return true;
+        }
+    };
+
+    template <>
     struct convert<Color> {
         static Node encode(const Color& rhs) {
             Node node;
@@ -58,6 +76,12 @@ namespace engine {
     YAML::Emitter& operator<<(YAML::Emitter& out, const Color& c) {
         out<<YAML::Flow;
         out<<YAML::BeginSeq<<(int)c.r<<(int)c.g<<(int)c.b<<(int)c.a<<YAML::EndSeq;
+        return out;
+    }
+
+    YAML::Emitter& operator<<(YAML::Emitter& out, const LuaCallback& l) {
+        out<<YAML::Flow;
+        out<<YAML::BeginSeq<<l.path<<l.function<<YAML::EndSeq;
         return out;
     }
 
@@ -138,6 +162,9 @@ namespace engine {
                 out<<YAML::Key<<"Is Solid"<<YAML::Value<<ph.is_solid;
                 out<<YAML::Key<<"Is Static"<<YAML::Value<<ph.is_static;
                 out<<YAML::Key<<"Move Delta"<<YAML::Value<<ph.move_delta;
+                if (ph.lua_callback) {
+                    out<<YAML::Key<<"Intersect Callback"<<YAML::Value<<ph.lua_callback;
+                }
             out<<YAML::EndMap;
         }
 
@@ -229,6 +256,10 @@ namespace engine {
             ph.is_solid = physicbody["Is Solid"].as<bool>();
             ph.is_static = physicbody["Is Static"].as<bool>();
             ph.move_delta = physicbody["Move Delta"].as<Vector3>();
+            auto inter = physicbody["Intersect Callback"];
+            if (inter) {
+                ph.lua_callback = inter.as<LuaCallback>();
+            }
         }
 
         auto camera = entity["Camera"];

@@ -1,6 +1,6 @@
 #ifndef MACROS
 #define MACROS
-
+// oph.move_delta.axis += ph.move_delta.axis;
 #define HANDLE_AABB(pos, t, ot, ph, oph, axis) \
      if (allowed_##axis) { \
         if(aabb_3d_intersects(pos,t.size,ot.position,ot.size)) { \

@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.19)
 project(RayProject VERSION 1.0 LANGUAGES CXX)
 
+find_program(CCACHE "ccache")
+if(CCACHE)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE}")
+endif()
+
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()

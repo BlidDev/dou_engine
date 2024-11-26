@@ -10,6 +10,7 @@ namespace engine {
         is_solid = true;
         is_static = false;
         move_delta = {0.0f,0.0f,0.0f};
+        intersects_callback = nullptr;
     }
 
     PhysicsBodyComp::PhysicsBodyComp(float gravity, Vector3 velocity, Vector3 acceleration, bool is_solid, bool is_static) {
@@ -19,6 +20,7 @@ namespace engine {
         this->is_solid    =  is_solid    ;
         this->is_static   =  is_static   ;
         this->acceleration = {0.0f, 0.0f, 0.0f};
+        this->intersects_callback = nullptr;
     }
 
     PhysicsBodyBuilder& PhysicsBodyBuilder::gravity(float gravity) {
@@ -44,6 +46,13 @@ namespace engine {
 
     PhysicsBodyBuilder& PhysicsBodyBuilder::intersects_callback(int (*intersects_callback)(Scene&, entt::entity, entt::entity)) {
         physicbody.intersects_callback = intersects_callback;
+        return *this;
+    }
+
+    PhysicsBodyBuilder& PhysicsBodyBuilder::bind_intersects_callback(std::string path, std::string function) {
+        EG_ASSERT(path.empty(), "Path given to bind_intersects_callback is empty");
+        ENTT_ASSERT(function.empty(), "Function given to bind_intersects_callback is empty");
+        physicbody.lua_callback = {path, function};
         return *this;
     }
 
