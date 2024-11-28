@@ -16,7 +16,7 @@ function on_init()
 end
 
 function on_update(dt)
-    speed =  no 0.5
+    speed = 0.5
     if get_key_pressed() == util.KeyboardKey.Q then
         affected = not affected
         log_info("Switched")

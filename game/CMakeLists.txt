@@ -17,7 +17,9 @@ target_include_directories(game PRIVATE
 )
 
 
-link_directories(game ${YAML_CPP_LIBRARIES})
+link_directories(game 
+    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libYAML_CPP.a
+    )
 
 set(HEADER_FILES PRIVATE 
     "${CMAKE_SOURCE_DIR}/engine/include/epch.h")
@@ -25,4 +27,4 @@ set(HEADER_FILES PRIVATE
 target_precompile_headers(game PRIVATE ${HEADER_FILES})
 
 # Link the engine library to the game executable
-target_link_libraries(game PRIVATE engine raylib yaml-cpp)
+target_link_libraries(game PRIVATE engine raylib YAML_CPP)

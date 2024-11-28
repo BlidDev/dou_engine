@@ -1,24 +1,22 @@
-#include <raylib.h>
-#include <engine.h>
-
+#include <epch.h>
 #include "macros.h"
 #include "components/action.h"
 #include "actions.h"
-#include "main.hpp"
+//#include "main.hpp"
 #include "game.hpp"
-#include "win.hpp"
-#include "test.hpp"
+//#include "win.hpp"
+//#include "test.hpp"
 
 void register_actions();
 
 int engine::on_start(engine::SceneManager* manager) {
 
     register_actions();
-    manager->register_scene("main", new MainScene());
-    manager->register_scene("win", new WinScene());
+    //manager->register_scene("main", new MainScene());
+    //manager->register_scene("win", new WinScene());
     manager->register_scene("game", new GameScene());
-    manager->register_scene("test", new TestScene());
-    manager->set_current("test");
+    //manager->register_scene("test", new TestScene());
+    manager->set_current("game");
 
 
 
@@ -35,8 +33,8 @@ int engine::on_end() {
 }
 
 void register_actions() {
-    ActionsComp::register_action("PlayerAction", new PlayerAction);
-    ActionsComp::register_action("FPSAction", new FPSAction(0));
-    ActionsComp::register_action("CubeAction", new CubeAction);
+    engine::ActionsComp::register_action("PlayerAction", new PlayerAction);
+    engine::ActionsComp::register_action("FPSAction", new FPSAction(0));
+    engine::ActionsComp::register_action("CubeAction", new CubeAction);
 
 }

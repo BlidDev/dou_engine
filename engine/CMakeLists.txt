@@ -25,8 +25,9 @@ set(HEADER_FILES PRIVATE
 
 target_precompile_headers(engine PRIVATE ${HEADER_FILES})
 
-link_directories(engine ${YAML_CPP_LIBRARIES}
+link_directories(engine 
+    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libYAML_CPP.a
     ${CMAKE_SOURCE_DIR}/vendor/lua/linux/liblua54.a)
 
 # Link raylib to the engine library
-target_link_libraries(engine PRIVATE raylib yaml-cpp lua)
+target_link_libraries(engine PRIVATE raylib YAML_CPP lua)
