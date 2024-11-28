@@ -33,6 +33,9 @@ set(RAYLIB_DIR "${CMAKE_SOURCE_DIR}/raylib")
 # Add subdirectories for the engine library and the game executable
 
 add_subdirectory("vendor/spdlog")
+set(WITH_FUNCTION_X OFF CACHE BOOL "Enable parse tools" FORCE)
+set(WITH_FUNCTION_X OFF CACHE BOOL "Enable generation of yaml-cpp install targets" FORCE)
 add_subdirectory("vendor/yaml-cpp")
+
 add_subdirectory(engine)
 add_subdirectory(game)

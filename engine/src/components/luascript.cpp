@@ -1,7 +1,6 @@
 #include "components/luascript.h"
 #include "log.h"
 #include "luawrapper.h"
-#include "sol.hpp"
 
 namespace engine {
     sol::state LuaManager::state;

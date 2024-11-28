@@ -13,7 +13,7 @@ target_include_directories(engine PUBLIC
     ${CMAKE_SOURCE_DIR}/vendor/entt
     ${CMAKE_SOURCE_DIR}/vendor/yaml-cpp/include
     ${CMAKE_SOURCE_DIR}/vendor/lua/include
-    ${CMAKE_SOURCE_DIR}/vendor/sol2/single/include/sol
+    ${CMAKE_SOURCE_DIR}/vendor/sol2/include/
     ${CMAKE_SOURCE_DIR}/engine/include
     ${RAYLIB_DIR}/src
 )

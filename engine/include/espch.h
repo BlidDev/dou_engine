@@ -4,7 +4,7 @@
 #include <raylib.h>
 #include <entt.hpp>
 #include <yaml-cpp/yaml.h>
-#include <sol.hpp>
+#include <sol/sol.hpp>
 #include <spdlog/spdlog.h>
 #include <memory>
 #include <algorithm>
