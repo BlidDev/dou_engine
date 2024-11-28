@@ -18,16 +18,11 @@ void TestScene::on_update(float dt) {
     if(engine::aabb_check(*this, dt)) return;
     Entity player = uuid_to_entity(main_camera);
     engine::renderer(player, registry);
-
-    if (IsKeyPressed(KEY_F)){
-       manager->set_current("win");
-       return;
-    }
 }
 
 void TestScene::on_end() {
-    lua_action_end(this);
     EG_TRACE("test end called");
+    lua_action_end(this);
 }
 
 bool TestScene::should_close() {

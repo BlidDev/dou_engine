@@ -15,8 +15,14 @@ namespace engine {
     LuaUpdate::LuaUpdate(UUID self, Scene* scene, sol::state& state, std::string path) {
         this->self = self;
         this->path = path;
+        inital_error = "";
         env = sol::environment(state,sol::create, state.globals());
-        state.safe_script_file(path, env, &sol::script_pass_on_error);
+        auto result = state.safe_script_file(path, env, &sol::script_pass_on_error);
+        if (!result.valid()) {
+            sol::error e = result;
+            inital_error = e.what();
+            EG_CORE_ERROR("{}", inital_error);
+        }
         env["util"] = state["util"];
         env["this"] = self;
         env["scene"] = scene;
@@ -24,34 +30,28 @@ namespace engine {
 
     void LuaUpdate::on_init() {
         sol::protected_function init = env["on_init"];
-        if (!init) // does exist
-            return;
         auto result = init();
         if (!result.valid()) {
             sol::error e = result;
-            EG_ERROR("{}", e.what());
+            EG_ERROR("{} {}", inital_error,e.what());
         }
     }
 
     void LuaUpdate::on_update(float dt) {
         sol::protected_function update = env["on_update"];
-        if (!update) // does exist
-            return;
         auto result = update(dt);
         if (!result.valid()) {
             sol::error e = result;
-            EG_ERROR("{}", e.what());
+            EG_ERROR("{} {}", inital_error,e.what());
         }
     }
 
     void LuaUpdate::on_end() {
         sol::protected_function end = env["on_end"];
-        if (!end) // does exist
-            return;
         auto result = end();
         if (!result.valid()) {
             sol::error e = result;
-            EG_ERROR("{}", e.what());
+            EG_ERROR("{} {}", inital_error,e.what());
         }
     }
 

@@ -130,7 +130,6 @@ namespace engine {
     int aabb_check(Scene& scene, float dt) {
         auto objs = scene.registry.view<TransformComp,PhysicsBodyComp>();
         bool allowed_x = true, allowed_y = true, allowed_z = true;
-        int res = 0;
         for (auto [e, t, ph] : objs.each()) {
             Vector3 tp = t.position;
             for (auto [o, ot, oph] : objs.each()) {
@@ -150,7 +149,9 @@ namespace engine {
                 }
 
                 if(ph.intersects_callback || ph.lua_callback) {
-                    res = handle_callback(scene,ph,e,o);
+                    if (handle_callback(scene,ph,e,o)) {
+                        return 1;
+                    }
                 }
                     
 
@@ -160,7 +161,7 @@ namespace engine {
             t.position.z += (allowed_z) ? ph.move_delta.z : 0.0f;
         }
 
-        return res;
+        return 0;
     }
 
     Vector3 calculate_drag(Vector3& vel, float gravity, float mul) {

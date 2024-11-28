@@ -33,6 +33,6 @@ bool WinScene::should_close() {
 }
 
 void WinScene::on_end() {
-    EG_TRACE("win end called\n");
+    EG_TRACE("win end called");
 }
 

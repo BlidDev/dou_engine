@@ -25,7 +25,7 @@ namespace engine {
         template<typename T>
         T& get_component() {
             check_null();
-            EG_ASSERT(!has_component<T>(), "Tring to get non existant component {} from entity", typeid(T).name());
+            EG_ASSERT(!has_component<T>(), "Tring to get non existant component {} from entity {}", typeid(T).name(), (uint64_t)uuid());
             return scene->registry.get<T>(entity_id);
         }
 

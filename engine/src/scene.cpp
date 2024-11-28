@@ -61,6 +61,7 @@ namespace engine
         scene->on_end();
         end_actions(scene->registry);
         scene->registry.clear();
+        scene->uuids.clear();
     }
 
     Scene* SceneManager::get_current() {

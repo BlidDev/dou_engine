@@ -5,13 +5,16 @@
 #include "util.h"
 #include "ops.hpp"
 #include <espch.h>
+#include "spdlog/fmt/bundled/args.h"
+#include "spdlog/fmt/bundled/core.h"
 
 
 namespace engine {
-    void log_trace(std::string format);
-    void log_info(std::string format);
-    void log_warn(std::string format);
-    void log_error(std::string format);
+    std::string variadic_args_to_str(std::string& format, sol::variadic_args& args);
+    void log_trace(std::string format, sol::variadic_args args);
+    void log_info (std::string format, sol::variadic_args args);
+    void log_warn (std::string format, sol::variadic_args args);
+    void log_error(std::string format, sol::variadic_args args);
 
     void bind_vectors(sol::state& env);
 
@@ -34,6 +37,7 @@ namespace engine {
         env.set_function("color_from_hsv", ColorFromHSV);
         env.set_function("get_fps", GetFPS);
         env.set_function("get_time", GetTime);
+        env.set_function("get_key_pressed", GetKeyPressed);
         env.set_function("is_key_down", IsKeyDown);
         env.set_function("get_mouse_delta", GetMouseDelta);
         env.set_function("handle_mouse_delta", handle_mouse_delta);
@@ -50,8 +54,12 @@ namespace engine {
 
 
     void expose_env_types(sol::state& env) {
+
+        auto manager = env.new_usertype<SceneManager>("SceneManager");
+        manager["set_current"] = &SceneManager::set_current;
         auto scene = env.new_usertype<Scene>("Scene");
         scene["uuid_to_entt"] = &Scene::uuid_to_entt;
+        scene["manager"] = &Scene::manager;
 
         auto uuid = env.new_usertype<UUID>("UUID",
                  sol::constructors<UUID(), UUID(uint64_t)>());
@@ -135,20 +143,37 @@ namespace engine {
 
     }
 
-    void log_trace(std::string format) {
-        EG_TRACE(format);
+    std::string variadic_args_to_str(std::string& format, sol::variadic_args& args) {
+        fmt::dynamic_format_arg_store<fmt::format_context> store;
+        for (auto a : args) {
+            store.push_back(a.as<std::string>());
+        }
+
+        std::string str = fmt::vformat(format, store);
+        return str;
     }
 
-    void log_info(std::string format) {
-        EG_INFO(format);
+    void log_trace(std::string format, sol::variadic_args args) {
+        EG_CORE_INFO("[{}]", args.size());
+        for (int i = 0; i < args.size(); i++) {
+            EG_CORE_INFO("{} {}", args.size(), args[i].as<std::string>());
+        }
+        EG_CORE_INFO("[end]", format);
+
+        //EG_TRACE(variadic_args_to_str(format,args));
     }
 
-    void log_warn(std::string format) {
-        EG_WARN(format);
+    void log_info(std::string format, sol::variadic_args args) {
+        EG_CORE_INFO("[{}]", format);
+        EG_INFO(variadic_args_to_str(format,args));
     }
 
-    void log_error(std::string format) {
-        EG_ERROR(format);
+    void log_warn(std::string format, sol::variadic_args args) {
+        EG_WARN(variadic_args_to_str(format,args));
+    }
+
+    void log_error(std::string format, sol::variadic_args args) {
+        EG_ERROR(variadic_args_to_str(format,args));
     }
 
 

@@ -298,7 +298,7 @@ Entities:
         Fields:
           this: 10059032757938881527
     PhysicsBody:
-      Gravity: 0.1
+      Gravity: 0.2
       Velocity: [0, 0, 0]
       Accelaration: [0, 0, 0]
       Is Solid: true

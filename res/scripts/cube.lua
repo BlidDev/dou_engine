@@ -14,7 +14,7 @@ end
 
 
 function inter(p, e,o)
-    thing:display()
-    return 0
+    scene.manager:set_current("win")
+    return 1
 end
 

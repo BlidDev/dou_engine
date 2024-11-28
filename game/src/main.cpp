@@ -47,7 +47,7 @@ void MainScene::on_create() {
         entity.add_component<ActionsComp>(ActionsComp().add("CubeAction"));
         if (i == lim -1) {
             ph.is_solid = false;
-            ph.lua_callback = {"res/scripts/fps.lua", "inter"};
+            //ph.lua_callback = {"res/scripts/fps.lua", "inter"};
         }
     }
     lua_action_init(this);

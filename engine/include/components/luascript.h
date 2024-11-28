@@ -28,6 +28,8 @@ namespace engine {
         sol::environment env;
         std::string path;
         UUID self;
+        std::string inital_error;
+    private:
     };
 
     struct LuaActionComp {
@@ -48,9 +50,9 @@ namespace engine {
             for (auto& s : scripts) {
                 if (s.path != callback.path)
                     continue;
-                sol::protected_function fn = s.env[callback.function];
+                sol::function fn = s.env[callback.function];
                 EG_ASSERT(!fn, "The scripts {} does not contain {}", callback.path, callback.function);
-                sol::protected_function_result result = fn(std::forward<Args>(args)...);
+                auto result = fn(std::forward<Args>(args)...);
                 if (!result.valid()) {
                     sol::error e = result;
                     EG_ERROR("{}", e.what());

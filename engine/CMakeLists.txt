@@ -25,7 +25,7 @@ set(HEADER_FILES PRIVATE
 
 target_precompile_headers(engine PRIVATE ${HEADER_FILES})
 
-link_directories(game ${YAML_CPP_LIBRARIES}
+link_directories(engine ${YAML_CPP_LIBRARIES}
     ${CMAKE_SOURCE_DIR}/vendor/lua/linux/liblua54.a)
 
 # Link raylib to the engine library
