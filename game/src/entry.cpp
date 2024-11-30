@@ -2,21 +2,21 @@
 #include "macros.h"
 #include "components/action.h"
 #include "actions.h"
-//#include "main.hpp"
+#include "main.hpp"
 #include "game.hpp"
-//#include "win.hpp"
-//#include "test.hpp"
+#include "win.hpp"
+#include "test.hpp"
 
 void register_actions();
 
 int engine::on_start(engine::SceneManager* manager) {
 
     register_actions();
-    //manager->register_scene("main", new MainScene());
-    //manager->register_scene("win", new WinScene());
+    manager->register_scene("main", new MainScene());
+    manager->register_scene("win", new WinScene());
     manager->register_scene("game", new GameScene());
-    //manager->register_scene("test", new TestScene());
-    manager->set_current("game");
+    manager->register_scene("test", new TestScene());
+    manager->set_current("test");
 
 
 
