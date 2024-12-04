@@ -12,7 +12,6 @@ function on_init()
     cm = get_camera(scene, this)
     cm.target   = cm.target + t.position - cm.position
     cm.position = t.position
-    print("what")
 end
 
 function on_update(dt)
@@ -58,3 +57,4 @@ function on_update(dt)
     move.y = 0.0
     ph.velocity = ph.velocity + (move * speed)
 end
+

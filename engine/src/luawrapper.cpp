@@ -146,7 +146,12 @@ namespace engine {
     std::string variadic_args_to_str(std::string& format, sol::variadic_args& args) {
         fmt::dynamic_format_arg_store<fmt::format_context> store;
         for (auto a : args) {
-            store.push_back(a.as<std::string>());
+            if (a.is<int>())
+                store.push_back(a.as<int>());
+            else if (a.is<float>())
+                store.push_back(a.as<float>());
+            else if (a.is<std::string>())
+                store.push_back(a.as<std::string>());
         }
 
         std::string str = fmt::vformat(format, store);
@@ -154,17 +159,10 @@ namespace engine {
     }
 
     void log_trace(std::string format, sol::variadic_args args) {
-        EG_CORE_INFO("[{}]", args.size());
-        for (int i = 0; i < args.size(); i++) {
-            EG_CORE_INFO("{} {}", args.size(), args[i].as<std::string>());
-        }
-        EG_CORE_INFO("[end]", format);
-
-        //EG_TRACE(variadic_args_to_str(format,args));
+        EG_TRACE(variadic_args_to_str(format,args));
     }
 
     void log_info(std::string format, sol::variadic_args args) {
-        EG_CORE_INFO("[{}]", format);
         EG_INFO(variadic_args_to_str(format,args));
     }
 
