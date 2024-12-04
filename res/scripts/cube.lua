@@ -11,12 +11,9 @@ function on_update(dt)
     ph.velocity.z = math.sin(get_time() +  id) * 0.5;
     ph.velocity.x = math.sin(get_time() +  id);
 end
-function on_end()
-    log_warn("jje")
-end
 
 
-function inter(p, e,o)
+function inter(p, e,_)
     scene.manager:set_current("win")
     return 1
 end

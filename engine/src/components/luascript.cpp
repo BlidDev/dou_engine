@@ -29,6 +29,8 @@ namespace engine {
 
     void LuaUpdate::on_init() {
         sol::protected_function init = env["on_init"];
+        if (!init) // does not exist
+            return;
         auto result = init();
         if (!result.valid()) {
             sol::error e = result;
@@ -38,6 +40,8 @@ namespace engine {
 
     void LuaUpdate::on_update(float dt) {
         sol::protected_function update = env["on_update"];
+        if (!update) // does not exist
+            return;
         auto result = update(dt);
         if (!result.valid()) {
             sol::error e = result;
@@ -47,6 +51,8 @@ namespace engine {
 
     void LuaUpdate::on_end() {
         sol::protected_function end = env["on_end"];
+        if (!end) // does not exist
+            return;
         auto result = end();
         if (!result.valid()) {
             sol::error e = result;
