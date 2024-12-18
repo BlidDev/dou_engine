@@ -14,7 +14,7 @@ end
 
 
 function inter(p, e,_)
-    scene.manager:set_current("win")
+    scene.manager:set_current("game")
     return 1
 end
 
