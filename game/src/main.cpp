@@ -1,5 +1,6 @@
 #include "main.hpp"
 #include "actions.h"
+#include <algorithm>
 
 using namespace engine;
 
