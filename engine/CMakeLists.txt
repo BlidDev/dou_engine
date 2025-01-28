@@ -32,4 +32,4 @@ set(LUA_PATH PRIVATE
     "${CMAKE_SOURCE_DIR}/vendor/lua/linux/liblua54.a")
 
 # Link raylib to the engine library
-target_link_libraries(engine PRIVATE raylib YAML_CPP ${LUA_PATH})
+target_link_libraries(engine PRIVATE glfw raylib YAML_CPP ${LUA_PATH})
