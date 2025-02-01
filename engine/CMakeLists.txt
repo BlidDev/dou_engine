@@ -4,7 +4,11 @@ file(GLOB engine_SRC
     "src/*.cpp"
     "src/components/*.cpp"
     )
-add_library(engine STATIC ${engine_SRC})
+
+set(PRIVATE engine_lib_src
+    "vendor/glad/src/*.c"
+)
+add_library(engine STATIC ${engine_SRC} ${engine_lib_src})
 
 
 # Include directories for the engine

@@ -1,4 +1,5 @@
 #include <engine.h>
+#include <GLFW/glfw3.h>
 
 #define SOL_ALL_SAFETIES_ON 1
 
@@ -6,6 +7,8 @@ using namespace engine;
 
 
 int main() {
+
+    glfwInit();
 
     Log::init();
     LuaManager::init();
