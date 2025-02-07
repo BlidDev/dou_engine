@@ -6,22 +6,27 @@
 #include "game.hpp"
 #include "win.hpp"
 #include "test.hpp"
+#include "light.h"
 
 void register_actions();
 
 int engine::on_start(engine::SceneManager* manager) {
 
-    register_actions();
-    manager->register_scene("main", new MainScene());
-    manager->register_scene("win", new WinScene());
-    manager->register_scene("game", new GameScene());
-    manager->register_scene("test", new TestScene());
-    manager->set_current("test");
+    //register_actions();
+    //manager->register_scene("main", new MainScene());
+    //manager->register_scene("win", new WinScene());
+    //manager->register_scene("game", new GameScene());
+    //manager->register_scene("test", new TestScene());
+    manager->register_scene("light", new LightScene());
+    manager->set_current("light");
 
 
 
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
-    InitWindow(848, 480, "raygame");
+    //SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
+    //InitWindow(848, 480, "raygame");
+
+    init_glfw();
+    manager->main_window = Window("notray", 848, 480);
     return 0;
 }
 

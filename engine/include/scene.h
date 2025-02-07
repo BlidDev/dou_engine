@@ -1,6 +1,6 @@
 #pragma once
 #include "components/uuid.h"
-#include "egassert.h"
+#include "window.h"
 #include <espch.h>
 namespace engine {
 
@@ -58,6 +58,7 @@ namespace engine {
     public:
         std::string current;
         bool switched;
+        Window main_window;
     private:
         std::unordered_map<std::string, Scene*>scenes;
     };
