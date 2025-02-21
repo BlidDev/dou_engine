@@ -6,6 +6,7 @@ LightScene::LightScene() : Scene("light") {
 }
 
 void LightScene::on_create() {
+    EG_ASSERT(complie_shader_file("res/shaders/basic.glsl") == -1, "Could not compile shader");
 }
 
 void LightScene::on_update(float dt) {

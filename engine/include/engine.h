@@ -5,6 +5,8 @@
 #include "systems.h"
 #include "entity.h"
 #include "ops.hpp"
+#include "shader.h"
+#include "manager.h"
 
 namespace engine {
     extern int on_start(engine::SceneManager* manager);

@@ -38,28 +38,4 @@ namespace engine {
         std::string name;
         std::unordered_map<UUID, entt::entity> uuids;
     };
-
-
-    class SceneManager {
-    public:
-        SceneManager();
-        Scene* register_scene(const char* name, Scene* scene);
-        Scene* get_scene(const char* name);
-        void set_current(const char* name);
-        void end_scene(Scene* scene);
-        void end();
-
-        void write_scene_to_file(const char* path, Scene* scene);
-        Scene* scene_from_file(const char* path);
-
-        Scene* get_current();
-        ~SceneManager();
-
-    public:
-        std::string current;
-        bool switched;
-        Window main_window;
-    private:
-        std::unordered_map<std::string, Scene*>scenes;
-    };
 }

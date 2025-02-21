@@ -2,6 +2,7 @@
 #include "component.h"
 #include "components/primitive.h"
 #include "scene.h"
+#include "manager.h"
 #include "util.h"
 #include "ops.hpp"
 #include <espch.h>

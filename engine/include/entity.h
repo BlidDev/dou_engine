@@ -1,5 +1,6 @@
 #pragma once
 #include "scene.h"
+#include "manager.h"
 
 
 namespace engine {
