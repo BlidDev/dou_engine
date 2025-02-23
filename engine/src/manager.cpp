@@ -57,8 +57,13 @@ namespace engine {
     }
 
 
+    void SceneManager::register_shader(const char* path) {
+        EG_ASSERT(shader_lib.find(std::string(path)) != shader_lib.end(), "Shader [{}] already registered", path);
+        shader_lib.insert(std::make_pair(std::string(path), complie_shader_file(path)));
+    }
+
     void SceneManager::register_model(const char* name, VAOType format, float vertices[], unsigned int size) {
-        EG_ASSERT(models.find(std::string(name)) != models.end(), "Model [{}] already registered", name);
-        models.insert(std::make_pair(std::string(name), create_model(format, vertices, size)));
+        EG_ASSERT(model_lib.find(std::string(name)) != model_lib.end(), "Model [{}] already registered", name);
+        model_lib.insert(std::make_pair(std::string(name), create_model(format, vertices, size)));
     }
 }

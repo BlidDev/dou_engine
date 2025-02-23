@@ -2,6 +2,8 @@
 #include <espch.h>
 
 namespace engine {
+    /*
+     *
     struct TextComp {
         TextComp() {
             body = "";
@@ -17,5 +19,6 @@ namespace engine {
         int font_size;
         Color color;
     };
+    */
 
 }

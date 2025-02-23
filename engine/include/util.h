@@ -1,30 +1,32 @@
 #pragma once
 #include <espch.h>
-
+#include <glm/glm.hpp>
+#include "components/camera.h"
 namespace engine {
-    float dist_vec3(Vector3& a, Vector3& b);
-    void addop_vec3(Vector3* a, Vector3 b);
-    Vector3 add_vec3(Vector3 a, Vector3 b);
-    Vector3 sub_vec3(Vector3 a, Vector3 b);
-    Vector3 mul_vec3(Vector3& a, Vector3& b);
-    Vector3 mul_vec3_f(Vector3 a, float b);
+    float dist_vec3(glm::vec3& a, glm::vec3& b);
+    //void addop_vec3(glm::vec3* a, glm::vec3 b);
+    //glm::vec3 add_vec3(glm::vec3 a, glm::vec3 b);
+    //glm::vec3 sub_vec3(glm::vec3 a, glm::vec3 b);
+    //glm::vec3 mul_vec3(glm::vec3& a, glm::vec3& b);
+    //glm::vec3 mul_vec3_f(glm::vec3 a, float b);
 
-    Vector3 normalize_vec3(Vector3 a);
-    Vector3 vec3_cross_product(Vector3 a, Vector3 b);
-    float get_magnitude(Vector3 a);
+    //glm::vec3 normalize_vec3(glm::vec3 a);
+    //glm::vec3 vec3_cross_product(glm::vec3 a, glm::vec3 b);
+    float get_magnitude(glm::vec3 a);
 
-    Vector3 get_forward(Vector3& target, Vector3& position);
-    Vector3 get_up(Vector3& up);
-    Vector3 get_right(Vector3& target, Vector3& position, Vector3& up);
-    Vector3 vec3_rotate_by_axis_angle(Vector3 v, Vector3 axis, float angle);
-    float vec3_angle(Vector3 v1, Vector3 v2);
-    Vector3 vec3_neg(Vector3 v);
+    glm::vec3 get_forward(glm::vec3& target, glm::vec3& position);
+    glm::vec3 thing(glm::vec3 yo);
+    glm::vec3 get_up(glm::vec3& up);
+    glm::vec3 get_right(glm::vec3& target, glm::vec3& position, glm::vec3& up);
+    glm::vec3 vec3_rotate_by_axis_angle(glm::vec3 v, glm::vec3 axis, float angle);
+    float vec3_angle(glm::vec3 v1, glm::vec3 v2);
+    glm::vec3 vec3_neg(glm::vec3 v);
 
-    void camera_yaw(Camera* camera, float angle);
-    void camera_pitch(Camera* camera, float angle, bool lock);
-    void handle_mouse_delta(Camera* camera, Vector2 delta, bool lock);
+    void camera_yaw(Camera* camera, glm::vec3 position, float angle);
+    void camera_pitch(Camera* camera, glm::vec3 position, float angle, bool lock);
+    void handle_mouse_delta(Camera* camera, glm::vec3 position,glm::vec2 delta, bool lock);
 
-    bool aabb_3d_intersects(Vector3 a, Vector3 a_s, Vector3 b, Vector3 b_s);
+    bool aabb_3d_intersects(glm::vec3 a, glm::vec3 a_s, glm::vec3 b, glm::vec3 b_s);
 
 
 

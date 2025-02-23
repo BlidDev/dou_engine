@@ -1,7 +1,7 @@
 #include "util.h"
 
 namespace engine {
-    float dist_vec3(Vector3& a, Vector3& b) {
+    float dist_vec3(glm::vec3& a, glm::vec3& b) {
         float x = (b.x - a.x) * (b.x - a.x);
         float y = (b.y - a.y) * (b.y - a.y);
         float z = (b.z - a.z) * (b.z - a.z);
@@ -9,70 +9,32 @@ namespace engine {
     }
 
 
-    void addop_vec3(Vector3* a, Vector3 b) {
-        a->x += b.x;
-        a->y += b.y;
-        a->z += b.z;
-    }
-
-
-
-    Vector3 normalize_vec3(Vector3 a) {
-        float mag = sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
-        return { a.x / mag, a.y/ mag, a.z/ mag };
-    }
-
-    Vector3 vec3_cross_product(Vector3 a, Vector3 b) {
-
-       Vector3 result = { a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x };
-
-       return result;
-    }
-
-
-    float get_magnitude(Vector3 a) {
+    float get_magnitude(glm::vec3 a) {
         return sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
     }
 
-    Vector3 add_vec3(Vector3 a, Vector3 b) {
-        return { a.x + b.x, a.y + b.y, a.z + b.z };
-    }
-    Vector3 sub_vec3(Vector3 a, Vector3 b) {
-        return { a.x - b.x, a.y - b.y, a.z - b.z };
+    
+    glm::vec3 get_forward(glm::vec3& target, glm::vec3& position) {
+        return glm::normalize(target - position);
     }
 
-    Vector3 mul_vec3(Vector3& a, Vector3& b) {
-        return { a.x * b.x, a.y * b.y, a.z * b.z };
+    glm::vec3 get_up(glm::vec3& up) {
+        return glm::normalize(up);
     }
 
-    Vector3 mul_vec3_f(Vector3 a, float b) {
-        return { a.x * b, a.y * b, a.z * b};
-    }
+    glm::vec3 get_right(glm::vec3& target, glm::vec3& position, glm::vec3& up) {
+        glm::vec3 forward = get_forward(target, position);
+        glm::vec3 tmp_up = get_up(up);
 
-    Vector3 get_forward(Vector3& target, Vector3& position) {
-        return normalize_vec3(sub_vec3(target, position));
-    }
-
-    Vector3 get_up(Vector3& up) {
-        return normalize_vec3(up);
-    }
-
-    Vector3 get_right(Vector3& target, Vector3& position, Vector3& up) {
-        Vector3 forward = get_forward(target, position);
-        Vector3 tmp_up = get_up(up);
-
-        return normalize_vec3(vec3_cross_product(forward, tmp_up));
+        return glm::normalize(glm::cross(forward, tmp_up));
     }
 
 
-    Vector3 vec3_rotate_by_axis_angle(Vector3 v, Vector3 axis, float angle)
+    glm::vec3 vec3_rotate_by_axis_angle(glm::vec3 v, glm::vec3 axis, float angle)
     {
-        // Using Euler-Rodrigues Formula
-        // Ref.: https://en.wikipedia.org/w/index.php?title=Euler%E2%80%93Rodrigues_formula
+        glm::vec3 result = v;
 
-        Vector3 result = v;
-
-        // Vector3Normalize(axis);
+        // glm::vec3Normalize(axis);
         float length = sqrtf(axis.x*axis.x + axis.y*axis.y + axis.z*axis.z);
         if (length == 0.0f) length = 1.0f;
         float ilength = 1.0f/length;
@@ -86,21 +48,21 @@ namespace engine {
         float c = axis.y*a;
         float d = axis.z*a;
         a = cosf(angle);
-        Vector3 w = { b, c, d };
+        glm::vec3 w = { b, c, d };
 
-        // Vector3CrossProduct(w, v)
-        Vector3 wv = { w.y*v.z - w.z*v.y, w.z*v.x - w.x*v.z, w.x*v.y - w.y*v.x };
+        // glm::vec3CrossProduct(w, v)
+        glm::vec3 wv = { w.y*v.z - w.z*v.y, w.z*v.x - w.x*v.z, w.x*v.y - w.y*v.x };
 
-        // Vector3CrossProduct(w, wv)
-        Vector3 wwv = { w.y*wv.z - w.z*wv.y, w.z*wv.x - w.x*wv.z, w.x*wv.y - w.y*wv.x };
+        // glm::vec3CrossProduct(w, wv)
+        glm::vec3 wwv = { w.y*wv.z - w.z*wv.y, w.z*wv.x - w.x*wv.z, w.x*wv.y - w.y*wv.x };
 
-        // Vector3Scale(wv, 2*a)
+        // glm::vec3Scale(wv, 2*a)
         a *= 2;
         wv.x *= a;
         wv.y *= a;
         wv.z *= a;
 
-        // Vector3Scale(wwv, 2)
+        // glm::vec3Scale(wwv, 2)
         wwv.x *= 2;
         wwv.y *= 2;
         wwv.z *= 2;
@@ -117,11 +79,11 @@ namespace engine {
     }
 
 
-    float vec3_angle(Vector3 v1, Vector3 v2) {
+    float vec3_angle(glm::vec3 v1, glm::vec3 v2) {
 
         float result = 0.0f;
 
-        Vector3 cross = { v1.y*v2.z - v1.z*v2.y, v1.z*v2.x - v1.x*v2.z, v1.x*v2.y - v1.y*v2.x };
+        glm::vec3 cross = { v1.y*v2.z - v1.z*v2.y, v1.z*v2.x - v1.x*v2.z, v1.x*v2.y - v1.y*v2.x };
         float len = sqrtf(cross.x*cross.x + cross.y*cross.y + cross.z*cross.z);
         float dot = (v1.x*v2.x + v1.y*v2.y + v1.z*v2.z);
         result = atan2f(len, dot);
@@ -129,35 +91,35 @@ namespace engine {
         return result;
     }
 
-    Vector3 vec3_neg(Vector3 v)
+    glm::vec3 vec3_neg(glm::vec3 v)
     {
-        Vector3 result = { -v.x, -v.y, -v.z };
+        glm::vec3 result = { -v.x, -v.y, -v.z };
 
         return result;
     }
 
-    void camera_yaw(Camera* camera, float angle) {
+    void camera_yaw(Camera* camera, glm::vec3 position, float angle) {
 
         // Rotation axis
-        Vector3 up = get_up(camera->up);
+        glm::vec3 up = get_up(camera->up);
 
         // View vector
-        Vector3 targetPosition = sub_vec3(camera->target, camera->position);
+        glm::vec3 target_position = camera->target - position;
 
         // Rotate view vector around up axis
-        targetPosition = vec3_rotate_by_axis_angle(targetPosition, up, angle);
+        target_position = vec3_rotate_by_axis_angle(target_position, up, angle);
 
         // Move target relative to position
-        camera->target = add_vec3(camera->position, targetPosition);
+        camera->target = position + target_position;
     }
 
-    void camera_pitch(Camera* camera, float angle, bool lock) {
+    void camera_pitch(Camera* camera,glm::vec3 position,  float angle, bool lock) {
 
         // Up direction
-        Vector3 up = get_up(camera->up);
+        glm::vec3 up = get_up(camera->up);
 
         // View vector
-        Vector3 targetPosition = sub_vec3(camera->target, camera->position);
+        glm::vec3 target_position = camera->target - position;
 
         if (lock)
         {
@@ -165,34 +127,34 @@ namespace engine {
             // to allow only viewing straight up or down.
 
             // Clamp view up
-            float maxAngleUp = vec3_angle(up, targetPosition);
+            float maxAngleUp = vec3_angle(up, target_position);
             maxAngleUp -= 0.001f; // avoid numerical errors
             if (angle > maxAngleUp) angle = maxAngleUp;
 
             // Clamp view down
-            float maxAngleDown = vec3_angle(vec3_neg(up), targetPosition);
+            float maxAngleDown = vec3_angle(vec3_neg(up), target_position);
             maxAngleDown *= -1.0f; // downwards angle is negative
             maxAngleDown += 0.001f; // avoid numerical errors
             if (angle < maxAngleDown) angle = maxAngleDown;
         }
 
         // Rotation axis
-        Vector3 right = get_right(camera->target, camera->position,up);
+        glm::vec3 right = get_right(camera->target, position,up);
 
         // Rotate view vector around right axis
-        targetPosition = vec3_rotate_by_axis_angle(targetPosition, right, angle);
+        target_position = vec3_rotate_by_axis_angle(target_position, right, angle);
 
-        camera->target = add_vec3(camera->position, targetPosition);
+        camera->target = position + target_position;
 
     }
 
-    void handle_mouse_delta(Camera* camera, Vector2 delta, bool lock) { 
-        camera_yaw(camera, -delta.x * DEG2RAD);
-        camera_pitch(camera, -delta.y * DEG2RAD, lock);
+    void handle_mouse_delta(Camera* camera, glm::vec3 position, glm::vec2 delta, bool lock) { 
+        camera_yaw  (camera, position, glm::radians(-delta.x));
+        camera_pitch(camera, position, glm::radians(-delta.y), lock);
     }
 
 
-    bool aabb_3d_intersects(Vector3 a, Vector3 a_s, Vector3 b, Vector3 b_s) {
+    bool aabb_3d_intersects(glm::vec3 a, glm::vec3 a_s, glm::vec3 b, glm::vec3 b_s) {
 
         return (
            std::abs(a.x - b.x) * 2 < (a_s.x + b_s.x) &&

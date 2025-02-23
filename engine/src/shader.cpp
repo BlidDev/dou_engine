@@ -29,7 +29,6 @@ namespace engine {
         file.close();
         std::string  v = streams[Vertex].str();
         std::string  f = streams[Fragment].str();
-        std::cout<<v<<'\n'<<f;
 
         return ShaderReturn {v,f};
     }

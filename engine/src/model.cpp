@@ -1,4 +1,5 @@
 #include "model.h"
+#include "log.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -11,10 +12,14 @@ namespace engine {
                 glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
                 glEnableVertexAttribArray(0);
                 break;
-            default: EG_CORE_ERROR("Unimplemented VAO format [{}]", (int)format);break;
+            default: EG_CORE_ERROR("Unimplemented VAO format [{}]", (int)format); return -1;break;
         }
 
+        return 0;
+
     }
+    
+    void thing(int a);
 
     Model create_model(VAOType format, float vertices[], unsigned int size) {
         unsigned int VBO, VAO;
@@ -23,7 +28,7 @@ namespace engine {
         glBindVertexArray(VAO);
 
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, size * sizeof(float), vertices, GL_STATIC_DRAW);
 
         apply_format(format);
 

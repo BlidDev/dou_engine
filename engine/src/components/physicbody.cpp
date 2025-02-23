@@ -13,7 +13,7 @@ namespace engine {
         intersects_callback = nullptr;
     }
 
-    PhysicsBodyComp::PhysicsBodyComp(float gravity, Vector3 velocity, Vector3 acceleration, bool is_solid, bool is_static) {
+    PhysicsBodyComp::PhysicsBodyComp(float gravity, glm::vec3 velocity, glm::vec3 acceleration, bool is_solid, bool is_static) {
         this->gravity     =  gravity     ;
         this->velocity    =  velocity    ;
         this->acceleration=  acceleration;
@@ -27,11 +27,11 @@ namespace engine {
         physicbody.gravity = gravity;
         return *this;
     }
-    PhysicsBodyBuilder& PhysicsBodyBuilder::velocity(Vector3 velocity) {
+    PhysicsBodyBuilder& PhysicsBodyBuilder::velocity(glm::vec3 velocity) {
         physicbody.velocity = velocity;
         return *this;
     }
-    PhysicsBodyBuilder& PhysicsBodyBuilder::acceleration(Vector3 acceleration) {
+    PhysicsBodyBuilder& PhysicsBodyBuilder::acceleration(glm::vec3 acceleration) {
         physicbody.acceleration = acceleration;
         return *this;
     }

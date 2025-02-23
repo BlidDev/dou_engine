@@ -18,14 +18,18 @@ int main() {
 
     Scene* current = manager.get_current();
 
+    double start = glfwGetTime();
     while (!current->should_close())
     {
+        double now = glfwGetTime();
+        double dt = now - start;
         if (manager.switched) { 
             current = manager.get_current();
             manager.switched = false;
             current->on_create();
         }
-        current->on_update(GetFrameTime());
+        current->on_update(dt);
+        start = now;
     }
 
 

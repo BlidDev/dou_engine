@@ -27,9 +27,6 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/${CMAKE_SYSTEM_NAME}
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/${CMAKE_SYSTEM_NAME} - ${CMAKE_SYSTEM_PROCESSOR}/${CMAKE_BUILD_TYPE}/game")
 
 
-# Include raylib if needed
-set(RAYLIB_DIR "${CMAKE_SOURCE_DIR}/raylib")
-
 # Add subdirectories for the engine library and the game executable
 
 add_subdirectory("vendor/spdlog")

@@ -1,11 +1,6 @@
 #include <epch.h>
 #include "macros.h"
 #include "components/action.h"
-#include "actions.h"
-#include "main.hpp"
-#include "game.hpp"
-#include "win.hpp"
-#include "test.hpp"
 #include "light.h"
 
 void register_actions();
@@ -20,12 +15,6 @@ int engine::on_start(engine::SceneManager* manager) {
     manager->register_scene("light", new LightScene());
     manager->set_current("light");
 
-
-
-    //SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
-    //InitWindow(848, 480, "raygame");
-
-    init_glfw();
     manager->main_window = Window("notray", 848, 480);
     return 0;
 }
@@ -33,13 +22,12 @@ int engine::on_start(engine::SceneManager* manager) {
 
 int engine::on_end() {
 
-    CloseWindow();
+    glfwTerminate();
     return 0;
 }
 
 void register_actions() {
-    engine::ActionsComp::register_action("PlayerAction", new PlayerAction);
-    engine::ActionsComp::register_action("FPSAction", new FPSAction(0));
-    engine::ActionsComp::register_action("CubeAction", new CubeAction);
-
+    //engine::ActionsComp::register_action("PlayerAction", new PlayerAction);
+    //engine::ActionsComp::register_action("FPSAction", new FPSAction(0));
+    //engine::ActionsComp::register_action("CubeAction", new CubeAction);
 }

@@ -1,7 +1,5 @@
 #ifndef ESPCH
 #define ESPCH
-
-#include <raylib.h>
 #include <entt.hpp>
 #include <yaml-cpp/yaml.h>
 #include <sol/sol.hpp>

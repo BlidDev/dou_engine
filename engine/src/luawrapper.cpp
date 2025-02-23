@@ -1,10 +1,8 @@
 #include "luawrapper.h"
 #include "component.h"
-#include "components/primitive.h"
 #include "scene.h"
 #include "manager.h"
 #include "util.h"
-#include "ops.hpp"
 #include <espch.h>
 #include "spdlog/fmt/bundled/args.h"
 #include "spdlog/fmt/bundled/core.h"
@@ -28,19 +26,18 @@ namespace engine {
     void expose_env_functions(sol::state& env) {
         env.set_function("get_tag", get_uuid_component<TagComp>);
         env.set_function("get_transfrom", get_uuid_component<TransformComp>);
-        env.set_function("get_primitive", get_uuid_component<PrimitiveComp>);
         env.set_function("get_action", get_uuid_component<ActionsComp>);
-        env.set_function("get_text", get_uuid_component<TextComp>);
+        //env.set_function("get_text", get_uuid_component<TextComp>);
         env.set_function("get_physicbody", get_uuid_component<PhysicsBodyComp>);
         env.set_function("get_camera", get_uuid_component<Camera>);
         env.set_function("get_script", get_uuid_component<LuaActionComp>);
 
-        env.set_function("color_from_hsv", ColorFromHSV);
-        env.set_function("get_fps", GetFPS);
-        env.set_function("get_time", GetTime);
-        env.set_function("get_key_pressed", GetKeyPressed);
-        env.set_function("is_key_down", IsKeyDown);
-        env.set_function("get_mouse_delta", GetMouseDelta);
+        //env.set_function("color_from_hsv", ColorFromHSV);
+        //env.set_function("get_fps", GetFPS);
+        //env.set_function("get_time", GetTime);
+        //env.set_function("get_key_pressed", GetKeyPressed);
+        //env.set_function("is_key_down", IsKeyDown);
+        //env.set_function("get_mouse_delta", GetMouseDelta);
         env.set_function("handle_mouse_delta", handle_mouse_delta);
         env.set_function("get_forward", get_forward);
         env.set_function("get_right", get_right);
@@ -69,37 +66,26 @@ namespace engine {
 
         bind_vectors(env);
 
-        auto cl = env.new_usertype<Color>("Color");
-        cl["r"] = &Color::r;
-        cl["g"] = &Color::g;
-        cl["b"] = &Color::b;
-        cl["a"] = &Color::a;
+        auto cl = env.new_usertype<glm::vec4>("Color");
+        cl["r"] = &glm::vec4::r;
+        cl["g"] = &glm::vec4::g;
+        cl["b"] = &glm::vec4::b;
+        cl["a"] = &glm::vec4::a;
 
         auto tg = env.new_usertype<TagComp> ("Tag",
                 sol::constructors<TagComp(), TagComp(std::string)>());
         tg["tag"] = &TagComp::tag;
 
         auto tr = env.new_usertype<TransformComp>("Transform",
-                sol::constructors<TransformComp(Vector3,Vector3)>());
+                sol::constructors<TransformComp(glm::vec3,glm::vec3)>());
         tr["position"] = &TransformComp::position;
         tr["size"] = &TransformComp::size;
 
-        env.new_enum("Shape", 
-                "PLANE", PrimitiveComp::Shape::PLANE,
-                "CUBE", PrimitiveComp::Shape::CUBE,
-                "SPHERE", PrimitiveComp::Shape::SPHERE);
-
-        auto pr = env.new_usertype<PrimitiveComp>("Primitive",
-                    sol::constructors<PrimitiveComp(PrimitiveComp::Shape, Color, int)>());
-        pr["shape"] = &PrimitiveComp::shape;
-        pr["color"] = &PrimitiveComp::color;
-        pr["attributes"] = &PrimitiveComp::attributes;
-
-        auto tx = env.new_usertype<TextComp>("Text",
-                sol::constructors<TextComp(), TextComp(std::string, int, Color)>());
-        tx["body"] = &TextComp::body;
-        tx["font_size"] = &TextComp::font_size;
-        tx["color"] = &TextComp::color;
+        //auto tx = env.new_usertype<TextComp>("Text",
+        //        sol::constructors<TextComp(), TextComp(std::string, int, Color)>());
+        //tx["body"] = &TextComp::body;
+        //tx["font_size"] = &TextComp::font_size;
+        //tx["color"] = &TextComp::color;
 
         auto ph = env.new_usertype<PhysicsBodyComp>("PhysicsBody",
                 sol::constructors<PhysicsBodyComp()>());
@@ -122,7 +108,6 @@ namespace engine {
         phb["build"] =        &PhysicsBodyBuilder::build;
 
         auto cmt = env.new_usertype<Camera>("Camera");
-        cmt["position"] = &Camera::position;
         cmt["target"] = &Camera::target;
         cmt["up"] = &Camera::up;
         cmt["fovy"] = &Camera::fovy;
@@ -131,7 +116,6 @@ namespace engine {
         auto cm = env.new_usertype<CameraBuilder>("CameraBuilder",
                 sol::constructors<CameraBuilder()>());
 
-        cm["position"] =   &CameraBuilder::position;
         cm["traget"] =     &CameraBuilder::target;
         cm["up"]     =     &CameraBuilder::up;
         cm["fovy"] =       &CameraBuilder::fovy;
@@ -139,8 +123,8 @@ namespace engine {
         cm["build"] =      &CameraBuilder::build;
 
         env.new_enum("Shape", 
-                "CAMERA_PERSPECTIVE", CameraProjection::CAMERA_PERSPECTIVE,
-                "CAMERA_ORTHOGRAPHIC", CameraProjection::CAMERA_ORTHOGRAPHIC);
+                "CAMERA_PERSPECTIVE", CameraProjection::Perspective,
+                "CAMERA_ORTHOGRAPHIC", CameraProjection::Orthographic);
 
     }
 
@@ -178,27 +162,27 @@ namespace engine {
 
     void bind_vectors(sol::state& env) {
 
-        auto v2 = env.new_usertype<Vector2>( "Vector2", 
-                sol::constructors<Vector2(float, float),Vector2()>());
-        v2["x"] = &Vector2::x;
-        v2["y"] = &Vector2::y;
+        auto v2 = env.new_usertype<glm::vec2>( "glm::vec2", 
+                sol::constructors<glm::vec2(float, float),glm::vec2()>());
+        v2["x"] = &glm::vec2::x;
+        v2["y"] = &glm::vec2::y;
         
-        auto v3 = env.new_usertype<Vector3>( "Vector3", 
-                sol::constructors<Vector3(float, float, float),Vector3()>());
-        v3[sol::meta_function::addition] = [](const Vector3* l, const Vector3* r) {
+        auto v3 = env.new_usertype<glm::vec3>( "glm::vec3", 
+                sol::constructors<glm::vec3(float, float, float),glm::vec3()>());
+        v3[sol::meta_function::addition] = [](const glm::vec3* l, const glm::vec3* r) {
             return *l + *r;
         };
 
-        v3[sol::meta_function::subtraction] = [](const Vector3* l, const Vector3* r) {
+        v3[sol::meta_function::subtraction] = [](const glm::vec3* l, const glm::vec3* r) {
             return *l - *r;
         };
 
-        v3[sol::meta_function::multiplication] = [](const Vector3* l, const float& r) {
+        v3[sol::meta_function::multiplication] = [](const glm::vec3* l, const float& r) {
             return *l * r;
         };
 
-        v3["x"] = &Vector3::x;
-        v3["y"] = &Vector3::y;
-        v3["z"] = &Vector3::z;
+        v3["x"] = &glm::vec3::x;
+        v3["y"] = &glm::vec3::y;
+        v3["z"] = &glm::vec3::z;
     }
 }

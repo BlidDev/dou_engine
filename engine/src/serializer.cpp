@@ -1,12 +1,13 @@
 #include <espch.h>
-#include "components/primitive.h"
+#include <glm/glm.hpp>
 #include "component.h"
 #include "entity.h"
+#include "manager.h"
 
 namespace YAML {
     template <>
-    struct convert<Vector3> {
-        static Node encode(const Vector3& rhs) {
+    struct convert<glm::vec3> {
+        static Node encode(const glm::vec3& rhs) {
             Node node;
             node.push_back(rhs.x);
             node.push_back(rhs.y);
@@ -14,7 +15,7 @@ namespace YAML {
             return node;
         }
 
-        static bool decode(const Node& node, Vector3& rhs) {
+        static bool decode(const Node& node, glm::vec3& rhs) {
             if(!node.IsSequence() || node.size() != 3)
                 return false;
             rhs.x = node[0].as<float>();
@@ -43,8 +44,8 @@ namespace YAML {
     };
 
     template <>
-    struct convert<Color> {
-        static Node encode(const Color& rhs) {
+    struct convert<glm::vec4> {
+        static Node encode(const glm::vec4& rhs) {
             Node node;
             node.push_back((int)rhs.r);
             node.push_back((int)rhs.g);
@@ -53,7 +54,7 @@ namespace YAML {
             return node;
         }
 
-        static bool decode(const Node& node, Color& rhs) {
+        static bool decode(const Node& node, glm::vec4& rhs) {
             if(!node.IsSequence() || node.size() != 4)
                 return false;
             rhs.r = (unsigned char)node[0].as<int>();
@@ -67,13 +68,13 @@ namespace YAML {
 
 namespace engine {
 
-    YAML::Emitter& operator<<(YAML::Emitter& out, const Vector3& v) {
+    YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec3& v) {
         out<<YAML::Flow;
         out<<YAML::BeginSeq<<v.x<<v.y<<v.z<<YAML::EndSeq;
         return out;
     }
 
-    YAML::Emitter& operator<<(YAML::Emitter& out, const Color& c) {
+    YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec4& c) {
         out<<YAML::Flow;
         out<<YAML::BeginSeq<<(int)c.r<<(int)c.g<<(int)c.b<<(int)c.a<<YAML::EndSeq;
         return out;
@@ -83,18 +84,6 @@ namespace engine {
         out<<YAML::Flow;
         out<<YAML::BeginSeq<<l.path<<l.function<<YAML::EndSeq;
         return out;
-    }
-
-    static PrimitiveComp::Shape str_to_shape(const std::string str) {
-        if (str == "PLANE")
-            return PrimitiveComp::PLANE;
-        if (str == "CUBE")
-            return PrimitiveComp::CUBE;
-        if (str == "SPHERE")
-            return PrimitiveComp::SPHERE;
-
-        EG_ASSERT(true, "Trying to pasrse unkown shape [{}]", str);
-        return PrimitiveComp::PLANE;
     }
 
     static void write_entity_to_file(YAML::Emitter& out, Entity& entity) {
@@ -116,21 +105,21 @@ namespace engine {
             out<<YAML::EndMap;
         }
 
-        if (entity.has_component<PrimitiveComp>()) {
-            out<<YAML::Key<<"Primitive"<<YAML::BeginMap;
-                auto& p = entity.get_component<PrimitiveComp>();
-                out<<YAML::Key<<"Color"<<YAML::Value<<p.color;
-                const char* shapes[] = {"PLANE","CUBE","SPHERE"};
-                out<<YAML::Key<<"Shape"<<YAML::Value<<shapes[(int)p.shape];
-                out<<YAML::Key<<"Attributes"<<YAML::BeginMap;
-                    out<<YAML::Key<<"Filled"<<YAML::Value<<((PRIMITVE_FILLED & p.attributes) == PRIMITVE_FILLED);
-                    out<<YAML::Key<<"Wireframe"<<YAML::Value<<((PRIMITVE_WIREFRAME & p.attributes) == PRIMITVE_WIREFRAME);
-                    out << YAML::Key << "Immune" << YAML::Value
-                        << ((PRIMITVE_IMMUNE & p.attributes) ==
-                            PRIMITVE_IMMUNE);
-                    out<<YAML::EndMap;
-            out<<YAML::EndMap;
-        }
+        //if (entity.has_component<PrimitiveComp>()) {
+        //    out<<YAML::Key<<"Primitive"<<YAML::BeginMap;
+        //        auto& p = entity.get_component<PrimitiveComp>();
+        //        out<<YAML::Key<<"Color"<<YAML::Value<<p.color;
+        //        const char* shapes[] = {"PLANE","CUBE","SPHERE"};
+        //        out<<YAML::Key<<"Shape"<<YAML::Value<<shapes[(int)p.shape];
+        //        out<<YAML::Key<<"Attributes"<<YAML::BeginMap;
+        //            out<<YAML::Key<<"Filled"<<YAML::Value<<((PRIMITVE_FILLED & p.attributes) == PRIMITVE_FILLED);
+        //            out<<YAML::Key<<"Wireframe"<<YAML::Value<<((PRIMITVE_WIREFRAME & p.attributes) == PRIMITVE_WIREFRAME);
+        //            out << YAML::Key << "Immune" << YAML::Value
+        //                << ((PRIMITVE_IMMUNE & p.attributes) ==
+        //                    PRIMITVE_IMMUNE);
+        //            out<<YAML::EndMap;
+        //    out<<YAML::EndMap;
+        //}
 
         if (entity.has_component<ActionsComp>()) {
             out<<YAML::Key<<"Native Actions"<<YAML::BeginSeq;
@@ -144,14 +133,14 @@ namespace engine {
             out<<YAML::EndSeq;
         }
 
-        if (entity.has_component<TextComp>()) {
-            out<<YAML::Key<<"Text"<<YAML::BeginMap;
-                auto& text = entity.get_component<TextComp>();
-                out<<YAML::Key<<"Body"<<YAML::Value<<text.body;
-                out<<YAML::Key<<"Font Size"<<YAML::Value<<text.font_size;
-                out<<YAML::Key<<"Color"<<YAML::Value<<text.color;
-            out<<YAML::EndMap;
-        }
+        //if (entity.has_component<TextComp>()) {
+        //    out<<YAML::Key<<"Text"<<YAML::BeginMap;
+        //        auto& text = entity.get_component<TextComp>();
+        //        out<<YAML::Key<<"Body"<<YAML::Value<<text.body;
+        //        out<<YAML::Key<<"Font Size"<<YAML::Value<<text.font_size;
+        //        out<<YAML::Key<<"Color"<<YAML::Value<<text.color;
+        //    out<<YAML::EndMap;
+        //}
 
         if (entity.has_component<PhysicsBodyComp>()) {
             out<<YAML::Key<<"PhysicsBody"<<YAML::BeginMap;
@@ -171,7 +160,6 @@ namespace engine {
         if (entity.has_component<Camera>()) {
             out<<YAML::Key<<"Camera"<<YAML::BeginMap;
                 auto& c = entity.get_component<Camera>();
-                out<<YAML::Key<<"Position"<<YAML::Value<<c.position;
                 out<<YAML::Key<<"Target"<<YAML::Value<<c.target;
                 out<<YAML::Key<<"Up"<<YAML::Value<<c.up;
                 out<<YAML::Key<<"FovY"<<YAML::Value<<c.fovy;
@@ -214,22 +202,22 @@ namespace engine {
         auto transform_comp = entity["Transform"];
         if (transform_comp) {
             TransformComp& tc = read_entity.add_component<TransformComp>();
-            tc.position = transform_comp["Position"].as<Vector3>();
-            tc.size = transform_comp["Size"].as<Vector3>();
+            tc.position = transform_comp["Position"].as<glm::vec3>();
+            tc.size = transform_comp["Size"].as<glm::vec3>();
         }
 
-        auto primitive_comp = entity["Primitive"];
-        if (primitive_comp) {
-            PrimitiveComp& p = read_entity.add_component<PrimitiveComp>();
-            p.color = primitive_comp["Color"].as<Color>();
-            const std::string shape = primitive_comp["Shape"].as<std::string>();
-            p.shape = str_to_shape(shape);
-            auto attributes = primitive_comp["Attributes"];
-            p.attributes = 0;
-            p.attributes |= attributes["Filled"].as<bool>() ?    PRIMITVE_FILLED : 0;
-            p.attributes |= attributes["Wireframe"].as<bool>() ? PRIMITVE_WIREFRAME : 0;
-            p.attributes |= attributes["Immune"].as<bool>() ?    PRIMITVE_IMMUNE : 0;
-        }
+        //auto primitive_comp = entity["Primitive"];
+        //if (primitive_comp) {
+        //    PrimitiveComp& p = read_entity.add_component<PrimitiveComp>();
+        //    p.color = primitive_comp["Color"].as<glm::vec3>();
+        //    const std::string shape = primitive_comp["Shape"].as<std::string>();
+        //    p.shape = str_to_shape(shape);
+        //    auto attributes = primitive_comp["Attributes"];
+        //    p.attributes = 0;
+        //    p.attributes |= attributes["Filled"].as<bool>() ?    PRIMITVE_FILLED : 0;
+        //    p.attributes |= attributes["Wireframe"].as<bool>() ? PRIMITVE_WIREFRAME : 0;
+        //    p.attributes |= attributes["Immune"].as<bool>() ?    PRIMITVE_IMMUNE : 0;
+        //}
 
         auto actions_comp = entity["Native Actions"];
         if (actions_comp) {
@@ -240,22 +228,22 @@ namespace engine {
                 a->dserialize(action);
             }
         }
-        auto text = entity["Text"];
-        if(text) {
-            TextComp& t = read_entity.add_component<TextComp>();
-            t.body = text["Body"].as<std::string>();
-            t.font_size = text["Font Size"].as<int>();
-            t.color = text["Color"].as<Color>();
-        }
+        //auto text = entity["Text"];
+        //if(text) {
+        //    TextComp& t = read_entity.add_component<TextComp>();
+        //    t.body = text["Body"].as<std::string>();
+        //    t.font_size = text["Font Size"].as<int>();
+        //    t.color = text["Color"].as<Color>();
+        //}
 
         auto physicbody = entity["PhysicsBody"];
         if(physicbody) {
             PhysicsBodyComp& ph = read_entity.add_component<PhysicsBodyComp>(); 
             ph.gravity = physicbody["Gravity"].as<float>();
-            ph.velocity = physicbody["Velocity"].as<Vector3>();
+            ph.velocity = physicbody["Velocity"].as<glm::vec3>();
             ph.is_solid = physicbody["Is Solid"].as<bool>();
             ph.is_static = physicbody["Is Static"].as<bool>();
-            ph.move_delta = physicbody["Move Delta"].as<Vector3>();
+            ph.move_delta = physicbody["Move Delta"].as<glm::vec3>();
             auto inter = physicbody["Intersect Callback"];
             if (inter) {
                 ph.lua_callback = inter.as<LuaCallback>();
@@ -265,11 +253,10 @@ namespace engine {
         auto camera = entity["Camera"];
         if(camera) {
             Camera& c = read_entity.add_component<Camera>();
-            c.position = camera["Position"].as<Vector3>();
-            c.target = camera["Target"].as<Vector3>();
-            c.up = camera["Up"].as<Vector3>();
+            c.target = camera["Target"].as<glm::vec3>();
+            c.up = camera["Up"].as<glm::vec3>();
             c.fovy = camera["FovY"].as<float>();
-            c.projection = camera["Projection"].as<int>();
+            c.projection = (CameraProjection)camera["Projection"].as<int>();
         }
 
         auto lua_actions = entity["Lua Actions"];

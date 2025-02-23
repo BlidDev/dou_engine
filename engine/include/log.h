@@ -1,6 +1,6 @@
 #pragma once
-#include <espch.h>
-
+#include <spdlog/spdlog.h>
+#include <memory.h>
 
 namespace engine {
     struct Log {

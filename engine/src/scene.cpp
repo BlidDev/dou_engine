@@ -1,5 +1,7 @@
 #include "scene.h"
 #include "entity.h"
+#include "manager.h"
+#include "assert.h"
 
 namespace engine 
 {
@@ -24,5 +26,21 @@ namespace engine
         EG_ASSERT(uuids.find(uuid) == uuids.end(), "ERROR: Unknown UUID {}", uuid.get_uuid());
         return uuids[uuid];
     }
+
+    void Scene::register_shader(const char* name) {
+        manager->register_shader(name);
+    }
+
+    Shader Scene::get_shader(const char* name) {
+        EG_ASSERT(manager->shader_lib.find(name) == manager->shader_lib.end(), "Could not find registered shader [{}]", name);
+
+        return manager->shader_lib.at(std::string(name));
+    }
+    Model Scene::get_model(const char* name) {
+        EG_ASSERT(manager->model_lib.find(name) == manager->model_lib.end(), "Could not find registered model [{}]", name);
+
+        return manager->model_lib.at(std::string(name));
+    }
+
 
 }

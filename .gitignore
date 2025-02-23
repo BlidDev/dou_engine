@@ -56,3 +56,4 @@ _deps
 
 bin
 .cache
+ninja.build

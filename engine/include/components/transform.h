@@ -1,23 +1,24 @@
 #pragma once
 #include <espch.h>
+#include <glm/glm.hpp>
 
 
 namespace engine {
 
     struct TransformComp {
-        Vector3 position;
-        Vector3 size;
+        glm::vec3 position;
+        glm::vec3 size;
 
-        TransformComp(Vector3 position = {0.0f, 0.0f, 0.0f},Vector3 size = {1.0f, 1.0f, 1.0f}) {
+        TransformComp(glm::vec3 position = {0.0f, 0.0f, 0.0f},glm::vec3 size = {1.0f, 1.0f, 1.0f}) {
             this->position = position;
             this->size = size;
         }
-        //Vector3 rotation;
+        //glm::vec3 rotation;
     };
 
     struct TransformBuilder {
-        TransformBuilder& position(Vector3 position);
-        TransformBuilder& size(Vector3 size);
+        TransformBuilder& position(glm::vec3 position);
+        TransformBuilder& size(glm::vec3 size);
 
         TransformComp build() {
             return this->transform;

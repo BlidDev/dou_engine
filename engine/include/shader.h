@@ -1,3 +1,4 @@
+#pragma once
 #include <espch.h>
 
 namespace engine {
@@ -8,4 +9,6 @@ namespace engine {
 
     ShaderReturn parse_shader_file(const char* path);
     int complie_shader_file(const char* path);
+
+    using Shader = uint32_t;
 }

@@ -18,14 +18,15 @@ target_include_directories(engine PUBLIC
     ${CMAKE_SOURCE_DIR}/vendor/lua/include
     ${CMAKE_SOURCE_DIR}/vendor/sol2/include/
     ${CMAKE_SOURCE_DIR}/vendor/glad/include/
+    ${CMAKE_SOURCE_DIR}/vendor/glm
     ${CMAKE_SOURCE_DIR}/engine/include
     ${RAYLIB_DIR}/src
 )
 
 
-set(HEADER_FILES PRIVATE 
-    "${CMAKE_SOURCE_DIR}/engine/include/espch.h"
-    )
+# set(HEADER_FILES PRIVATE 
+#     "${CMAKE_SOURCE_DIR}/engine/include/espch.h"
+#     )
 
 target_precompile_headers(engine PRIVATE ${HEADER_FILES})
 
@@ -40,5 +41,4 @@ link_directories(engine
 set(LUA_PATH PRIVATE
     "${CMAKE_SOURCE_DIR}/vendor/lua/linux/liblua54.a")
 
-# Link raylib to the engine library
-target_link_libraries(engine PRIVATE glfw OpenGL::GL raylib YAML_CPP GLAD ${LUA_PATH})
+target_link_libraries(engine PRIVATE glfw OpenGL::GL YAML_CPP GLAD ${LUA_PATH})

@@ -15,6 +15,7 @@ target_include_directories(game PRIVATE
     ${YAML_CPP_INCLUDE_DIRS}
     ${RAYLIB_DIR}/src
     ${CMAKE_SOURCE_DIR}/vendor/glad/include/
+    ${CMAKE_SOURCE_DIR}/vendor/glm
 )
 
 
@@ -22,11 +23,11 @@ link_directories(game
     ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libYAML_CPP.a
     )
 
-set(HEADER_FILES PRIVATE 
-    "${CMAKE_SOURCE_DIR}/engine/include/epch.h")
+    # set(HEADER_FILES PRIVATE 
+    #     "${CMAKE_SOURCE_DIR}/engine/include/epch.h")
 
 find_package(OpenGL REQUIRED)
 
 target_precompile_headers(game PRIVATE ${HEADER_FILES})
 
-target_link_libraries(game PRIVATE YAML_CPP glfw  OpenGL::GL engine raylib)
+target_link_libraries(game PRIVATE YAML_CPP glfw  OpenGL::GL engine)
