@@ -15,6 +15,9 @@ namespace engine {
         CameraProjection projection;
     };
 
+    glm::mat4 get_camera_proj(Camera& camera, glm::vec2 view_size);
+    glm::mat4 get_camera_view(Camera& camera, glm::vec3 position);
+
     struct CameraBuilder {
         CameraBuilder();
 

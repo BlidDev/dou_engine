@@ -1,12 +1,10 @@
-#include <entt.hpp>
-#include <cstdio>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include "systems.h"
-#include "macros.h"
+#include "systems/physicsys.h"
 #include "util.h"
-#include "component.h"
+#include "macros.h"
+#include "components/transform.h"
+#include "components/physicbody.h"
+#include "components/luascript.h"
+
 
 namespace engine {
 
@@ -14,75 +12,6 @@ namespace engine {
     void apply_drag(glm::vec3& vel, glm::vec3& drag);
     bool does_intersect_on_axis(float a, float b, float a_m, float b_m);
 
-    void actions(Scene* scene, float dt) {
-        auto actions = scene->registry.view<ActionsComp>();
-
-        for (auto [entity, actns] : actions.each()) {
-            for (auto& act : actns.actions) {
-                Entity e = {scene, entity};
-                act->on_update(scene, e, dt);
-            }
-        }
-    }
-
-    void lua_action_init(Scene* scene) {
-
-        auto actions = scene->registry.view<LuaActionComp>();
-
-        for (auto [entity, actns] : actions.each()) {
-            for (auto& act : actns.scripts) {
-                act.on_init();
-            }
-        }
-    }
-
-    void lua_action_update(Scene* scene, float dt) {
-
-        auto actions = scene->registry.view<LuaActionComp>();
-
-        for (auto [entity, actns] : actions.each()) {
-            for (auto& act : actns.scripts) {
-                act.on_update(dt);
-            }
-        }
-    }
-
-    void lua_action_end(Scene* scene) {
-
-        auto actions = scene->registry.view<LuaActionComp>();
-
-        for (auto [entity, actns] : actions.each()) {
-            for (auto& act : actns.scripts) {
-                act.on_end();
-            }
-        }
-    }
-
-
-    void opengl_renderer(entt::registry& registry) {
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT );
-
-        //Camera& p_camera = player.get_component<Camera>();
-        auto objects = registry.view<TransformComp, ModelComp>();
-
-        for (auto [_, pos, obj] : objects.each()) {
-            glUseProgram(obj.material.shader);
-            glBindVertexArray(obj.model.VAO);
-            if ((obj.material.attributes & MODEL_FILLED) == MODEL_FILLED)
-                glDrawArrays(GL_TRIANGLES, 0, 3);
-            if((obj.material.attributes & MODEL_WIREFRAME) == MODEL_WIREFRAME) {
-                        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-                        glDrawArrays(GL_TRIANGLES, 0,3);
-                    }
-            }
-
-    }
-
-
-
-
-    
     void physics(entt::registry& registry, float dt) {
         auto objs = registry.view<TransformComp,PhysicsBodyComp>();
         for (auto [e, t, ph] : objs.each()) {
@@ -177,43 +106,6 @@ namespace engine {
         else
             vel.z = 0.0f;
 
-    }
-
-    //void draw_primitive(engine::TransformComp& t, engine::PrimitiveComp& p) {
-    //    bool filled = (PRIMITVE_FILLED & p.attributes) == PRIMITVE_FILLED;
-    //    bool wireframe = (PRIMITVE_WIREFRAME & p.attributes) == PRIMITVE_WIREFRAME;
-    //    switch(p.shape) {
-    //        case PrimitiveComp::Shape::PLANE: {
-    //            EG_ASSERT(!filled, "Plane primitve mut be filled");
-    //            DrawPlane(t.position, Vector2{t.size.x, t.size.z}, p.color);
-    //        }break;
-
-    //        case PrimitiveComp::Shape::CUBE: {
-    //            if(filled)
-    //                DrawCube(t.position, t.size.x, t.size.y, t.size.z, p.color);
-    //            if (wireframe)
-    //                DrawCubeWires(t.position, t.size.x, t.size.y, t.size.z, BLACK);
-    //         }break;
-
-    //        case PrimitiveComp::Shape::SPHERE: {
-    //            if(filled)
-    //                DrawSphere(t.position, t.size.x, p.color);
-    //            if (wireframe)
-    //                DrawSphereWires(t.position, t.size.x * 1.01f, 8,8, BLACK);
-    //        }break;
-    //        default:break;
-    //    }
-    //}
-
-
-    void end_actions(entt::registry& registry) {
-        auto actions = registry.view<ActionsComp>();
-
-        for (auto [_, act] : actions.each()) {
-            for (auto* u : act.actions) {
-                delete u;
-            }
-        }
     }
 
     bool does_intersect_on_axis(float a, float b, float a_s, float b_s) {

@@ -1,5 +1,6 @@
 #pragma once
-#include <espch.h>
+#include <glm/glm.hpp>
+#include <string>
 
 namespace engine {
     struct ShaderReturn {
@@ -11,4 +12,8 @@ namespace engine {
     int complie_shader_file(const char* path);
 
     using Shader = uint32_t;
+
+    void set_shader_v3(Shader shader, const char* name, glm::vec3 value);
+    void set_shader_v4(Shader shader, const char* name, glm::vec4 value);
+    void set_shader_m4(Shader shader, const char* name, glm::mat4 value);
 }

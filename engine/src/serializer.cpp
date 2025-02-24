@@ -1,5 +1,6 @@
 #include <espch.h>
 #include <glm/glm.hpp>
+#include <fstream>
 #include "component.h"
 #include "entity.h"
 #include "manager.h"

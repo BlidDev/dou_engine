@@ -23,6 +23,10 @@ namespace engine {
         MaterialBuilder& set_shader(Shader shader);
         Material build();
 
+        operator Material() {
+            return material;
+        }
+
     private:
         Material material;
     };

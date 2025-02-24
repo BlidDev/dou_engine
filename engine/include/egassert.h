@@ -1,4 +1,5 @@
 #ifndef EG_ASSERT
+#include "log.h"
 
 #define EG_ASSERT(condition, ...) \
     do { \

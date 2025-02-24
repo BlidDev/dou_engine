@@ -1,4 +1,5 @@
 #include "input.h"
+#include "egassert.h"
 
 
 namespace engine {
@@ -9,7 +10,8 @@ namespace engine {
     }
 
     bool is_key_pressed(const int key) {
-        return glfwGetKey(INPUT_WINDOW,key) == GLFW_PRESS;
+        EG_ASSERT(!INPUT_WINDOW, "Input window is not set or destroyed");
+        return glfwGetKey(INPUT_WINDOW, key) == GLFW_PRESS;
     }
 
 }

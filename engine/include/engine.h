@@ -1,13 +1,11 @@
 #pragma once
-#include "log.h"
 #include "scene.h"
-#include "component.h"
-#include "systems.h"
-#include "entity.h"
-#include "shader.h"
 #include "manager.h"
-#include "model.h"
+#include "input.h"
+#include "component.h"
+#include "entity.h"
 #include "models.h"
+#include "systems.h"
 
 namespace engine {
     extern int on_start(engine::SceneManager* manager);

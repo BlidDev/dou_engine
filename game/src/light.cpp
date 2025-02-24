@@ -7,12 +7,17 @@ LightScene::LightScene() : Scene("light") {
 }
 
 void LightScene::on_create() {
+    set_input_window(manager->main_window);
     register_shader("res/shaders/basic.glsl");
     manager->register_model("triangle", VAOType::BASIC, engine::P_TRIANGLE, 9);
 
     Entity tri = create_entity();
     tri.add_component<TransformComp>();
-    tri.add_component<ModelComp>(get_model("triangle"), MaterialBuilder().set_attributes(MODEL_WIREFRAME).set_shader(get_shader("res/shaders/basic.glsl")).build());
+    tri.add_component<ModelComp>(get_model("triangle"), 
+                                 MaterialBuilder()
+                                     .set_attributes(MODEL_WIREFRAME)
+                                     .set_color({1.0f, 0.4f, 0.3f, 1.0f})
+                                     .set_shader(get_shader("res/shaders/basic.glsl")));
 
 }
 void LightScene::on_update(float dt) {

@@ -16,6 +16,9 @@ namespace engine {
         //glm::vec3 rotation;
     };
 
+
+    glm::mat4 transform_to_m4(TransformComp& transform);
+
     struct TransformBuilder {
         TransformBuilder& position(glm::vec3 position);
         TransformBuilder& size(glm::vec3 size);

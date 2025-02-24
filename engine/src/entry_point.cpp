@@ -1,5 +1,6 @@
 #include <engine.h>
 #include <GLFW/glfw3.h>
+#include "components/luascript.h"
 
 #define SOL_ALL_SAFETIES_ON 1
 

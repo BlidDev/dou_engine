@@ -1,8 +1,9 @@
 #include "shader.h"
+#include <sstream>
 #include <cstddef>
 #include <fstream>
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include <egassert.h>
 
 namespace engine {
     enum ReadIndex {
@@ -85,4 +86,17 @@ namespace engine {
 
         return program;
     }
+
+    void set_shader_v3(Shader shader, const char *name, glm::vec3 value) {
+        glUniform3f(glGetUniformLocation(shader, name), value.x, value.y, value.z);
+    }
+
+    void set_shader_v4(Shader shader, const char *name, glm::vec4 value) {
+        glUniform4f(glGetUniformLocation(shader, name), value.x, value.y, value.z, value.w);
+    }
+
+    void set_shader_m4(Shader shader, const char *name, glm::mat4 value) {
+        glUniformMatrix4fv(glGetUniformLocation(shader, name), 1, GL_FALSE, &value[0][0]);
+    }
+
 }
