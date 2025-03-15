@@ -1,6 +1,7 @@
 #pragma once
 #include <entt.hpp>
+#include "entity.h"
 
 namespace engine {
-    void opengl_renderer(entt::registry& registry);
+    void opengl_renderer(glm::vec2 view_size, Entity viewer, entt::registry& registry);
 }

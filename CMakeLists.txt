@@ -1,3 +1,9 @@
+find_program(CCACHE_PROGRAM ccache)
+find_program(CCACHE "ccache")
+if(CCACHE)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE}")
+endif()
+
 cmake_minimum_required(VERSION 3.19)
 project(RayProject VERSION 1.0 LANGUAGES CXX)
 

@@ -16,6 +16,7 @@ int engine::on_start(engine::SceneManager* manager) {
     manager->set_current("light");
 
     manager->main_window = Window("notray", 848, 480);
+    engine::set_input_window(manager->main_window);
     return 0;
 }
 

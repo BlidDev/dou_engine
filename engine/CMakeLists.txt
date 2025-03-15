@@ -3,6 +3,7 @@ file(GLOB engine_SRC
     "src/*.c"
     "src/*.cpp"
     "src/components/*.cpp"
+    "src/systems/*.cpp"
     )
 
 set_source_files_properties(vendor/src/glad.c PROPERTIES LANGUAGE CXX )

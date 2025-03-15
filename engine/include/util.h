@@ -22,9 +22,9 @@ namespace engine {
     float vec3_angle(glm::vec3 v1, glm::vec3 v2);
     glm::vec3 vec3_neg(glm::vec3 v);
 
-    void camera_yaw(Camera* camera, glm::vec3 position, float angle);
-    void camera_pitch(Camera* camera, glm::vec3 position, float angle, bool lock);
-    void handle_mouse_delta(Camera* camera, glm::vec3 position,glm::vec2 delta, bool lock);
+    void camera_yaw(CameraComp* camera, glm::vec3 position, float angle);
+    void camera_pitch(CameraComp* camera, glm::vec3 position, float angle, bool lock);
+    void handle_mouse_delta(CameraComp* camera, glm::vec3 position,glm::vec2 delta, bool lock);
 
     bool aabb_3d_intersects(glm::vec3 a, glm::vec3 a_s, glm::vec3 b, glm::vec3 b_s);
 

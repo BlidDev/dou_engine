@@ -158,9 +158,9 @@ namespace engine {
             out<<YAML::EndMap;
         }
 
-        if (entity.has_component<Camera>()) {
+        if (entity.has_component<CameraComp>()) {
             out<<YAML::Key<<"Camera"<<YAML::BeginMap;
-                auto& c = entity.get_component<Camera>();
+                auto& c = entity.get_component<CameraComp>();
                 out<<YAML::Key<<"Target"<<YAML::Value<<c.target;
                 out<<YAML::Key<<"Up"<<YAML::Value<<c.up;
                 out<<YAML::Key<<"FovY"<<YAML::Value<<c.fovy;
@@ -253,7 +253,7 @@ namespace engine {
 
         auto camera = entity["Camera"];
         if(camera) {
-            Camera& c = read_entity.add_component<Camera>();
+            CameraComp& c = read_entity.add_component<CameraComp>();
             c.target = camera["Target"].as<glm::vec3>();
             c.up = camera["Up"].as<glm::vec3>();
             c.fovy = camera["FovY"].as<float>();

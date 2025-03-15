@@ -1,5 +1,6 @@
 #pragma once
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 #include <espch.h>
 
 
@@ -13,6 +14,9 @@ namespace engine {
                unsigned int w, unsigned int h, 
                FbCallBack fb = nullptr,bool set = true);
 
+        glm::vec2 size() {
+            return {(float)w, (float)h};
+        }
 
         operator GLFWwindow*() {
             return window;

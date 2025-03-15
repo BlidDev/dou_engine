@@ -16,4 +16,5 @@ public:
     bool should_close(); 
 private:
     bool close;
+    Entity player;
 };

@@ -98,7 +98,7 @@ namespace engine {
         return result;
     }
 
-    void camera_yaw(Camera* camera, glm::vec3 position, float angle) {
+    void camera_yaw(CameraComp* camera, glm::vec3 position, float angle) {
 
         // Rotation axis
         glm::vec3 up = get_up(camera->up);
@@ -113,7 +113,7 @@ namespace engine {
         camera->target = position + target_position;
     }
 
-    void camera_pitch(Camera* camera,glm::vec3 position,  float angle, bool lock) {
+    void camera_pitch(CameraComp* camera,glm::vec3 position,  float angle, bool lock) {
 
         // Up direction
         glm::vec3 up = get_up(camera->up);
@@ -148,7 +148,7 @@ namespace engine {
 
     }
 
-    void handle_mouse_delta(Camera* camera, glm::vec3 position, glm::vec2 delta, bool lock) { 
+    void handle_mouse_delta(CameraComp* camera, glm::vec3 position, glm::vec2 delta, bool lock) { 
         camera_yaw  (camera, position, glm::radians(-delta.x));
         camera_pitch(camera, position, glm::radians(-delta.y), lock);
     }

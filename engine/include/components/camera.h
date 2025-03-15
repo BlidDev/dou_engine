@@ -8,15 +8,18 @@ namespace engine {
         Orthographic
     };
 
-    struct Camera {
+    struct CameraComp {
         glm::vec3 target;
         glm::vec3 up;
         float fovy;
         CameraProjection projection;
+        glm::vec3 last_pos;
     };
 
-    glm::mat4 get_camera_proj(Camera& camera, glm::vec2 view_size);
-    glm::mat4 get_camera_view(Camera& camera, glm::vec3 position);
+    void update_camera_target(CameraComp& camera, glm::vec3 position);
+
+    glm::mat4 get_camera_proj(CameraComp& camera, glm::vec2 view_size);
+    glm::mat4 get_camera_view(CameraComp& camera, glm::vec3 position);
 
     struct CameraBuilder {
         CameraBuilder();
@@ -25,9 +28,9 @@ namespace engine {
         CameraBuilder& up(glm::vec3 up);
         CameraBuilder& fovy(float fovy);
         CameraBuilder& projection(CameraProjection projection);
-        Camera build();
+        CameraComp build();
     private:
-        Camera camera;
+        CameraComp camera;
     };
 
 }

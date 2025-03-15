@@ -29,7 +29,7 @@ namespace engine {
         env.set_function("get_action", get_uuid_component<ActionsComp>);
         //env.set_function("get_text", get_uuid_component<TextComp>);
         env.set_function("get_physicbody", get_uuid_component<PhysicsBodyComp>);
-        env.set_function("get_camera", get_uuid_component<Camera>);
+        env.set_function("get_camera", get_uuid_component<CameraComp>);
         env.set_function("get_script", get_uuid_component<LuaActionComp>);
 
         //env.set_function("color_from_hsv", ColorFromHSV);
@@ -107,11 +107,11 @@ namespace engine {
         phb["is_static"] =    &PhysicsBodyBuilder::is_static;
         phb["build"] =        &PhysicsBodyBuilder::build;
 
-        auto cmt = env.new_usertype<Camera>("Camera");
-        cmt["target"] = &Camera::target;
-        cmt["up"] = &Camera::up;
-        cmt["fovy"] = &Camera::fovy;
-        cmt["projection"] = &Camera::projection;
+        auto cmt = env.new_usertype<CameraComp>("Camera");
+        cmt["target"] = &CameraComp::target;
+        cmt["up"] = &CameraComp::up;
+        cmt["fovy"] = &CameraComp::fovy;
+        cmt["projection"] = &CameraComp::projection;
 
         auto cm = env.new_usertype<CameraBuilder>("CameraBuilder",
                 sol::constructors<CameraBuilder()>());
