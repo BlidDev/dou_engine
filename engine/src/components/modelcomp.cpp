@@ -4,7 +4,7 @@
 namespace engine {
     MaterialBuilder::MaterialBuilder() {
         material = Material {
-            .shader = 0,
+            .shader = {0, "UNKOWN"},
             .color = {0.5f,0.5f,0.5f,1.0f},
             .attributes = MODEL_FILLED
         };
@@ -25,6 +25,13 @@ namespace engine {
     Material MaterialBuilder::build() {
         return this->material;
     }
+
+    ModelComp::ModelComp() {
+        material = MaterialBuilder();
+        model = {0,0,0,"UNKNOWN"};
+
+    }
+    
 
 
 }

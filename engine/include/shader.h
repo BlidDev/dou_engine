@@ -9,9 +9,16 @@ namespace engine {
     };
 
     ShaderReturn parse_shader_file(const char* path);
-    int complie_shader_file(const char* path);
 
-    using Shader = uint32_t;
+    struct Shader{ 
+        uint32_t program;
+        std::string path;
+
+        operator uint32_t() {
+            return program;
+        }
+    };
+    Shader complie_shader_file(const char* path);
 
     void set_shader_v3(Shader shader, const char* name, glm::vec3 value);
     void set_shader_v4(Shader shader, const char* name, glm::vec4 value);

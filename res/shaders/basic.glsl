@@ -5,15 +5,18 @@ layout (location = 0) in vec3 aPos;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
+out vec4 pcolor;
 void main() {
-	gl_Position = projection *  model * vec4(aPos, 1.0f);
+	gl_Position = projection *  view * model * vec4(aPos, 1.0f);
+    pcolor = gl_Position;
     }
 @FRAGMENT
 #version 330 core
 out vec4 frag_color;
 
 uniform vec4 color;
+in vec4 pcolor;
 
 void main() {
-    frag_color = color;
+    frag_color = pcolor * color;
 }

@@ -21,7 +21,7 @@ namespace engine {
     
     void thing(int a);
 
-    Model create_model(VAOType format, float vertices[], unsigned int size) {
+    Model create_model(VAOType format, float vertices[], unsigned int size, const char* name) {
         unsigned int VBO, VAO;
         glGenVertexArrays(1, &VAO);
         glGenBuffers(1, &VBO);
@@ -33,7 +33,7 @@ namespace engine {
         apply_format(format);
 
         glBindVertexArray(0); 
-        return Model{VAO, VBO};
+        return Model{VAO, VBO, size, std::string(name)};
     }
 
 }

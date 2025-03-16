@@ -1,6 +1,5 @@
 #include "light.h"
 #include <engine.h>
-#include "actions.h"
 
 LightScene::LightScene() : Scene("light") {
     close = false;
@@ -8,38 +7,47 @@ LightScene::LightScene() : Scene("light") {
 
 void LightScene::on_create() {
     set_input_window(manager->main_window);
-    register_shader("res/shaders/basic.glsl");
-    manager->register_model("triangle", VAOType::BASIC, engine::P_TRIANGLE, 9);
-    manager->register_model("cube", VAOType::BASIC, engine::P_CUBE, 54);
-
-    int a =5;
+    glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glEnable(GL_DEPTH_TEST);
     player = create_entity();
+    main_camera = player.uuid();
     auto& t = player.add_component<TransformComp>(engine::TransformBuilder()
-            .position({0.0f, 0.0f ,-2.0f}));
-    auto& c = player.add_component<CameraComp>(CameraBuilder().target({0.0,0.0,0.0}).build());
+            .position({0.0f, 2.0f ,-2.0f}));
+    auto& c = player.add_component<CameraComp>(CameraBuilder().fovy(45.0f).target({0.0,0.0,0.0}).build());
     c.last_pos = t.position;
-    player.add_component<PhysicsBodyComp>(PhysicsBodyBuilder().is_solid(false).is_static(true).gravity(0.0f));
-    player.add_component<ActionsComp>(engine::ActionsComp({new SimpleAct}));
+    player.add_component<PhysicsBodyComp>(PhysicsBodyBuilder().is_solid(true).is_static(true).gravity(0.2f));
+    player.add_component<ActionsComp>(ActionsComp().add("SimpleAct"));
     
     Entity tri = create_entity();
     tri.add_component<TransformComp>(engine::TransformBuilder()
-                                    .position({0.0f, 0.0f ,0.0f}));
+                                    .position({0.0f, 1.0f ,0.0f}));
     tri.add_component<ModelComp>(get_model("cube"), 
                                  MaterialBuilder()
                                      .set_color({1.0f, 0.4f, 0.3f, 1.0f})
                                      .set_shader(get_shader("res/shaders/basic.glsl")));
+    tri.add_component<PhysicsBodyComp>(PhysicsBodyBuilder().is_solid(true).is_static(true));
 
+
+
+    Entity plane = create_entity();
+    plane.add_component<TransformComp>(TransformBuilder().position({0.0f,-0.5f,0.0f}).size({1000.0f,0.0f,1000.0f}));
+    plane.add_component<PhysicsBodyComp>(PhysicsBodyBuilder().is_solid(true).is_static(true));
+
+    manager->write_scene_to_file("res/light.scene", this);
 }
 void LightScene::on_update(float dt) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    if (glfwGetKey(manager->main_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    glClearColor(1.0f,1.0f,1.0f,1.0f);
+    if(is_key_pressed(GLFW_KEY_ESCAPE))
         close = true;
 
 
 
     actions(this,dt);
     physics(registry,dt);
+    if (aabb_check(*this, dt)) return;
     glm::vec2 view = manager->main_window.size();
+
     opengl_renderer(view,player, registry);
     glfwSwapBuffers(manager->main_window);
     glfwPollEvents();

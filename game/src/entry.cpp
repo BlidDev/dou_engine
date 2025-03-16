@@ -1,34 +1,34 @@
 #include <epch.h>
-#include "macros.h"
-#include "components/action.h"
+#include "actions.h"
 #include "light.h"
+#include "thing.h"
 
 void register_actions();
 
 int engine::on_start(engine::SceneManager* manager) {
 
-    //register_actions();
-    //manager->register_scene("main", new MainScene());
-    //manager->register_scene("win", new WinScene());
-    //manager->register_scene("game", new GameScene());
-    //manager->register_scene("test", new TestScene());
-    manager->register_scene("light", new LightScene());
-    manager->set_current("light");
-
+    register_actions();
     manager->main_window = Window("notray", 848, 480);
     engine::set_input_window(manager->main_window);
+
+    manager->register_shader("res/shaders/basic.glsl");
+    manager->register_model("triangle", VAOType::BASIC, engine::P_TRIANGLE, 9);
+    manager->register_model("cube", VAOType::BASIC, engine::P_CUBE, 108);
+
+
+
+    manager->register_scene("light", new LightScene());
+    manager->register_scene("thing", new ThingScene());
+    manager->set_current("thing");
     return 0;
 }
 
 
 int engine::on_end() {
-
     glfwTerminate();
     return 0;
 }
 
 void register_actions() {
-    //engine::ActionsComp::register_action("PlayerAction", new PlayerAction);
-    //engine::ActionsComp::register_action("FPSAction", new FPSAction(0));
-    //engine::ActionsComp::register_action("CubeAction", new CubeAction);
+    engine::ActionsComp::register_action("SimpleAct", new SimpleAct);
 }

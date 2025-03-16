@@ -58,10 +58,10 @@ namespace YAML {
         static bool decode(const Node& node, glm::vec4& rhs) {
             if(!node.IsSequence() || node.size() != 4)
                 return false;
-            rhs.r = (unsigned char)node[0].as<int>();
-            rhs.g = (unsigned char)node[1].as<int>();
-            rhs.b = (unsigned char)node[2].as<int>();
-            rhs.a = (unsigned char)node[3].as<int>();
+            rhs.r = (unsigned char)node[0].as<float>();
+            rhs.g = (unsigned char)node[1].as<float>();
+            rhs.b = (unsigned char)node[2].as<float>();
+            rhs.a = (unsigned char)node[3].as<float>();
             return true;
         }
     };
@@ -77,7 +77,7 @@ namespace engine {
 
     YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec4& c) {
         out<<YAML::Flow;
-        out<<YAML::BeginSeq<<(int)c.r<<(int)c.g<<(int)c.b<<(int)c.a<<YAML::EndSeq;
+        out<<YAML::BeginSeq<<c.r<<c.g<<c.b<<c.a<<YAML::EndSeq;
         return out;
     }
 
@@ -106,21 +106,20 @@ namespace engine {
             out<<YAML::EndMap;
         }
 
-        //if (entity.has_component<PrimitiveComp>()) {
-        //    out<<YAML::Key<<"Primitive"<<YAML::BeginMap;
-        //        auto& p = entity.get_component<PrimitiveComp>();
-        //        out<<YAML::Key<<"Color"<<YAML::Value<<p.color;
-        //        const char* shapes[] = {"PLANE","CUBE","SPHERE"};
-        //        out<<YAML::Key<<"Shape"<<YAML::Value<<shapes[(int)p.shape];
-        //        out<<YAML::Key<<"Attributes"<<YAML::BeginMap;
-        //            out<<YAML::Key<<"Filled"<<YAML::Value<<((PRIMITVE_FILLED & p.attributes) == PRIMITVE_FILLED);
-        //            out<<YAML::Key<<"Wireframe"<<YAML::Value<<((PRIMITVE_WIREFRAME & p.attributes) == PRIMITVE_WIREFRAME);
-        //            out << YAML::Key << "Immune" << YAML::Value
-        //                << ((PRIMITVE_IMMUNE & p.attributes) ==
-        //                    PRIMITVE_IMMUNE);
-        //            out<<YAML::EndMap;
-        //    out<<YAML::EndMap;
-        //}
+        if (entity.has_component<ModelComp>()) {
+            out<<YAML::Key<<"Model"<<YAML::BeginMap;
+                auto& m = entity.get_component<ModelComp>();
+                out<<YAML::Key<<"Model name"<<YAML::Value<<m.model.name;
+                out<<YAML::Key<<"Material"<<YAML::BeginMap;
+                    out<<YAML::Key<<"Shader"<<YAML::Value<<m.material.shader.path;
+                    out<<YAML::Key<<"Filled"<<YAML::Value<<((MODEL_FILLED & m.material.attributes) == MODEL_FILLED);
+                    out<<YAML::Key<<"Immune"<<YAML::Value<<((MODEL_IMMUNE & m.material.attributes) == MODEL_IMMUNE);
+                    out<<YAML::Key<<"Color"<<YAML::Value<<m.material.color;
+                out<<YAML::EndMap;
+
+
+            out<<YAML::EndMap;
+        }
 
         if (entity.has_component<ActionsComp>()) {
             out<<YAML::Key<<"Native Actions"<<YAML::BeginSeq;
@@ -207,18 +206,19 @@ namespace engine {
             tc.size = transform_comp["Size"].as<glm::vec3>();
         }
 
-        //auto primitive_comp = entity["Primitive"];
-        //if (primitive_comp) {
-        //    PrimitiveComp& p = read_entity.add_component<PrimitiveComp>();
-        //    p.color = primitive_comp["Color"].as<glm::vec3>();
-        //    const std::string shape = primitive_comp["Shape"].as<std::string>();
-        //    p.shape = str_to_shape(shape);
-        //    auto attributes = primitive_comp["Attributes"];
-        //    p.attributes = 0;
-        //    p.attributes |= attributes["Filled"].as<bool>() ?    PRIMITVE_FILLED : 0;
-        //    p.attributes |= attributes["Wireframe"].as<bool>() ? PRIMITVE_WIREFRAME : 0;
-        //    p.attributes |= attributes["Immune"].as<bool>() ?    PRIMITVE_IMMUNE : 0;
-        //}
+        auto model_comp = entity["Model"];
+        if (model_comp) {
+            ModelComp& m = read_entity.add_component<ModelComp>();
+            std::string model_name = model_comp["Model name"].as<std::string>();
+            m.model = scene->get_model(model_name.c_str());
+            auto material = model_comp["Material"];
+            std::string shader_name = material["Shader"].as<std::string>();
+            m.material.shader = scene->get_shader(shader_name.c_str());
+
+            m.material.attributes |= material["Filled"].as<bool>() ?    MODEL_FILLED : 0;
+            m.material.attributes |= material["Immune"].as<bool>() ?    MODEL_IMMUNE : 0;
+            m.material.color  = material["Color"].as<glm::vec4>();
+        }
 
         auto actions_comp = entity["Native Actions"];
         if (actions_comp) {

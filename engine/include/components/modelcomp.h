@@ -6,7 +6,6 @@
 namespace engine {
 
 #define MODEL_FILLED    0b0001
-#define MODEL_WIREFRAME 0b0010
 #define MODEL_IMMUNE    0b0100
 
     struct Material {
@@ -35,6 +34,8 @@ namespace engine {
     struct ModelComp {
         Material material;
         Model model;
+
+        ModelComp();
 
         ModelComp(
                 Model model,

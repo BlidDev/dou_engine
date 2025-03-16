@@ -29,5 +29,7 @@ namespace engine {
     bool aabb_3d_intersects(glm::vec3 a, glm::vec3 a_s, glm::vec3 b, glm::vec3 b_s);
 
 
-
+    void print_v4(const char* name, glm::vec4& v);
+    void print_v3(const char* name, glm::vec3& v);
+    void print_v2(const char* name, glm::vec2& v);
 }

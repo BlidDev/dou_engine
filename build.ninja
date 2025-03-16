@@ -798,6 +798,13 @@ build game/CMakeFiles/game.dir/src/light.cpp.o: CXX_COMPILER__game_unscanned_Deb
   OBJECT_DIR = game/CMakeFiles/game.dir
   OBJECT_FILE_DIR = game/CMakeFiles/game.dir/src
 
+build game/CMakeFiles/game.dir/src/thing.cpp.o: CXX_COMPILER__game_unscanned_Debug /home/blid/rayengine/game/src/thing.cpp | game/CMakeFiles/game.dir/cmake_pch.hxx game/CMakeFiles/game.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_game
+  DEP_FILE = game/CMakeFiles/game.dir/src/thing.cpp.o.d
+  FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/game/CMakeFiles/game.dir/cmake_pch.hxx
+  INCLUDES = -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/game/include -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/src -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include
+  OBJECT_DIR = game/CMakeFiles/game.dir
+  OBJECT_FILE_DIR = game/CMakeFiles/game.dir/src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target game
@@ -806,7 +813,7 @@ build game/CMakeFiles/game.dir/src/light.cpp.o: CXX_COMPILER__game_unscanned_Deb
 #############################################
 # Link the executable bin/Linux - x86_64/Debug/game/game
 
-build bin/Linux$ -$ x86_64/Debug/game/game: CXX_EXECUTABLE_LINKER__game_Debug game/CMakeFiles/game.dir/src/entry.cpp.o game/CMakeFiles/game.dir/src/light.cpp.o | bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a bin/Linux$ -$ x86_64/Debug/engine/libengine.a /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so bin/Linux$ -$ x86_64/Debug/engine/libGLAD.a vendor/lua/linux/liblua54.a || bin/Linux$ -$ x86_64/Debug/engine/libGLAD.a bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a bin/Linux$ -$ x86_64/Debug/engine/libengine.a
+build bin/Linux$ -$ x86_64/Debug/game/game: CXX_EXECUTABLE_LINKER__game_Debug game/CMakeFiles/game.dir/src/entry.cpp.o game/CMakeFiles/game.dir/src/light.cpp.o game/CMakeFiles/game.dir/src/thing.cpp.o | bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a bin/Linux$ -$ x86_64/Debug/engine/libengine.a /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so bin/Linux$ -$ x86_64/Debug/engine/libGLAD.a vendor/lua/linux/liblua54.a || bin/Linux$ -$ x86_64/Debug/engine/libGLAD.a bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a bin/Linux$ -$ x86_64/Debug/engine/libengine.a
   FLAGS = -Wall -g
   LINK_LIBRARIES = "bin/Linux - x86_64/Debug/engine/libYAML_CPP.a"  -lglfw  "bin/Linux - x86_64/Debug/engine/libengine.a"  /usr/lib/x86_64-linux-gnu/libGLX.so  /usr/lib/x86_64-linux-gnu/libOpenGL.so  "bin/Linux - x86_64/Debug/engine/libYAML_CPP.a"  -lglfw  /usr/lib/x86_64-linux-gnu/libGLX.so  /usr/lib/x86_64-linux-gnu/libOpenGL.so  "bin/Linux - x86_64/Debug/engine/libGLAD.a"  vendor/lua/linux/liblua54.a
   OBJECT_DIR = game/CMakeFiles/game.dir

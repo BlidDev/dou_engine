@@ -15,7 +15,8 @@ namespace engine {
                FbCallBack fb = nullptr,bool set = true);
 
         glm::vec2 size() {
-            return {(float)w, (float)h};
+            glm::vec2 tmp = {(float)w, (float)h};
+            return tmp;
         }
 
         operator GLFWwindow*() {

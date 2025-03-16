@@ -34,7 +34,7 @@ namespace engine {
         return ShaderReturn {v,f};
     }
 
-    int complie_shader_file(const char* path) {
+    Shader complie_shader_file(const char* path) {
         ShaderReturn source = parse_shader_file(path);
         const char* v = source.vertex_code.c_str();
         const char* f = source.fragment_code.c_str();
@@ -50,7 +50,7 @@ namespace engine {
         if (!success) {
             glGetShaderInfoLog(vertex, 512, NULL, v_log);
             EG_CORE_ERROR("Could not compile vertex shader [{}]: {}", path, v_log);
-            return -1;
+            return {0, "ERROR"};
         }
 
         unsigned int frag = glCreateShader(GL_FRAGMENT_SHADER);
@@ -62,7 +62,8 @@ namespace engine {
         if (!success) {
             glGetShaderInfoLog(frag, 512, NULL, f_log);
             EG_CORE_ERROR("Could not compile fragment shader [{}]: {}", path, f_log);
-            return -1;
+            return {0, "ERROR"};
+;
         }
 
 
@@ -78,13 +79,13 @@ namespace engine {
         if (!success) {
             glGetShaderInfoLog(frag, 512, NULL, p_log);
             EG_CORE_ERROR("Could not link shader [{}]: {}", path, p_log);
-            return -1;
+            return {0, "ERROR"};
         }
         glDeleteShader(vertex);
         glDeleteShader(frag);
 
 
-        return program;
+        return {program, path};
     }
 
     void set_shader_v3(Shader shader, const char *name, glm::vec3 value) {

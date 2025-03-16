@@ -21,6 +21,9 @@ namespace engine {
                FbCallBack fb, bool set) 
     {
         window = glfwCreateWindow(w,h, title.c_str(), NULL, NULL);
+        this->w = w;
+        this->h = h;
+        this->title = title;
 
         if (!fb)
             fb_size_callback = &framebuffer_size_callback;

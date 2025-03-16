@@ -6,6 +6,8 @@
 #include "entity.h"
 #include "models.h"
 #include "systems.h"
+#include "log.h"
+#include "util.h"
 
 namespace engine {
     extern int on_start(engine::SceneManager* manager);
