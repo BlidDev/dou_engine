@@ -6,13 +6,9 @@ namespace engine {
         UpdateComp() { inner_name = "UNKNOWN"; }
         virtual void on_update(Scene* scene, Entity self, float dt) = 0;
         virtual UpdateComp* copy() = 0;
-        virtual void serialize(YAML::Emitter& out) {
-            out<<YAML::Key<<"Default"<<YAML::Value<<"Default";
-        }
-        virtual void dserialize(const YAML::Node& node) {
-            EG_ASSERT(inner_name == "UNKNOWN","Trying to dserialize unspecified action"); 
-        }
-        virtual ~UpdateComp() {}
+        virtual void serialize(YAML::Emitter& out);
+        virtual void dserialize(const YAML::Node& node);
+        virtual ~UpdateComp();
 
         std::string inner_name = "UNKNOWN";
     };

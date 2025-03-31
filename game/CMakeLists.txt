@@ -23,8 +23,8 @@ link_directories(game
     ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libYAML_CPP.a
     )
 
- set(HEADER_FILES PRIVATE 
-     "${CMAKE_SOURCE_DIR}/engine/include/engine.h")
+set(HEADER_FILES PRIVATE 
+    "${CMAKE_SOURCE_DIR}/engine/include/engine.h")
 
 find_package(OpenGL REQUIRED)
 

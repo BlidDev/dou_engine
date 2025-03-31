@@ -7,6 +7,14 @@ namespace engine {
         camera.last_pos = position;
     }
 
+    void CameraComp::log() {
+        EG_CORE_INFO("Camera:");
+        EG_CORE_INFO("\tUp: ({}, {}, {})", up.x, up.y, up.z);
+        EG_CORE_INFO("\tTarget: ({}, {}, {})", target.x, target.y, target.z);
+        EG_CORE_INFO("\tFovy: {}", fovy);
+        EG_CORE_INFO("\tProj: {}", (int)projection);
+    }
+
     CameraBuilder::CameraBuilder() {
         camera = { 
             .target = (glm::vec3){ 0.0f, 0.0f, 1.0f },      // Camera looking at point

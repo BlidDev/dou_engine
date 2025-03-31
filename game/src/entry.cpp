@@ -16,7 +16,6 @@ int engine::on_start(engine::SceneManager* manager) {
     manager->register_model("cube", VAOType::BASIC, engine::P_CUBE, 108);
 
 
-
     manager->register_scene("light", new LightScene());
     manager->register_scene("thing", new ThingScene());
     manager->set_current("thing");

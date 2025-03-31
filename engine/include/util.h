@@ -1,6 +1,5 @@
 #pragma once
 #include <espch.h>
-#include <glm/glm.hpp>
 #include "components/camera.h"
 namespace engine {
     float dist_vec3(glm::vec3& a, glm::vec3& b);

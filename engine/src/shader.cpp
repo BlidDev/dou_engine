@@ -1,9 +1,4 @@
 #include "shader.h"
-#include <sstream>
-#include <cstddef>
-#include <fstream>
-#include <glad/glad.h>
-#include <egassert.h>
 
 namespace engine {
     enum ReadIndex {

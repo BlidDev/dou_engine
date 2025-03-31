@@ -10,6 +10,7 @@ void LightScene::on_create() {
     glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glEnable(GL_DEPTH_TEST);
     player = create_entity();
+    std::cout<<"thing\n";
     main_camera = player.uuid();
     auto& t = player.add_component<TransformComp>(engine::TransformBuilder()
             .position({0.0f, 2.0f ,-2.0f}));

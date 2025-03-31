@@ -25,9 +25,9 @@ target_include_directories(engine PUBLIC
 )
 
 
-# set(HEADER_FILES PRIVATE 
-#     "${CMAKE_SOURCE_DIR}/engine/include/espch.h"
-#     )
+set(HEADER_FILES PRIVATE 
+    "${CMAKE_SOURCE_DIR}/engine/include/espch.h"
+)
 
 target_precompile_headers(engine PRIVATE ${HEADER_FILES})
 

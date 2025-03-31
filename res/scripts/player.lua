@@ -37,10 +37,10 @@ function on_update(dt)
 
     cm.target   = cm.target + t.position - cm.position
     cm.position = t.position
-    handle_mouse_delta(cm, Vector2.new(
-                get_mouse_delta().x * 0.05,
-                get_mouse_delta().y * 0.05)
-            , true)
+    --handle_mouse_delta(cm, Vector2.new(
+    --            get_mouse_delta().x * 0.05,
+    --            get_mouse_delta().y * 0.05)
+    --        , true)
 
     local forward = get_forward(cm.target, t.position) * 3.0
     local right   = get_right(cm.target, t.position, cm.up) * 3.0

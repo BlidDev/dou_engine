@@ -6,6 +6,7 @@
 #include <espch.h>
 #include "spdlog/fmt/bundled/args.h"
 #include "spdlog/fmt/bundled/core.h"
+#include "input.h"
 
 
 namespace engine {
@@ -34,10 +35,9 @@ namespace engine {
 
         //env.set_function("color_from_hsv", ColorFromHSV);
         //env.set_function("get_fps", GetFPS);
-        //env.set_function("get_time", GetTime);
-        //env.set_function("get_key_pressed", GetKeyPressed);
-        //env.set_function("is_key_down", IsKeyDown);
-        //env.set_function("get_mouse_delta", GetMouseDelta);
+        env.set_function("get_time", glfwGetTime);
+        env.set_function("is_key_down", is_key_pressed);
+        env.set_function("get_mouse_delta", get_mouse_delta);
         env.set_function("handle_mouse_delta", handle_mouse_delta);
         env.set_function("get_forward", get_forward);
         env.set_function("get_right", get_right);

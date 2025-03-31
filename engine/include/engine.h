@@ -8,8 +8,5 @@
 #include "systems.h"
 #include "log.h"
 #include "util.h"
+#include "entry_point.h"
 
-namespace engine {
-    extern int on_start(engine::SceneManager* manager);
-    extern int on_end();
-}

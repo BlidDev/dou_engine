@@ -1,7 +1,6 @@
 #include "scene.h"
 #include "entity.h"
 #include "manager.h"
-#include "assert.h"
 
 namespace engine 
 {

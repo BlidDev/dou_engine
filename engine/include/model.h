@@ -1,5 +1,5 @@
 #pragma once
-#include <string>
+#include <espch.h>
 
 namespace engine {
     enum VAOType {

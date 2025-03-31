@@ -1,6 +1,4 @@
 #include <espch.h>
-#include <glm/glm.hpp>
-#include <fstream>
 #include "component.h"
 #include "entity.h"
 #include "manager.h"
@@ -48,20 +46,20 @@ namespace YAML {
     struct convert<glm::vec4> {
         static Node encode(const glm::vec4& rhs) {
             Node node;
-            node.push_back((int)rhs.r);
-            node.push_back((int)rhs.g);
-            node.push_back((int)rhs.b);
-            node.push_back((int)rhs.a);
+            node.push_back((float)rhs.r);
+            node.push_back((float)rhs.g);
+            node.push_back((float)rhs.b);
+            node.push_back((float)rhs.a);
             return node;
         }
 
         static bool decode(const Node& node, glm::vec4& rhs) {
             if(!node.IsSequence() || node.size() != 4)
                 return false;
-            rhs.r = (unsigned char)node[0].as<float>();
-            rhs.g = (unsigned char)node[1].as<float>();
-            rhs.b = (unsigned char)node[2].as<float>();
-            rhs.a = (unsigned char)node[3].as<float>();
+            rhs.r = (float)node[0].as<float>();
+            rhs.g = (float)node[1].as<float>();
+            rhs.b = (float)node[2].as<float>();
+            rhs.a = (float)node[3].as<float>();
             return true;
         }
     };
@@ -109,7 +107,7 @@ namespace engine {
         if (entity.has_component<ModelComp>()) {
             out<<YAML::Key<<"Model"<<YAML::BeginMap;
                 auto& m = entity.get_component<ModelComp>();
-                out<<YAML::Key<<"Model name"<<YAML::Value<<m.model.name;
+                out<<YAML::Key<<"Model Name"<<YAML::Value<<m.model.name;
                 out<<YAML::Key<<"Material"<<YAML::BeginMap;
                     out<<YAML::Key<<"Shader"<<YAML::Value<<m.material.shader.path;
                     out<<YAML::Key<<"Filled"<<YAML::Value<<((MODEL_FILLED & m.material.attributes) == MODEL_FILLED);
@@ -209,15 +207,16 @@ namespace engine {
         auto model_comp = entity["Model"];
         if (model_comp) {
             ModelComp& m = read_entity.add_component<ModelComp>();
-            std::string model_name = model_comp["Model name"].as<std::string>();
+            std::string model_name = model_comp["Model Name"].as<std::string>();
             m.model = scene->get_model(model_name.c_str());
             auto material = model_comp["Material"];
             std::string shader_name = material["Shader"].as<std::string>();
             m.material.shader = scene->get_shader(shader_name.c_str());
 
-            m.material.attributes |= material["Filled"].as<bool>() ?    MODEL_FILLED : 0;
-            m.material.attributes |= material["Immune"].as<bool>() ?    MODEL_IMMUNE : 0;
+            m.material.attributes = true;//|= material["Filled"].as<bool>() ?    MODEL_FILLED : 0;
+            m.material.attributes = true;//|= material["Immune"].as<bool>() ?    MODEL_IMMUNE : 0;
             m.material.color  = material["Color"].as<glm::vec4>();
+            //m.material.print();
         }
 
         auto actions_comp = entity["Native Actions"];
@@ -258,6 +257,9 @@ namespace engine {
             c.up = camera["Up"].as<glm::vec3>();
             c.fovy = camera["FovY"].as<float>();
             c.projection = (CameraProjection)camera["Projection"].as<int>();
+            if (read_entity.has_component<TransformComp>()) {
+                c.last_pos = read_entity.get_component<TransformComp>().position;
+            }
         }
 
         auto lua_actions = entity["Lua Actions"];

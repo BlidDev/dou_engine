@@ -1,6 +1,5 @@
 #pragma once
 #include <espch.h>
-#include <glm/glm.hpp>
 
 namespace engine {
     enum CameraProjection {
@@ -14,6 +13,8 @@ namespace engine {
         float fovy;
         CameraProjection projection;
         glm::vec3 last_pos;
+
+        void log();
     };
 
     void update_camera_target(CameraComp& camera, glm::vec3 position);

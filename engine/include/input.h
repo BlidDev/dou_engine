@@ -1,7 +1,5 @@
 #pragma once
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-
+#include <espch.h>
 
 namespace engine {
     extern GLFWwindow* INPUT_WINDOW;

@@ -33,6 +33,11 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/${CMAKE_SYSTEM_NAME}
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/${CMAKE_SYSTEM_NAME} - ${CMAKE_SYSTEM_PROCESSOR}/${CMAKE_BUILD_TYPE}/game")
 
 
+
+set(CMAKE_EXE_LINKER_FLAGS "-fuse-ld=gold")
+
+message(${CMAKE_EXE_LINKER_FLAGS})
+
 # Add subdirectories for the engine library and the game executable
 
 add_subdirectory("vendor/spdlog")

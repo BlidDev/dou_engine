@@ -1,6 +1,5 @@
 #pragma once
-#include <glm/glm.hpp>
-#include <string>
+#include <espch.h>
 
 namespace engine {
     struct ShaderReturn {

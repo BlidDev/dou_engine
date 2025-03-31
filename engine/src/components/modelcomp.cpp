@@ -10,6 +10,12 @@ namespace engine {
         };
     }
 
+    void Material::print() {
+        EG_CORE_INFO("Material: {} {} ({}, {}, {}, {}) {}",
+                shader.path, shader.program,
+                color.r, color.g, color.b, color.a, attributes);
+    }
+
     MaterialBuilder& MaterialBuilder::set_color(glm::vec4 color) {
         material.color = color;
         return *this;

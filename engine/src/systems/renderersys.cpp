@@ -1,12 +1,8 @@
 #include "systems/renderersys.h"
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "components/camera.h"
 #include "components/transform.h"
 #include "components/modelcomp.h"
-#include "util.h"
 
 
 namespace engine {
@@ -18,11 +14,12 @@ namespace engine {
         auto p_camera = viewer.get_component<CameraComp>();
         auto objects = registry.view<TransformComp, ModelComp>();
 
-
         glm::mat4 projection = glm::perspective(glm::radians(p_camera.fovy), view_size.x / view_size.y, 0.1f, 100.0f);
 
         update_camera_target(p_camera, p_trans.position);
         glm::mat4 view = glm::lookAt(p_trans.position, p_camera.target, p_camera.up);
+
+        glm::vec3 p = p_trans.position;
 
         for (auto [_, pos, obj] : objects.each()) {
 

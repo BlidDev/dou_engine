@@ -1,7 +1,8 @@
 #pragma once
-#include <glm/glm.hpp>
+#include <espch.h>
 #include "model.h"
 #include "shader.h"
+#include "log.h"
 
 namespace engine {
 
@@ -12,6 +13,8 @@ namespace engine {
         Shader shader;
         glm::vec4 color;
         int attributes;
+
+        void print();
     };
 
     struct MaterialBuilder {

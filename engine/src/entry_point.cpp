@@ -1,6 +1,6 @@
-#include <engine.h>
-#include <GLFW/glfw3.h>
 #include "components/luascript.h"
+#include "entry_point.h"
+#include "manager.h"
 
 #define SOL_ALL_SAFETIES_ON 1
 

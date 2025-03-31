@@ -1,4 +1,3 @@
-#include <glad/glad.h>
 #include "window.h"
 
 
@@ -33,6 +32,10 @@ namespace engine {
         EG_ASSERT(!window, "Failed to create GLFW window \"{}\"", title);
     }
 
+    glm::vec2 Window::size() {
+            glm::vec2 tmp = {(float)w, (float)h};
+            return tmp;
+    }
 
 
     void init_glfw() {

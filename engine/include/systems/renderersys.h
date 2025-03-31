@@ -1,5 +1,4 @@
 #pragma once
-#include <entt.hpp>
 #include "entity.h"
 
 namespace engine {
