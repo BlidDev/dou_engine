@@ -3,6 +3,7 @@ local t
 local cm
 
 local speed = 0.5
+local sensi = 0.2
 
 local affected = true
 
@@ -10,13 +11,13 @@ function on_init()
     ph = get_physicbody(scene, this)
     t  = get_transfrom(scene, this)
     cm = get_camera(scene, this)
-    cm.target   = cm.target + t.position - cm.position
-    cm.position = t.position
+    update_camera_target(cm, t.position)
 end
 
 function on_update(dt)
-    speed = 0.5
-    if get_key_pressed() == util.KeyboardKey.Q then
+    speed = 3.0
+    update_camera_target(cm, t.position)
+    if is_key_down(util.KeyboardKey.Q) then
         affected = not affected
         log_info("Switched")
         if gravity == 0.0 then gravity = 0.2 end
@@ -34,16 +35,14 @@ function on_update(dt)
         if is_key_down(util.KeyboardKey.SPACE) then ph.velocity.y =   10.0 end
     end
 
+    delta = get_mouse_delta();
+    delta.x = delta.x * -sensi;
+    delta.y = delta.y * -sensi;
 
-    cm.target   = cm.target + t.position - cm.position
-    cm.position = t.position
-    --handle_mouse_delta(cm, Vector2.new(
-    --            get_mouse_delta().x * 0.05,
-    --            get_mouse_delta().y * 0.05)
-    --        , true)
+    handle_mouse_delta(cm, t.position, delta, false)
 
-    local forward = get_forward(cm.target, t.position) * 3.0
-    local right   = get_right(cm.target, t.position, cm.up) * 3.0
+    local forward = get_forward(cm.target, t.position)
+    local right   = get_right(cm.target, t.position, cm.up)
 
 
     local f = nil

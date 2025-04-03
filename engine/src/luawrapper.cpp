@@ -41,6 +41,7 @@ namespace engine {
         env.set_function("handle_mouse_delta", handle_mouse_delta);
         env.set_function("get_forward", get_forward);
         env.set_function("get_right", get_right);
+        env.set_function("update_camera_target", update_camera_target);
 
 
 
@@ -162,12 +163,12 @@ namespace engine {
 
     void bind_vectors(sol::state& env) {
 
-        auto v2 = env.new_usertype<glm::vec2>( "glm::vec2", 
+        auto v2 = env.new_usertype<glm::vec2>( "vec2", 
                 sol::constructors<glm::vec2(float, float),glm::vec2()>());
         v2["x"] = &glm::vec2::x;
         v2["y"] = &glm::vec2::y;
         
-        auto v3 = env.new_usertype<glm::vec3>( "glm::vec3", 
+        auto v3 = env.new_usertype<glm::vec3>( "vec3", 
                 sol::constructors<glm::vec3(float, float, float),glm::vec3()>());
         v3[sol::meta_function::addition] = [](const glm::vec3* l, const glm::vec3* r) {
             return *l + *r;
