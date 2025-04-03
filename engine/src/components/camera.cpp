@@ -1,4 +1,5 @@
 #include "components/camera.h"
+#include "util.h"
 
 namespace engine {
     void update_camera_target(CameraComp& camera, glm::vec3 position) {
@@ -49,4 +50,13 @@ namespace engine {
         return camera;
     }
 
+
+    glm::vec3 get_flat_forward(glm::vec3& target, glm::vec3& position) {
+        glm::vec3 dir = glm::normalize(target - position);
+        float yaw = atan2(dir.z, dir.x);
+
+        glm::vec3 flat_forward = glm::vec3(cos(yaw), 0.0f, sin(yaw));
+
+        return flat_forward;
+    }
 }

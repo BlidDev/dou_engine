@@ -2,58 +2,70 @@ local ph
 local t
 local cm
 
-local speed = 0.5
-local sensi = 0.2
+local speed =3
+local jump = 10
+local sensi = 0.1
 
 local affected = true
 
 function on_init()
     ph = get_physicbody(scene, this)
-    t  = get_transfrom(scene, this)
+    t  = get_transform(scene, this)
     cm = get_camera(scene, this)
     update_camera_target(cm, t.position)
 end
 
-function on_update(dt)
-    speed = 3.0
-    update_camera_target(cm, t.position)
-    if is_key_down(util.KeyboardKey.Q) then
-        affected = not affected
-        log_info("Switched")
-        if gravity == 0.0 then gravity = 0.2 end
-    end
-    if is_key_down(util.KeyboardKey.LEFT_SHIFT) then speed = speed * 6.0 end
 
+function on_update(dt)
+    speed = 3
+    update_camera_target(cm, t.position);
+
+    if is_key_down(util.KeyboardKey.LEFT_ALT) then
+        affected = false
+        gravity = 0.0
+        log_info("Off")
+    end
+
+    if is_key_down(util.KeyboardKey.LEFT_CONTROL) then
+        affected = true
+        gravity = 0.2
+        log_info("On")
+    end
+  
     if affected then
-        if is_key_down(util.KeyboardKey.LEFT_CONTROL) then ph.gravity = 0.0 end
-        if is_key_down(util.KeyboardKey.LEFT_ALT) then  ph.gravity = 0.2 end
         if is_key_down(util.KeyboardKey.SPACE) and ph.move_delta.y == 0.0 then ph.velocity.y =  ph.velocity.y + 10.0 end
     else
-        ph.gravity = 0.0
         ph.velocity.y = 0.0
-        if is_key_down(util.KeyboardKey.LEFT_CONTROL) then ph.velocity.y =   -10.0 end
-        if is_key_down(util.KeyboardKey.SPACE) then ph.velocity.y =   10.0 end
+        if is_key_down(util.KeyboardKey.E) then ph.velocity.y =   -10.0 end
+        if is_key_down(util.KeyboardKey.Q) then ph.velocity.y =   10.0 end
     end
 
-    delta = get_mouse_delta();
-    delta.x = delta.x * -sensi;
-    delta.y = delta.y * -sensi;
-
-    handle_mouse_delta(cm, t.position, delta, false)
-
-    local forward = get_forward(cm.target, t.position)
-    local right   = get_right(cm.target, t.position, cm.up)
 
 
-    local f = nil
-    if is_key_down(util.KeyboardKey.W) then f = 1 else  f = 0 end
-    if is_key_down(util.KeyboardKey.S) then f = f - 1 end
-    local r = nil
-    if is_key_down(util.KeyboardKey.D) then r = 1 else  r = 0 end
-    if is_key_down(util.KeyboardKey.A) then r = r - 1 end
 
-    local move = (forward * f) + (right * r)
+    f = is_key(util.KeyboardKey.W) - is_key(util.KeyboardKey.S)
+    r = is_key(util.KeyboardKey.D) - is_key(util.KeyboardKey.A)
+
+
+    -- sprint
+    speed = is_key_down(util.KeyboardKey.LEFT_SHIFT) and speed * 3 or speed
+
+
+    mouse_delta = get_mouse_delta() * -0.1
+
+    handle_mouse_delta(cm, t.position, mouse_delta, true)
+
+    forward = get_flat_forward(cm.target, t.position)
+    right   = get_right(cm.target, t.position, cm.up)
+
+    move = (forward * f) + (right * r)
     move.y = 0.0
-    ph.velocity = ph.velocity + (move * speed)
+    ph.velocity = ph.velocity +  move * speed
+
 end
 
+
+
+function is_key(key)
+    return is_key_down(key) and 1 or 0
+end

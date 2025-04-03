@@ -1,17 +1,10 @@
 Scene: light
-Main Camera: 11124775831939845454
+Main Camera: 10719933291384885553
 Entities:
-  - Entity: 6959609474815261954
+  - Entity: 5726743497840136101
     Transform:
-      Position: [0, 0.5, 0]
+      Position: [0, -0.5, 0]
       Size: [1000, 0, 1000]
-    Model:
-      Model Name: cube
-      Material:
-        Shader: res/shaders/basic.glsl
-        Filled: true
-        Immune: false
-        Color: [0.2, 0.2, 0.2, 1]
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
@@ -19,7 +12,7 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 2048902189698346605
+  - Entity: 7132144628910100439
     Transform:
       Position: [0, 1, 0]
       Size: [1, 1, 1]
@@ -37,10 +30,13 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 11124775831939845454
+  - Entity: 10719933291384885553
     Transform:
-      Position: [0, 5, -2]
-      Size: [0.3, 1, 0.3]
+      Position: [0, 2, -2]
+      Size: [1, 1, 1]
+    Native Actions:
+      - Name: SimpleAct
+        Default: Default
     PhysicsBody:
       Gravity: 0.2
       Velocity: [0, 0, 0]
@@ -53,7 +49,3 @@ Entities:
       Up: [0, 1, 0]
       FovY: 45
       Projection: 0
-    Lua Actions:
-      - Path: res/scripts/player.lua
-        Fields:
-          this: 11124775831939845454

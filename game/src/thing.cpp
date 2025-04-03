@@ -12,7 +12,7 @@ void ThingScene::on_create() {
     set_input_window(manager->main_window);
     glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glEnable(GL_DEPTH_TEST);
-    add_from_file("res/light.scene");
+    add_from_file("res/thing.scene");
 
     player = uuid_to_entity(main_camera);
     lua_action_init(this);
@@ -26,7 +26,7 @@ void ThingScene::on_update(float dt) {
     if(is_key_pressed(GLFW_KEY_ESCAPE))
         close = true;
 
-    //actions(this,dt);
+    actions(this,dt);
     lua_action_update(this, dt);
     physics(registry,dt);
     if (aabb_check(*this, dt)) return;

@@ -34,4 +34,6 @@ namespace engine {
         CameraComp camera;
     };
 
+
+    glm::vec3 get_flat_forward(glm::vec3& target, glm::vec3& position);
 }

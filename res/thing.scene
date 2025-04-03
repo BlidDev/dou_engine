@@ -1,0 +1,95 @@
+Scene: thing
+Main Camera: 12568984642125840200
+Entities:
+  - Entity: 3584098771626346685
+    Tag:
+      Tag: Floor
+    Transform:
+      Position: [0, 0.0, 0]
+      Size: [1000, 0, 1000]
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+    Model:
+      Model Name: cube
+      Material:
+        Shader: res/shaders/basic.glsl
+        Filled: true
+        Immune: false
+        Color: [0.4, 0.4, 0.4, 1]
+
+  - Entity: 2267790415927404941
+    Transform:
+      Position: [-1, 1, 0]
+      Size: [1, 1, 1]
+    Tag:
+      Tag: Cube
+    Model:
+      Model Name: cube
+      Material:
+        Shader: res/shaders/basic.glsl
+        Filled: true
+        Immune: false
+        Color: [1, 0.4, 0.3, 1]
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: false
+      Is Static: true
+      Move Delta: [0, 0, 0]
+      Intersect Callback: [res/scripts/trigger.lua, inter]
+    Lua Actions:
+      - Path: res/scripts/trigger.lua
+        Fields:
+
+  - Entity: 2267790415927404942
+    Transform:
+      Position: [0, 1, 0]
+      Size: [1, 1, 1]
+    Tag:
+      Tag: Rot
+    Model:
+      Model Name: cube
+      Material:
+        Shader: res/shaders/basic.glsl
+        Filled: true
+        Immune: false
+        Color: [0.2, 0.2, 0.3, 1]
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+    Lua Actions:
+      - Path: res/scripts/cube.lua
+        Fields:
+          this: 2267790415927404942
+
+  - Entity: 12568984642125840200
+    Tag:
+      Tag: Player
+    Transform:
+      Position: [0, 3, 0]
+      Size: [0.1, 1, 0.1]
+    PhysicsBody:
+      Gravity: 0.2
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+    Camera:
+      Target: [0, 0, -2]
+      Up: [0, 1, 0]
+      FovY: 45
+      Projection: 0
+    Lua Actions:
+      - Path: res/scripts/player.lua
+        Fields:
