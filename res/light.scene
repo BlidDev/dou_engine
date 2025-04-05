@@ -1,7 +1,7 @@
 Scene: light
-Main Camera: 10719933291384885553
+Main Camera: 3651370476369432736
 Entities:
-  - Entity: 5726743497840136101
+  - Entity: 5972346911452244513
     Transform:
       Position: [0, -0.5, 0]
       Size: [1000, 0, 1000]
@@ -12,7 +12,7 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 7132144628910100439
+  - Entity: 7618275615008720118
     Transform:
       Position: [0, 1, 0]
       Size: [1, 1, 1]
@@ -30,7 +30,7 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 10719933291384885553
+  - Entity: 3651370476369432736
     Transform:
       Position: [0, 2, -2]
       Size: [1, 1, 1]

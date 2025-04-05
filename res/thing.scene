@@ -79,7 +79,7 @@ Entities:
       Position: [0, 3, 0]
       Size: [0.1, 1, 0.1]
     PhysicsBody:
-      Gravity: 0.2
+      Gravity: 0.1
       Velocity: [0, 0, 0]
       Accelaration: [0, 0, 0]
       Is Solid: true
@@ -93,3 +93,4 @@ Entities:
     Lua Actions:
       - Path: res/scripts/player.lua
         Fields:
+          other: 2267790415927404941

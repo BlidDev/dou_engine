@@ -8,6 +8,7 @@ local sensi = 0.1
 
 local affected = true
 
+
 function on_init()
     ph = get_physicbody(scene, this)
     t  = get_transform(scene, this)
@@ -22,13 +23,13 @@ function on_update(dt)
 
     if is_key_down(util.KeyboardKey.LEFT_ALT) then
         affected = false
-        gravity = 0.0
+        ph.gravity = 0.0
         log_info("Off")
     end
 
     if is_key_down(util.KeyboardKey.LEFT_CONTROL) then
         affected = true
-        gravity = 0.2
+        ph.gravity = 0.2
         log_info("On")
     end
   
@@ -39,8 +40,6 @@ function on_update(dt)
         if is_key_down(util.KeyboardKey.E) then ph.velocity.y =   -10.0 end
         if is_key_down(util.KeyboardKey.Q) then ph.velocity.y =   10.0 end
     end
-
-
 
 
     f = is_key(util.KeyboardKey.W) - is_key(util.KeyboardKey.S)
@@ -61,6 +60,11 @@ function on_update(dt)
     move = (forward * f) + (right * r)
     move.y = 0.0
     ph.velocity = ph.velocity +  move * speed
+
+    if is_key_down(util.KeyboardKey.T) then 
+        ot = get_transform(scene, other)
+        ot.position.y = ot.position.y + 0.5
+    end
 
 end
 
