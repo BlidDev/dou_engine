@@ -39,7 +39,7 @@ namespace engine {
         res.path = path;
         res.w = w; res.h = h; res.nrc = nrc;
 
-        EG_INFO("{} {} {} {}", texture, w, h, nrc);
+        //EG_INFO("{} {} {} {}", texture, w, h, nrc);
 
         return res;
     }

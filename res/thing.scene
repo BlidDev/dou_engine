@@ -19,8 +19,10 @@ Entities:
       Material:
         Shader: res/shaders/basic.glsl
         Filled: true
-        Immune: false
         Color: [0.4, 0.4, 0.4, 1]
+        Texture: UNKOWN
+        Textured: false
+        Immune: false
 
   - Entity: 2267790415927404941
     Transform:
@@ -33,8 +35,10 @@ Entities:
       Material:
         Shader: res/shaders/basic.glsl
         Filled: true
-        Immune: false
         Color: [1, 0.4, 0.3, 1]
+        Texture: UNKOWN
+        Textured: false
+        Immune: false
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
@@ -54,12 +58,14 @@ Entities:
     Tag:
       Tag: Rot
     Model:
-      Model Name: cube
+      Model Name: cube_tex
       Material:
-        Shader: res/shaders/basic.glsl
-        Filled: true
+        Shader: res/shaders/textured.glsl
+        Filled: false
+        Color: [0,0,0,0]
+        Texture: res/textures/proto.png
+        Textured: true
         Immune: false
-        Color: [0.2, 0.2, 0.3, 1]
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]

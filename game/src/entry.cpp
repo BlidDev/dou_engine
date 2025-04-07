@@ -22,7 +22,7 @@ int engine::on_start(engine::SceneManager* manager) {
 
     manager->register_scene("light", new LightScene());
     manager->register_scene("thing", new ThingScene());
-    manager->set_current("light");
+    manager->set_current("thing");
     return 0;
 }
 

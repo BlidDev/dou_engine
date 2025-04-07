@@ -1,7 +1,7 @@
 Scene: light
-Main Camera: 9591612202108300243
+Main Camera: 8975645481435068161
 Entities:
-  - Entity: 4244883246843120508
+  - Entity: 15757309194617861236
     Transform:
       Position: [0, -0.5, 0]
       Size: [1000, 0, 1000]
@@ -12,7 +12,7 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 13588043574264308933
+  - Entity: 5726089374893981688
     Transform:
       Position: [0, 1, 0]
       Size: [1, 1, 1]
@@ -21,8 +21,10 @@ Entities:
       Material:
         Shader: res/shaders/textured.glsl
         Filled: false
+        Color: [0, 0, 0, 0]
+        Texture: res/textures/proto.png
+        Textured: true
         Immune: false
-        Color: [0.5, 0.5, 0.5, 1]
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
@@ -30,7 +32,7 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 9591612202108300243
+  - Entity: 8975645481435068161
     Transform:
       Position: [0, 2, -2]
       Size: [1, 1, 1]

@@ -110,10 +110,11 @@ namespace engine {
                 out<<YAML::Key<<"Model Name"<<YAML::Value<<m.model.name;
                 out<<YAML::Key<<"Material"<<YAML::BeginMap;
                     out<<YAML::Key<<"Shader"<<YAML::Value<<m.material.shader.path;
-                    out<<YAML::Key<<"Texture"<<YAML::Value<<m.material.texture.path;
                     out<<YAML::Key<<"Filled"<<YAML::Value<<((MODEL_FILLED & m.material.attributes) == MODEL_FILLED);
-                    out<<YAML::Key<<"Immune"<<YAML::Value<<((MODEL_IMMUNE & m.material.attributes) == MODEL_IMMUNE);
                     out<<YAML::Key<<"Color"<<YAML::Value<<m.material.color;
+                    out<<YAML::Key<<"Texture"<<YAML::Value<<m.material.texture.path;
+                    out<<YAML::Key<<"Textured"<<YAML::Value<<((MODEL_TEXTURED & m.material.attributes) == MODEL_TEXTURED);
+                    out<<YAML::Key<<"Immune"<<YAML::Value<<((MODEL_IMMUNE & m.material.attributes) == MODEL_IMMUNE);
                 out<<YAML::EndMap;
 
 
@@ -215,15 +216,18 @@ namespace engine {
             m.material.shader = scene->get_shader(shader_name.c_str());
 
             std::string texture_path = material["Texture"].as<std::string>();
-            bool filled = material["Filled"].as<bool>()
-            bool filled = material["Filled"].as<bool>()
-            bool immune = material["Immune"].as<bool>()
-            m.material.attributes |=  ?    MODEL_FILLED : 0;
-            m.material.attributes |=  ?    MODEL_IMMUNE : 0;
+            bool filled =   material["Filled"].as<bool>();
+            bool textured = material["Textured"].as<bool>();
+            bool immune = material["Immune"].as<bool>();
+            m.material.attributes |=  filled   ?  MODEL_FILLED : 0;
+            m.material.attributes |=  textured ?  MODEL_TEXTURED : 0;
+            m.material.attributes |=  immune   ?  MODEL_IMMUNE : 0;
 
 
-            m.material.texture = scene->get_texture(texture_path.c_str());
-            m.material.color  = material["Color"].as<glm::vec4>();
+            if(filled)
+                m.material.color  = material["Color"].as<glm::vec4>();
+            if (textured)
+                m.material.texture = scene->get_texture(texture_path.c_str());
             //m.material.print();
         }
 
