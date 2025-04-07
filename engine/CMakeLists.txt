@@ -21,6 +21,7 @@ target_include_directories(engine PUBLIC
     ${CMAKE_SOURCE_DIR}/vendor/sol2/include/
     ${CMAKE_SOURCE_DIR}/vendor/glad/include/
     ${CMAKE_SOURCE_DIR}/vendor/glm
+    ${CMAKE_SOURCE_DIR}/vendor/stb_image
     ${CMAKE_SOURCE_DIR}/engine/include
     ${RAYLIB_DIR}/src
 )

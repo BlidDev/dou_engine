@@ -559,189 +559,196 @@ build cmake_object_order_depends_target_engine: phony || cmake_object_order_depe
 build engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx.cxx | engine/CMakeFiles/engine.dir/cmake_pch.hxx || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -x c++-header -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir
 
 build engine/CMakeFiles/engine.dir/src/components/action.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/components/action.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/components/action.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src/components
 
 build engine/CMakeFiles/engine.dir/src/components/camera.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/components/camera.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/components/camera.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src/components
 
 build engine/CMakeFiles/engine.dir/src/components/luascript.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/components/luascript.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/components/luascript.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src/components
 
 build engine/CMakeFiles/engine.dir/src/components/modelcomp.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/components/modelcomp.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/components/modelcomp.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src/components
 
 build engine/CMakeFiles/engine.dir/src/components/physicbody.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/components/physicbody.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/components/physicbody.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src/components
 
 build engine/CMakeFiles/engine.dir/src/components/transform.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/components/transform.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/components/transform.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src/components
 
 build engine/CMakeFiles/engine.dir/src/components/uuid.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/components/uuid.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/components/uuid.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src/components
 
 build engine/CMakeFiles/engine.dir/src/entity.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/entity.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/entity.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
 
 build engine/CMakeFiles/engine.dir/src/entry_point.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/entry_point.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/entry_point.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
 
 build engine/CMakeFiles/engine.dir/src/input.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/input.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/input.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
 
 build engine/CMakeFiles/engine.dir/src/log.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/log.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/log.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
 
 build engine/CMakeFiles/engine.dir/src/lua/luafunctions.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/lua/luafunctions.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/lua/luafunctions.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src/lua
 
 build engine/CMakeFiles/engine.dir/src/lua/luatypes.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/lua/luatypes.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/lua/luatypes.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src/lua
 
 build engine/CMakeFiles/engine.dir/src/luawrapper.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/luawrapper.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/luawrapper.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
 
 build engine/CMakeFiles/engine.dir/src/manager.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/manager.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/manager.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
 
 build engine/CMakeFiles/engine.dir/src/model.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/model.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/model.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
 
 build engine/CMakeFiles/engine.dir/src/models.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/models.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/models.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
 
 build engine/CMakeFiles/engine.dir/src/scene.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/scene.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/scene.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
 
 build engine/CMakeFiles/engine.dir/src/serializer.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/serializer.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/serializer.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
 
 build engine/CMakeFiles/engine.dir/src/shader.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/shader.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/shader.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
 
 build engine/CMakeFiles/engine.dir/src/systems/actionsys.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/systems/actionsys.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/systems/actionsys.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src/systems
 
 build engine/CMakeFiles/engine.dir/src/systems/luasys.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/systems/luasys.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/systems/luasys.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src/systems
 
 build engine/CMakeFiles/engine.dir/src/systems/physicsys.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/systems/physicsys.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/systems/physicsys.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src/systems
 
 build engine/CMakeFiles/engine.dir/src/systems/renderersys.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/systems/renderersys.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/systems/renderersys.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src/systems
+
+build engine/CMakeFiles/engine.dir/src/texture.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/texture.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
+  DEP_FILE = engine/CMakeFiles/engine.dir/src/texture.cpp.o.d
+  FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
+  OBJECT_DIR = engine/CMakeFiles/engine.dir
+  OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
 
 build engine/CMakeFiles/engine.dir/src/util.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/util.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/util.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
 
 build engine/CMakeFiles/engine.dir/src/window.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/window.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/window.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/engine/include -I/src
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
 
@@ -753,7 +760,7 @@ build engine/CMakeFiles/engine.dir/src/window.cpp.o: CXX_COMPILER__engine_unscan
 #############################################
 # Link the static library bin/Linux - x86_64/Debug/engine/libengine.a
 
-build bin/Linux$ -$ x86_64/Debug/engine/libengine.a: CXX_STATIC_LIBRARY_LINKER__engine_Debug engine/CMakeFiles/engine.dir/src/components/action.cpp.o engine/CMakeFiles/engine.dir/src/components/camera.cpp.o engine/CMakeFiles/engine.dir/src/components/luascript.cpp.o engine/CMakeFiles/engine.dir/src/components/modelcomp.cpp.o engine/CMakeFiles/engine.dir/src/components/physicbody.cpp.o engine/CMakeFiles/engine.dir/src/components/transform.cpp.o engine/CMakeFiles/engine.dir/src/components/uuid.cpp.o engine/CMakeFiles/engine.dir/src/entity.cpp.o engine/CMakeFiles/engine.dir/src/entry_point.cpp.o engine/CMakeFiles/engine.dir/src/input.cpp.o engine/CMakeFiles/engine.dir/src/log.cpp.o engine/CMakeFiles/engine.dir/src/lua/luafunctions.cpp.o engine/CMakeFiles/engine.dir/src/lua/luatypes.cpp.o engine/CMakeFiles/engine.dir/src/luawrapper.cpp.o engine/CMakeFiles/engine.dir/src/manager.cpp.o engine/CMakeFiles/engine.dir/src/model.cpp.o engine/CMakeFiles/engine.dir/src/models.cpp.o engine/CMakeFiles/engine.dir/src/scene.cpp.o engine/CMakeFiles/engine.dir/src/serializer.cpp.o engine/CMakeFiles/engine.dir/src/shader.cpp.o engine/CMakeFiles/engine.dir/src/systems/actionsys.cpp.o engine/CMakeFiles/engine.dir/src/systems/luasys.cpp.o engine/CMakeFiles/engine.dir/src/systems/physicsys.cpp.o engine/CMakeFiles/engine.dir/src/systems/renderersys.cpp.o engine/CMakeFiles/engine.dir/src/util.cpp.o engine/CMakeFiles/engine.dir/src/window.cpp.o || bin/Linux$ -$ x86_64/Debug/engine/libGLAD.a bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a
+build bin/Linux$ -$ x86_64/Debug/engine/libengine.a: CXX_STATIC_LIBRARY_LINKER__engine_Debug engine/CMakeFiles/engine.dir/src/components/action.cpp.o engine/CMakeFiles/engine.dir/src/components/camera.cpp.o engine/CMakeFiles/engine.dir/src/components/luascript.cpp.o engine/CMakeFiles/engine.dir/src/components/modelcomp.cpp.o engine/CMakeFiles/engine.dir/src/components/physicbody.cpp.o engine/CMakeFiles/engine.dir/src/components/transform.cpp.o engine/CMakeFiles/engine.dir/src/components/uuid.cpp.o engine/CMakeFiles/engine.dir/src/entity.cpp.o engine/CMakeFiles/engine.dir/src/entry_point.cpp.o engine/CMakeFiles/engine.dir/src/input.cpp.o engine/CMakeFiles/engine.dir/src/log.cpp.o engine/CMakeFiles/engine.dir/src/lua/luafunctions.cpp.o engine/CMakeFiles/engine.dir/src/lua/luatypes.cpp.o engine/CMakeFiles/engine.dir/src/luawrapper.cpp.o engine/CMakeFiles/engine.dir/src/manager.cpp.o engine/CMakeFiles/engine.dir/src/model.cpp.o engine/CMakeFiles/engine.dir/src/models.cpp.o engine/CMakeFiles/engine.dir/src/scene.cpp.o engine/CMakeFiles/engine.dir/src/serializer.cpp.o engine/CMakeFiles/engine.dir/src/shader.cpp.o engine/CMakeFiles/engine.dir/src/systems/actionsys.cpp.o engine/CMakeFiles/engine.dir/src/systems/luasys.cpp.o engine/CMakeFiles/engine.dir/src/systems/physicsys.cpp.o engine/CMakeFiles/engine.dir/src/systems/renderersys.cpp.o engine/CMakeFiles/engine.dir/src/texture.cpp.o engine/CMakeFiles/engine.dir/src/util.cpp.o engine/CMakeFiles/engine.dir/src/window.cpp.o || bin/Linux$ -$ x86_64/Debug/engine/libGLAD.a bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a
   LANGUAGE_COMPILE_FLAGS = -Wall -g
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   POST_BUILD = :
@@ -801,35 +808,35 @@ build cmake_object_order_depends_target_game: phony || cmake_object_order_depend
 build game/CMakeFiles/game.dir/cmake_pch.hxx.gch: CXX_COMPILER__game_unscanned_Debug /home/blid/rayengine/game/CMakeFiles/game.dir/cmake_pch.hxx.cxx | game/CMakeFiles/game.dir/cmake_pch.hxx || cmake_object_order_depends_target_game
   DEP_FILE = game/CMakeFiles/game.dir/cmake_pch.hxx.gch.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -x c++-header -include /home/blid/rayengine/game/CMakeFiles/game.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/game/include -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/src -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include
+  INCLUDES = -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/game/include -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/src -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image
   OBJECT_DIR = game/CMakeFiles/game.dir
   OBJECT_FILE_DIR = game/CMakeFiles/game.dir
 
 build game/CMakeFiles/game.dir/src/actions.cpp.o: CXX_COMPILER__game_unscanned_Debug /home/blid/rayengine/game/src/actions.cpp | game/CMakeFiles/game.dir/cmake_pch.hxx game/CMakeFiles/game.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_game
   DEP_FILE = game/CMakeFiles/game.dir/src/actions.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/game/CMakeFiles/game.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/game/include -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/src -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include
+  INCLUDES = -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/game/include -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/src -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image
   OBJECT_DIR = game/CMakeFiles/game.dir
   OBJECT_FILE_DIR = game/CMakeFiles/game.dir/src
 
 build game/CMakeFiles/game.dir/src/entry.cpp.o: CXX_COMPILER__game_unscanned_Debug /home/blid/rayengine/game/src/entry.cpp | game/CMakeFiles/game.dir/cmake_pch.hxx game/CMakeFiles/game.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_game
   DEP_FILE = game/CMakeFiles/game.dir/src/entry.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/game/CMakeFiles/game.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/game/include -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/src -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include
+  INCLUDES = -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/game/include -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/src -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image
   OBJECT_DIR = game/CMakeFiles/game.dir
   OBJECT_FILE_DIR = game/CMakeFiles/game.dir/src
 
 build game/CMakeFiles/game.dir/src/light.cpp.o: CXX_COMPILER__game_unscanned_Debug /home/blid/rayengine/game/src/light.cpp | game/CMakeFiles/game.dir/cmake_pch.hxx game/CMakeFiles/game.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_game
   DEP_FILE = game/CMakeFiles/game.dir/src/light.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/game/CMakeFiles/game.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/game/include -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/src -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include
+  INCLUDES = -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/game/include -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/src -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image
   OBJECT_DIR = game/CMakeFiles/game.dir
   OBJECT_FILE_DIR = game/CMakeFiles/game.dir/src
 
 build game/CMakeFiles/game.dir/src/thing.cpp.o: CXX_COMPILER__game_unscanned_Debug /home/blid/rayengine/game/src/thing.cpp | game/CMakeFiles/game.dir/cmake_pch.hxx game/CMakeFiles/game.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_game
   DEP_FILE = game/CMakeFiles/game.dir/src/thing.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/game/CMakeFiles/game.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/game/include -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/src -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include
+  INCLUDES = -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/game/include -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/src -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image
   OBJECT_DIR = game/CMakeFiles/game.dir
   OBJECT_FILE_DIR = game/CMakeFiles/game.dir/src
 

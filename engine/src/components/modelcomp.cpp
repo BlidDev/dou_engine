@@ -5,8 +5,9 @@ namespace engine {
     MaterialBuilder::MaterialBuilder() {
         material = Material {
             .shader = {0, "UNKOWN"},
-            .color = {0.5f,0.5f,0.5f,1.0f},
-            .attributes = MODEL_FILLED
+            .texture = Texture(),
+            .color = {0.0f,0.0f,0.0f,0.0f},
+            .attributes = 0b0000
         };
     }
 
@@ -18,6 +19,7 @@ namespace engine {
 
     MaterialBuilder& MaterialBuilder::set_color(glm::vec4 color) {
         material.color = color;
+        material.attributes |= MODEL_FILLED;
         return *this;
     }
     MaterialBuilder& MaterialBuilder::set_attributes(int attributes) {
@@ -28,6 +30,12 @@ namespace engine {
         material.shader = shader;
         return *this;
     }
+
+    MaterialBuilder& MaterialBuilder::set_texture(Texture texture) {
+        material.texture = texture;
+        material.attributes |= MODEL_TEXTURED;
+        return *this;
+    }
     Material MaterialBuilder::build() {
         return this->material;
     }
@@ -35,7 +43,6 @@ namespace engine {
     ModelComp::ModelComp() {
         material = MaterialBuilder();
         model = {0,0,0,"UNKNOWN"};
-
     }
     
 

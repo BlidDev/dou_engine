@@ -62,6 +62,11 @@ namespace engine {
         shader_lib.insert(std::make_pair(std::string(path), complie_shader_file(path)));
     }
 
+    void SceneManager::register_texture(const char* path) {
+        EG_ASSERT(texture_lib.find(std::string(path)) != texture_lib.end(), "Texture [{}] already registered", path);
+        texture_lib.insert(std::make_pair(std::string(path), load_texture_from_file(path)));
+    }
+
     void SceneManager::register_model(const char* name, VAOType format, float vertices[], unsigned int size) {
         EG_ASSERT(model_lib.find(std::string(name)) != model_lib.end(), "Model [{}] already registered", name);
         model_lib.insert(std::make_pair(std::string(name), create_model(format, vertices, size, name)));

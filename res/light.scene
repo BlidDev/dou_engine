@@ -1,7 +1,7 @@
 Scene: light
-Main Camera: 3651370476369432736
+Main Camera: 9591612202108300243
 Entities:
-  - Entity: 5972346911452244513
+  - Entity: 4244883246843120508
     Transform:
       Position: [0, -0.5, 0]
       Size: [1000, 0, 1000]
@@ -12,17 +12,17 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 7618275615008720118
+  - Entity: 13588043574264308933
     Transform:
       Position: [0, 1, 0]
       Size: [1, 1, 1]
     Model:
-      Model Name: cube
+      Model Name: cube_tex
       Material:
-        Shader: res/shaders/basic.glsl
-        Filled: true
+        Shader: res/shaders/textured.glsl
+        Filled: false
         Immune: false
-        Color: [1, 0.4, 0.3, 1]
+        Color: [0.5, 0.5, 0.5, 1]
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
@@ -30,7 +30,7 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 3651370476369432736
+  - Entity: 9591612202108300243
     Transform:
       Position: [0, 2, -2]
       Size: [1, 1, 1]

@@ -19,18 +19,22 @@ namespace engine {
         update_camera_target(p_camera, p_trans.position);
         glm::mat4 view = glm::lookAt(p_trans.position, p_camera.target, p_camera.up);
 
-        glm::vec3 p = p_trans.position;
-
         for (auto [_, pos, obj] : objects.each()) {
 
+            if ((obj.material.attributes & MODEL_TEXTURED) == MODEL_TEXTURED)
+                glBindTexture(GL_TEXTURE_2D, obj.material.texture);
+
             glUseProgram(obj.material.shader);
-            set_shader_v4(obj.material.shader, "color", obj.material.color);
+
+            if ((obj.material.attributes & MODEL_FILLED) == MODEL_FILLED)
+                set_shader_v4(obj.material.shader, "color", obj.material.color);
             set_shader_m4(obj.material.shader, "projection", projection);
             set_shader_m4(obj.material.shader, "view", view);
             set_shader_m4(obj.material.shader, "model", pos.get_model());
+
+
             glBindVertexArray(obj.model.VAO);
-            if ((obj.material.attributes & MODEL_FILLED) == MODEL_FILLED)
-                glDrawArrays(GL_TRIANGLES, 0, obj.model.nvertices);
+            glDrawArrays(GL_TRIANGLES, 0, obj.model.nvertices);
         }
 
 

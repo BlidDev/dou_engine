@@ -3,6 +3,7 @@
 #include "model.h"
 #include <espch.h>
 #include "shader.h"
+#include "texture.h"
 namespace engine {
 
     class SceneManager;
@@ -35,6 +36,7 @@ namespace engine {
         void register_shader(const char* path);
 
         Shader get_shader(const char* name);
+        Texture get_texture(const char* name);
         Model get_model(const char* name);
         
     public:

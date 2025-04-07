@@ -12,13 +12,17 @@ int engine::on_start(engine::SceneManager* manager) {
     engine::set_input_window(manager->main_window);
 
     manager->register_shader("res/shaders/basic.glsl");
+    manager->register_shader("res/shaders/textured.glsl");
+    manager->register_texture("res/textures/proto.png");
+
     manager->register_model("triangle", VAOType::BASIC, engine::P_TRIANGLE, 9);
     manager->register_model("cube", VAOType::BASIC, engine::P_CUBE, 108);
+    manager->register_model("cube_tex", VAOType::TEXTURE, engine::P_CUBE_TEXTURE, 180);
 
 
     manager->register_scene("light", new LightScene());
     manager->register_scene("thing", new ThingScene());
-    manager->set_current("thing");
+    manager->set_current("light");
     return 0;
 }
 

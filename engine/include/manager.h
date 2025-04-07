@@ -2,6 +2,7 @@
 #include "model.h"
 #include "scene.h"
 #include "shader.h"
+#include "texture.h"
 #include "window.h"
 
 namespace engine {
@@ -19,6 +20,7 @@ namespace engine {
         Scene* scene_from_file(const char* path);
 
         void register_shader(const char* path);
+        void register_texture(const char* path);
         void register_model(const char* name, VAOType format, float vertices[], unsigned int size);
 
         Scene* get_current();
@@ -29,6 +31,7 @@ namespace engine {
         bool switched;
         Window main_window;
         std::unordered_map<std::string, Shader>shader_lib;
+        std::unordered_map<std::string, Texture>texture_lib;
         std::unordered_map<std::string, Model>model_lib;
     private:
         std::unordered_map<std::string, Scene*>scenes;

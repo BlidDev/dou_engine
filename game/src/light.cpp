@@ -22,10 +22,10 @@ void LightScene::on_create() {
     Entity tri = create_entity();
     tri.add_component<TransformComp>(engine::TransformBuilder()
                                     .position({0.0f, 1.0f ,0.0f}));
-    tri.add_component<ModelComp>(get_model("cube"), 
+    tri.add_component<ModelComp>(get_model("cube_tex"), 
                                  MaterialBuilder()
-                                     .set_color({1.0f, 0.4f, 0.3f, 1.0f})
-                                     .set_shader(get_shader("res/shaders/basic.glsl")));
+                                     .set_texture(get_texture("res/textures/proto.png"))
+                                     .set_shader(get_shader("res/shaders/textured.glsl")));
     tri.add_component<PhysicsBodyComp>(PhysicsBodyBuilder().is_solid(true).is_static(true));
 
 

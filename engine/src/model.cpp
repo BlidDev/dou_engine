@@ -8,6 +8,14 @@ namespace engine {
                 glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
                 glEnableVertexAttribArray(0);
                 break;
+
+            case VAOType::TEXTURE: 
+                glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+                glEnableVertexAttribArray(0);
+
+                glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+                glEnableVertexAttribArray(1);
+                break;
             default: EG_CORE_ERROR("Unimplemented VAO format [{}]", (int)format); return -1;break;
         }
 

@@ -35,6 +35,11 @@ namespace engine
 
         return manager->shader_lib.at(std::string(name));
     }
+    Texture Scene::get_texture(const char* name) {
+        EG_ASSERT(manager->texture_lib.find(name) == manager->texture_lib.end(), "Could not find registered texture [{}]", name);
+
+        return manager->texture_lib.at(std::string(name));
+    }
     Model Scene::get_model(const char* name) {
         EG_ASSERT(manager->model_lib.find(name) == manager->model_lib.end(), "Could not find registered model [{}]", name);
 

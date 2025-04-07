@@ -2,15 +2,17 @@
 #include <espch.h>
 #include "model.h"
 #include "shader.h"
-#include "log.h"
+#include "texture.h"
 
 namespace engine {
 
-#define MODEL_FILLED    0b0001
-#define MODEL_IMMUNE    0b0100
+#define MODEL_FILLED      0b0001
+#define MODEL_TEXTURED    0b0010
+#define MODEL_IMMUNE      0b0100
 
     struct Material {
         Shader shader;
+        Texture texture;
         glm::vec4 color;
         int attributes;
 
@@ -23,6 +25,7 @@ namespace engine {
         MaterialBuilder& set_color(glm::vec4 color);
         MaterialBuilder& set_attributes(int attributes);
         MaterialBuilder& set_shader(Shader shader);
+        MaterialBuilder& set_texture(Texture texture);
         Material build();
 
         operator Material() {
