@@ -15,9 +15,10 @@ int engine::on_start(engine::SceneManager* manager) {
     manager->register_shader("res/shaders/textured.glsl");
     manager->register_texture("res/textures/proto.png");
 
-    manager->register_model("triangle", VAO::BASIC, engine::P_TRIANGLE, 9);
-    manager->register_model("cube", VAO::BASIC, engine::P_CUBE, 108);
-    manager->register_model("cube_tex", VAO::TEXTURE, engine::P_CUBE_TEXTURE, 180);
+    manager->register_model("triangle", ModelBuilder().vertices(engine::P_TRIANGLE, 9));
+    manager->register_model("quad", ModelBuilder().vertices(engine::P_QUAD, 12).indices(engine::I_QUAD, 6));
+    manager->register_model("cube", ModelBuilder().vertices(engine::P_CUBE, 108));
+    manager->register_model("cube_tex", ModelBuilder().vertices(engine::P_CUBE_TEXTURE, 180).textured());
 
 
     manager->register_scene("light", new LightScene());

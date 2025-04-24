@@ -2,7 +2,7 @@
 
 namespace engine {
 
-    unsigned int apply_forwat(VAO format) {
+    unsigned int apply_format(int format) {
         unsigned int counter = 0, size = 0;
         bool basic = ((format & VAO::BASIC) == VAO::BASIC);
         bool textured = ((format & VAO::TEXTURE) == VAO::TEXTURE);
@@ -15,7 +15,7 @@ namespace engine {
             size+=3;
         }
 
-        if (basic) {
+        if (textured) {
             glVertexAttribPointer(counter, 2, GL_FLOAT, GL_FALSE, width * sizeof(float), (void*)(size * sizeof(float)));
             glEnableVertexAttribArray(counter);
             counter++;
@@ -29,46 +29,57 @@ namespace engine {
     ModelBuilder::ModelBuilder (std::string name) {
         model.name = name;
         vertices_p = nullptr;
-        indcises_p  = nullptr;
-        nvertices = -1;
-        nindices = -1;
+        indices_p  = nullptr;
+        model.nvertices = 0;
+        model.nindices = 0;
+        vao_format = VAO::NONE;
 
     }
 
-    ModelBuilder& ModelBuilder::format(VAO format) {
-
-        return *this;
-    }
     ModelBuilder& ModelBuilder::vertices(float vertices[], unsigned int size) {
-
+        vertices_p = vertices;
+        model.nvertices = size;
+        vao_format |= VAO::BASIC;
         return *this;
     }
-    ModelBuilder& ModelBuilder::indices(int indices[], unsigned int size) {
 
+    ModelBuilder& ModelBuilder::textured() {
+        vao_format |= VAO::TEXTURE;
         return *this;
     }
+
+    ModelBuilder& ModelBuilder::indices(unsigned int indices[], unsigned int size) {
+        indices_p = indices;
+        model.nindices = size;
+        vao_format |= VAO::INDICES;
+        return *this;
+    }
+
     Model ModelBuilder::build() {
+        glGenVertexArrays(1, &model.VAO);
+        glGenBuffers(1, &model.VBO);
+        if (indices_p)
+            glGenBuffers(1, &model.EBO);
+        EG_ASSERT(!vertices_p,"Null vertices gave to model [{}]", model.name);
+        
+        glBindVertexArray(model.VAO);
+        glBindBuffer(GL_ARRAY_BUFFER, model.VBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * model.nvertices, vertices_p, GL_STATIC_DRAW);
 
+        if (indices_p) {
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, model.EBO);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * model.nindices, indices_p, GL_STATIC_DRAW);
+        }
+
+
+        apply_format(vao_format);
+
+
+        glBindVertexArray(0);
+        EG_INFO("vao: {} vbo: {} ebo: {} nv: {} ni: {}", model.VAO, model.VBO, model.EBO, model.nvertices, model.nindices);
+        return model;
     }
 
 
-
-
-    Model create_model(VAO format, float vertices[], unsigned int size, const char* name) {
-        //unsigned int VBO, VAO;
-        //glGenVertexArrays(1, &VAO);
-        //glGenBuffers(1, &VBO);
-        //glBindVertexArray(VAO);
-
-        //glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        //glBufferData(GL_ARRAY_BUFFER, size * sizeof(float), vertices, GL_STATIC_DRAW);
-
-        //apply_format(format);
-
-        //if
-
-        //glBindVertexArray(0); 
-        //return Model{VAO, VBO, size, std::string(name)};
-    }
 
 }

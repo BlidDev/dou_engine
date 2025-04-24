@@ -21,7 +21,7 @@ namespace engine {
 
         void register_shader(const char* path);
         void register_texture(const char* path);
-        void register_model(const char* name, VAO format, float vertices[], unsigned int size);
+        void register_model(const char* name, Model model);
 
         Scene* get_current();
         ~SceneManager();

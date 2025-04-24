@@ -42,7 +42,7 @@ namespace engine {
 
     ModelComp::ModelComp() {
         material = MaterialBuilder();
-        model = {0,0,0,"UNKNOWN"};
+        model = {0,0,0,0,0,"UNKNOWN"};
     }
     
 

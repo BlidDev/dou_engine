@@ -21,6 +21,8 @@ namespace engine {
 
         for (auto [_, pos, obj] : objects.each()) {
 
+            EG_ASSERT(obj.material.attributes == 0, "Model [{}] has no attributes", obj.model.name);
+
             if ((obj.material.attributes & MODEL_TEXTURED) == MODEL_TEXTURED)
                 glBindTexture(GL_TEXTURE_2D, obj.material.texture);
 
@@ -34,6 +36,10 @@ namespace engine {
 
 
             glBindVertexArray(obj.model.VAO);
+            if (obj.model.nindices != 0) {
+                glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+                continue;
+            }
             glDrawArrays(GL_TRIANGLES, 0, obj.model.nvertices);
         }
 

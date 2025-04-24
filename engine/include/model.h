@@ -3,10 +3,11 @@
 
 namespace engine {
     enum VAO {
+        NONE    = 0b0000,
         BASIC   = 0b0001,
         INDICES = 0b0010,
         TEXTURE = 0b0100,
-        NORMAL  = 0b1000,
+        NORMAL  = 0b1000
     };
     struct Model {
         unsigned int VAO = 0, VBO = 0, EBO = 0, nvertices, nindices;
@@ -14,20 +15,24 @@ namespace engine {
     };
 
     struct ModelBuilder {
-        ModelBuilder (std::string name);
-        ModelBuilder& format(VAO format);
+        ModelBuilder (std::string name = "UNKNOWN");
         ModelBuilder& vertices(float vertices[], unsigned int size);
-        ModelBuilder& indices(int indices[], unsigned int size);
+        ModelBuilder& textured();
+        ModelBuilder& indices(unsigned int indices[], unsigned int size);
         Model build();
+
+        operator Model() {
+            return build();
+        }
+
     private: 
         float* vertices_p;
-        int* indcises_p;
-        int nvertices, nindices;
-        
+        unsigned int* indices_p;
+        int vao_format; 
+
         Model model;
 
     };
 
-    unsigned int apply_format(VAO format);
-    Model create_model(VAO format, float vertices[], unsigned int size, const char* name);
+    unsigned int apply_format(int format);
 }

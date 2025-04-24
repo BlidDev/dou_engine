@@ -51,6 +51,18 @@ namespace engine {
         -0.5f,  0.5f, -0.5f,  
     };
 
+   float P_QUAD[] = {
+         0.5f,  0.5f, 0.0f,  
+         0.5f, -0.5f, 0.0f,  
+        -0.5f, -0.5f, 0.0f,  
+        -0.5f,  0.5f, 0.0f   
+    };
+
+    unsigned int I_QUAD[] = {
+        0, 1, 3,    
+        1, 2, 3     
+    };
+
     float P_CUBE_TEXTURE[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
          0.5f, -0.5f, -0.5f,  1.0f, 0.0f,

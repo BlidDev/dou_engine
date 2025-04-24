@@ -7,6 +7,7 @@ Entities:
     Transform:
       Position: [0, 0.0, 0]
       Size: [1000, 0, 1000]
+      Rotation: [90, 0, 0]
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
@@ -28,10 +29,11 @@ Entities:
     Transform:
       Position: [-1, 1, 0]
       Size: [1, 1, 1]
+      Rotation: [0, 0, 0]
     Tag:
       Tag: Cube
     Model:
-      Model Name: cube
+      Model Name: quad
       Material:
         Shader: res/shaders/basic.glsl
         Filled: true
@@ -55,6 +57,7 @@ Entities:
     Transform:
       Position: [0, 1, 0]
       Size: [1, 1, 1]
+      Rotation: [0, 0 ,0]
     Tag:
       Tag: Rot
     Model:
@@ -82,17 +85,18 @@ Entities:
     Tag:
       Tag: Player
     Transform:
-      Position: [0, 3, 0]
+      Position: [0, 1, -4]
       Size: [0.1, 1, 0.1]
+      Rotation: [0, 0 ,0]
     PhysicsBody:
-      Gravity: 0.1
+      Gravity: 0.3
       Velocity: [0, 0, 0]
       Accelaration: [0, 0, 0]
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
     Camera:
-      Target: [0, 0, -2]
+      Target: [0, 0, 4]
       Up: [0, 1, 0]
       FovY: 45
       Projection: 0
