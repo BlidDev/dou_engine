@@ -2,17 +2,32 @@
 #include <espch.h>
 
 namespace engine {
-    enum VAOType {
-        BASIC = 0,
-        TEXTURE,
-        LIGHTING,
-        LIGHTING_TEX
+    enum VAO {
+        BASIC   = 0b0001,
+        INDICES = 0b0010,
+        TEXTURE = 0b0100,
+        NORMAL  = 0b1000,
     };
     struct Model {
-        unsigned int VAO = 0, VBO = 0, nvertices;
+        unsigned int VAO = 0, VBO = 0, EBO = 0, nvertices, nindices;
         std::string name = "UNKNOWN";
     };
 
-    unsigned int apply_format(VAOType format);
-    Model create_model(VAOType format, float vertices[], unsigned int size, const char* name);
+    struct ModelBuilder {
+        ModelBuilder (std::string name);
+        ModelBuilder& format(VAO format);
+        ModelBuilder& vertices(float vertices[], unsigned int size);
+        ModelBuilder& indices(int indices[], unsigned int size);
+        Model build();
+    private: 
+        float* vertices_p;
+        int* indcises_p;
+        int nvertices, nindices;
+        
+        Model model;
+
+    };
+
+    unsigned int apply_format(VAO format);
+    Model create_model(VAO format, float vertices[], unsigned int size, const char* name);
 }
