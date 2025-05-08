@@ -1,5 +1,6 @@
 #pragma once
 #include "model.h"
+#include "renderer.h"
 #include "scene.h"
 #include "shader.h"
 #include "texture.h"
@@ -33,6 +34,7 @@ namespace engine {
         std::unordered_map<std::string, Shader>shader_lib;
         std::unordered_map<std::string, Texture>texture_lib;
         std::unordered_map<std::string, Model>model_lib;
+        RenderData render_data;
     private:
         std::unordered_map<std::string, Scene*>scenes;
     };

@@ -18,6 +18,8 @@ end
 
 
 function on_update(dt)
+    --fps = 1/dt
+    --log_info("fps: {}", fps)
     speed = 3
     update_camera_target(cm, t.position);
 

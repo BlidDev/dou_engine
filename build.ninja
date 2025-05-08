@@ -682,6 +682,13 @@ build engine/CMakeFiles/engine.dir/src/models.cpp.o: CXX_COMPILER__engine_unscan
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
 
+build engine/CMakeFiles/engine.dir/src/renderer.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/renderer.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
+  DEP_FILE = engine/CMakeFiles/engine.dir/src/renderer.cpp.o.d
+  FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
+  OBJECT_DIR = engine/CMakeFiles/engine.dir
+  OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
+
 build engine/CMakeFiles/engine.dir/src/scene.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/scene.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/scene.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
@@ -738,6 +745,13 @@ build engine/CMakeFiles/engine.dir/src/texture.cpp.o: CXX_COMPILER__engine_unsca
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
 
+build engine/CMakeFiles/engine.dir/src/timer.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/timer.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
+  DEP_FILE = engine/CMakeFiles/engine.dir/src/timer.cpp.o.d
+  FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
+  INCLUDES = -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src
+  OBJECT_DIR = engine/CMakeFiles/engine.dir
+  OBJECT_FILE_DIR = engine/CMakeFiles/engine.dir/src
+
 build engine/CMakeFiles/engine.dir/src/util.cpp.o: CXX_COMPILER__engine_unscanned_Debug /home/blid/rayengine/engine/src/util.cpp | engine/CMakeFiles/engine.dir/cmake_pch.hxx engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_engine
   DEP_FILE = engine/CMakeFiles/engine.dir/src/util.cpp.o.d
   FLAGS = -Wall -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx
@@ -760,7 +774,7 @@ build engine/CMakeFiles/engine.dir/src/window.cpp.o: CXX_COMPILER__engine_unscan
 #############################################
 # Link the static library bin/Linux - x86_64/Debug/engine/libengine.a
 
-build bin/Linux$ -$ x86_64/Debug/engine/libengine.a: CXX_STATIC_LIBRARY_LINKER__engine_Debug engine/CMakeFiles/engine.dir/src/components/action.cpp.o engine/CMakeFiles/engine.dir/src/components/camera.cpp.o engine/CMakeFiles/engine.dir/src/components/luascript.cpp.o engine/CMakeFiles/engine.dir/src/components/modelcomp.cpp.o engine/CMakeFiles/engine.dir/src/components/physicbody.cpp.o engine/CMakeFiles/engine.dir/src/components/transform.cpp.o engine/CMakeFiles/engine.dir/src/components/uuid.cpp.o engine/CMakeFiles/engine.dir/src/entity.cpp.o engine/CMakeFiles/engine.dir/src/entry_point.cpp.o engine/CMakeFiles/engine.dir/src/input.cpp.o engine/CMakeFiles/engine.dir/src/log.cpp.o engine/CMakeFiles/engine.dir/src/lua/luafunctions.cpp.o engine/CMakeFiles/engine.dir/src/lua/luatypes.cpp.o engine/CMakeFiles/engine.dir/src/luawrapper.cpp.o engine/CMakeFiles/engine.dir/src/manager.cpp.o engine/CMakeFiles/engine.dir/src/model.cpp.o engine/CMakeFiles/engine.dir/src/models.cpp.o engine/CMakeFiles/engine.dir/src/scene.cpp.o engine/CMakeFiles/engine.dir/src/serializer.cpp.o engine/CMakeFiles/engine.dir/src/shader.cpp.o engine/CMakeFiles/engine.dir/src/systems/actionsys.cpp.o engine/CMakeFiles/engine.dir/src/systems/luasys.cpp.o engine/CMakeFiles/engine.dir/src/systems/physicsys.cpp.o engine/CMakeFiles/engine.dir/src/systems/renderersys.cpp.o engine/CMakeFiles/engine.dir/src/texture.cpp.o engine/CMakeFiles/engine.dir/src/util.cpp.o engine/CMakeFiles/engine.dir/src/window.cpp.o || bin/Linux$ -$ x86_64/Debug/engine/libGLAD.a bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a
+build bin/Linux$ -$ x86_64/Debug/engine/libengine.a: CXX_STATIC_LIBRARY_LINKER__engine_Debug engine/CMakeFiles/engine.dir/src/components/action.cpp.o engine/CMakeFiles/engine.dir/src/components/camera.cpp.o engine/CMakeFiles/engine.dir/src/components/luascript.cpp.o engine/CMakeFiles/engine.dir/src/components/modelcomp.cpp.o engine/CMakeFiles/engine.dir/src/components/physicbody.cpp.o engine/CMakeFiles/engine.dir/src/components/transform.cpp.o engine/CMakeFiles/engine.dir/src/components/uuid.cpp.o engine/CMakeFiles/engine.dir/src/entity.cpp.o engine/CMakeFiles/engine.dir/src/entry_point.cpp.o engine/CMakeFiles/engine.dir/src/input.cpp.o engine/CMakeFiles/engine.dir/src/log.cpp.o engine/CMakeFiles/engine.dir/src/lua/luafunctions.cpp.o engine/CMakeFiles/engine.dir/src/lua/luatypes.cpp.o engine/CMakeFiles/engine.dir/src/luawrapper.cpp.o engine/CMakeFiles/engine.dir/src/manager.cpp.o engine/CMakeFiles/engine.dir/src/model.cpp.o engine/CMakeFiles/engine.dir/src/models.cpp.o engine/CMakeFiles/engine.dir/src/renderer.cpp.o engine/CMakeFiles/engine.dir/src/scene.cpp.o engine/CMakeFiles/engine.dir/src/serializer.cpp.o engine/CMakeFiles/engine.dir/src/shader.cpp.o engine/CMakeFiles/engine.dir/src/systems/actionsys.cpp.o engine/CMakeFiles/engine.dir/src/systems/luasys.cpp.o engine/CMakeFiles/engine.dir/src/systems/physicsys.cpp.o engine/CMakeFiles/engine.dir/src/systems/renderersys.cpp.o engine/CMakeFiles/engine.dir/src/texture.cpp.o engine/CMakeFiles/engine.dir/src/timer.cpp.o engine/CMakeFiles/engine.dir/src/util.cpp.o engine/CMakeFiles/engine.dir/src/window.cpp.o || bin/Linux$ -$ x86_64/Debug/engine/libGLAD.a bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a
   LANGUAGE_COMPILE_FLAGS = -Wall -g
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   POST_BUILD = :

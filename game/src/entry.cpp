@@ -1,6 +1,7 @@
 #include <epch.h>
 #include "actions.h"
 #include "light.h"
+#include "model.h"
 #include "thing.h"
 
 void register_actions();
@@ -15,6 +16,11 @@ int engine::on_start(engine::SceneManager* manager) {
     manager->register_shader("res/shaders/textured.glsl");
     manager->register_texture("res/textures/proto.png");
 
+    manager->render_data.add("Matrices", 2 * sizeof(glm::mat4));
+
+    engine::ubos_shaders_bind(manager->render_data, manager->shader_lib);
+
+    manager->register_model("quad_tex", model_from_file("res/models/quad_tex.sff"));
     manager->register_model("triangle", ModelBuilder().vertices(engine::P_TRIANGLE, 9));
     manager->register_model("quad", ModelBuilder().vertices(engine::P_QUAD, 12).indices(engine::I_QUAD, 6));
     manager->register_model("cube", ModelBuilder().vertices(engine::P_CUBE, 108));

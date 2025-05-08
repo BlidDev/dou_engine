@@ -8,7 +8,7 @@ ThingScene::ThingScene() : Scene("light") {
 void ThingScene::on_create() {
     //glEnable(GL_BLEND);
     //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glfwSwapInterval(1);
+    //glfwSwapInterval(1);
     set_input_window(manager->main_window);
     glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glEnable(GL_DEPTH_TEST);
@@ -32,7 +32,7 @@ void ThingScene::on_update(float dt) {
     if (aabb_check(*this, dt)) return;
     glm::vec2 view = manager->main_window.size();
 
-    opengl_renderer(view, player, registry);
+    opengl_renderer(manager->render_data,view, player, registry);
     glfwSwapBuffers(manager->main_window);
     glfwPollEvents();
 }

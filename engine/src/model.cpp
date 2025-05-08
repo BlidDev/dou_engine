@@ -76,10 +76,74 @@ namespace engine {
 
 
         glBindVertexArray(0);
-        EG_INFO("vao: {} vbo: {} ebo: {} nv: {} ni: {}", model.VAO, model.VBO, model.EBO, model.nvertices, model.nindices);
+        //EG_INFO("vao: {} vbo: {} ebo: {} nv: {} ni: {}", model.VAO, model.VBO, model.EBO, model.nvertices, model.nindices);
         return model;
     }
 
+    enum ReadIndex {
+        None = -1,
+        Format, Vertices, Indices
+    };
+
+    Model model_from_file(const char* path) {
+        ModelBuilder model_builder;
+        ReadIndex index = None;
+
+        std::ifstream file(path);
+        EG_ASSERT(!file.is_open(), "Could not open file [{}]", path);
+
+        std::vector<float>vertices = {};
+        std::vector<unsigned int>indices = {};
+
+        std::string line = "";
+        while (std::getline(file, line)) {
+            if (line.empty()) { continue; }
+            else if (line == "@VERTICES") {
+                index = ReadIndex::Vertices; continue;
+            } else if (line == "@FORMAT") {
+                index = ReadIndex::Format; continue;
+            } else if (line == "@INDICES") {
+                index = ReadIndex::Indices; continue;
+            }
+
+            if (index == ReadIndex::Format) {
+                std::istringstream iss (line);
+                std::string format_word = "";
+                while (iss>>format_word) {
+                    if (format_word == "POS") {continue;}
+                    else if (format_word == "TEX") {model_builder.textured(); continue;}
+                    EG_CORE_ERROR("Unkown format word give [{}]", format_word);
+                }
+            }
+            else if (index == ReadIndex::Vertices) {
+                std::istringstream iss (line);
+                float p;
+                while (iss>>p) {
+                    vertices.push_back(p);
+                }
+            }
+            else if (index == ReadIndex::Indices) {
+                std::istringstream iss (line);
+                unsigned int i;
+                while (iss>>i) {
+                    indices.push_back(i);
+                }
+            }
+            else {
+                EG_CORE_ERROR("First line must be one of @FORMAT/VERTICES/INDICES");
+            }
+        }
+        file.close();
+
+        EG_ASSERT(vertices.empty(), "No positions given to model [{}]", path);
+        model_builder.vertices(&vertices[0], vertices.size());
+
+        if (!indices.empty()) {
+            model_builder.indices(&indices[0], indices.size());
+        }
+
+        return model_builder.build();
+    }
 
 
 }

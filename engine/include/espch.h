@@ -12,6 +12,7 @@
 #include <fstream>
 
 #include <memory.h>
+#include <chrono>
 
 #include <spdlog/fmt/bundled/args.h>
 #include <spdlog/fmt/bundled/core.h>

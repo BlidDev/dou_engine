@@ -33,13 +33,13 @@ Entities:
     Tag:
       Tag: Cube
     Model:
-      Model Name: quad
+      Model Name: quad_tex
       Material:
-        Shader: res/shaders/basic.glsl
+        Shader: res/shaders/textured.glsl
         Filled: true
         Color: [1, 0.4, 0.3, 1]
-        Texture: UNKOWN
-        Textured: false
+        Texture: res/textures/proto.png
+        Textured: true
         Immune: false
     PhysicsBody:
       Gravity: 0
