@@ -25,7 +25,19 @@ namespace engine {
     void camera_pitch(CameraComp* camera, glm::vec3 position, float angle, bool lock);
     void handle_mouse_delta(CameraComp* camera, glm::vec3 position,glm::vec2 delta, bool lock);
 
-    bool aabb_3d_intersects(glm::vec3 a, glm::vec3 a_s, glm::vec3 b, glm::vec3 b_s);
+
+    struct AABBReturn {
+        bool x = false;
+        bool y = false;
+        bool z = false;
+
+        explicit operator bool() {
+            return x || y || z;
+        }
+
+        glm::vec3 to_glm();
+    };
+    AABBReturn aabb_3d_intersects(glm::vec3 a, glm::vec3 d, glm::vec3 a_s, glm::vec3 b, glm::vec3 b_s);
 
 
     void print_v4(const char* name, glm::vec4& v);

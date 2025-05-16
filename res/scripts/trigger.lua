@@ -1,4 +1,3 @@
-
 function inter(p, e,o)
     tag = get_tag(scene, e)
     if tag.tag == "Player" then 

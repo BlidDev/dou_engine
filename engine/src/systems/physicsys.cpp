@@ -50,25 +50,26 @@ namespace engine {
         return 0;
     }
 
+    void apply_aabb_on_scalars(glm::vec3* s, glm::vec3* s2, AABBReturn& inter, bool* x, bool* y, bool* z) {
+        glm::vec3 res = inter.to_glm();
+        if (*x) { s->x *= res.x; s2->x *= res.x; *x = res.x;}
+        if (*y) { s->y *= res.y; s2->y *= res.y; *y = res.y;}
+        if (*z) { s->z *= res.z; s2->z *= res.z; *z = res.z;}
+    }
+
     int aabb_check(Scene& scene, float dt) {
         auto objs = scene.registry.view<TransformComp,PhysicsBodyComp>();
-        bool allowed_x = true, allowed_y = true, allowed_z = true;
         for (auto [e, t, ph] : objs.each()) {
-            glm::vec3 tp = t.position;
+            bool allowed_x = true, allowed_y = true, allowed_z = true;
             for (auto [o, ot, oph] : objs.each()) {
-                glm::vec3 tmp = t.position + ph.move_delta;
-                if (e == o || 
-                    dist_vec3(tmp, ot.position) > std::max({t.size.x,t.size.y,t.size.z}) + std::max({ot.size.x,ot.size.y,ot.size.z}) ||
-                    !aabb_3d_intersects(t.position + ph.move_delta, t.size, ot.position, ot.size)) continue;
+                AABBReturn intersects = aabb_3d_intersects(t.position, ph.move_delta, t.size, ot.position, ot.size);
+
+                glm::vec3 res = intersects.to_glm();
+                if (!ph.is_static) 
+                    print_v3("res", res);
+                if (e == o || !intersects) continue;
                 if (ph.is_solid && oph.is_solid) {
-                    tmp = glm::vec3{tp.x + ph.move_delta.x, tp.y, tp.z};
-                    HANDLE_AABB(tmp, t, ot, ph, oph, x);
-
-                    tmp = glm::vec3{tp.x, tp.y + ph.move_delta.y, tp.z};
-                    HANDLE_AABB(tmp, t, ot, ph, oph, y);
-
-                    tmp = glm::vec3{tp.x, tp.y, tp.z + ph.move_delta.z};
-                    HANDLE_AABB(tmp, t, ot, ph, oph, z);
+                    apply_aabb_on_scalars(&ph.move_delta, &ph.velocity, intersects, &allowed_x, &allowed_y, &allowed_z);
                 }
 
                 if(ph.intersects_callback || ph.lua_callback) {

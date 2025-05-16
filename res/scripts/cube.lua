@@ -12,7 +12,7 @@ function on_update(dt)
 
     --ph.velocity.z = math.sin(get_time() +  id) * 0.5;
     --ph.velocity.x = math.sin(get_time() +  id);
-    t.rotation.y = math.sin(get_time() +  id) * 50
+    --t.rotation.y = math.sin(get_time() +  id) * 50
 end
 
 

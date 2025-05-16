@@ -4,7 +4,7 @@
 namespace engine {
     MaterialBuilder::MaterialBuilder() {
         material = Material {
-            .shader = {0, "UNKOWN"},
+            .shader = {0, "UNKNOWN"},
             .texture = Texture(),
             .color = {0.0f,0.0f,0.0f,0.0f},
             .attributes = 0b0000

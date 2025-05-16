@@ -153,14 +153,26 @@ namespace engine {
         camera_pitch(camera, position, glm::radians(-delta.y), lock);
     }
 
+    glm::vec3 AABBReturn::to_glm() {
+        return {(float)(!x),(float)(!y),(float)(!z)};
+    }
 
-    bool aabb_3d_intersects(glm::vec3 a, glm::vec3 a_s, glm::vec3 b, glm::vec3 b_s) {
-
-        return (
+    bool aabb_test_axis(glm::vec3 a, glm::vec3 a_s, glm::vec3 b, glm::vec3 b_s) {
+        return 
            std::abs(a.x - b.x) * 2 < (a_s.x + b_s.x) &&
            std::abs(a.y - b.y) * 2 < (a_s.y + b_s.y) &&
-           std::abs(a.z - b.z) * 2 < (a_s.z + b_s.z)
-        );
+           std::abs(a.z - b.z) * 2 < (a_s.z + b_s.z);
+    }
+
+
+    AABBReturn aabb_3d_intersects(glm::vec3 a, glm::vec3 d, glm::vec3 a_s, glm::vec3 b, glm::vec3 b_s) {
+        glm::vec3 tmp =  { a.x + d.x, a.y, a.z};
+        bool x = aabb_test_axis(tmp, a_s, b, b_s);
+        tmp =  { a.x, a.y + d.y, a.z};
+        bool y = aabb_test_axis(tmp, a_s, b, b_s);
+        tmp =  { a.x, a.y, a.z + d.z};
+        bool z = aabb_test_axis(tmp, a_s, b, b_s);
+        return {x,y,z};
     }
 
     void print_v4(const char* name, glm::vec4& v) {
