@@ -31,6 +31,7 @@ namespace engine {
         data.bind("Lighting")
             .sub(0, sizeof(glm::vec3), glm::value_ptr(data.ambient))
             .sub(sizeof(glm::vec3), sizeof(float), &data.ambient_strength)
+            .sub(sizeof(glm::vec4), sizeof(glm::vec3), glm::value_ptr(p_trans.position))
             .unbind();
 
         send_lights(registry, data);
@@ -46,7 +47,14 @@ namespace engine {
 
             if ((obj.material.attributes & MODEL_FILLED) == MODEL_FILLED)
                 set_shader_v4(obj.material.shader, "color", obj.material.color);
-            set_shader_m4(obj.material.shader, "model", pos.get_model());
+
+            glm::mat4 model = pos.get_model(); 
+            set_shader_m4(obj.material.shader, "model", model);
+            
+            if (obj.model.normals()) {
+                glm::mat4 normal = glm::transpose(glm::inverse(model));
+                set_shader_m3(obj.material.shader, "normal_mat", normal);
+            }
 
 
             glBindVertexArray(obj.model.VAO);
@@ -70,7 +78,7 @@ namespace engine {
         data.sub(0, data.max_lights * combined_size, nullptr);
 
         for (auto [e, t, l]: view.each()) {
-            EG_ASSERT(counter >= data.max_lights, "Max number of lights [{}], exceeded", data.max_lights);
+            EG_ASSERT(counter >= (int)data.max_lights, "Max number of lights [{}], exceeded", data.max_lights);
             data.sub(counter * combined_size, sizeof(glm::vec3), glm::value_ptr(t.position)) // position
                 .sub(counter * combined_size + sizeof(glm::vec3), sizeof(float), nullptr) // padding
                 .sub(counter * combined_size + sizeof(glm::vec4), sizeof(LightComp), &l); // light component

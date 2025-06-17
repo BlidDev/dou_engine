@@ -18,7 +18,7 @@ int engine::on_start(engine::SceneManager* manager) {
     manager->register_texture("res/textures/proto.png");
 
     manager->render_data.add("Matrices", 2 * sizeof(glm::mat4));
-    manager->render_data.add("Lighting", 1 * sizeof(glm::vec4));
+    manager->render_data.add("Lighting", 2 * sizeof(glm::vec4));
     size_t lights_size = sizeof(engine::LightComp) + sizeof(glm::vec4);
     manager->render_data.add("SceneLights", 32 * lights_size + sizeof(int));
 

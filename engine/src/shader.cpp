@@ -91,6 +91,10 @@ namespace engine {
         glUniform4f(glGetUniformLocation(shader, name), value.x, value.y, value.z, value.w);
     }
 
+    void set_shader_m3(Shader shader, const char *name, glm::mat3 value) {
+        glUniformMatrix3fv(glGetUniformLocation(shader, name), 1, GL_FALSE, &value[0][0]);
+    }
+
     void set_shader_m4(Shader shader, const char *name, glm::mat4 value) {
         glUniformMatrix4fv(glGetUniformLocation(shader, name), 1, GL_FALSE, &value[0][0]);
     }

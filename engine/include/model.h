@@ -12,6 +12,10 @@ namespace engine {
     struct Model {
         unsigned int VAO = 0, VBO = 0, EBO = 0, nvertices, nindices;
         std::string name = "UNKNOWN";
+        int vao_format;
+
+        bool textured();
+        bool normals();
     };
 
     struct ModelBuilder {

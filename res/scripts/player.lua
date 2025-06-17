@@ -6,7 +6,7 @@ local speed =3
 local jump = 10
 local sensi = 0.1
 
-local affected = false
+local affected = true
 
 
 function on_init()

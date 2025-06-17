@@ -2,6 +2,15 @@
 
 namespace engine {
 
+
+    bool Model::textured() {
+        return ((vao_format & VAO::TEXTURE) == VAO::TEXTURE);
+    }
+
+    bool Model::normals() {
+        return ((vao_format & VAO::NORMAL) == VAO::NORMAL);
+    }
+
     unsigned int apply_format(int format) {
         unsigned int counter = 0, size = 0;
         bool basic = ((format & VAO::BASIC) == VAO::BASIC);
@@ -87,7 +96,7 @@ namespace engine {
 
 
         apply_format(vao_format);
-
+        model.vao_format = vao_format;
 
         glBindVertexArray(0);
         //EG_INFO("vao: {} vbo: {} ebo: {} nv: {} ni: {}", model.VAO, model.VBO, model.EBO, model.nvertices, model.nindices);

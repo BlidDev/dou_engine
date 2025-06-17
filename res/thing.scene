@@ -53,15 +53,15 @@ Entities:
       Move Delta: [0, 0, 0]
     Light:
       Color: [1,1,1]
-      Strength: 0.4
+      Strength: 0.7
 
   - Entity: 2267790415927404942
     Transform:
-      Position: [0, 1, 0]
-      Size: [1, 1, 1]
+      Position: [0, 0.1, 0]
+      Size: [3, 0.3, 3]
       Rotation: [0, 0 ,0]
     Tag:
-      Tag: Rot
+      Tag: Subject
     Model:
       Model Name: cube_tl
       Material:
@@ -88,10 +88,10 @@ Entities:
       Tag: Player
     Transform:
       Position: [0, 1, -4]
-      Size: [0.1, 1, 0.1]
+      Size: [0.1, 1.0, 0.1]
       Rotation: [0, 0 ,0]
     PhysicsBody:
-      Gravity: 0.0
+      Gravity: 0.3
       Velocity: [0, 0, 0]
       Accelaration: [0, 0, 0]
       Is Solid: true
@@ -100,10 +100,12 @@ Entities:
     Camera:
       Target: [0, 0, 4]
       Up: [0, 1, 0]
-      FovY: 45
+      FovY: 70
       Projection: 0
     Lua Actions:
       - Path: res/scripts/player.lua
         Fields:
           other: 2267790415927404941
-
+    Light:
+      Color: [1,0,1]
+      Strength: 0.2
