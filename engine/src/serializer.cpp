@@ -112,7 +112,10 @@ namespace engine {
                 out<<YAML::Key<<"Material"<<YAML::BeginMap;
                     out<<YAML::Key<<"Shader"<<YAML::Value<<m.material.shader.path;
                     out<<YAML::Key<<"Filled"<<YAML::Value<<((MODEL_FILLED & m.material.attributes) == MODEL_FILLED);
-                    out<<YAML::Key<<"Color"<<YAML::Value<<m.material.color;
+                    out<<YAML::Key<<"Ambient"<<YAML::Value<<m.material.ambient;
+                    out<<YAML::Key<<"Diffuse"<<YAML::Value<<m.material.diffuse;
+                    out<<YAML::Key<<"Specular"<<YAML::Value<<m.material.specular;
+                    out<<YAML::Key<<"Shininess"<<YAML::Value<<m.material.shininess;
                     out<<YAML::Key<<"Texture"<<YAML::Value<<m.material.texture.path;
                     out<<YAML::Key<<"Textured"<<YAML::Value<<((MODEL_TEXTURED & m.material.attributes) == MODEL_TEXTURED);
                     out<<YAML::Key<<"Immune"<<YAML::Value<<((MODEL_IMMUNE & m.material.attributes) == MODEL_IMMUNE);
@@ -234,10 +237,21 @@ namespace engine {
             m.material.attributes |=  immune   ?  MODEL_IMMUNE : 0;
 
 
-            if(filled)
-                m.material.color  = material["Color"].as<glm::vec4>();
             if (textured)
                 m.material.texture = scene->get_texture(texture_path.c_str());
+            if (material["Color"]) {
+                glm::vec3 color = material["Color"].as<glm::vec3>();
+                m.material.ambient = color;
+                m.material.diffuse = color;
+                m.material.specular = {1.0f, 1.0f, 1.0f};
+                m.material.shininess = 32.0f;
+            }
+            else {
+                m.material.ambient = material["Ambient"].as<glm::vec3>();
+                m.material.diffuse = material["Diffuse"].as<glm::vec3>();
+                m.material.specular = material["Specular"].as<glm::vec3>();
+                m.material.shininess = material["Shininess"].as<float>();
+            }
             //m.material.print();
         }
 

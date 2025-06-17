@@ -14,6 +14,7 @@ int engine::on_start(engine::SceneManager* manager) {
 
     manager->register_shader("res/shaders/basic.glsl");
     manager->register_shader("res/shaders/textured.glsl");
+    manager->register_shader("res/shaders/lightingt.glsl");
     manager->register_shader("res/shaders/lighting.glsl");
     manager->register_texture("res/textures/proto.png");
 

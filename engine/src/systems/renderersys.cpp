@@ -11,6 +11,7 @@
 namespace engine {
 
     void send_lights(entt::registry& registry, RenderData& data);
+    void send_material(Material& material);
 
     void opengl_renderer(RenderData& data,glm::vec2 view_size, Entity viewer, entt::registry& registry) {
 
@@ -46,14 +47,15 @@ namespace engine {
             glUseProgram(obj.material.shader);
 
             if ((obj.material.attributes & MODEL_FILLED) == MODEL_FILLED)
-                set_shader_v4(obj.material.shader, "color", obj.material.color);
+                set_shader_v3(obj.material.shader, "color", obj.material.ambient);
 
             glm::mat4 model = pos.get_model(); 
             set_shader_m4(obj.material.shader, "model", model);
             
-            if (obj.model.normals()) {
+            if (obj.model.normals()) { // probably lighted
                 glm::mat4 normal = glm::transpose(glm::inverse(model));
                 set_shader_m3(obj.material.shader, "normal_mat", normal);
+                send_material(obj.material);
             }
 
 
@@ -90,5 +92,12 @@ namespace engine {
         //}
 
         data.unbind();
+    }
+
+    void send_material(Material& material) {
+        set_shader_v3(material.shader, "material.ambient", material.ambient);
+        set_shader_v3(material.shader, "material.diffuse", material.diffuse);
+        set_shader_v3(material.shader, "material.specular", material.specular);
+        set_shader_f(material.shader, "material.shininess", material.shininess);
     }
 }

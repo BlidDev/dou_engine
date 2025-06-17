@@ -6,22 +6,48 @@ namespace engine {
         material = Material {
             .shader = {0, "UNKNOWN"},
             .texture = Texture(),
-            .color = {0.0f,0.0f,0.0f,0.0f},
+            .ambient = {0.0f, 0.0f, 0.0f},
+            .diffuse = {0.0f, 0.0f, 0.0f},
+            .specular = {0.0f, 0.0f, 0.0f},
             .attributes = 0b0000
         };
     }
 
     void Material::print() {
-        EG_CORE_INFO("Material: {} {} ({}, {}, {}, {}) {}",
-                shader.path, shader.program,
-                color.r, color.g, color.b, color.a, attributes);
+        EG_CORE_INFO("Material: {} {} {}",
+                shader.path, shader.program, attributes);
     }
 
-    MaterialBuilder& MaterialBuilder::set_color(glm::vec4 color) {
-        material.color = color;
+    MaterialBuilder& MaterialBuilder::set_color(glm::vec3 color) {
+        material.ambient = color; 
+        material.diffuse = color; 
+        material.specular = {1.0f, 1.0f, 1.0f}; 
+        material.shininess = 32.0f;
         material.attributes |= MODEL_FILLED;
         return *this;
     }
+
+    MaterialBuilder& MaterialBuilder::set_ambient(glm::vec3 ambient) {
+        material.ambient = ambient;
+        return *this;
+    }
+
+    MaterialBuilder& MaterialBuilder::set_diffuse(glm::vec3 diffuse) {
+        material.diffuse = diffuse;
+        return *this;
+    }
+
+    MaterialBuilder& MaterialBuilder::set_specular(glm::vec3 specular) {
+        material.specular = specular;
+        return *this;
+    }
+
+    MaterialBuilder& MaterialBuilder::set_shiniess(float shininess) {
+        material.shininess = shininess;
+        return *this;
+    }
+
+
     MaterialBuilder& MaterialBuilder::set_attributes(int attributes) {
         material.attributes = attributes;
         return *this;

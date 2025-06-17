@@ -23,7 +23,7 @@ Entities:
       Material:
         Shader: res/shaders/textured.glsl
         Filled: true
-        Color: [0.4, 0.4, 0.4, 1]
+        Color: [0.4, 0.4, 0.4]
         Texture: res/textures/proto.png
         Textured: true
         Immune: false
@@ -40,7 +40,7 @@ Entities:
       Material:
         Shader: res/shaders/basic.glsl
         Filled: true
-        Color: [1, 0.4, 0.3, 1]
+        Color: [1, 0.4, 0.3]
         Texture: UNKNOWN
         Textured: false
         Immune: false
@@ -53,21 +53,44 @@ Entities:
       Move Delta: [0, 0, 0]
     Light:
       Color: [1,1,1]
-      Strength: 0.7
+      Strength: 1.0
 
-  - Entity: 2267790415927404942
+  - Entity: 2257790415927404942
     Transform:
       Position: [0, 0.1, 0]
       Size: [3, 0.3, 3]
+      Rotation: [0, 0 ,0]
+    Tag:
+      Tag: SubjectC
+    Model:
+      Model Name: cube_tl
+      Material:
+        Shader: res/shaders/lighting.glsl
+        Filled: true
+        Ambient: [0.05375, 0.05, 0.06625]
+        Diffuse: [0.18275, 0.17, 0.22525]
+        Specular: [0.332741, 0.328634, 0.346435]
+        Shininess: 38.4
+        Texture: UNKOWN
+        Textured: false
+        Immune: false
+
+  - Entity: 2267790415927404942
+    Transform:
+      Position: [0, 1, 0]
+      Size: [3, 0.8, 3]
       Rotation: [0, 0 ,0]
     Tag:
       Tag: Subject
     Model:
       Model Name: cube_tl
       Material:
-        Shader: res/shaders/lighting.glsl
+        Shader: res/shaders/lightingt.glsl
         Filled: false
-        Color: [0,0,0,0]
+        Ambient: [1,1,1]
+        Diffuse: [1,1,1]
+        Specular: [1,1,1]
+        Shininess: 64
         Texture: res/textures/proto.png
         Textured: true
         Immune: false
@@ -106,6 +129,3 @@ Entities:
       - Path: res/scripts/player.lua
         Fields:
           other: 2267790415927404941
-    Light:
-      Color: [1,0,1]
-      Strength: 0.2

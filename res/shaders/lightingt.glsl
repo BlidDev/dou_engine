@@ -66,6 +66,7 @@ in vec2 tex_coord;
 in vec3 normal;
 in vec3 world_pos;
 
+uniform sampler2D texture_sample;
 uniform Material material;
 
 void main() {
@@ -96,5 +97,5 @@ void main() {
     }
     vec3 result = (final_ambient + diffuse + specular);
 
-    frag_color = vec4(result, 1.0);
+    frag_color = vec4(result, 1.0) * texture(texture_sample, tex_coord);
 }

@@ -13,7 +13,10 @@ namespace engine {
     struct Material {
         Shader shader;
         Texture texture;
-        glm::vec4 color;
+        glm::vec3 ambient;
+        glm::vec3 diffuse;
+        glm::vec3 specular;
+        float shininess;
         int attributes;
 
         void print();
@@ -22,7 +25,12 @@ namespace engine {
     struct MaterialBuilder {
         MaterialBuilder();
 
-        MaterialBuilder& set_color(glm::vec4 color);
+        MaterialBuilder& set_color(glm::vec3 color);
+        MaterialBuilder& set_ambient(glm::vec3 ambient);
+        MaterialBuilder& set_diffuse(glm::vec3 diffuse);
+        MaterialBuilder& set_specular(glm::vec3 specular);
+        MaterialBuilder& set_shiniess(float shininess);
+
         MaterialBuilder& set_attributes(int attributes);
         MaterialBuilder& set_shader(Shader shader);
         MaterialBuilder& set_texture(Texture texture);

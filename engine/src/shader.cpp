@@ -83,6 +83,10 @@ namespace engine {
         return {program, path};
     }
 
+    void set_shader_f(Shader shader, const char *name, float value) {
+        glUniform1f(glGetUniformLocation(shader, name), value);
+    }
+
     void set_shader_v3(Shader shader, const char *name, glm::vec3 value) {
         glUniform3f(glGetUniformLocation(shader, name), value.x, value.y, value.z);
     }

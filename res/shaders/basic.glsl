@@ -8,11 +8,8 @@ layout (std140) uniform Matrices{
 };
 
 uniform mat4 model;
-uniform vec4 color;
-out vec4 pcolor;
 void main() {
 	gl_Position = projection *  view * model * vec4(aPos, 1.0f);
-    pcolor = color;
 }
 
 
@@ -20,9 +17,8 @@ void main() {
 #version 330 core
 out vec4 frag_color;
 
-uniform vec4 color;
-in vec4 pcolor;
+uniform vec3 color;
 
 void main() {
-    frag_color = pcolor;
+    frag_color = vec4(color, 1.0f);
 }
