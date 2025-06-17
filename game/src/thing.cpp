@@ -1,7 +1,7 @@
 #include "thing.h"
 
 
-ThingScene::ThingScene() : Scene("light") {
+ThingScene::ThingScene() : Scene("thing") {
     close = false;
 }
 
@@ -13,6 +13,7 @@ void ThingScene::on_create() {
     glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glEnable(GL_DEPTH_TEST);
     add_from_file("res/thing.scene");
+    update_render_data(manager, this);
 
     player = uuid_to_entity(main_camera);
     lua_action_init(this);

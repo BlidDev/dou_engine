@@ -25,6 +25,9 @@ namespace engine {
         ubos = {};
         counter = 0;
         bounded = 0;
+        ambient = {1.0f, 1.0f, 1.0f};
+        ambient_strength = 0.1f;
+        max_lights = 32;
     }
 
     RenderData& RenderData::add(const char* name, size_t size) {

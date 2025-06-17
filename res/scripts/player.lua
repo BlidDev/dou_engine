@@ -6,7 +6,7 @@ local speed =3
 local jump = 10
 local sensi = 0.1
 
-local affected = true
+local affected = false
 
 
 function on_init()
@@ -39,8 +39,8 @@ function on_update(dt)
         if is_key_down(util.KeyboardKey.SPACE) and ph.move_delta.y == 0.0 then ph.velocity.y =  ph.velocity.y + 10.0 end
     else
         ph.velocity.y = 0.0
-        if is_key_down(util.KeyboardKey.E) then ph.velocity.y =   -10.0 end
-        if is_key_down(util.KeyboardKey.Q) then ph.velocity.y =   10.0 end
+        if is_key_down(util.KeyboardKey.Q) then ph.velocity.y =   -10.0 end
+        if is_key_down(util.KeyboardKey.E) then ph.velocity.y =   10.0 end
     end
 
 

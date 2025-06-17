@@ -28,6 +28,10 @@ namespace engine {
     private:
         unsigned int counter;
         unsigned int bounded;
+    public:
+        glm::vec3 ambient;
+        float ambient_strength;
+        unsigned int max_lights;
     };
 
     void ubos_shaders_bind(RenderData& data, std::unordered_map<std::string, Shader>& shaders);

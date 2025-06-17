@@ -18,6 +18,7 @@ namespace engine {
         ModelBuilder (std::string name = "UNKNOWN");
         ModelBuilder& vertices(float vertices[], unsigned int size);
         ModelBuilder& textured();
+        ModelBuilder& normals();
         ModelBuilder& indices(unsigned int indices[], unsigned int size);
         Model build();
 

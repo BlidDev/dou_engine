@@ -2,12 +2,15 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "components/camera.h"
+#include "components/light.h"
 #include "components/transform.h"
 #include "components/modelcomp.h"
+#include "util.h"
 
 
 namespace engine {
 
+    void send_lights(entt::registry& registry, RenderData& data);
 
     void opengl_renderer(RenderData& data,glm::vec2 view_size, Entity viewer, entt::registry& registry) {
 
@@ -24,6 +27,13 @@ namespace engine {
             .sub(0, sizeof(glm::mat4), glm::value_ptr(projection))
             .sub(sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(view))
             .unbind();
+
+        data.bind("Lighting")
+            .sub(0, sizeof(glm::vec3), glm::value_ptr(data.ambient))
+            .sub(sizeof(glm::vec3), sizeof(float), &data.ambient_strength)
+            .unbind();
+
+        send_lights(registry, data);
 
         for (auto [_, pos, obj] : objects.each()) {
 
@@ -48,5 +58,29 @@ namespace engine {
         }
 
 
+    }
+
+    void send_lights(entt::registry& registry, RenderData& data) {
+        int counter = 0;
+
+        size_t combined_size = sizeof(glm::vec3) + sizeof(float) + sizeof(LightComp);
+
+        auto view = registry.view<TransformComp,LightComp>();
+        data.bind("SceneLights");
+        data.sub(0, data.max_lights * combined_size, nullptr);
+
+        for (auto [e, t, l]: view.each()) {
+            EG_ASSERT(counter >= data.max_lights, "Max number of lights [{}], exceeded", data.max_lights);
+            data.sub(counter * combined_size, sizeof(glm::vec3), glm::value_ptr(t.position)) // position
+                .sub(counter * combined_size + sizeof(glm::vec3), sizeof(float), nullptr) // padding
+                .sub(counter * combined_size + sizeof(glm::vec4), sizeof(LightComp), &l); // light component
+            counter++;
+        }
+        data.sub(data.max_lights * combined_size, sizeof(int), &counter);
+        //if (counter < data.max_lights - 1) { // remove excess
+        //    data.sub((counter + 1) * sizeof(LightComp), (data.max_lights - counter) * sizeof(LightComp), nullptr);
+        //}
+
+        data.unbind();
     }
 }

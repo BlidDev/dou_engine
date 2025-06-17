@@ -42,8 +42,12 @@ namespace engine {
     public:
         entt::registry registry;
         SceneManager* manager;
-        UUID main_camera = 0;
         std::string name;
         std::unordered_map<UUID, entt::entity> uuids;
+
+    public:
+        UUID main_camera = 0;
+        glm::vec3 ambient = {1.0f, 1.0f, 1.0f};
+        float ambient_strength = 0.1f;
     };
 }

@@ -6,7 +6,8 @@ namespace engine {
         unsigned int counter = 0, size = 0;
         bool basic = ((format & VAO::BASIC) == VAO::BASIC);
         bool textured = ((format & VAO::TEXTURE) == VAO::TEXTURE);
-        unsigned int width = (basic ? 3 : 0) + (textured ? 2 : 0);
+        bool normals = ((format & VAO::NORMAL) == VAO::NORMAL);
+        unsigned int width = (basic ? 3 : 0) + (textured ? 2 : 0) + (normals ? 3 : 0);
 
         if (basic) {
             glVertexAttribPointer(counter, 3, GL_FLOAT, GL_FALSE, width * sizeof(float), (void*)(size * sizeof(float)));
@@ -20,6 +21,13 @@ namespace engine {
             glEnableVertexAttribArray(counter);
             counter++;
             size+=2;
+        }
+
+        if (normals) {
+            glVertexAttribPointer(counter, 3, GL_FLOAT, GL_FALSE, width * sizeof(float), (void*)(size * sizeof(float)));
+            glEnableVertexAttribArray(counter);
+            counter++;
+            size+=3;
         }
 
         return 0;
@@ -45,6 +53,12 @@ namespace engine {
 
     ModelBuilder& ModelBuilder::textured() {
         vao_format |= VAO::TEXTURE;
+
+        return *this;
+    }
+
+    ModelBuilder& ModelBuilder::normals() {
+        vao_format |= VAO::NORMAL;
         return *this;
     }
 
@@ -112,6 +126,7 @@ namespace engine {
                 while (iss>>format_word) {
                     if (format_word == "POS") {continue;}
                     else if (format_word == "TEX") {model_builder.textured(); continue;}
+                    else if (format_word == "NOR") {model_builder.normals(); continue;}
                     EG_CORE_ERROR("Unkown format word give [{}]", format_word);
                 }
             }

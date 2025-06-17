@@ -1,5 +1,8 @@
 Scene: thing
-Main Camera: 12568984642125840200
+Render Data:
+  Main Camera: 12568984642125840200
+  Ambient: [1.0,1.0,1.0]
+  Ambient Strength: 0.2
 Entities:
   - Entity: 3584098771626346685
     Tag:
@@ -27,7 +30,7 @@ Entities:
 
   - Entity: 2267790415927404941
     Transform:
-      Position: [-5, 5, 4]
+      Position: [-2, 2, 4]
       Size: [0.3,0.3,0.3]
       Rotation: [0, 0, 0]
     Tag:
@@ -48,6 +51,9 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
+    Light:
+      Color: [1,1,1]
+      Strength: 0.4
 
   - Entity: 2267790415927404942
     Transform:
@@ -57,9 +63,9 @@ Entities:
     Tag:
       Tag: Rot
     Model:
-      Model Name: cube_tex
+      Model Name: cube_tl
       Material:
-        Shader: res/shaders/textured.glsl
+        Shader: res/shaders/lighting.glsl
         Filled: false
         Color: [0,0,0,0]
         Texture: res/textures/proto.png
@@ -85,7 +91,7 @@ Entities:
       Size: [0.1, 1, 0.1]
       Rotation: [0, 0 ,0]
     PhysicsBody:
-      Gravity: 0.3
+      Gravity: 0.0
       Velocity: [0, 0, 0]
       Accelaration: [0, 0, 0]
       Is Solid: true

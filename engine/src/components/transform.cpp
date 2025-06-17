@@ -17,10 +17,9 @@ namespace engine {
     
     glm::mat4 TransformComp::get_model() {
         model = glm::mat4(1.0f);
-        //model = glm::scale(model, size);
         model = glm::translate(model, position);
+        model = glm::scale(model, size);
         set_rotation(model, rotation);
-        set_size(model, size);
         return model;
     }
 

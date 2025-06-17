@@ -1,5 +1,6 @@
 #include "manager.h"
 #include "systems.h"
+#include "util.h"
 
 namespace engine {
     SceneManager::SceneManager() {
@@ -71,5 +72,10 @@ namespace engine {
         EG_ASSERT(model_lib.find(std::string(name)) != model_lib.end(), "Model [{}] already registered", name);
         model.name = name;
         model_lib.insert(std::make_pair(std::string(name), model));
+    }
+
+    void update_render_data(SceneManager* manager, Scene* current) {
+        manager->render_data.ambient = current->ambient;
+        manager->render_data.ambient_strength = current->ambient_strength;
     }
 }

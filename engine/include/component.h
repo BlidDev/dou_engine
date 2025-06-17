@@ -8,3 +8,4 @@
 #include "components/camera.h"
 #include "components/luascript.h"
 #include "components/modelcomp.h"
+#include "components/light.h"

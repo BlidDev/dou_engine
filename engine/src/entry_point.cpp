@@ -28,6 +28,7 @@ int main() {
             current = manager.get_current();
             manager.switched = false;
             current->on_create();
+            update_render_data(&manager, current);
         }
         current->on_update(dt);
         start = now;

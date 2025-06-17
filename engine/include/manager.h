@@ -38,4 +38,7 @@ namespace engine {
     private:
         std::unordered_map<std::string, Scene*>scenes;
     };
+
+    void update_render_data(SceneManager* manager, Scene* current);
 }
+

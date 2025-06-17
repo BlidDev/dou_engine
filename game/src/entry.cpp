@@ -14,9 +14,13 @@ int engine::on_start(engine::SceneManager* manager) {
 
     manager->register_shader("res/shaders/basic.glsl");
     manager->register_shader("res/shaders/textured.glsl");
+    manager->register_shader("res/shaders/lighting.glsl");
     manager->register_texture("res/textures/proto.png");
 
     manager->render_data.add("Matrices", 2 * sizeof(glm::mat4));
+    manager->render_data.add("Lighting", 1 * sizeof(glm::vec4));
+    size_t lights_size = sizeof(engine::LightComp) + sizeof(glm::vec4);
+    manager->render_data.add("SceneLights", 32 * lights_size + sizeof(int));
 
     engine::ubos_shaders_bind(manager->render_data, manager->shader_lib);
 
@@ -25,6 +29,7 @@ int engine::on_start(engine::SceneManager* manager) {
     manager->register_model("quad", ModelBuilder().vertices(engine::P_QUAD, 12).indices(engine::I_QUAD, 6));
     manager->register_model("cube", ModelBuilder().vertices(engine::P_CUBE, 108));
     manager->register_model("cube_tex", ModelBuilder().vertices(engine::P_CUBE_TEXTURE, 180).textured());
+    manager->register_model("cube_tl", model_from_file("res/models/cube_tl.sff"));
 
 
     manager->register_scene("light", new LightScene());

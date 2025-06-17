@@ -188,6 +188,14 @@ namespace engine {
             out<<YAML::EndSeq;
         }
 
+        if (entity.has_component<LightComp>()) {
+            auto& l = entity.get_component<LightComp>();
+            out<<YAML::Key<<"Light"<<YAML::BeginMap;
+                out<<YAML::Key<<"Color"<<YAML::Value<<l.color;
+                out<<YAML::Key<<"Strength"<<YAML::Value<<l.strength;
+            out<<YAML::EndMap;
+        }
+
         out<<YAML::EndMap;
     }
 
@@ -290,6 +298,13 @@ namespace engine {
                 }
             }
         }
+
+        auto light = entity["Light"];
+        if(light) {
+            auto& l = read_entity.add_component<LightComp>();
+            l.color = light["Color"].as<glm::vec3>();
+            l.strength = light["Strength"].as<float>();
+        }
     }
 
     void SceneManager::write_scene_to_file(const char* path, Scene* scene) {
@@ -297,7 +312,13 @@ namespace engine {
         YAML::Emitter out;
         out<<YAML::BeginMap;
         out<<YAML::Key<<"Scene"<<YAML::Value<<scene->name;
-        out<<YAML::Key<<"Main Camera"<<YAML::Value<<(uint64_t)scene->main_camera;
+
+        out<<YAML::Key<<"Render Data"<<YAML::BeginMap;
+            out<<YAML::Key<<"Main Camera"<<YAML::Value<<(uint64_t)scene->main_camera;
+            out<<YAML::Key<<"Ambient"<<YAML::Value<<scene->ambient;
+            out<<YAML::Key<<"Ambient Strength"<<YAML::Value<<scene->ambient_strength;
+        out<<YAML::EndMap;
+
         out<<YAML::Key<<"Entities"<<YAML::Value<<YAML::BeginSeq;
 
         for (auto e : scene->registry.view<entt::entity>()) {
@@ -313,6 +334,7 @@ namespace engine {
         file.close();
     }
 
+    // FIXME
     Scene* SceneManager::scene_from_file(const char* path) {
         std::ifstream stream(path);
         std::stringstream str_stream;
@@ -320,14 +342,21 @@ namespace engine {
 
         YAML::Node data = YAML::Load(str_stream.str());
 
-        if (!data["Scene"])
-            return nullptr;
+        EG_ASSERT(!data["Scene"],"Cannot read {}, scene does not exist", path );
 
         std::string scene_name = data["Scene"].as<std::string>();
         Scene* scene = new Scene(scene_name);
-       
-        scene->main_camera = UUID(data["Main Camera"].as<uint64_t>());
 
+       
+        EG_ASSERT(!data["Render Data"], "Section Render Data for scene {} not found", scene_name);
+
+        auto render_data = data["Render Data"];
+        scene->main_camera = UUID(render_data["Main Camera"].as<uint64_t>());
+        scene->ambient = render_data["Ambient"].as<glm::vec3>();
+        scene->ambient_strength = render_data["Ambient Strength"].as<float>();
+
+
+        EG_ASSERT(!data["Entities"], "Section Entities for scene {} not found", scene_name);
         auto entities = data["Entities"];
 
         for (auto entity : entities) {
@@ -351,8 +380,15 @@ namespace engine {
 
         std::string scene_name = data["Scene"].as<std::string>();
         name = scene_name;
-        main_camera = UUID(data["Main Camera"].as<uint64_t>());
 
+        EG_ASSERT(!data["Render Data"], "Section Render Data for scene {} not found", scene_name);
+
+        auto render_data = data["Render Data"];
+        main_camera = UUID(render_data["Main Camera"].as<uint64_t>());
+        ambient = render_data["Ambient"].as<glm::vec3>();
+        ambient_strength = render_data["Ambient Strength"].as<float>();
+
+        EG_ASSERT(!data["Entities"], "Section Entities for scene {} not found", scene_name);
         auto entities = data["Entities"];
 
         for (auto entity : entities) {
