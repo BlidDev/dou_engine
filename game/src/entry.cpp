@@ -20,8 +20,10 @@ int engine::on_start(engine::SceneManager* manager) {
 
     manager->render_data.add("Matrices", 2 * sizeof(glm::mat4));
     manager->render_data.add("Lighting", 2 * sizeof(glm::vec4));
-    size_t lights_size = sizeof(engine::LightComp) + sizeof(glm::vec4);
-    manager->render_data.add("SceneLights", 32 * lights_size + sizeof(int));
+    size_t max = 32;
+    size_t dir_size = max * sizeof(engine::DirLightComp);
+    size_t pnt_size = max * 2 * sizeof(glm::vec3) + sizeof(PntLightComp);
+    manager->render_data.add("SceneLights", dir_size + pnt_size + 2 * sizeof(int));
 
     engine::ubos_shaders_bind(manager->render_data, manager->shader_lib);
 

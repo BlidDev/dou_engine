@@ -191,9 +191,11 @@ namespace engine {
             out<<YAML::EndSeq;
         }
 
-        if (entity.has_component<LightComp>()) {
-            auto& l = entity.get_component<LightComp>();
-            out<<YAML::Key<<"Light"<<YAML::BeginMap;
+        if (entity.has_component<DirLightComp>()) {
+            auto& l = entity.get_component<DirLightComp>();
+            out<<YAML::Key<<"DirLight"<<YAML::BeginMap;
+                out<<YAML::Key<<"Direction"<<YAML::Value<<l.direction;
+                out<<YAML::Key<<"Ambient"<<YAML::Value<<l.ambient;
                 out<<YAML::Key<<"Color"<<YAML::Value<<l.color;
                 out<<YAML::Key<<"Strength"<<YAML::Value<<l.strength;
             out<<YAML::EndMap;
@@ -313,12 +315,25 @@ namespace engine {
             }
         }
 
-        auto light = entity["Light"];
-        if(light) {
-            auto& l = read_entity.add_component<LightComp>();
-            l.color = light["Color"].as<glm::vec3>();
-            l.strength = light["Strength"].as<float>();
+        auto dlight = entity["DirLight"];
+        if(dlight) {
+            auto& l = read_entity.add_component<DirLightComp>();
+            l.direction = dlight["Direction"].as<glm::vec3>();
+            l.ambient = dlight["Ambient"].as<float>();
+            l.color = dlight["Color"].as<glm::vec3>();
+            l.strength = dlight["Strength"].as<float>();
         }
+
+        auto plight = entity["PntLight"];
+        if(plight) {
+            auto& l = read_entity.add_component<PntLightComp>();
+            l.color = plight["Color"].as<glm::vec3>();
+            l.constant = plight["Constant"].as<float>();
+            l.linear = plight["Linear"].as<float>();
+            l.quadratic = plight["Quadratic"].as<float>();
+            EG_CORE_INFO("Wow");
+        }
+
     }
 
     void SceneManager::write_scene_to_file(const char* path, Scene* scene) {

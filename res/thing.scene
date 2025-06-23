@@ -2,14 +2,14 @@ Scene: thing
 Render Data:
   Main Camera: 12568984642125840200
   Ambient: [1.0,1.0,1.0]
-  Ambient Strength: 0.2
+  Ambient Strength: 0.1
 Entities:
   - Entity: 3584098771626346685
     Tag:
       Tag: Floor
     Transform:
-      Position: [0, 0.0, 0]
-      Size: [1000, 0, 1000]
+      Position: [0, -0.5, 0]
+      Size: [1000, 0.1, 1000]
       Rotation: [90, 0, 0]
     PhysicsBody:
       Gravity: 0
@@ -19,11 +19,14 @@ Entities:
       Is Static: true
       Move Delta: [0, 0, 0]
     Model:
-      Model Name: cube_tex
+      Model Name: cube_tl
       Material:
-        Shader: res/shaders/textured.glsl
-        Filled: true
-        Color: [0.4, 0.4, 0.4]
+        Shader: res/shaders/lightingt.glsl
+        Filled: false
+        Ambient: [1,1,1]
+        Diffuse: [1,1,1]
+        Specular: [0,0,0]
+        Shininess: 0
         Texture: res/textures/proto.png
         Textured: true
         Immune: false
@@ -40,7 +43,7 @@ Entities:
       Material:
         Shader: res/shaders/basic.glsl
         Filled: true
-        Color: [1, 0.4, 0.3]
+        Color: [0.9,0.9,0.9]
         Texture: UNKNOWN
         Textured: false
         Immune: false
@@ -51,9 +54,17 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-    Light:
-      Color: [1,1,1]
-      Strength: 1.0
+   #DirLight:
+   #  Direction: [-0.2, -1.0, -0.3]
+   #  Ambient: 0.2
+   #  Color: [1,1,1]
+   #  Strength: 0.7
+   #PntLight:
+   #  Color: [1,1,1]
+   #  Constant: 1.0
+   #  Linear: 0.7
+   #  Quadratic: 1.8
+
 
   - Entity: 2257790415927404942
     Transform:
@@ -67,9 +78,9 @@ Entities:
       Material:
         Shader: res/shaders/lighting.glsl
         Filled: true
-        Ambient: [0.05375, 0.05, 0.06625]
-        Diffuse: [0.18275, 0.17, 0.22525]
-        Specular: [0.332741, 0.328634, 0.346435]
+        Ambient:  [1,1,1]
+        Diffuse:  [1,1,1]
+        Specular: [1,1,1]
         Shininess: 38.4
         Texture: UNKOWN
         Textured: false

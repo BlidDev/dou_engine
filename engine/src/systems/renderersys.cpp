@@ -5,7 +5,6 @@
 #include "components/light.h"
 #include "components/transform.h"
 #include "components/modelcomp.h"
-#include "util.h"
 
 
 namespace engine {
@@ -71,25 +70,35 @@ namespace engine {
     }
 
     void send_lights(entt::registry& registry, RenderData& data) {
-        int counter = 0;
+        size_t dsize = sizeof(DirLightComp);
+        size_t psize = sizeof(PntLightComp) + 2 * sizeof(glm::vec3); // struct + pos + padding;
+        size_t allsize = data.max_lights * dsize + data.max_lights * psize + 2 * sizeof(int);
+        int counter = 0, dnum = 0, pnum = 0;
 
-        size_t combined_size = sizeof(glm::vec3) + sizeof(float) + sizeof(LightComp);
-
-        auto view = registry.view<TransformComp,LightComp>();
         data.bind("SceneLights");
-        data.sub(0, data.max_lights * combined_size, nullptr);
+        data.sub(0, allsize, nullptr);
 
-        for (auto [e, t, l]: view.each()) {
-            EG_ASSERT(counter >= (int)data.max_lights, "Max number of lights [{}], exceeded", data.max_lights);
-            data.sub(counter * combined_size, sizeof(glm::vec3), glm::value_ptr(t.position)) // position
-                .sub(counter * combined_size + sizeof(glm::vec3), sizeof(float), nullptr) // padding
-                .sub(counter * combined_size + sizeof(glm::vec4), sizeof(LightComp), &l); // light component
+
+        auto dirs = registry.view<DirLightComp>();
+        for (auto [_, d] : dirs.each()) {
+            data.sub(counter * dsize, sizeof(DirLightComp), &d);
             counter++;
         }
-        data.sub(data.max_lights * combined_size, sizeof(int), &counter);
-        //if (counter < data.max_lights - 1) { // remove excess
-        //    data.sub((counter + 1) * sizeof(LightComp), (data.max_lights - counter) * sizeof(LightComp), nullptr);
-        //}
+        dnum = counter; counter = 0;
+
+        data.sub(data.max_lights * dsize, sizeof(int), &dnum);
+        size_t start = data.max_lights * dsize + sizeof(int);
+
+        auto pnts = registry.view<TransformComp, PntLightComp>();
+        for (auto [_, t, p] : pnts.each()) {
+            data.sub(start + counter * psize, sizeof(glm::vec3), glm::value_ptr(t.position))
+                .sub(start + counter * psize + sizeof(glm::vec3), sizeof(PntLightComp), &p);
+            counter++;
+        }
+        pnum = counter; counter = 0;
+
+        start = data.max_lights * dsize + data.max_lights * psize + sizeof(int);
+        data.sub(start, sizeof(int), &pnum);
 
         data.unbind();
     }
