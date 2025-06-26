@@ -20,10 +20,18 @@ int engine::on_start(engine::SceneManager* manager) {
 
     manager->render_data.add("Matrices", 2 * sizeof(glm::mat4));
     manager->render_data.add("Lighting", 2 * sizeof(glm::vec4));
+
     size_t max = 32;
-    size_t dir_size = max * sizeof(engine::DirLightComp);
-    size_t pnt_size = max * 2 * sizeof(glm::vec3) + sizeof(PntLightComp);
-    manager->render_data.add("SceneLights", dir_size + pnt_size + 2 * sizeof(int));
+    size_t dir_size = sizeof(engine::DirLightComp);   // MUST be 32
+    size_t pnt_size = sizeof(engine::PntLightComp);   // MUST be 32
+    size_t pos_size = sizeof(glm::vec4);   // MUST be 32
+
+    size_t array_data_size = max * (dir_size + pnt_size + pos_size); // 1024 + 1024 = 2048
+
+    // The two floats with padding (16 bytes for std140 alignment)
+    size_t floats_size = 16;
+    size_t total_size = array_data_size + floats_size;
+    manager->render_data.add("SceneLights", total_size);
 
     engine::ubos_shaders_bind(manager->render_data, manager->shader_lib);
 

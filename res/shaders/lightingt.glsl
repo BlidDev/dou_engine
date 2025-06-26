@@ -43,12 +43,20 @@ struct DirLight {
 };
 
 struct PntLight {
-    vec3 position;
     vec3 color;
     float constant;
     float linear;
     float quadratic;
-    vec3 padding;
+    vec2 padding;
+};
+
+
+layout (std140) uniform SceneLights{
+    DirLight dirs[MAX_LIGHTS];
+    PntLight pnts[MAX_LIGHTS];
+    vec4   pnt_ps[MAX_LIGHTS];
+    float dir_num;
+    float pnt_num;
 };
 
 struct Material {
@@ -66,12 +74,6 @@ layout (std140) uniform Lighting{
     float padding;
 };
 
-layout (std140) uniform SceneLights{
-    DirLight dirs[MAX_LIGHTS];
-    PntLight pnts[MAX_LIGHTS];
-    int dir_num;
-    int pnt_num;
-};
 
 in vec2 tex_coord;
 in vec3 normal;
@@ -107,7 +109,7 @@ void main() {
 
 void calc_dirs(vec3 view_dir) {
 
-    for (int i = 0; i < dir_num; i++) {
+    for (int i = 0; i < int(dir_num); i++) {
         DirLight l = dirs[i];
         vec3 light_dir = normalize(-l.direction);
         ambient += l.ambient * material.ambient;
@@ -128,13 +130,15 @@ void calc_dirs(vec3 view_dir) {
 
 void calc_pnts(vec3 view_dir) {
 
-    for (int i = 0; i < pnt_num; i++) {
+    for (int i = 0; i < int(pnt_num); i++) {
         vec3 tmp_ambient = vec3(0.0);
         vec3 tmp_diffuse = vec3(0.0);
         vec3 tmp_specular = vec3(0.0);
 
         PntLight l = pnts[i];
-        vec3 light_dir = normalize(l.position - world_pos);
+        vec3 position = pnt_ps[i].xyz;
+
+        vec3 light_dir = normalize(position - world_pos);
         tmp_ambient = l.color * material.ambient;
 
 
@@ -149,7 +153,7 @@ void calc_pnts(vec3 view_dir) {
         }
         tmp_specular = l.color * (spec * material.specular);
 
-        float distance = length(l.position - world_pos);
+        float distance = length(position - world_pos);
         float attenuation = 1.0 / (l.constant + l.linear * distance + l.quadratic * (distance * distance));
 
         ambient  += tmp_ambient  * attenuation;

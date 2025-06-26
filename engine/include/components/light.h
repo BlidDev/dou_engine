@@ -14,11 +14,16 @@ namespace engine {
     };
 
     struct PntLightComp{
-        PntLightComp() { color = glm::vec3(1.0f); constant = 1.0f; linear = 0.22f; quadratic = 0.20f; }
+        PntLightComp() { color = glm::vec3(1.0f); constant = 1.0f; linear = 0.22f; quadratic = 0.20f;}
 
         glm::vec3 color;
         float constant;
         float linear;
         float quadratic;
+
+        float _pad[2];
     };
+
+    static_assert(sizeof(engine::DirLightComp) == 32, "DirLightComp must be 32 bytes");
+    static_assert(sizeof(engine::PntLightComp) == 32, "PntLightComp must be 32 bytes");
 }

@@ -70,43 +70,62 @@ namespace engine {
     }
 
     void send_lights(entt::registry& registry, RenderData& data) {
-        size_t dsize = sizeof(DirLightComp);
-        size_t psize = sizeof(PntLightComp) + 2 * sizeof(glm::vec3); // struct + pos + padding;
-        size_t allsize = data.max_lights * dsize + data.max_lights * psize + 2 * sizeof(int);
-        int counter = 0, dnum = 0, pnum = 0;
+
+        size_t dsize = sizeof(DirLightComp);      // should be 32
+        size_t psize = sizeof(PntLightComp);      // should be 32
+        size_t pssize = sizeof(glm::vec4);      // should be 32
+        size_t max = data.max_lights;
+
+        // Total size, padded float section aligned to 16 bytes
+        size_t allsize = max * (dsize + psize + pssize);
+        size_t float_offset = (allsize + 15) & ~15; // align to 16
+        allsize += float_offset + 16;                // 2 floats = 8B + 8B pad
 
         data.bind("SceneLights");
         data.sub(0, allsize, nullptr);
 
+        float dnum = 0, pnum = 0;
+        size_t counter = 0;
 
+        // Upload DirLights
         auto dirs = registry.view<DirLightComp>();
         for (auto [_, d] : dirs.each()) {
-            data.sub(counter * dsize, sizeof(DirLightComp), &d);
+            data.sub(counter * dsize, dsize, &d);
             counter++;
         }
-        dnum = counter; counter = 0;
+        dnum = (float)counter;
 
-        data.sub(data.max_lights * dsize, sizeof(int), &dnum);
-        size_t start = data.max_lights * dsize + sizeof(int);
+        // Upload PntLights
+        counter = 0;
+        size_t pstart = dsize * max;
 
         auto pnts = registry.view<TransformComp, PntLightComp>();
         for (auto [_, t, p] : pnts.each()) {
-            data.sub(start + counter * psize, sizeof(glm::vec3), glm::value_ptr(t.position))
-                .sub(start + counter * psize + sizeof(glm::vec3), sizeof(PntLightComp), &p);
+            data.sub(pstart + counter * psize, psize, &p);
             counter++;
         }
-        pnum = counter; counter = 0;
+        pnum = (float)counter;
 
-        start = data.max_lights * dsize + data.max_lights * psize + sizeof(int);
-        data.sub(start, sizeof(int), &pnum);
+        size_t ps_start = max * (dsize + psize);
+
+        size_t i = 0;
+        for (auto [_, t, p] : pnts.each()) {
+            if (i >= counter) break;
+            data.sub(ps_start + i * pssize, pssize, &t.position);
+            i++;
+        }
+
+        // Upload 2 floats (must be at 16B-aligned offset)
+        data.sub(float_offset, sizeof(float), &dnum)
+            .sub(float_offset + sizeof(float), sizeof(float), &pnum);
 
         data.unbind();
     }
 
     void send_material(Material& material) {
-        set_shader_v3(material.shader, "material.ambient", material.ambient);
-        set_shader_v3(material.shader, "material.diffuse", material.diffuse);
-        set_shader_v3(material.shader, "material.specular", material.specular);
-        set_shader_f(material.shader, "material.shininess", material.shininess);
+        set_shader_v3(material.shader, "material.ambient",   material.ambient);
+        set_shader_v3(material.shader, "material.diffuse",   material.diffuse);
+        set_shader_v3(material.shader, "material.specular",  material.specular);
+        set_shader_f (material.shader, "material.shininess", material.shininess);
     }
 }

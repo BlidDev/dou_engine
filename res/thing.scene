@@ -54,16 +54,16 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-   #DirLight:
-   #  Direction: [-0.2, -1.0, -0.3]
-   #  Ambient: 0.2
-   #  Color: [1,1,1]
-   #  Strength: 0.7
-   #PntLight:
-   #  Color: [1,1,1]
-   #  Constant: 1.0
-   #  Linear: 0.7
-   #  Quadratic: 1.8
+    PntLight:
+      Color: [0,1,0]
+      Constant: 1.0
+      Linear: 0.7
+      Quadratic: 1.8
+    DirLight:
+      Direction: [-0.2, -1.0, -0.3]
+      Ambient: 0.2
+      Color: [1,0,0]
+      Strength: 1.0
 
 
   - Entity: 2257790415927404942
@@ -101,7 +101,7 @@ Entities:
         Ambient: [1,1,1]
         Diffuse: [1,1,1]
         Specular: [1,1,1]
-        Shininess: 64
+        Shininess: 0
         Texture: res/textures/proto.png
         Textured: true
         Immune: false
@@ -140,3 +140,8 @@ Entities:
       - Path: res/scripts/player.lua
         Fields:
           other: 2267790415927404941
+    PntLight:
+      Color: [1,0,1]
+      Constant: 1.0
+      Linear: 0.7
+      Quadratic: 1.8
