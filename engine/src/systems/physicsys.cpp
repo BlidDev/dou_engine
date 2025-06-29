@@ -1,6 +1,5 @@
 #include "systems/physicsys.h"
 #include "util.h"
-#include "macros.h"
 #include "components/transform.h"
 #include "components/physicbody.h"
 #include "components/luascript.h"
@@ -66,7 +65,7 @@ namespace engine {
 
                 glm::vec3 res = intersects.to_glm();
                 if (!ph.is_static) 
-                    print_v3("res", res);
+                    EG_INFO("res: {}", res);
                 if (e == o || !intersects) continue;
                 if (ph.is_solid && oph.is_solid) {
                     apply_aabb_on_scalars(&ph.move_delta, &ph.velocity, intersects, &allowed_x, &allowed_y, &allowed_z);
