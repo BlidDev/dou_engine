@@ -62,8 +62,8 @@ Entities:
     DirLight:
       Direction: [-0.2, -1.0, -0.3]
       Ambient: 0.2
-      Color: [1,0,0]
-      Strength: 1.0
+      Color: [1,1,1]
+      Strength: 0.5
 
 
   - Entity: 2257790415927404942

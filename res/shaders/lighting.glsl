@@ -47,16 +47,19 @@ struct PntLight {
     float constant;
     float linear;
     float quadratic;
-    vec2 padding;
+    vec3 position;
+    vec3 padding;
 };
 
 
-layout (std140) uniform SceneLights{
+layout (std140) uniform DirLights {
     DirLight dirs[MAX_LIGHTS];
+    int dir_num;
+};
+
+layout (std140) uniform PntLights {
     PntLight pnts[MAX_LIGHTS];
-    vec4   pnt_ps[MAX_LIGHTS];
-    float dir_num;
-    float pnt_num;
+    int pnt_num;
 };
 
 struct Material {
@@ -136,7 +139,7 @@ void calc_pnts(vec3 view_dir) {
         vec3 tmp_specular = vec3(0.0);
 
         PntLight l = pnts[i];
-        vec3 position = pnt_ps[i].xyz;
+        vec3 position = l.position;
 
         vec3 light_dir = normalize(position - world_pos);
         tmp_ambient = l.color * material.ambient;

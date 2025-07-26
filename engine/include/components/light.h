@@ -24,6 +24,4 @@ namespace engine {
         float _pad[2];
     };
 
-    static_assert(sizeof(engine::DirLightComp) == 32, "DirLightComp must be 32 bytes");
-    static_assert(sizeof(engine::PntLightComp) == 32, "PntLightComp must be 32 bytes");
 }

@@ -71,54 +71,37 @@ namespace engine {
 
     void send_lights(entt::registry& registry, RenderData& data) {
 
-        size_t dsize = sizeof(DirLightComp);      // should be 32
-        size_t psize = sizeof(PntLightComp);      // should be 32
-        size_t pssize = sizeof(glm::vec4);      // should be 32
+        size_t dsize = sizeof(DirLightComp);
+        size_t psize = 4 * sizeof(glm::vec4);
         size_t max = data.max_lights;
 
-        // Total size, padded float section aligned to 16 bytes
-        size_t allsize = max * (dsize + psize + pssize);
-        size_t float_offset = (allsize + 15) & ~15; // align to 16
-        allsize += float_offset + 16;                // 2 floats = 8B + 8B pad
+        data.bind("DirLights");
+        {
+            data.sub(0, max * dsize + sizeof(float), nullptr);
 
-        data.bind("SceneLights");
-        data.sub(0, allsize, nullptr);
-
-        float dnum = 0, pnum = 0;
-        size_t counter = 0;
-
-        // Upload DirLights
-        auto dirs = registry.view<DirLightComp>();
-        for (auto [_, d] : dirs.each()) {
-            data.sub(counter * dsize, dsize, &d);
-            counter++;
+            auto dirs = registry.view<DirLightComp>();
+            size_t counter = 0;
+            for (auto [_, d] : dirs.each()) {
+                data.sub(counter * dsize, dsize, &d);
+                counter++;
+            }
+            data.sub(max * dsize, sizeof(float), &counter);
         }
-        dnum = (float)counter;
+        data.unbind();
 
-        // Upload PntLights
-        counter = 0;
-        size_t pstart = dsize * max;
+        data.bind("PntLights");
+        {
+            data.sub(0, max * psize + sizeof(float), nullptr);
 
-        auto pnts = registry.view<TransformComp, PntLightComp>();
-        for (auto [_, t, p] : pnts.each()) {
-            data.sub(pstart + counter * psize, psize, &p);
-            counter++;
+            auto pnts = registry.view<TransformComp,PntLightComp>();
+            size_t counter = 0;
+            for (auto [_, t,p] : pnts.each()) {
+                data.sub(counter * psize, sizeof(PntLightComp), &p)
+                    .sub(counter * psize + sizeof(PntLightComp), sizeof(glm::vec3), &t.position);
+                counter++;
+            }
+            data.sub(max * psize, sizeof(float), &counter);
         }
-        pnum = (float)counter;
-
-        size_t ps_start = max * (dsize + psize);
-
-        size_t i = 0;
-        for (auto [_, t, p] : pnts.each()) {
-            if (i >= counter) break;
-            data.sub(ps_start + i * pssize, pssize, &t.position);
-            i++;
-        }
-
-        // Upload 2 floats (must be at 16B-aligned offset)
-        data.sub(float_offset, sizeof(float), &dnum)
-            .sub(float_offset + sizeof(float), sizeof(float), &pnum);
-
         data.unbind();
     }
 
