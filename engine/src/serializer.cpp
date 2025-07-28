@@ -201,6 +201,29 @@ namespace engine {
             out<<YAML::EndMap;
         }
 
+        if (entity.has_component<PntLightComp>()) {
+            auto& l = entity.get_component<PntLightComp>();
+            out<<YAML::Key<<"PntLight"<<YAML::BeginMap;
+                out<<YAML::Key<<"Color"<<YAML::Value<<l.color;
+                out<<YAML::Key<<"Constant"<<YAML::Value<<l.constant;
+                out<<YAML::Key<<"Linear"<<YAML::Value<<l.linear;
+                out<<YAML::Key<<"Quadratic"<<YAML::Value<<l.quadratic;
+            out<<YAML::EndMap;
+        }
+
+        if (entity.has_component<SptLightComp>()) {
+            auto& l = entity.get_component<SptLightComp>();
+            out<<YAML::Key<<"PntLight"<<YAML::BeginMap;
+                out<<YAML::Key<<"Color"<<YAML::Value<<l.color;
+                out<<YAML::Key<<"Direction"<<YAML::Value<<l.color;
+                out<<YAML::Key<<"Constant"<<YAML::Value<<l.constant;
+                out<<YAML::Key<<"Linear"<<YAML::Value<<l.linear;
+                out<<YAML::Key<<"Quadratic"<<YAML::Value<<l.quadratic;
+                out<<YAML::Key<<"Cut off"<<YAML::Value<<l.cutoff;
+                out<<YAML::Key<<"Outer cut off"<<YAML::Value<<l.outer_cutoff;
+            out<<YAML::EndMap;
+        }
+
         out<<YAML::EndMap;
     }
 
@@ -331,7 +354,19 @@ namespace engine {
             l.constant = plight["Constant"].as<float>();
             l.linear = plight["Linear"].as<float>();
             l.quadratic = plight["Quadratic"].as<float>();
-            EG_CORE_INFO("Wow");
+        }
+
+        auto slight = entity["SptLight"];
+        if(slight) {
+            auto& l = read_entity.add_component<SptLightComp>();
+            l.color = slight["Color"].as<glm::vec4>();
+            l.direction = slight["Direction"].as<glm::vec4>();
+            l.constant = slight["Constant"].as<float>();
+            l.linear = slight["Linear"].as<float>();
+            l.quadratic = slight["Quadratic"].as<float>();
+
+            l.cutoff =       glm::cos(glm::radians(slight["Cut off"].as<float>()));
+            l.outer_cutoff = glm::cos(glm::radians(slight["Outer cut off"].as<float>()));
         }
 
     }

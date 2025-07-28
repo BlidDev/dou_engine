@@ -8,6 +8,7 @@ local sensi = 0.1
 
 local affected = true
 
+other = nil
 
 function on_init()
     ph = get_physicbody(scene, this)
@@ -68,6 +69,14 @@ function on_update(dt)
         ot.position.y = ot.position.y + 0.5
     end
 
+    --spot = get_spotlight(scene, this)
+
+
+    --tmp = get_camera_dir(cm.target, t.position)
+    --spot.direction = vec4.new(tmp, 1.0)
+    -- spot2 = get_transform(scene, other)
+
+   -- spot2.position = v3_normalize(cm.target - t.position) + t.position;
 end
 
 

@@ -20,12 +20,6 @@ namespace engine {
 
         bind_vectors(env);
 
-        auto cl = env.new_usertype<glm::vec4>("Color");
-        cl["r"] = &glm::vec4::r;
-        cl["g"] = &glm::vec4::g;
-        cl["b"] = &glm::vec4::b;
-        cl["a"] = &glm::vec4::a;
-
         auto tg = env.new_usertype<TagComp> ("Tag",
                 sol::constructors<TagComp(), TagComp(std::string)>());
         tg["tag"] = &TagComp::tag;
@@ -71,6 +65,13 @@ namespace engine {
         cm["projection"] = &CameraBuilder::projection;
         cm["build"] =      &CameraBuilder::build;
 
+        auto spt = env.new_usertype<SptLightComp>("SpotLight",
+                sol::constructors<SptLightComp()>());
+        spt["direction"] =  &SptLightComp::direction;
+        spt["color"] =  &SptLightComp::color;
+        spt["cutoff"] =  &SptLightComp::cutoff;
+        spt["outer_cutoff"] =  &SptLightComp::outer_cutoff;
+
         env.new_enum("Shape", 
                 "CAMERA_PERSPECTIVE", CameraProjection::Perspective,
                 "CAMERA_ORTHOGRAPHIC", CameraProjection::Orthographic);
@@ -101,5 +102,19 @@ namespace engine {
         v3["x"] = &glm::vec3::x;
         v3["y"] = &glm::vec3::y;
         v3["z"] = &glm::vec3::z;
+
+        auto v4 = env.new_usertype<glm::vec4>( "vec4", 
+                sol::constructors<glm::vec4(glm::vec3, float),glm::vec4(float,float, float, float),glm::vec4()>());
+
+        v4[sol::meta_function::addition] = [](const glm::vec4* l, const glm::vec4* r) { return *l + *r; };
+        v4[sol::meta_function::subtraction] = [](const glm::vec4* l, const glm::vec4* r) { return *l - *r; };
+        v4[sol::meta_function::multiplication] = [](const glm::vec4* l, const glm::vec4& r) { return *l * r; };
+        v4[sol::meta_function::multiplication] = [](const glm::vec4* l, const float& r) { return *l * r; };
+
+        v4["x"] = &glm::vec4::x;
+        v4["y"] = &glm::vec4::y;
+        v4["z"] = &glm::vec4::z;
+        v4["w"] = &glm::vec4::w;
+
     }
 }

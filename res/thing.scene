@@ -59,16 +59,16 @@ Entities:
       Constant: 1.0
       Linear: 0.7
       Quadratic: 1.8
-    DirLight:
-      Direction: [-0.2, -1.0, -0.3]
-      Ambient: 0.2
-      Color: [1,1,1]
-      Strength: 0.5
+   #DirLight:
+   #  Direction: [-0.2, -1.0, -0.3]
+   #  Ambient: 0.2
+   #  Color: [1,1,1]
+   #  Strength: 0.5
 
 
   - Entity: 2257790415927404942
     Transform:
-      Position: [0, 0.1, 0]
+      Position: [0, 1, 0]
       Size: [3, 0.3, 3]
       Rotation: [0, 0 ,0]
     Tag:
@@ -85,6 +85,14 @@ Entities:
         Texture: UNKOWN
         Textured: false
         Immune: false
+    SptLight:
+      Color: [1, 1, 1, 0]
+      Direction: [0, -1, 0, 0]
+      Constant: 1.0
+      Linear: 0.09
+      Quadratic: 0.032
+      Cut off: 20.5
+      Outer cut off: 31.5
 
   - Entity: 2267790415927404942
     Transform:
@@ -140,8 +148,17 @@ Entities:
       - Path: res/scripts/player.lua
         Fields:
           other: 2267790415927404941
-    PntLight:
-      Color: [1,0,1]
+    SptLight:
+      Color: [1, 0, 0, 0]
+      Direction: [0, -1, 0, 0]
       Constant: 1.0
-      Linear: 0.7
-      Quadratic: 1.8
+      Linear: 0.05
+      Quadratic: 0.021
+      Cut off: 20.5
+      Outer cut off: 29.5
+
+   #PntLight:
+   #  Color: [0,1,0]
+   #  Constant: 1.0
+   #  Linear: 0.7
+   #  Quadratic: 1.8

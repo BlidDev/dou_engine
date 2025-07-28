@@ -69,15 +69,22 @@ namespace engine {
 
     }
 
+    struct alignas(16) TmpLight {
+        glm::vec3 position;
+        float padding;
+        SptLightComp light;
+    };
+
     void send_lights(entt::registry& registry, RenderData& data) {
 
         size_t dsize = sizeof(DirLightComp);
-        size_t psize = 4 * sizeof(glm::vec4);
+        size_t psize = 3 * sizeof(glm::vec4);
+        size_t ssize = 5 * sizeof(glm::vec4);
         size_t max = data.max_lights;
 
         data.bind("DirLights");
         {
-            data.sub(0, max * dsize + sizeof(float), nullptr);
+            data.sub(0, max * dsize + sizeof(int), nullptr);
 
             auto dirs = registry.view<DirLightComp>();
             size_t counter = 0;
@@ -85,7 +92,7 @@ namespace engine {
                 data.sub(counter * dsize, dsize, &d);
                 counter++;
             }
-            data.sub(max * dsize, sizeof(float), &counter);
+            data.sub(max * dsize, sizeof(int), &counter);
         }
         data.unbind();
 
@@ -100,7 +107,24 @@ namespace engine {
                     .sub(counter * psize + sizeof(PntLightComp), sizeof(glm::vec3), &t.position);
                 counter++;
             }
-            data.sub(max * psize, sizeof(float), &counter);
+            data.sub(max * psize, sizeof(int), &counter);
+        }
+        data.unbind();
+
+        size_t spt_buffer_size = ssize * max + sizeof(glm::vec4);
+        data.bind("SptLights");
+        {
+            data.sub(0, spt_buffer_size, nullptr);
+
+            auto spts = registry.view<TransformComp,SptLightComp>();
+            size_t counter = 0, start = sizeof(glm::vec4);
+            for (auto [_, t,s] : spts.each()) {
+                glm::vec4 tmp = {t.position, 1.0f};
+                data.sub(start + ssize * counter, sizeof(glm::vec4), &tmp)
+                    .sub(start + ssize * counter + sizeof(glm::vec4), sizeof(SptLightComp),&s);
+                counter++;
+            }
+            data.sub(0, sizeof(int), &counter);
         }
         data.unbind();
     }

@@ -51,6 +51,11 @@ namespace engine {
     }
 
 
+    glm::vec3 get_camera_dir(glm::vec3& target, glm::vec3& position) {
+        glm::vec3 dir = glm::normalize(target - position);
+        return dir;
+    }
+
     glm::vec3 get_flat_forward(glm::vec3& target, glm::vec3& position) {
         glm::vec3 dir = glm::normalize(target - position);
         float yaw = atan2(dir.z, dir.x);

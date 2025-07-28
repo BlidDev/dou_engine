@@ -23,10 +23,12 @@ int engine::on_start(engine::SceneManager* manager) {
 
     size_t max = 32;
     size_t dir_size = sizeof(engine::DirLightComp); 
-    size_t pnt_size = 4 * sizeof(glm::vec4); 
+    size_t pnt_size = 3 * sizeof(glm::vec4); 
+    size_t spt_size = 5 * sizeof(glm::vec4); 
 
-    manager->render_data.add("DirLights", dir_size * max + sizeof(float));
-    manager->render_data.add("PntLights", pnt_size * max + sizeof(float));
+    manager->render_data.add("SptLights", spt_size * max + sizeof(int));
+    manager->render_data.add("DirLights", dir_size * max + sizeof(int));
+    manager->render_data.add("PntLights", pnt_size * max + sizeof(int));
 
     engine::ubos_shaders_bind(manager->render_data, manager->shader_lib);
 

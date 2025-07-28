@@ -18,6 +18,7 @@ namespace engine {
       env.set_function("get_physicbody", get_uuid_component<PhysicsBodyComp>);
       env.set_function("get_camera", get_uuid_component<CameraComp>);
       env.set_function("get_script", get_uuid_component<LuaActionComp>);
+      env.set_function("get_spotlight", get_uuid_component<SptLightComp>);
 
       // env.set_function("color_from_hsv", ColorFromHSV);
       // env.set_function("get_fps", GetFPS);
@@ -29,6 +30,10 @@ namespace engine {
       env.set_function("get_right", get_right);
       env.set_function("update_camera_target", update_camera_target);
       env.set_function("get_flat_forward", get_flat_forward);
+      env.set_function("get_camera_dir", get_camera_dir);
+
+      env.set_function("v3_normalize", [](glm::vec3 t){ return glm::normalize(t);});
+
 
       env.set_function("log_trace", log_trace);
       env.set_function("log_info", log_info);
