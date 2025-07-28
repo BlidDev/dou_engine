@@ -18,11 +18,11 @@ namespace engine {
 
     CameraBuilder::CameraBuilder() {
         camera = { 
-            .target = (glm::vec3){ 0.0f, 0.0f, 1.0f },      // Camera looking at point
-            .up = (glm::vec3){ 0.0f, 1.0f, 0.0f },          // Camera up vector (rotation towards target)
+            .target = glm::vec3(0.0f, 0.0f, 1.0f),      // Camera looking at point
+            .up = glm::vec3( 0.0f, 1.0f, 0.0f),          // Camera up vector (rotation towards target)
             .fovy = 90.0f,                                // Camera field-of-view Y
             .projection = CameraProjection::Perspective,
-            .last_pos = (glm::vec3){0.0f, 0.0f, 0.0f}
+            .last_pos = glm::vec3(0.0f, 0.0f, 0.0f )
         };
     }
 

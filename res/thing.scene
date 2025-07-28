@@ -85,15 +85,6 @@ Entities:
         Texture: UNKOWN
         Textured: false
         Immune: false
-    SptLight:
-      Color: [1, 1, 1, 0]
-      Direction: [0, -1, 0, 0]
-      Constant: 1.0
-      Linear: 0.09
-      Quadratic: 0.032
-      Cut off: 20.5
-      Outer cut off: 31.5
-
   - Entity: 2267790415927404942
     Transform:
       Position: [0, 1, 0]
@@ -133,7 +124,7 @@ Entities:
       Size: [0.1, 1.0, 0.1]
       Rotation: [0, 0 ,0]
     PhysicsBody:
-      Gravity: 0.3
+      Gravity: 0.1
       Velocity: [0, 0, 0]
       Accelaration: [0, 0, 0]
       Is Solid: true
@@ -149,7 +140,7 @@ Entities:
         Fields:
           other: 2267790415927404941
     SptLight:
-      Color: [1, 0, 0, 0]
+      Color: [1, 1, 0, 0]
       Direction: [0, -1, 0, 0]
       Constant: 1.0
       Linear: 0.05

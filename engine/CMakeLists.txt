@@ -36,12 +36,15 @@ target_precompile_headers(engine PRIVATE ${HEADER_FILES})
 find_package(OpenGL REQUIRED)
 
 link_directories(engine 
-    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libYAML_CPP.a)
+    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libGLAD.a
+    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libGLFW.a
+)
 
-link_directories(engine 
-    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libGLAD.a)
-
-set(LUA_PATH PRIVATE
-    "${CMAKE_SOURCE_DIR}/vendor/lua/linux/liblua54.a")
-
+if(WIN32)
+    set(LUA_PATH PRIVATE
+            "${CMAKE_SOURCE_DIR}/vendor/lua/windows/lua54.lib")
+elseif(UNIX AND NOT APPLE)
+    set(LUA_PATH PRIVATE
+        "${CMAKE_SOURCE_DIR}/vendor/lua/linux/liblua54.a")
+endif()
 target_link_libraries(engine PRIVATE glfw OpenGL::GL YAML_CPP GLAD ${LUA_PATH})

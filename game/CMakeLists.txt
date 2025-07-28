@@ -12,16 +12,13 @@ target_include_directories(game PRIVATE
     ${CMAKE_SOURCE_DIR}/game/include
     ${CMAKE_SOURCE_DIR}/vendor/spdlog/include
     ${CMAKE_SOURCE_DIR}/vendor/entt
+    ${CMAKE_SOURCE_DIR}/vendor/glfw/include
     ${YAML_CPP_INCLUDE_DIRS}
     ${RAYLIB_DIR}/src
     ${CMAKE_SOURCE_DIR}/vendor/glad/include/
     ${CMAKE_SOURCE_DIR}/vendor/glm
 )
 
-
-link_directories(game 
-    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libYAML_CPP.a
-    )
 
 set(HEADER_FILES PRIVATE 
     "${CMAKE_SOURCE_DIR}/engine/include/engine.h")
