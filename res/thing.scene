@@ -58,12 +58,12 @@ Entities:
       Color: [0,1,0]
       Constant: 1.0
       Linear: 0.7
-      Quadratic: 1.8
-   #DirLight:
-   #  Direction: [-0.2, -1.0, -0.3]
-   #  Ambient: 0.2
-   #  Color: [1,1,1]
-   #  Strength: 0.5
+      Quadratic: 0.16
+    DirLight:
+      Direction: [-0.2, -1.0, -0.3]
+      Ambient: 0.0
+      Color: [1,1,1]
+      Strength: 0.13
 
 
   - Entity: 2257790415927404942
@@ -85,6 +85,22 @@ Entities:
         Texture: UNKOWN
         Textured: false
         Immune: false
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+    SptLight:
+      Color: [1, 1, 1, 0]
+      Direction: [0, -1, -1, 0]
+      Constant: 1.0
+      Linear: 0.05
+      Quadratic: 0.021
+      Cut off: 15.5
+      Outer cut off: 20.5
+
   - Entity: 2267790415927404942
     Transform:
       Position: [0, 1, 0]
@@ -124,7 +140,7 @@ Entities:
       Size: [0.1, 1.0, 0.1]
       Rotation: [0, 0 ,0]
     PhysicsBody:
-      Gravity: 0.1
+      Gravity: 0.28
       Velocity: [0, 0, 0]
       Accelaration: [0, 0, 0]
       Is Solid: true
@@ -140,16 +156,16 @@ Entities:
         Fields:
           other: 2267790415927404941
     SptLight:
-      Color: [1, 1, 0, 0]
+      Color: [0.97, 0.96, 0.51, 1.0]
       Direction: [0, -1, 0, 0]
       Constant: 1.0
       Linear: 0.05
       Quadratic: 0.021
-      Cut off: 20.5
-      Outer cut off: 29.5
+      Cut off: 28.5
+      Outer cut off: 35.5
 
-   #PntLight:
-   #  Color: [0,1,0]
-   #  Constant: 1.0
-   #  Linear: 0.7
-   #  Quadratic: 1.8
+    PntLight:
+      Color: [0.7,0.2,0.2]
+      Constant: 1.0
+      Linear: 0.7
+      Quadratic: 1.8

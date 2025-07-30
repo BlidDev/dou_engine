@@ -69,8 +69,12 @@ namespace engine {
                 sol::constructors<SptLightComp()>());
         spt["direction"] =  &SptLightComp::direction;
         spt["color"] =  &SptLightComp::color;
+        spt["constant"] = &SptLightComp::constant;
+        spt["linear"] = &SptLightComp::linear;
+        spt["quadratic"] = &SptLightComp::quadratic;
         spt["cutoff"] =  &SptLightComp::cutoff;
         spt["outer_cutoff"] =  &SptLightComp::outer_cutoff;
+
 
         env.new_enum("Shape", 
                 "CAMERA_PERSPECTIVE", CameraProjection::Perspective,
@@ -82,7 +86,7 @@ namespace engine {
     void bind_vectors(sol::state& env) {
 
         auto v2 = env.new_usertype<glm::vec2>( "vec2", 
-                sol::constructors<glm::vec2(float, float),glm::vec2()>());
+                sol::constructors<glm::vec2(float, float), glm::vec2(float), glm::vec2()>());
         v2["x"] = &glm::vec2::x;
         v2["y"] = &glm::vec2::y;
 
@@ -93,7 +97,7 @@ namespace engine {
 
         
         auto v3 = env.new_usertype<glm::vec3>( "vec3", 
-                sol::constructors<glm::vec3(float, float, float),glm::vec3()>());
+                sol::constructors<glm::vec3(glm::vec2, float), glm::vec3(float, float, float), glm::vec3(float), glm::vec3()>());
         v3[sol::meta_function::addition] = [](const glm::vec3* l, const glm::vec3* r) { return *l + *r; };
         v3[sol::meta_function::subtraction] = [](const glm::vec3* l, const glm::vec3* r) { return *l - *r; };
         v3[sol::meta_function::multiplication] = [](const glm::vec3* l, const glm::vec3& r) { return *l * r; };
@@ -104,7 +108,7 @@ namespace engine {
         v3["z"] = &glm::vec3::z;
 
         auto v4 = env.new_usertype<glm::vec4>( "vec4", 
-                sol::constructors<glm::vec4(glm::vec3, float),glm::vec4(float,float, float, float),glm::vec4()>());
+                sol::constructors<glm::vec4(glm::vec3, float),glm::vec4(float,float, float, float), glm::vec4(float), glm::vec4()>());
 
         v4[sol::meta_function::addition] = [](const glm::vec4* l, const glm::vec4* r) { return *l + *r; };
         v4[sol::meta_function::subtraction] = [](const glm::vec4* l, const glm::vec4* r) { return *l - *r; };

@@ -6,6 +6,7 @@ local speed =3
 local jump = 10
 local sensi = 0.1
 
+local affectedcounter = 0
 local affected = true
 
 other = nil
@@ -18,22 +19,26 @@ function on_init()
 end
 
 
+local counter = 0;
+local flashlight = false
+
 function on_update(dt)
     --fps = 1/dt
     --log_info("fps: {}", fps)
     speed = 3
     update_camera_target(cm, t.position);
 
-    if is_key_down(util.KeyboardKey.LEFT_ALT) then
-        affected = false
-        ph.gravity = 0.0
-        log_info("Off")
-    end
-
-    if is_key_down(util.KeyboardKey.LEFT_CONTROL) then
-        affected = true
-        ph.gravity = 0.2
-        log_info("On")
+    if is_key_down(util.KeyboardKey.LEFT_ALT) and affectedcounter > 10 then
+        if affected then
+            affected = false
+            ph.gravity = 0.0
+            log_info("Off")
+        else
+            affected = true
+            ph.gravity = 0.2
+            log_info("On")
+        end
+        affectedcounter = 0;
     end
   
     if affected then
@@ -55,6 +60,8 @@ function on_update(dt)
 
     mouse_delta = get_mouse_delta() * -0.1
 
+    last_dir = vec4.new(get_camera_dir(cm.target, t.position), 1.0)
+
     handle_mouse_delta(cm, t.position, mouse_delta, true)
 
     forward = get_flat_forward(cm.target, t.position)
@@ -69,14 +76,19 @@ function on_update(dt)
         ot.position.y = ot.position.y + 0.5
     end
 
-    --spot = get_spotlight(scene, this)
+    if is_key_down(util.KeyboardKey.F) and counter >= 10 then
+        flashlight = not flashlight
+        counter = 0
+    end
+
+    spot = get_spotlight(scene, this)
+    tmp = get_camera_dir(cm.target, t.position)
+    spot.direction = last_dir
+    if flashlight then spot.color = vec4.new(0.97, 0.96, 0.51, 1.0) else spot.color = vec4.new(0.0) end
 
 
-    --tmp = get_camera_dir(cm.target, t.position)
-    --spot.direction = vec4.new(tmp, 1.0)
-    -- spot2 = get_transform(scene, other)
-
-   -- spot2.position = v3_normalize(cm.target - t.position) + t.position;
+    affectedcounter = affectedcounter + 1
+    counter = counter + 1
 end
 
 

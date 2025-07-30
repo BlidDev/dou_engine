@@ -69,19 +69,11 @@ namespace engine {
 
     }
 
-    struct alignas(16) TmpLight {
-        glm::vec3 position;
-        float padding;
-        SptLightComp light;
-    };
 
     void send_lights(entt::registry& registry, RenderData& data) {
-
-        size_t dsize = sizeof(DirLightComp);
-        size_t psize = 3 * sizeof(glm::vec4);
-        size_t ssize = 5 * sizeof(glm::vec4);
         size_t max = data.max_lights;
 
+        size_t dsize = sizeof(DirLightComp);
         data.bind("DirLights");
         {
             data.sub(0, max * dsize + sizeof(int), nullptr);
@@ -89,6 +81,7 @@ namespace engine {
             auto dirs = registry.view<DirLightComp>();
             size_t counter = 0;
             for (auto [_, d] : dirs.each()) {
+                if (counter >= max) break;
                 data.sub(counter * dsize, dsize, &d);
                 counter++;
             }
@@ -96,6 +89,7 @@ namespace engine {
         }
         data.unbind();
 
+        size_t psize = 3 * sizeof(glm::vec4);
         data.bind("PntLights");
         {
             data.sub(0, max * psize + sizeof(float), nullptr);
@@ -103,6 +97,7 @@ namespace engine {
             auto pnts = registry.view<TransformComp,PntLightComp>();
             size_t counter = 0;
             for (auto [_, t,p] : pnts.each()) {
+                if (counter >= max) break;
                 data.sub(counter * psize, sizeof(PntLightComp), &p)
                     .sub(counter * psize + sizeof(PntLightComp), sizeof(glm::vec3), &t.position);
                 counter++;
@@ -111,20 +106,26 @@ namespace engine {
         }
         data.unbind();
 
-        size_t spt_buffer_size = ssize * max + sizeof(glm::vec4);
+        constexpr size_t pos_size    = sizeof(glm::vec4);     // 16
+        constexpr size_t light_size  = sizeof(SptLightComp);  // 64
+        constexpr size_t record_size = pos_size + light_size; // 80
         data.bind("SptLights");
         {
-            data.sub(0, spt_buffer_size, nullptr);
+            data.sub(0, max * record_size + sizeof(int), nullptr);
 
-            auto spts = registry.view<TransformComp,SptLightComp>();
-            size_t counter = 0, start = sizeof(glm::vec4);
-            for (auto [_, t,s] : spts.each()) {
-                glm::vec4 tmp = {t.position, 1.0f};
-                data.sub(start + ssize * counter, sizeof(glm::vec4), &tmp)
-                    .sub(start + ssize * counter + sizeof(glm::vec4), sizeof(SptLightComp),&s);
-                counter++;
+            auto spts = registry.view<TransformComp, SptLightComp>();
+            size_t counter = 0;
+
+            for (auto [_, t, s] : spts.each()) {
+                if (counter >= max) break;
+                size_t base = counter * record_size;
+                glm::vec4 pos4 = glm::vec4(t.position, 1.0f);
+                data.sub(base, pos_size, &pos4)
+                    .sub(base + pos_size, light_size, &s);
+                ++counter;
             }
-            data.sub(0, sizeof(int), &counter);
+
+            data.sub(max * record_size, sizeof(int), &counter);
         }
         data.unbind();
     }

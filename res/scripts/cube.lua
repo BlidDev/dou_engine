@@ -12,7 +12,7 @@ end
 function on_update(dt)
     t.rotation.y = math.sin(get_time() +  id) * 50
     --t.rotation.z = math.sin(get_time() +  id) * 50
-    --t.position.y = 2 + math.sin(get_time() +  id) * 0.5
+    t.position.y = 2 + math.sin(get_time() +  id) * 0.5
 end
 
 

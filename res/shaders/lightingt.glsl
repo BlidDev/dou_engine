@@ -52,23 +52,25 @@ struct PntLight { // 3 * vec4
 };
 
 struct SptLight { // 5 * vec4
-    vec4 position;
-    vec4 color; 
-    vec4 direction;
+    vec4 position;// 1
+    vec4 color;  // 2
+    vec4 direction; //3
     float constant;
     float linear;
     float quadratic;
 
-    float cutoff;
+    float cutoff; // 4
 
     float outer_cutoff;
-    float paddin[3];
+    float pad0;
+    float pad1;
+    float pad2;
 };
 
 
 layout (std140) uniform SptLights {
-    int spt_num;
     SptLight spts[MAX_LIGHTS];
+    int spt_num;
 };
 
 layout (std140) uniform DirLights {
@@ -197,38 +199,35 @@ void calc_spts(vec3 view_dir) {
 
         SptLight l = spts[i];
 
-        vec3 position = l.position.xyz;
+        vec3 light_dir = normalize(l.position.xyz - world_pos);
 
-        vec3 light_dir = normalize(position - world_pos);
-
-        //if (theta < l.cutoff) continue;
-        tmp_ambient = l.color.rgb * material.ambient ;
-
-
+        tmp_ambient = l.color.rgb * material.ambient;
 
         float diff = max(dot(norm, light_dir), 0.0);
         tmp_diffuse = l.color.rgb * diff * material.diffuse;
 
-        vec3 reflect_dir = reflect(-light_dir, norm);
+        // specular
+        vec3 reflect_dir = reflect(-light_dir, norm);  
         float spec = 0.0f;
         if (material.shininess != 0.0f) {
             spec = pow(max(dot(view_dir, reflect_dir), 0.0), material.shininess);
         }
         tmp_specular = l.color.rgb * (spec * material.specular);
-
- 
+        
         // spotlight (soft edges)
-        float theta = dot(light_dir, normalize(-l.direction.xyz)); 
         float epsilon = (l.cutoff - l.outer_cutoff);
-        float intensity = clamp((theta - l.outer_cutoff) / epsilon, 0.0, 1.0);
+        float theta = dot(light_dir, normalize(-l.direction.xyz)); 
+        float intensity =  clamp((theta - l.outer_cutoff) / epsilon, 0.0, 1.0);
         tmp_diffuse  *= intensity;
         tmp_specular *= intensity;
+        
+        // attenuation
+        float distance    = length(l.position.xyz - world_pos);
+        float attenuation = 1.0 / (l.constant + l.linear * distance + l.quadratic * (distance * distance));    
 
-        float distance = length(position - world_pos);
-        float attenuation = 1.0 / (l.constant + l.linear * distance + l.quadratic * (distance * distance));
-
-        ambient  += tmp_ambient  * attenuation;
-        diffuse  += tmp_diffuse  * attenuation;
-        specular += tmp_specular * attenuation;
+        //ambient  += tmp_ambient * attenuation; 
+        diffuse  += tmp_diffuse * attenuation;
+        specular += tmp_specular * attenuation;  
+        
     }
 }

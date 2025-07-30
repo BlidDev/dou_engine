@@ -9,7 +9,7 @@ void register_actions();
 int engine::on_start(engine::SceneManager* manager) {
 
     register_actions();
-    manager->main_window = Window("notray", 848, 480);
+    manager->main_window = Window("notray", 1280, 720);
     engine::set_input_window(manager->main_window);
 
     manager->register_shader("res/shaders/basic.glsl");
@@ -24,7 +24,7 @@ int engine::on_start(engine::SceneManager* manager) {
     size_t max = 32;
     size_t dir_size = sizeof(engine::DirLightComp); 
     size_t pnt_size = 3 * sizeof(glm::vec4); 
-    size_t spt_size = 5 * sizeof(glm::vec4); 
+    size_t spt_size = sizeof(SptLightComp) + sizeof(glm::vec4);
 
     manager->render_data.add("SptLights", spt_size * max + sizeof(int));
     manager->render_data.add("DirLights", dir_size * max + sizeof(int));
