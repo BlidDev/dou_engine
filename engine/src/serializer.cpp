@@ -359,8 +359,8 @@ namespace engine {
         auto slight = entity["SptLight"];
         if(slight) {
             auto& l = read_entity.add_component<SptLightComp>();
-            l.color = slight["Color"].as<glm::vec4>();
-            l.direction = slight["Direction"].as<glm::vec4>();
+            l.color = slight["Color"].as<glm::vec3>();
+            l.direction = slight["Direction"].as<glm::vec3>();
             l.constant = slight["Constant"].as<float>();
             l.linear = slight["Linear"].as<float>();
             l.quadratic = slight["Quadratic"].as<float>();

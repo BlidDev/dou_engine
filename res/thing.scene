@@ -51,9 +51,10 @@ Entities:
       Gravity: 0
       Velocity: [0, 0, 0]
       Accelaration: [0, 0, 0]
-      Is Solid: true
+      Is Solid: false
       Is Static: true
       Move Delta: [0, 0, 0]
+      Intersect Callback: [res/scripts/trigger.lua, inter]
     PntLight:
       Color: [0,1,0]
       Constant: 1.0
@@ -64,6 +65,9 @@ Entities:
       Ambient: 0.0
       Color: [1,1,1]
       Strength: 0.13
+    Lua Actions:
+      - Path: res/scripts/trigger.lua
+        Fields:
 
 
   - Entity: 2257790415927404942
@@ -93,8 +97,8 @@ Entities:
       Is Static: true
       Move Delta: [0, 0, 0]
     SptLight:
-      Color: [1, 1, 1, 0]
-      Direction: [0, -1, -1, 0]
+      Color: [1, 1, 1]
+      Direction: [0, -1, -1]
       Constant: 1.0
       Linear: 0.05
       Quadratic: 0.021
@@ -156,8 +160,8 @@ Entities:
         Fields:
           other: 2267790415927404941
     SptLight:
-      Color: [0.97, 0.96, 0.51, 1.0]
-      Direction: [0, -1, 0, 0]
+      Color: [0.97, 0.96, 0.51]
+      Direction: [0, -1, 0]
       Constant: 1.0
       Linear: 0.05
       Quadratic: 0.021

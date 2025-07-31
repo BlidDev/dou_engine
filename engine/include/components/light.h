@@ -33,31 +33,31 @@ namespace engine {
       float _pad[2];
     };
 
-    struct SptLightComp {
+    struct SptLightComp { // ugly order to match std140
       SptLightComp() {
         color = glm::vec4(1.0f);
         constant = 1.0f;
         linear = 0.22f;
         quadratic = 0.20f;
-        direction = {0.0f, -1.0f, 0.0f, 0.0};
+        direction = {0.0f, -1.0f, 0.0f};
         cutoff = glm::cos(glm::radians(12.5f));
         outer_cutoff = glm::cos(glm::radians(17.5f));
       }
 
-      glm::vec4 color;
-      glm::vec4 direction;
-
+      glm::vec3 color;
       float constant;
+      
+      glm::vec3 direction;
       float linear;
+     
+
       float quadratic;
       float cutoff;
-
       float outer_cutoff;
-      float pad0;
-      float pad1;
-      float pad2;
+      float _pad;
+
     };
-    static_assert(sizeof(SptLightComp) - 64 + 4 * sizeof(glm::vec4) == 64);
+    static_assert(sizeof(SptLightComp) == 3 * sizeof(glm::vec4));
 
 
 } // namespace engine

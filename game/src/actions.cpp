@@ -29,7 +29,7 @@ void SimpleAct::on_update(engine::Scene* scene, engine::Entity self, float dt) {
 
     speed = (engine::is_key_pressed(GLFW_KEY_LEFT_SHIFT)) ? speed * 3.0f : speed;
 
-    glm::vec3 forward = engine::get_forward(cam.target, trs.position) * 3.0f;
+    glm::vec3 forward = engine::get_flat_forward(cam.target, trs.position) * 3.0f;
     glm::vec3 right   = engine::get_right(cam.target, trs.position, cam.up) * 3.0f;
 
     glm::vec2 mouse_delta = engine::get_mouse_delta() * -0.05f;

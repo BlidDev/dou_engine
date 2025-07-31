@@ -23,8 +23,8 @@ local counter = 0;
 local flashlight = false
 
 function on_update(dt)
-    --fps = 1/dt
-    --log_info("fps: {}", fps)
+    fps = 1/dt
+    log_info("fps: {}", fps)
     speed = 3
     update_camera_target(cm, t.position);
 
@@ -60,7 +60,7 @@ function on_update(dt)
 
     mouse_delta = get_mouse_delta() * -0.1
 
-    last_dir = vec4.new(get_camera_dir(cm.target, t.position), 1.0)
+    last_dir = get_camera_dir(cm.target, t.position)
 
     handle_mouse_delta(cm, t.position, mouse_delta, true)
 
@@ -84,7 +84,7 @@ function on_update(dt)
     spot = get_spotlight(scene, this)
     tmp = get_camera_dir(cm.target, t.position)
     spot.direction = last_dir
-    if flashlight then spot.color = vec4.new(0.97, 0.96, 0.51, 1.0) else spot.color = vec4.new(0.0) end
+    if flashlight then spot.color = vec3.new(0.97, 0.96, 0.51) else spot.color = vec3.new(0.0) end
 
 
     affectedcounter = affectedcounter + 1

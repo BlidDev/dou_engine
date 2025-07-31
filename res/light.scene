@@ -1,7 +1,10 @@
 Scene: light
-Main Camera: 71585794991446522
+Render Data:
+  Main Camera: 5458514129162351661
+  Ambient: [1, 1, 1]
+  Ambient Strength: 0.1
 Entities:
-  - Entity: 7098023407922437890
+  - Entity: 13681500589162343280
     Transform:
       Position: [0, -0.5, 0]
       Size: [1000, 0, 1000]
@@ -13,7 +16,7 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 14681978957757685002
+  - Entity: 9161336191514440094
     Transform:
       Position: [0, 1, 0]
       Size: [1, 1, 1]
@@ -23,7 +26,10 @@ Entities:
       Material:
         Shader: res/shaders/textured.glsl
         Filled: false
-        Color: [0, 0, 0, 0]
+        Ambient: [0, 0, 0]
+        Diffuse: [0, 0, 0]
+        Specular: [0, 0, 0]
+        Shininess: 0
         Texture: res/textures/proto.png
         Textured: true
         Immune: false
@@ -34,7 +40,7 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 71585794991446522
+  - Entity: 5458514129162351661
     Transform:
       Position: [0, 2, -2]
       Size: [1, 1, 1]

@@ -52,19 +52,19 @@ struct PntLight { // 3 * vec4
 };
 
 struct SptLight { // 5 * vec4
-    vec4 position;// 1
-    vec4 color;  // 2
-    vec4 direction; //3
+    vec3 color;  // 2
     float constant;
+
+    vec3 direction; //3
     float linear;
+
+
     float quadratic;
-
     float cutoff; // 4
-
     float outer_cutoff;
     float pad0;
-    float pad1;
-    float pad2;
+
+    vec3 position;
 };
 
 
