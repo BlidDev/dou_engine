@@ -22,9 +22,13 @@ end
 local counter = 0;
 local flashlight = false
 
+
+local mousecounter = 0;
+local captured = true
+
 function on_update(dt)
     fps = 1/dt
-    log_info("fps: {}", fps)
+    --log_info("fps: {}", fps)
     speed = 3
     update_camera_target(cm, t.position);
 
@@ -62,7 +66,7 @@ function on_update(dt)
 
     last_dir = get_camera_dir(cm.target, t.position)
 
-    handle_mouse_delta(cm, t.position, mouse_delta, true)
+    if captured then handle_mouse_delta(cm, t.position, mouse_delta, true) end
 
     forward = get_flat_forward(cm.target, t.position)
     right   = get_right(cm.target, t.position, cm.up)
@@ -87,8 +91,22 @@ function on_update(dt)
     if flashlight then spot.color = vec3.new(0.97, 0.96, 0.51) else spot.color = vec3.new(0.0) end
 
 
+    if is_key_down(util.KeyboardKey.G) and mousecounter >= 10 then
+        if captured == true then
+            set_input_mode(scene, util.InputSbj.CURSOR, util.InputMode.CURSOR_NORMAL)
+            captured = false
+        else
+
+            set_input_mode(scene, util.InputSbj.CURSOR, util.InputMode.CURSOR_DISABLED)
+            captured = true
+        end
+    end
+
+
     affectedcounter = affectedcounter + 1
     counter = counter + 1
+    mousecounter = mousecounter + 1
+
 end
 
 

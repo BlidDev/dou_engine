@@ -132,7 +132,24 @@ util = {
         AXIS_RIGHT_Y       = 3,
         AXIS_LEFT_TRIGGER  = 4,
         AXIS_RIGHT_TRIGGER = 5
+    },
+
+    InputSbj = {
+        CURSOR                   = 0x00033001,
+        STICKY_KEYS              = 0x00033002,
+        STICKY_MOUSE_BUTTONS     = 0x00033003,
+        LOCK_KEY_MODS            = 0x00033004,
+        RAW_MOUSE_MOTION         = 0x00033005,
+        UNLIMITED_MOUSE_BUTTONS  = 0x00033006
+    },
+
+    InputMode = {
+        CURSOR_NORMAL    = 0x00034001,
+        CURSOR_HIDDEN    = 0x00034002,
+        CURSOR_DISABLED  = 0x00034003,
+        CURSOR_CAPTURED  = 0x00034004
     }
+
 
 }
 

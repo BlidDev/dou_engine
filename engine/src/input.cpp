@@ -23,4 +23,8 @@ namespace engine {
         return glfwGetKey(INPUT_WINDOW, key) == GLFW_PRESS;
     }
 
+    void set_input_mode(Scene* scene, int value, int mode) {
+        glfwSetInputMode(scene->manager->main_window, value, mode);
+    }
+
 }

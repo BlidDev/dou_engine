@@ -23,7 +23,6 @@ namespace engine {
       // env.set_function("color_from_hsv", ColorFromHSV);
       // env.set_function("get_fps", GetFPS);
       env.set_function("get_time", glfwGetTime);
-      env.set_function("is_key_down", is_key_pressed);
       env.set_function("get_mouse_delta", get_mouse_delta);
       env.set_function("handle_mouse_delta", handle_mouse_delta);
       env.set_function("get_forward", get_forward);
@@ -33,6 +32,9 @@ namespace engine {
       env.set_function("get_camera_dir", get_camera_dir);
 
       env.set_function("v3_normalize", [](glm::vec3 t){ return glm::normalize(t);});
+
+      env.set_function("is_key_down", is_key_pressed);
+      env.set_function("set_input_mode", set_input_mode);
 
 
       env.set_function("log_trace", log_trace);
