@@ -1,58 +1,119 @@
-# Created by https://www.toptal.com/developers/gitignore/api/c++,cmake
-# Edit at https://www.toptal.com/developers/gitignore?templates=c++,cmake
+# ========================
+# C++ / CMake build files
+# ========================
+**/*.obj
+**/*.o
+**/*.a
+**/*.lib
+**/*.dll
+**/*.so*
+**/*.dylib
+**/*.exe
+**/*.pdb
+**/*.idb
+**/*.ilk
+**/*.res
+**/*.exp
+**/*.mod
+**/*.dir/
 
-### C++ ###
-# Prerequisites
-*.d
+# ========================
+# CMake-generated files
+# ========================
+**/CMakeFiles/
+**/CMakeCache.txt
+**/cmake_install.cmake
+**/CTestTestfile.cmake
+**/install_manifest.txt
+**/Makefile
+**/build*/
+**/_build*/
+**/out*/
+**/bin/
+**/lib/
+**/obj/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# ========================
+# Visual Studio (2015–2022)
+# ========================
+**/.vs/
+**/*.suo
+**/*.user
+**/*.userosscache
+**/*.sdf
+**/*.cache
+**/*.VC.db
+**/*.VC.opendb
+**/*.tlog
+**/*.ipch
+**/*.log
+**/*.ncb
+**/*.opensdf
+**/*.sln.docstates
 
-# Precompiled Headers
-*.gch
-*.pch
+# VS project files (optional to ignore)
+**/*.sln
+**/*.vcxproj
+**/*.vcxproj.filters
+**/*.vcxproj.user
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# VS build output folders (recursive)
+**/x64/
+**/Debug/
+**/Release/
 
-# Fortran module files
-*.mod
-*.smod
+# ========================
+# Submodules (vendor/)
+# ========================
+vendor/*
+!vendor/.gitmodules
+!vendor/**/.git
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+# ========================
+# IDE/editor metadata
+# ========================
+**/.vscode/
+**/.idea/
+**/*.code-workspace
 
-# Executables
-*.exe
-*.out
-*.app
+# ========================
+# Misc system/editor files
+# ========================
+**/*~
+**/*.swp
+**/*.swo
+**/*.tmp
+**/*.bak
+**/*.orig
+**/*.rej
+**/.DS_Store
+**/Thumbs.db
+**/ehthumbs.db
+**/Desktop.ini
 
-### CMake ###
-CMakeLists.txt.user
-CMakeCache.txt
-CMakeFiles
-CMakeScripts
-Testing
-Makefile
-cmake_install.cmake
-install_manifest.txt
-compile_commands.json
-CTestTestfile.cmake
-_deps
+# ========================
+# Archives
+# ========================
+**/*.zip
+**/*.tar
+**/*.tar.gz
+**/*.tgz
+**/*.7z
+**/*.rar
+**/*.xz
 
-### CMake Patch ###
-# External projects
-*-prefix/
+# ========================
+# Package managers
+# ========================
+**/conanbuildinfo.*
+**/conaninfo.txt
+**/conan.lock
+**/vcpkg_installed/
 
-# End of https://www.toptal.com/developers/gitignore/api/c++,cmake
 
-bin
-
+game/*.vcxproj
+game/*.vcxproj.filters
+engine/*.vcxproj
+engine/*.vcxproj.filters
+vendor/glad/*.vcxproj
+vendor/glad/*.vcxproj.filters

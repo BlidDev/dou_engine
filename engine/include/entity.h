@@ -1,7 +1,6 @@
 #pragma once
 #include "scene.h"
 
-
 namespace engine {
 
     class Entity {

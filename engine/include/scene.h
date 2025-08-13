@@ -1,7 +1,9 @@
 #pragma once
 #include "components/uuid.h"
-#include "egassert.h"
+#include "model.h"
 #include <espch.h>
+#include "shader.h"
+#include "texture.h"
 namespace engine {
 
     class SceneManager;
@@ -30,35 +32,22 @@ namespace engine {
             EG_ASSERT(!registry.any_of<T>(entity), "Trying to get non existant uuid component {} from entity {}", typeid(T).name(), uuid.get_uuid());
             return registry.get<T>(entity);
         }
+
+        void register_shader(const char* path);
+
+        Shader get_shader(const char* name);
+        Texture get_texture(const char* name);
+        Model get_model(const char* name);
         
     public:
         entt::registry registry;
         SceneManager* manager;
-        UUID main_camera = 0;
         std::string name;
         std::unordered_map<UUID, entt::entity> uuids;
-    };
-
-
-    class SceneManager {
-    public:
-        SceneManager();
-        Scene* register_scene(const char* name, Scene* scene);
-        Scene* get_scene(const char* name);
-        void set_current(const char* name);
-        void end_scene(Scene* scene);
-        void end();
-
-        void write_scene_to_file(const char* path, Scene* scene);
-        Scene* scene_from_file(const char* path);
-
-        Scene* get_current();
-        ~SceneManager();
 
     public:
-        std::string current;
-        bool switched;
-    private:
-        std::unordered_map<std::string, Scene*>scenes;
+        UUID main_camera = 0;
+        glm::vec3 ambient = {1.0f, 1.0f, 1.0f};
+        float ambient_strength = 0.1f;
     };
 }

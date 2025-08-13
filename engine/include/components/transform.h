@@ -5,19 +5,29 @@
 namespace engine {
 
     struct TransformComp {
-        Vector3 position;
-        Vector3 size;
+        glm::vec3 position;
+        glm::vec3 size;
+        glm::vec3 rotation;
 
-        TransformComp(Vector3 position = {0.0f, 0.0f, 0.0f},Vector3 size = {1.0f, 1.0f, 1.0f}) {
+        TransformComp(glm::vec3 position = {0.0f, 0.0f, 0.0f},
+                      glm::vec3 size = {1.0f, 1.0f, 1.0f}, 
+                      glm::vec3 rotation = {0.0f, 0.0f, 0.0f}) {
             this->position = position;
             this->size = size;
+            this->rotation = rotation;
+            model = glm::mat4(1.0f);
         }
-        //Vector3 rotation;
+
+        glm::mat4 get_model();
+
+    private:
+        glm::mat4 model;
     };
 
     struct TransformBuilder {
-        TransformBuilder& position(Vector3 position);
-        TransformBuilder& size(Vector3 size);
+        TransformBuilder& position(glm::vec3 position);
+        TransformBuilder& size(glm::vec3 size);
+        TransformBuilder& rotation(glm::vec3 rotation);
 
         TransformComp build() {
             return this->transform;

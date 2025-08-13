@@ -7,7 +7,7 @@
     - ? Maybe add lua side classes
     - V Serialize and Deserialize component
 - V Make custom asserts
+- V Replace raylib with opengl
 - Add lighting 
 - Utilize smart pointers
-- Replace raylib with opengl
-
+- Make a proper "Project" file type to register all global assets :D

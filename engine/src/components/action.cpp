@@ -1,9 +1,19 @@
 #include "components/action.h"
 #include "egassert.h"
-#include <ctime>
-#include <stdio.h>
 
 namespace engine {
+
+    void UpdateComp::serialize(YAML::Emitter& out) {
+        out<<YAML::Key<<"Default"<<YAML::Value<<"Default";
+    }
+    void UpdateComp::dserialize(const YAML::Node& node) {
+        EG_ASSERT(inner_name == "UNKNOWN","Trying to dserialize unspecified action"); 
+    }
+
+    UpdateComp::~UpdateComp() {
+
+    }
+
     std::unordered_map<std::string, UpdateComp*>ActionsComp::registered_actions = {};
 
     ActionsComp::ActionsComp() {

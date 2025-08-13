@@ -1,7 +1,6 @@
-#include "component.h"
-#include "systems.h"
 #include "scene.h"
 #include "entity.h"
+#include "manager.h"
 
 namespace engine 
 {
@@ -27,58 +26,25 @@ namespace engine
         return uuids[uuid];
     }
 
-    SceneManager::SceneManager() {
-        current = "NONE";
+    void Scene::register_shader(const char* name) {
+        manager->register_shader(name);
     }
 
-    Scene* SceneManager::register_scene(const char* name, Scene* scene) {
-        EG_ASSERT(scenes.contains(name), "Scene {} already exists", name);
-        scene->manager = this;
-        scenes.insert(std::make_pair(name, scene));
-        return scene;
+    Shader Scene::get_shader(const char* name) {
+        EG_ASSERT(manager->shader_lib.find(name) == manager->shader_lib.end(), "Could not find registered shader [{}]", name);
+
+        return manager->shader_lib.at(std::string(name));
     }
+    Texture Scene::get_texture(const char* name) {
+        EG_ASSERT(manager->texture_lib.find(name) == manager->texture_lib.end(), "Could not find registered texture [{}]", name);
 
-    Scene* SceneManager::get_scene(const char* name) {
-        Scene* ptr = nullptr;
-        EG_ASSERT(scenes.find(name) == scenes.end(),"Scene {} does not exist", name);
-        ptr = scenes.at(name);
-        return ptr;
+        return manager->texture_lib.at(std::string(name));
     }
+    Model Scene::get_model(const char* name) {
+        EG_ASSERT(manager->model_lib.find(name) == manager->model_lib.end(), "Could not find registered model [{}]", name);
 
-
-    void SceneManager::set_current(const char* name) {
-        switched = true;
-        if (current != "NONE") {
-            Scene* old = get_current();
-            end_scene(old);
-        }
-        if(get_scene(name))
-            current = name;
+        return manager->model_lib.at(std::string(name));
     }
 
 
-    void SceneManager::end_scene(Scene* scene) {
-        scene->on_end();
-        end_actions(scene->registry);
-        scene->registry.clear();
-        scene->uuids.clear();
-    }
-
-    Scene* SceneManager::get_current() {
-        Scene* ptr = nullptr;
-        EG_ASSERT(current == "NONE", "Current scene not set");
-        ptr = scenes.at(current);
-        return ptr;
-    }
-
-    void SceneManager::end() {
-        if ("NONE" != current)
-            get_current()->on_end();
-    }
-
-    SceneManager::~SceneManager() {
-        for (auto& scene : scenes) {
-            delete scene.second;
-        }
-    }
 }
