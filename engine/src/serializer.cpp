@@ -4,6 +4,22 @@
 #include "manager.h"
 
 namespace YAML {
+    template<>
+    struct convert<engine::UUID> {
+        static Node encode(const engine::UUID& uuid) {
+            Node node;
+            node.push_back((uint32_t)uuid);
+            return node;
+        }
+
+        static bool decode(const Node& node, engine::UUID& uuid) {
+            if(!node.IsScalar())
+                return false;
+            uuid = node.as<uint64_t>();
+            return true;
+        }
+
+    };
     template <>
     struct convert<glm::vec3> {
         static Node encode(const glm::vec3& rhs) {
@@ -224,7 +240,32 @@ namespace engine {
             out<<YAML::EndMap;
         }
 
+        //if (entity.has_component<ParentComp>()) {
+        //    auto& p = entity.get_component<ParentComp>();
+        //    out<<YAML::Key<<"Parent"<<YAML::BeginMap;
+        //        out<<YAML::Key<<"Parent"<<YAML::Value<<p.parent.uuid();
+        //    out<<YAML::EndMap;
+        //}
+
+        if (entity.has_component<ParentComp>()) {
+            auto& p = entity.get_component<ParentComp>();
+            out<<YAML::Key<<"Parent"<<YAML::BeginMap;
+                out<<YAML::Key<<"Parent"<<YAML::Value<<p.parent.uuid();
+            out<<YAML::EndMap;
+        }
+
+        if (entity.has_component<ChildrenComp>()) {
+            auto& c = entity.get_component<ChildrenComp>();
+            out<<YAML::Key<<"Chidren"<<YAML::BeginSeq;
+            for (auto& child : c.children) {
+                out<<YAML::Value<<child;
+            }
+            out<<YAML::EndSeq;
+        }
+
         out<<YAML::EndMap;
+
+
     }
 
     static void read_entity_from_file(YAML::Node& entity, Scene* scene) {
@@ -367,6 +408,21 @@ namespace engine {
 
             l.cutoff =       glm::cos(glm::radians(slight["Cut off"].as<float>()));
             l.outer_cutoff = glm::cos(glm::radians(slight["Outer cut off"].as<float>()));
+        }
+
+
+        //auto parent = entity["Parent"];
+        //if (parent) {
+        //    UUID tmp = parent["Parent"].as<UUID>();
+        //    read_entity.make_child_of(tmp);
+        //}
+
+        auto children = entity["Children"];
+        if (children) {
+            for (auto child : children) {
+                UUID c = child.as<UUID>();
+                read_entity.add_child(c);
+            }
         }
 
     }

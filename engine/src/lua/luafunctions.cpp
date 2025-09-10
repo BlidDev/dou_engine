@@ -11,6 +11,9 @@ namespace engine {
     void log_warn(std::string format, sol::variadic_args args);
     void log_error(std::string format, sol::variadic_args args);
 
+    void make_child_of(Scene* owner, UUID child, UUID parent);
+    void remove_children(Scene* owner, UUID parent);
+
     void expose_env_functions(sol::state &env) {
       env.set_function("get_tag", get_uuid_component<TagComp>);
       env.set_function("get_transform", get_uuid_component<TransformComp>);
@@ -41,6 +44,9 @@ namespace engine {
       env.set_function("log_info", log_info);
       env.set_function("log_warn", log_warn);
       env.set_function("log_error", log_error);
+
+      env.set_function("make_child_of", make_child_of);
+      env.set_function("remove_children", remove_children);
     }
 
     std::string variadic_args_to_str(std::string &format,
@@ -73,5 +79,17 @@ namespace engine {
 
     void log_error(std::string format, sol::variadic_args args) {
       EG_ERROR(variadic_args_to_str(format, args));
+    }
+
+
+    void make_child_of(Scene* owner, UUID child, UUID parent) {
+        Entity child_e = owner->uuid_to_entity(child);
+        child_e.make_child_of(parent);
+    }
+
+
+    void remove_children(Scene* owner, UUID parent) {
+        Entity parent_e = owner->uuid_to_entity(parent);
+        parent_e.remove_children();
     }
 } 

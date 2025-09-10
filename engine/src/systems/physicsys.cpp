@@ -1,4 +1,6 @@
 #include "systems/physicsys.h"
+#include "components/tag.h"
+#include "entity.h"
 #include "util.h"
 #include "components/transform.h"
 #include "components/physicbody.h"
@@ -41,6 +43,8 @@ namespace engine {
             LuaActionComp lua_a = scene.registry.get<LuaActionComp>(e);
             UUID eu = scene.registry.get<UUID>(e);
             UUID ou = scene.registry.get<UUID>(o);
+            TagComp et = scene.registry.get<TagComp>(e);
+            TagComp ot = scene.registry.get<TagComp>(o);
             if (lua_a.call_at(ph.lua_callback, eu, ou))
                 return 1;
         }
@@ -56,10 +60,46 @@ namespace engine {
         if (*z) { s->z *= res.z; s2->z *= res.z; *z = res.z;}
     }
 
+
+    int check_callback_collision(Scene& scene, entt::entity subject) {
+        Entity sub = {&scene, subject};
+        if (!sub.has_component<TransformComp>() || !sub.has_component<PhysicsBodyComp>()) return 0;
+        auto trans = sub.get_component<TransformComp>();
+        auto physc = sub.get_component<PhysicsBodyComp>();
+        auto view = scene.registry.view<UUID,TransformComp,PhysicsBodyComp>();
+        for (auto [e, u, t, ph] : view.each()) {
+            AABBReturn intersects = aabb_3d_intersects(trans.position, glm::vec3(0.0f), trans.size, t.position, t.size);
+            if (!intersects) continue;
+            if (e == subject || is_ancestor_of(scene,u, sub.uuid())) continue; // same family or same entity
+
+
+            if (handle_callback(scene, physc, subject, e)) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    int apply_on_children(Scene& scene, std::vector<UUID>& children, glm::vec3 final_delta) {
+        for (auto& child : children) {
+            Entity tmp_child = scene.uuid_to_entity(child);
+            if (tmp_child.has_component<TransformComp>())
+                tmp_child.get_component<TransformComp>().position += final_delta;
+
+            if(check_callback_collision(scene, tmp_child.id())) return 1;
+
+            if (!tmp_child.is_parent()) continue;
+            apply_on_children(scene, tmp_child.get_children(), final_delta);
+        }
+
+        return 0;
+    }
+
     int aabb_check(Scene& scene, float dt) {
         auto objs = scene.registry.view<TransformComp,PhysicsBodyComp>();
         for (auto [e, t, ph] : objs.each()) {
             bool allowed_x = true, allowed_y = true, allowed_z = true;
+            if (ph.dominance == Dominance::Owned) continue;
             for (auto [o, ot, oph] : objs.each()) {
                 AABBReturn intersects = aabb_3d_intersects(t.position, ph.move_delta, t.size, ot.position, ot.size);
 
@@ -79,9 +119,14 @@ namespace engine {
                     
 
             }
-            t.position.x += (allowed_x) ? ph.move_delta.x : 0.0f;
-            t.position.y += (allowed_y) ? ph.move_delta.y : 0.0f;
-            t.position.z += (allowed_z) ? ph.move_delta.z : 0.0f;
+            glm::vec3 final_delta = {(allowed_x) ? ph.move_delta.x : 0.0f,
+                                     (allowed_y) ? ph.move_delta.y : 0.0f,
+                                     (allowed_z) ? ph.move_delta.z : 0.0f};
+
+            t.position += final_delta;
+            Entity subject = {&scene, e};
+            if (!subject.is_parent()) continue;
+            if (apply_on_children(scene, subject.get_children(), final_delta)) { return 1; }
         }
 
         return 0;

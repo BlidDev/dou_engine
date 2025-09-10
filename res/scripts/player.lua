@@ -10,6 +10,7 @@ local affectedcounter = 0
 local affected = true
 
 other = nil
+othero = nil
 
 function on_init()
     ph = get_physicbody(scene, this)
@@ -25,6 +26,9 @@ local flashlight = false
 
 local mousecounter = 0;
 local captured = true
+
+
+local made_child = false
 
 function on_update(dt)
     fps = 1/dt
@@ -100,6 +104,19 @@ function on_update(dt)
             set_input_mode(scene, util.InputSbj.CURSOR, util.InputMode.CURSOR_DISABLED)
             captured = true
         end
+    end
+
+    if is_key_down(util.KeyboardKey.H) and not made_child then
+        make_child_of(scene, other, this)
+        make_child_of(scene, othero, this)
+        log_info("yooo")
+         made_child = true
+    end
+
+    if is_key_down(util.KeyboardKey.C) and made_child then
+        remove_children(scene, this)
+        log_info("oooy")
+        made_child = false
     end
 
 

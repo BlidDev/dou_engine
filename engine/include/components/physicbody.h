@@ -5,6 +5,11 @@
 
 namespace engine {
 
+    enum Dominance {
+        Owned,
+        Dominant
+    };
+
     struct PhysicsBodyComp {
         float gravity;
         glm::vec3 velocity;
@@ -17,6 +22,8 @@ namespace engine {
 
         int (*intersects_callback)(Scene&, entt::entity, entt::entity) = nullptr;
         LuaCallback lua_callback;
+
+        Dominance dominance;
     };
 
     struct PhysicsBodyBuilder {
@@ -45,4 +52,9 @@ namespace engine {
     };
 
 
+    void make_owned(Entity entity);
+    void make_physically_dominant(Entity entity);
+    void physically_disown_children(Entity entity);
+
 }
+
