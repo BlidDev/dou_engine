@@ -11,7 +11,12 @@ void ThingScene::on_create() {
     //glfwSwapInterval(1);
     set_input_window(manager->main_window);
     glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    glEnable(GL_DEPTH_TEST);
+
+    set_layer_to_framebuffer(manager, 0);
+    set_layer_depth(manager->render_data, 0, true);
+    set_clear_color(manager->render_data, {0.0f,0.0f,0.0f,1.0f});
+    set_clear_flags(manager->render_data, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     add_from_file("res/thing.scene");
     update_render_data(manager, this);
 
@@ -22,8 +27,6 @@ void ThingScene::on_create() {
 
 void ThingScene::on_update(float dt) {
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClearColor(0.0f,0.0f,0.0f,1.0f);
     if(is_key_pressed(GLFW_KEY_ESCAPE))
         close = true;
 

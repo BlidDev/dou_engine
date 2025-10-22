@@ -10,12 +10,15 @@ int engine::on_start(engine::SceneManager* manager) {
 
     register_actions();
     manager->main_window = Window("notray", 1280, 720);
+    manager->render_data.screen_w = 1280;
+    manager->render_data.screen_h = 720;
     engine::set_input_window(manager->main_window);
 
     manager->register_shader("res/shaders/basic.glsl");
     manager->register_shader("res/shaders/textured.glsl");
     manager->register_shader("res/shaders/lightingt.glsl");
     manager->register_shader("res/shaders/lighting.glsl");
+    manager->register_shader("res/shaders/gui.glsl");
     manager->register_texture("res/textures/proto.png");
 
     manager->render_data.add("Matrices", 2 * sizeof(glm::mat4));

@@ -34,8 +34,7 @@ namespace engine {
 
     int handle_callback(Scene& scene, PhysicsBodyComp& ph, entt::entity e, entt::entity o) {
         if(ph.intersects_callback != nullptr) {
-            if(ph.intersects_callback(scene, e, o))
-                return 1;
+            return ph.intersects_callback(scene, e, o);
         }
         else if (ph.lua_callback) {
             EG_ASSERT(!scene.registry.any_of<LuaActionComp>(e), 
@@ -43,10 +42,7 @@ namespace engine {
             LuaActionComp lua_a = scene.registry.get<LuaActionComp>(e);
             UUID eu = scene.registry.get<UUID>(e);
             UUID ou = scene.registry.get<UUID>(o);
-            TagComp et = scene.registry.get<TagComp>(e);
-            TagComp ot = scene.registry.get<TagComp>(o);
-            if (lua_a.call_at(ph.lua_callback, eu, ou))
-                return 1;
+            return lua_a.call_at(ph.lua_callback, eu, ou);
         }
 
 

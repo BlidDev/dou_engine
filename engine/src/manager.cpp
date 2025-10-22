@@ -68,6 +68,12 @@ namespace engine {
         texture_lib.insert(std::make_pair(std::string(path), load_texture_from_file(path)));
     }
 
+    void SceneManager::register_texture(std::string name, Texture texture) {
+        EG_ASSERT(texture_lib.find(std::string(name)) != texture_lib.end(), "Texture [{}] already registered", name);
+
+        texture_lib.insert(std::make_pair(name, texture));
+    }
+
     void SceneManager::register_model(const char* name, Model model) {
         EG_ASSERT(model_lib.find(std::string(name)) != model_lib.end(), "Model [{}] already registered", name);
         model.name = name;

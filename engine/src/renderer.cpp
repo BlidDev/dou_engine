@@ -1,4 +1,6 @@
 #include "renderer.h"
+#include "manager.h"
+#include "texture.h"
 
 
 namespace engine {
@@ -21,6 +23,14 @@ namespace engine {
         }
     }
 
+    LayerAtrb::LayerAtrb() {
+        depth = false;
+        is_framebuffer = false;
+        framebuffer = 0;
+        framebuffer_texture = 0;
+    }
+
+
     RenderData::RenderData() {
         ubos = {};
         counter = 0;
@@ -28,6 +38,8 @@ namespace engine {
         ambient = {1.0f, 1.0f, 1.0f};
         ambient_strength = 0.1f;
         max_lights = 32;
+        clear_color = {0.0f, 0.0f, 0.0f, 1.0f};
+        clear_flags = GL_COLOR_BUFFER_BIT;
     }
 
     RenderData& RenderData::add(const char* name, size_t size) {
@@ -70,4 +82,60 @@ namespace engine {
         glBindBuffer(GL_UNIFORM_BUFFER, 0);
     }
 
+
+    void set_clear_color(RenderData& data, glm::vec4 color) {
+        data.clear_color = color;
+    }
+
+    void set_layer_depth(RenderData& data, size_t layer, bool flag) {
+        EG_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Trying to set depth flag to invalid layer [{}]");
+        data.layers_atrb[layer].depth = flag;
+    }
+
+    void set_clear_flags(RenderData& data, int flags) {
+        data.clear_flags = flags;
+    }
+
+    void set_layer_to_framebuffer(SceneManager* manager, size_t layer) {
+        EG_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Trying to set invalid layer [{}] to a framebuffer layer");
+        LayerAtrb& atrb = manager->render_data.layers_atrb[layer];
+
+        glGenFramebuffers(1, &atrb.framebuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, atrb.framebuffer);
+    
+        
+        unsigned int texture_color_buffer;
+        glGenTextures(1, &texture_color_buffer);
+        glBindTexture(GL_TEXTURE_2D, texture_color_buffer);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, manager->render_data.screen_w, manager->render_data.screen_h, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture_color_buffer, 0);
+        // create a renderbuffer object for depth and stencil attachment (we won't be sampling these)
+        unsigned int rbo;
+        glGenRenderbuffers(1, &rbo);
+        glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, manager->render_data.screen_w, manager->render_data.screen_h); // use a single renderbuffer object for both a depth AND stencil buffer.
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo); // now actually attach it
+        // now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+            EG_CORE_ERROR("Could not make frame buffer for layer {}", layer);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        Texture final;
+
+        std::string name = std::format("FRAMEBUFFER{}",layer);
+        final.texture = texture_color_buffer,
+        final.w = manager->render_data.screen_w,
+        final.h = manager->render_data.screen_h,
+        final.nrc = -1,
+        final.path = name;
+
+        EG_CORE_INFO("Created new framebuffer texture [{}]", name);
+
+        atrb.is_framebuffer = true;
+        atrb.framebuffer_texture =  final;
+        manager->texture_lib.insert(std::make_pair(name, final));
+        
+    }
 }

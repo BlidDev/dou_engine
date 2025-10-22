@@ -1,4 +1,5 @@
 #include "components/modelcomp.h"
+#include "renderer.h"
 
 
 namespace engine {
@@ -69,7 +70,15 @@ namespace engine {
     ModelComp::ModelComp() {
         material = MaterialBuilder();
         model = {0,0,0,0,0,"UNKNOWN"};
+        layer = 0;
     }
+
+        ModelComp::ModelComp(Model model, Material material, size_t layer) {
+            this->model = model;
+            this->material = material;
+            this->layer = layer;
+            EG_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Invalid layer number [{}]", layer);
+        }
     
 
 

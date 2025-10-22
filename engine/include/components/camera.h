@@ -13,6 +13,7 @@ namespace engine {
         float fovy;
         CameraProjection projection;
         glm::vec3 last_pos;
+        float max_distance;
 
         void log();
     };
@@ -29,6 +30,7 @@ namespace engine {
         CameraBuilder& up(glm::vec3 up);
         CameraBuilder& fovy(float fovy);
         CameraBuilder& projection(CameraProjection projection);
+        CameraBuilder& max_distance(float distance);
         CameraComp build();
     private:
         CameraComp camera;

@@ -135,6 +135,7 @@ namespace engine {
                     out<<YAML::Key<<"Texture"<<YAML::Value<<m.material.texture.path;
                     out<<YAML::Key<<"Textured"<<YAML::Value<<((MODEL_TEXTURED & m.material.attributes) == MODEL_TEXTURED);
                     out<<YAML::Key<<"Immune"<<YAML::Value<<((MODEL_IMMUNE & m.material.attributes) == MODEL_IMMUNE);
+                    out<<YAML::Key<<"Layer"<<YAML::Value<<m.layer;
                 out<<YAML::EndMap;
 
 
@@ -184,6 +185,7 @@ namespace engine {
                 out<<YAML::Key<<"Up"<<YAML::Value<<c.up;
                 out<<YAML::Key<<"FovY"<<YAML::Value<<c.fovy;
                 out<<YAML::Key<<"Projection"<<YAML::Value<<(int)c.projection;
+                out<<YAML::Key<<"Max Distance"<<YAML::Value<<c.max_distance;
             out<<YAML::EndMap;
         }
 
@@ -293,6 +295,8 @@ namespace engine {
             auto material = model_comp["Material"];
             std::string shader_name = material["Shader"].as<std::string>();
             m.material.shader = scene->get_shader(shader_name.c_str());
+            m.layer = model_comp["Layer"].as<size_t>();
+            EG_ASSERT(m.layer > MAX_RENDER_LAYERS, "Invalid layer number given: {}", m.layer);
 
             std::string texture_path = material["Texture"].as<std::string>();
             bool filled =   material["Filled"].as<bool>();
@@ -359,6 +363,7 @@ namespace engine {
             c.up = camera["Up"].as<glm::vec3>();
             c.fovy = camera["FovY"].as<float>();
             c.projection = (CameraProjection)camera["Projection"].as<int>();
+            c.max_distance = camera["Max Distance"].as<float>();
             if (read_entity.has_component<TransformComp>()) {
                 c.last_pos = read_entity.get_component<TransformComp>().position;
             }

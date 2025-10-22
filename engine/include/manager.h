@@ -22,6 +22,7 @@ namespace engine {
 
         void register_shader(const char* path);
         void register_texture(const char* path);
+        void register_texture(std::string name, Texture texture);
         void register_model(const char* name, Model model);
 
         Scene* get_current();

@@ -1,5 +1,4 @@
 #include "components/camera.h"
-#include "util.h"
 
 namespace engine {
     void update_camera_target(CameraComp& camera, glm::vec3 position) {
@@ -22,7 +21,8 @@ namespace engine {
             .up = glm::vec3( 0.0f, 1.0f, 0.0f),          // Camera up vector (rotation towards target)
             .fovy = 90.0f,                                // Camera field-of-view Y
             .projection = CameraProjection::Perspective,
-            .last_pos = glm::vec3(0.0f, 0.0f, 0.0f )
+            .last_pos = glm::vec3(0.0f, 0.0f, 0.0f ),
+            .max_distance = 30.0f
         };
     }
 
@@ -43,6 +43,11 @@ namespace engine {
 
     CameraBuilder& CameraBuilder::projection(CameraProjection projection) {
         camera.projection = projection;
+        return *this;
+    }
+
+    CameraBuilder& CameraBuilder::max_distance(float distance) {
+        camera.max_distance = distance;
         return *this;
     }
 
