@@ -41,7 +41,7 @@ Entities:
       Tag: Cube
     Model:
       Model Name: cube
-      Layer: 1
+      Layer: 2
       Material:
         Shader: res/shaders/basic.glsl
         Filled: true
@@ -216,7 +216,7 @@ Entities:
       Model Name: quad_tex
       Layer: 2
       Material:
-        Shader: res/shaders/textured.glsl
+        Shader: res/shaders/lightingt.glsl
         Filled: true
         Ambient:  [1,1,1]
         Diffuse:  [1,1,1]

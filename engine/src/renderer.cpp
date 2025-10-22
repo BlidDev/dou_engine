@@ -25,6 +25,7 @@ namespace engine {
 
     LayerAtrb::LayerAtrb() {
         depth = false;
+        wireframe = false;
         is_framebuffer = false;
         framebuffer = 0;
         framebuffer_texture = 0;
@@ -90,6 +91,11 @@ namespace engine {
     void set_layer_depth(RenderData& data, size_t layer, bool flag) {
         EG_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Trying to set depth flag to invalid layer [{}]");
         data.layers_atrb[layer].depth = flag;
+    }
+
+    void set_layer_wireframe(RenderData& data, size_t layer, bool flag) {
+        EG_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Trying to set wireframe flag to invalid layer [{}]");
+        data.layers_atrb[layer].wireframe = flag;
     }
 
     void set_clear_flags(RenderData& data, int flags) {

@@ -85,12 +85,15 @@ namespace engine {
                   glBindTexture(GL_TEXTURE_2D, obj.material.texture);
 
 
+              if (atrb.wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
               glBindVertexArray(obj.model.VAO);
               if (obj.model.nindices != 0) {
                   glDrawElements(GL_TRIANGLES, obj.model.nindices, GL_UNSIGNED_INT, 0);
                   continue;
               }
               glDrawArrays(GL_TRIANGLES, 0, obj.model.nvertices);
+
+              if (atrb.wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
           }
 
           if (atrb.is_framebuffer) {

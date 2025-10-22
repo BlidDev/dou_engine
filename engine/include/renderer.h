@@ -18,6 +18,7 @@ namespace engine {
 
     struct LayerAtrb {
         bool depth;
+        bool wireframe;
         bool is_framebuffer;
         unsigned int framebuffer;
         unsigned int framebuffer_texture;
@@ -56,6 +57,7 @@ namespace engine {
     struct SceneManager;
     void set_clear_color(RenderData& data, glm::vec4 color);
     void set_layer_depth(RenderData& data, size_t layer, bool flag);
+    void set_layer_wireframe(RenderData& data, size_t layer, bool flag);
     void set_clear_flags(RenderData& data, int flags);
     void set_layer_to_framebuffer(SceneManager* manager, size_t layer);
 }
