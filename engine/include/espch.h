@@ -11,6 +11,7 @@
 #include <cstddef>
 #include <fstream>
 
+#include <algorithm>
 #include <memory.h>
 #include <chrono>
 

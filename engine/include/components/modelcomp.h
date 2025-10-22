@@ -3,6 +3,7 @@
 #include "model.h"
 #include "shader.h"
 #include "texture.h"
+#include "renderer.h"
 
 namespace engine {
 
@@ -48,15 +49,11 @@ namespace engine {
     struct ModelComp {
         Material material;
         Model model;
+        size_t layer;
 
         ModelComp();
 
-        ModelComp(
-                Model model,
-                Material material
-                ) {
-            this->model = model;
-            this->material = material;
-        }
+        ModelComp(Model model, Material material, size_t layer = 0);
+        
     };
 }

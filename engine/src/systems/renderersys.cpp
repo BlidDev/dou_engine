@@ -3,6 +3,7 @@
 #include "components/light.h"
 #include "components/modelcomp.h"
 #include "components/transform.h"
+#include "renderer.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -17,6 +18,7 @@ namespace engine {
       auto p_trans = viewer.get_component<TransformComp>();
       auto p_camera = viewer.get_component<CameraComp>();
       auto objects = registry.view<TransformComp, ModelComp>();
+
 
       glm::mat4 projection = glm::perspective(
           glm::radians(p_camera.fovy), view_size.x / view_size.y, 0.1f, 100.0f);
@@ -38,35 +40,70 @@ namespace engine {
 
       send_lights(registry, data);
 
-      for (auto [_, pos, obj] : objects.each()) {
+      glClearColor(data.clear_color.r, data.clear_color.g, data.clear_color.b, data.clear_color.a);
+      glClear(data.clear_flags);
 
-        EG_ASSERT(obj.material.attributes == 0, "Model [{}] has no attributes",
-                  obj.model.name);
+      for (int i = 0; i < MAX_RENDER_LAYERS; i++) {
+          LayerAtrb atrb = data.layers_atrb[i];
 
-        if ((obj.material.attributes & MODEL_TEXTURED) == MODEL_TEXTURED)
-          glBindTexture(GL_TEXTURE_2D, obj.material.texture);
+          if (atrb.is_framebuffer) {
+            glBindFramebuffer(GL_FRAMEBUFFER, atrb.framebuffer);
+            //glViewport(0,0, atrb.framebuffer_texture.w, atrb.framebuffer_texture.h);
+              glClear(data.clear_flags);
+          }
 
-        glUseProgram(obj.material.shader);
+          if (atrb.depth)
+              glEnable(GL_DEPTH_TEST);
 
-        if ((obj.material.attributes & MODEL_FILLED) == MODEL_FILLED)
-          set_shader_v3(obj.material.shader, "color", obj.material.ambient);
 
-        glm::mat4 model = pos.get_model();
-        set_shader_m4(obj.material.shader, "model", model);
+          for (auto [_, pos, obj] : objects.each()) {
+              float distance = glm::distance(pos.position, p_trans.position);
+              bool immune = (obj.material.attributes & MODEL_IMMUNE) == MODEL_IMMUNE;
 
-        if (obj.model.normals()) { // probably lighted
-          glm::mat4 normal = glm::transpose(glm::inverse(model));
-          set_shader_m3(obj.material.shader, "normal_mat", normal);
-          send_material(obj.material);
-        }
+              if((!immune && distance > p_camera.max_distance) || obj.layer != i) continue;
 
-        glBindVertexArray(obj.model.VAO);
-        if (obj.model.nindices != 0) {
-          glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-          continue;
-        }
-        glDrawArrays(GL_TRIANGLES, 0, obj.model.nvertices);
+              EG_ASSERT(obj.material.attributes == 0, "Model [{}] has no attributes",
+                      obj.model.name);
+
+
+              glUseProgram(obj.material.shader);
+
+              if ((obj.material.attributes & MODEL_FILLED) == MODEL_FILLED)
+                  set_shader_v3(obj.material.shader, "color", obj.material.ambient);
+
+              glm::mat4 model = pos.get_model();
+              set_shader_m4(obj.material.shader, "model", model);
+
+              if (obj.model.normals()) { // probably lighted
+                  glm::mat4 normal = glm::transpose(glm::inverse(model));
+                  set_shader_m3(obj.material.shader, "normal_mat", normal);
+                  send_material(obj.material);
+              }
+
+
+              if ((obj.material.attributes & MODEL_TEXTURED) == MODEL_TEXTURED)
+                  glBindTexture(GL_TEXTURE_2D, obj.material.texture);
+
+
+              if (atrb.wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+              glBindVertexArray(obj.model.VAO);
+              if (obj.model.nindices != 0) {
+                  glDrawElements(GL_TRIANGLES, obj.model.nindices, GL_UNSIGNED_INT, 0);
+                  continue;
+              }
+              glDrawArrays(GL_TRIANGLES, 0, obj.model.nvertices);
+
+              if (atrb.wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+          }
+
+          if (atrb.is_framebuffer) {
+              glBindFramebuffer(GL_FRAMEBUFFER, 0);
+              glClear(data.clear_flags);
+          }
+          glDisable(GL_DEPTH_TEST);
       }
+
+
     }
 
     void send_lights(entt::registry &registry, RenderData &data) {

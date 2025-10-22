@@ -20,6 +20,7 @@ Entities:
       Move Delta: [0, 0, 0]
     Model:
       Model Name: cube_tl
+      Layer: 0
       Material:
         Shader: res/shaders/lightingt.glsl
         Filled: false
@@ -40,6 +41,7 @@ Entities:
       Tag: Cube
     Model:
       Model Name: cube
+      Layer: 2
       Material:
         Shader: res/shaders/basic.glsl
         Filled: true
@@ -55,6 +57,9 @@ Entities:
       Is Static: true
       Move Delta: [0, 0, 0]
       Intersect Callback: [res/scripts/trigger.lua, inter]
+    Lua Actions:
+      - Path: res/scripts/trigger.lua
+        Fields:
     PntLight:
       Color: [0,1,0]
       Constant: 1.0
@@ -62,12 +67,9 @@ Entities:
       Quadratic: 0.16
     DirLight:
       Direction: [-0.2, -1.0, -0.3]
-      Ambient: 0.0
+      Ambient: 0.3
       Color: [1,1,1]
       Strength: 0.13
-    Lua Actions:
-      - Path: res/scripts/trigger.lua
-        Fields:
 
 
   - Entity: 2257790415927404942
@@ -79,6 +81,7 @@ Entities:
       Tag: SubjectC
     Model:
       Model Name: cube_tl
+      Layer: 0
       Material:
         Shader: res/shaders/lighting.glsl
         Filled: true
@@ -96,6 +99,10 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
+      Intersect Callback: [res/scripts/trigger.lua, inter]
+    Lua Actions:
+      - Path: res/scripts/trigger.lua
+        Fields:
     SptLight:
       Color: [1, 1, 1]
       Direction: [0, -1, -1]
@@ -114,6 +121,7 @@ Entities:
       Tag: Subject
     Model:
       Model Name: cube_tl
+      Layer: 0
       Material:
         Shader: res/shaders/lightingt.glsl
         Filled: false
@@ -155,10 +163,12 @@ Entities:
       Up: [0, 1, 0]
       FovY: 70
       Projection: 0
+      Max Distance: 30.0
     Lua Actions:
       - Path: res/scripts/player.lua
         Fields:
           other: 2267790415927404941
+          othero: 2257790415927404942
     SptLight:
       Color: [0.97, 0.96, 0.51]
       Direction: [0, -1, 0]
@@ -173,3 +183,45 @@ Entities:
       Constant: 1.0
       Linear: 0.7
       Quadratic: 1.8
+
+  - Entity: 2257790415927404841
+    Transform:
+      Position: [0, 0, 0]
+      Size: [4,2,2]
+      Rotation: [0, 0 ,0]
+    Tag:
+      Tag: Framething
+    Model:
+      Model Name: quad_tex
+      Layer: 1
+      Material:
+        Shader: res/shaders/gui.glsl
+        Filled: true
+        Ambient:  [1,1,1]
+        Diffuse:  [1,1,1]
+        Specular: [1,1,1]
+        Shininess: 38.4
+        Texture: FRAMEBUFFER0
+        Textured: true
+        Immune: true
+
+  - Entity: 2247790415927404841
+    Transform:
+      Position: [0, 0, 0]
+      Size: [2,1,1]
+      Rotation: [0, 0 ,0]
+    Tag:
+      Tag: Framething
+    Model:
+      Model Name: quad_tex
+      Layer: 2
+      Material:
+        Shader: res/shaders/lightingt.glsl
+        Filled: true
+        Ambient:  [1,1,1]
+        Diffuse:  [1,1,1]
+        Specular: [1,1,1]
+        Shininess: 38.4
+        Texture: FRAMEBUFFER0
+        Textured: true
+        Immune: true

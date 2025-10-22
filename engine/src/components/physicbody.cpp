@@ -1,4 +1,6 @@
 #include "components/physicbody.h"
+#include "components/tag.h"
+#include "entity.h"
 
 
 namespace engine {
@@ -11,6 +13,7 @@ namespace engine {
         is_static = false;
         move_delta = {0.0f,0.0f,0.0f};
         intersects_callback = nullptr;
+        dominance = Dominance::Dominant;
     }
 
     PhysicsBodyComp::PhysicsBodyComp(float gravity, glm::vec3 velocity, glm::vec3 acceleration, bool is_solid, bool is_static) {
@@ -58,5 +61,41 @@ namespace engine {
 
     PhysicsBodyComp PhysicsBodyBuilder::build() {
         return this->physicbody;
+    }
+
+
+    void make_owned(Entity entity) {
+        if (entity.has_component<PhysicsBodyComp>()) {
+            entity.get_component<PhysicsBodyComp>().dominance = Dominance::Owned;
+        }
+
+        if (!entity.is_parent()) return;
+        for (auto& child : entity.get_children()) {
+            make_owned(entity.scene_ptr()->uuid_to_entity(child));
+        }
+
+    }
+
+    void make_physically_dominant(Entity entity) {
+        EG_ASSERT(!entity.has_component<PhysicsBodyComp>(), "Entity {} is trying to be dominant but has no physics body", entity.uuid());
+        entity.get_component<PhysicsBodyComp>().dominance = Dominance::Dominant;
+        if (!entity.is_parent()) return;
+        for (auto& child : entity.get_children()) {
+            make_owned(entity.scene_ptr()->uuid_to_entity(child));
+        }
+    }
+
+
+    void physically_disown_children(Entity entity) {
+        for (auto& child : entity.get_children()) {
+            Entity tmp = entity.scene_ptr()->uuid_to_entity(child);
+            if (!tmp.has_component<PhysicsBodyComp>()) {
+                if (!tmp.is_parent()) continue;
+                physically_disown_children(tmp);
+                continue;
+            }
+            tmp.get_component<PhysicsBodyComp>().dominance = Dominance::Dominant;
+
+        }
     }
 }

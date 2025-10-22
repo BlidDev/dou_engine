@@ -1,4 +1,3 @@
-
 @VERTEX
 #version 330 core
 layout (location = 0) in vec3 aPos;
@@ -11,12 +10,13 @@ layout (std140) uniform Matrices{
 
 uniform mat4 model;
 
-out vec3 coord;
 out vec2 tex_coord;
-void main() {
-	gl_Position = projection *  view * model * vec4(aPos, 1.0f);
+void main() {  
+    float ratio = 1280.0 / 720.0;
+    vec4 pos = model * vec4(aPos,1.0);
+    pos.x /= ratio;
+	gl_Position = pos;
     tex_coord = aTex;
-    coord = aPos;
 }
 
 
@@ -26,13 +26,9 @@ void main() {
 out vec4 frag_color;
 
 in vec2 tex_coord;
-in vec3 coord;
 
 uniform sampler2D texture_sample;
 
 void main() {
-    if(distance(coord, vec3(0)) <= 0.4)
-        frag_color = texture(texture_sample, tex_coord);
-    else
-        frag_color = vec4(1,0,1,1);
+    frag_color = texture(texture_sample, tex_coord);
 }

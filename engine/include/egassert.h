@@ -1,4 +1,4 @@
-#ifndef EG_ASSERT
+#pragma once
 #include "log.h"
 
 #define EG_ASSERT(condition, ...) \
@@ -12,4 +12,3 @@
 #define EG_HANDLEI(condition, res) \
     int tmp = condition; \
     if (tmp == res) {return res;}
-#endif
