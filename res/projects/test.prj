@@ -1,0 +1,20 @@
+Project Name: Testp
+Current Scene: thing
+
+Paths:
+  Shaders:
+    - res/shaders
+  Models:
+    - res/models
+  Textures:
+    - res/textures
+Files:
+  - res/weirdthing.png
+
+Layers:
+  Layer 0:
+    Depth Test: true
+    Wireframe Mode: false
+    Is Framebuffer: true
+  Layer 2:
+    Wireframe Mode: false

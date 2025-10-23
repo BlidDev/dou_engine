@@ -80,6 +80,12 @@ namespace engine {
         model_lib.insert(std::make_pair(std::string(name), model));
     }
 
+
+    LayerAtrb* SceneManager::get_layer_atrb(size_t layer) {
+        EG_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Trying to retrieve invalid layer [{}]");
+        return &render_data.layers_atrb[layer];
+    }
+
     void update_render_data(SceneManager* manager, Scene* current) {
         manager->render_data.ambient = current->ambient;
         manager->render_data.ambient_strength = current->ambient_strength;

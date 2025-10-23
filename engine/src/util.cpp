@@ -185,5 +185,20 @@ namespace engine {
     void print_v2(const char* name, glm::vec2& v) {
         EG_CORE_INFO("{}: {} {}",name,v.x, v.y);
     }
+
+
+    std::string trim(const std::string& str) {
+        auto start = str.begin();
+        while (start != str.end() && std::isspace(*start)) {
+            ++start;
+        }
+
+        auto end = str.end();
+        do {
+            --end;
+        } while (end != start && std::isspace(*end));
+
+        return std::string(start, end + 1);
+    }
 }
 

@@ -14,6 +14,10 @@ namespace engine {
     void make_child_of(Scene* owner, UUID child, UUID parent);
     void remove_children(Scene* owner, UUID parent);
 
+    void wrapper_set_wireframe(Scene* owner, size_t layer, bool flag) {
+        set_layer_wireframe(owner->manager->render_data, layer, flag);
+    }
+
     void expose_env_functions(sol::state &env) {
       env.set_function("get_tag", get_uuid_component<TagComp>);
       env.set_function("get_transform", get_uuid_component<TransformComp>);
@@ -47,6 +51,8 @@ namespace engine {
 
       env.set_function("make_child_of", make_child_of);
       env.set_function("remove_children", remove_children);
+
+      env.set_function("set_layer_wireframe", wrapper_set_wireframe);
     }
 
     std::string variadic_args_to_str(std::string &format,

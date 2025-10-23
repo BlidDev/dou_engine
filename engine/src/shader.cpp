@@ -10,7 +10,7 @@ namespace engine {
         std::stringstream streams[2];
 
         std::ifstream file(path);
-        EG_ASSERT(!file.is_open(), "Could not open file [{}]", path);
+        EG_ASSERT(file.fail(), "Could not open file [{}]", path);
 
         std::string line = "";
         while (std::getline(file, line)) {
@@ -33,7 +33,6 @@ namespace engine {
         ShaderReturn source = parse_shader_file(path);
         const char* v = source.vertex_code.c_str();
         const char* f = source.fragment_code.c_str();
-
 
         unsigned int vertex = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(vertex, 1, &v, NULL);

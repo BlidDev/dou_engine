@@ -41,5 +41,5 @@ namespace engine {
 
     unsigned int apply_format(int format);
 
-    Model model_from_file(const char* path);
+    Model model_from_file(const char* path, std::string* name = nullptr);
 }

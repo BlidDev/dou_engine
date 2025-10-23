@@ -27,6 +27,8 @@ local flashlight = false
 local mousecounter = 0;
 local captured = true
 
+local wirecounter = 100
+local wire = false
 
 local made_child = false
 
@@ -94,6 +96,11 @@ function on_update(dt)
     spot.direction = last_dir
     if flashlight then spot.color = vec3.new(0.97, 0.96, 0.51) else spot.color = vec3.new(0.0) end
 
+    if is_key_down(util.KeyboardKey.O) and wirecounter >= 10 then
+        set_layer_wireframe(scene, 0, wire)
+        wire = not wire
+        wirecounter =0
+    end
 
     if is_key_down(util.KeyboardKey.G) and mousecounter >= 10 then
         if captured == true then
@@ -123,6 +130,7 @@ function on_update(dt)
     affectedcounter = affectedcounter + 1
     counter = counter + 1
     mousecounter = mousecounter + 1
+    wirecounter = wirecounter + 1
 
 end
 

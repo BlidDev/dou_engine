@@ -421,6 +421,11 @@
 },
 {
   "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/project.cpp.o -c /home/blid/rray/engine/src/project.cpp",
+  "file": "/home/blid/rray/engine/src/project.cpp"
+},
+{
+  "directory": "/home/blid/rray",
   "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/renderer.cpp.o -c /home/blid/rray/engine/src/renderer.cpp",
   "file": "/home/blid/rray/engine/src/renderer.cpp"
 },

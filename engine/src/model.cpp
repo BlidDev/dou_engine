@@ -1,4 +1,5 @@
 #include "model.h"
+#include "util.h"
 
 namespace engine {
 
@@ -105,12 +106,14 @@ namespace engine {
 
     enum ReadIndex {
         None = -1,
-        Format, Vertices, Indices
+        Name, Format, Vertices, Indices
     };
 
-    Model model_from_file(const char* path) {
+    Model model_from_file(const char* path, std::string* name) {
         ModelBuilder model_builder;
         ReadIndex index = None;
+
+        std::string tmp_name = "unnamed";
 
         std::ifstream file(path);
         EG_ASSERT(!file.is_open(), "Could not open file [{}]", path);
@@ -121,7 +124,9 @@ namespace engine {
         std::string line = "";
         while (std::getline(file, line)) {
             if (line.empty()) { continue; }
-            else if (line == "@VERTICES") {
+            else if (line == "@NAME") {
+                index = ReadIndex::Name; continue;
+            } else if (line == "@VERTICES") {
                 index = ReadIndex::Vertices; continue;
             } else if (line == "@FORMAT") {
                 index = ReadIndex::Format; continue;
@@ -129,7 +134,10 @@ namespace engine {
                 index = ReadIndex::Indices; continue;
             }
 
-            if (index == ReadIndex::Format) {
+            if (index == ReadIndex::Name) {
+               tmp_name = trim(line);
+            }
+            else if (index == ReadIndex::Format) {
                 std::istringstream iss (line);
                 std::string format_word = "";
                 while (iss>>format_word) {
@@ -165,6 +173,8 @@ namespace engine {
         if (!indices.empty()) {
             model_builder.indices(&indices[0], indices.size());
         }
+
+        if (name) *name = tmp_name;
 
         return model_builder.build();
     }

@@ -25,6 +25,8 @@ namespace engine {
         void register_texture(std::string name, Texture texture);
         void register_model(const char* name, Model model);
 
+        LayerAtrb* get_layer_atrb(size_t layer);
+
         Scene* get_current();
         ~SceneManager();
 

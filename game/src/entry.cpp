@@ -1,7 +1,5 @@
 #include <epch.h>
 #include "actions.h"
-#include "light.h"
-#include "model.h"
 #include "thing.h"
 
 void register_actions();
@@ -14,12 +12,8 @@ int engine::on_start(engine::SceneManager* manager) {
     manager->render_data.screen_h = 720;
     engine::set_input_window(manager->main_window);
 
-    manager->register_shader("res/shaders/basic.glsl");
-    manager->register_shader("res/shaders/textured.glsl");
-    manager->register_shader("res/shaders/lightingt.glsl");
-    manager->register_shader("res/shaders/lighting.glsl");
-    manager->register_shader("res/shaders/gui.glsl");
-    manager->register_texture("res/textures/proto.png");
+    std::string name;
+    read_project_file("res/projects/test.prj", manager, &name);
 
     manager->render_data.add("Matrices", 2 * sizeof(glm::mat4));
     manager->render_data.add("Lighting", 2 * sizeof(glm::vec4));
@@ -35,12 +29,10 @@ int engine::on_start(engine::SceneManager* manager) {
 
     engine::ubos_shaders_bind(manager->render_data, manager->shader_lib);
 
-    manager->register_model("quad_tex", model_from_file("res/models/quad_tex.sff"));
     manager->register_model("triangle", ModelBuilder().vertices(engine::P_TRIANGLE, 9));
     manager->register_model("quad", ModelBuilder().vertices(engine::P_QUAD, 12).indices(engine::I_QUAD, 6));
     manager->register_model("cube", ModelBuilder().vertices(engine::P_CUBE, 108));
     manager->register_model("cube_tex", ModelBuilder().vertices(engine::P_CUBE_TEXTURE, 180).textured());
-    manager->register_model("cube_tl", model_from_file("res/models/cube_tl.sff"));
 
 
     manager->register_scene("light", new LightScene());

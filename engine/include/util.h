@@ -44,6 +44,7 @@ namespace engine {
     void print_v3(const char* name, glm::vec3& v);
     void print_v2(const char* name, glm::vec2& v);
 
+    std::string trim(const std::string& str);
 }
 
 template<>
