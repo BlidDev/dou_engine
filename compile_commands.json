@@ -486,27 +486,37 @@
 },
 {
   "directory": "/home/blid/rray",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/src -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -g -std=c++20 -Winvalid-pch -x c++-header -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/cmake_pch.hxx.gch -c /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx.cxx",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -x c++-header -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/cmake_pch.hxx.gch -c /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx.cxx",
   "file": "/home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx.cxx"
 },
 {
   "directory": "/home/blid/rray",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/src -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -g -std=c++20 -Winvalid-pch -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/src/actions.cpp.o -c /home/blid/rray/game/src/actions.cpp",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/src/actions.cpp.o -c /home/blid/rray/game/src/actions.cpp",
   "file": "/home/blid/rray/game/src/actions.cpp"
 },
 {
   "directory": "/home/blid/rray",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/src -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -g -std=c++20 -Winvalid-pch -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/src/entry.cpp.o -c /home/blid/rray/game/src/entry.cpp",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/src/entry.cpp.o -c /home/blid/rray/game/src/entry.cpp",
   "file": "/home/blid/rray/game/src/entry.cpp"
 },
 {
   "directory": "/home/blid/rray",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/src -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -g -std=c++20 -Winvalid-pch -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/src/light.cpp.o -c /home/blid/rray/game/src/light.cpp",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/src/light.cpp.o -c /home/blid/rray/game/src/light.cpp",
   "file": "/home/blid/rray/game/src/light.cpp"
 },
 {
   "directory": "/home/blid/rray",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/src -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -g -std=c++20 -Winvalid-pch -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/src/thing.cpp.o -c /home/blid/rray/game/src/thing.cpp",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/src/thing.cpp.o -c /home/blid/rray/game/src/thing.cpp",
   "file": "/home/blid/rray/game/src/thing.cpp"
+},
+{
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -x c++-header -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/cmake_pch.hxx.gch -c /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx.cxx",
+  "file": "/home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx.cxx"
+},
+{
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/src/main.cpp.o -c /home/blid/rray/radiator/src/main.cpp",
+  "file": "/home/blid/rray/radiator/src/main.cpp"
 }
 ]

@@ -1,6 +1,5 @@
-set(NAME game)
-
-file(GLOB ${NAME}_SRC
+set(NAME radiator)
+file(GLOB radiator_SRC
     "src/*.c"
     "src/*.cpp"
     )
@@ -16,10 +15,10 @@ set_target_properties(${NAME}
 target_include_directories(${NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/engine/include
     ${CMAKE_SOURCE_DIR}/${NAME}/include
-    ${CMAKE_SOURCE_DIR}/vendor/spdlog/include
-    ${CMAKE_SOURCE_DIR}/vendor/entt
+    #${CMAKE_SOURCE_DIR}/vendor/spdlog/include
+    #${CMAKE_SOURCE_DIR}/vendor/entt
     ${CMAKE_SOURCE_DIR}/vendor/glfw/include
-    ${YAML_CPP_INCLUDE_DIRS}
+    #${YAML_CPP_INCLUDE_DIRS}
     ${CMAKE_SOURCE_DIR}/vendor/glad/include/
     ${CMAKE_SOURCE_DIR}/vendor/glm
 )
@@ -32,4 +31,4 @@ find_package(OpenGL REQUIRED)
 
 target_precompile_headers(${NAME} PRIVATE ${HEADER_FILES})
 
-target_link_libraries(${NAME} PRIVATE YAML_CPP glfw  OpenGL::GL engine)
+target_link_libraries(${NAME} PRIVATE OpenGL::GL engine)

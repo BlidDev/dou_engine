@@ -1,4 +1,5 @@
 #include <epch.h>
+#include "light.h"
 #include "actions.h"
 #include "thing.h"
 

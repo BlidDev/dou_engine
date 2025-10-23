@@ -8,7 +8,6 @@
 #include "systems.h"
 #include "log.h"
 #include "util.h"
-#include "light.h"
 #include "model.h"
 #include "project.h"
 #include "entry_point.h"

@@ -182,14 +182,14 @@ build vendor/spdlog/CMakeFiles/spdlog.dir/src/bundled_fmtlib_format.cpp.o: CXX_C
 
 
 #############################################
-# Link the static library bin/Linux - x86_64/Debug/engine/libspdlogd.a
+# Link the static library vendor/spdlog/libspdlogd.a
 
-build bin/Linux$ -$ x86_64/Debug/engine/libspdlogd.a: CXX_STATIC_LIBRARY_LINKER__spdlog_Debug vendor/spdlog/CMakeFiles/spdlog.dir/src/spdlog.cpp.o vendor/spdlog/CMakeFiles/spdlog.dir/src/stdout_sinks.cpp.o vendor/spdlog/CMakeFiles/spdlog.dir/src/color_sinks.cpp.o vendor/spdlog/CMakeFiles/spdlog.dir/src/file_sinks.cpp.o vendor/spdlog/CMakeFiles/spdlog.dir/src/async.cpp.o vendor/spdlog/CMakeFiles/spdlog.dir/src/cfg.cpp.o vendor/spdlog/CMakeFiles/spdlog.dir/src/bundled_fmtlib_format.cpp.o
+build vendor/spdlog/libspdlogd.a: CXX_STATIC_LIBRARY_LINKER__spdlog_Debug vendor/spdlog/CMakeFiles/spdlog.dir/src/spdlog.cpp.o vendor/spdlog/CMakeFiles/spdlog.dir/src/stdout_sinks.cpp.o vendor/spdlog/CMakeFiles/spdlog.dir/src/color_sinks.cpp.o vendor/spdlog/CMakeFiles/spdlog.dir/src/file_sinks.cpp.o vendor/spdlog/CMakeFiles/spdlog.dir/src/async.cpp.o vendor/spdlog/CMakeFiles/spdlog.dir/src/cfg.cpp.o vendor/spdlog/CMakeFiles/spdlog.dir/src/bundled_fmtlib_format.cpp.o
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = vendor/spdlog/CMakeFiles/spdlog.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = "bin/Linux - x86_64/Debug/engine/libspdlogd.a"
+  TARGET_FILE = vendor/spdlog/libspdlogd.a
   TARGET_PDB = spdlogd.a.dbg
 
 
@@ -534,14 +534,14 @@ build vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/tag.cpp.o: CXX_COMPILER__YAML_
 
 
 #############################################
-# Link the static library bin/Linux - x86_64/Debug/engine/libYAML_CPP.a
+# Link the static library vendor/yaml-cpp/libYAML_CPP.a
 
-build bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a: CXX_STATIC_LIBRARY_LINKER__YAML_CPP_Debug vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/binary.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/contrib/graphbuilder.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/contrib/graphbuilderadapter.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/convert.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/depthguard.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/directives.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emit.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitfromevents.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitter.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitterstate.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitterutils.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/exceptions.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/exp.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/fptostring.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/memory.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/node.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/node_data.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/nodebuilder.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/nodeevents.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/null.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/ostream_wrapper.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/parse.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/parser.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/regex_yaml.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scanner.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scanscalar.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scantag.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scantoken.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/simplekey.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/singledocparser.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/stream.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/tag.cpp.o
+build vendor/yaml-cpp/libYAML_CPP.a: CXX_STATIC_LIBRARY_LINKER__YAML_CPP_Debug vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/binary.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/contrib/graphbuilder.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/contrib/graphbuilderadapter.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/convert.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/depthguard.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/directives.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emit.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitfromevents.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitter.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitterstate.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitterutils.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/exceptions.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/exp.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/fptostring.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/memory.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/node.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/node_data.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/nodebuilder.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/nodeevents.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/null.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/ostream_wrapper.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/parse.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/parser.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/regex_yaml.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scanner.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scanscalar.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scantag.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scantoken.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/simplekey.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/singledocparser.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/stream.cpp.o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/tag.cpp.o
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = "bin/Linux - x86_64/Debug/engine/libYAML_CPP.a"
+  TARGET_FILE = vendor/yaml-cpp/libYAML_CPP.a
   TARGET_PDB = YAML_CPP.a.dbg
 
 
@@ -638,14 +638,14 @@ build vendor/glad/CMakeFiles/GLAD.dir/src/glad.c.o: C_COMPILER__GLAD_Debug /home
 
 
 #############################################
-# Link the static library bin/Linux - x86_64/Debug/engine/libGLAD.a
+# Link the static library vendor/glad/libGLAD.a
 
-build bin/Linux$ -$ x86_64/Debug/engine/libGLAD.a: C_STATIC_LIBRARY_LINKER__GLAD_Debug vendor/glad/CMakeFiles/GLAD.dir/src/glad.c.o
+build vendor/glad/libGLAD.a: C_STATIC_LIBRARY_LINKER__GLAD_Debug vendor/glad/CMakeFiles/GLAD.dir/src/glad.c.o
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = vendor/glad/CMakeFiles/GLAD.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = "bin/Linux - x86_64/Debug/engine/libGLAD.a"
+  TARGET_FILE = vendor/glad/libGLAD.a
   TARGET_PDB = GLAD.a.dbg
 
 
@@ -1026,14 +1026,14 @@ build vendor/glfw/src/CMakeFiles/glfw.dir/posix_poll.c.o: C_COMPILER__glfw_Debug
 
 
 #############################################
-# Link the static library bin/Linux - x86_64/Debug/engine/libglfw3.a
+# Link the static library vendor/glfw/src/libglfw3.a
 
-build bin/Linux$ -$ x86_64/Debug/engine/libglfw3.a: C_STATIC_LIBRARY_LINKER__glfw_Debug vendor/glfw/src/CMakeFiles/glfw.dir/context.c.o vendor/glfw/src/CMakeFiles/glfw.dir/init.c.o vendor/glfw/src/CMakeFiles/glfw.dir/input.c.o vendor/glfw/src/CMakeFiles/glfw.dir/monitor.c.o vendor/glfw/src/CMakeFiles/glfw.dir/platform.c.o vendor/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o vendor/glfw/src/CMakeFiles/glfw.dir/window.c.o vendor/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o vendor/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o vendor/glfw/src/CMakeFiles/glfw.dir/null_init.c.o vendor/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o vendor/glfw/src/CMakeFiles/glfw.dir/null_window.c.o vendor/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o vendor/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o vendor/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o vendor/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o vendor/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o vendor/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o vendor/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o vendor/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o vendor/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o vendor/glfw/src/CMakeFiles/glfw.dir/wl_init.c.o vendor/glfw/src/CMakeFiles/glfw.dir/wl_monitor.c.o vendor/glfw/src/CMakeFiles/glfw.dir/wl_window.c.o vendor/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o vendor/glfw/src/CMakeFiles/glfw.dir/posix_poll.c.o
+build vendor/glfw/src/libglfw3.a: C_STATIC_LIBRARY_LINKER__glfw_Debug vendor/glfw/src/CMakeFiles/glfw.dir/context.c.o vendor/glfw/src/CMakeFiles/glfw.dir/init.c.o vendor/glfw/src/CMakeFiles/glfw.dir/input.c.o vendor/glfw/src/CMakeFiles/glfw.dir/monitor.c.o vendor/glfw/src/CMakeFiles/glfw.dir/platform.c.o vendor/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o vendor/glfw/src/CMakeFiles/glfw.dir/window.c.o vendor/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o vendor/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o vendor/glfw/src/CMakeFiles/glfw.dir/null_init.c.o vendor/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o vendor/glfw/src/CMakeFiles/glfw.dir/null_window.c.o vendor/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o vendor/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o vendor/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o vendor/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o vendor/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o vendor/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o vendor/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o vendor/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o vendor/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o vendor/glfw/src/CMakeFiles/glfw.dir/wl_init.c.o vendor/glfw/src/CMakeFiles/glfw.dir/wl_monitor.c.o vendor/glfw/src/CMakeFiles/glfw.dir/wl_window.c.o vendor/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o vendor/glfw/src/CMakeFiles/glfw.dir/posix_poll.c.o
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = "bin/Linux - x86_64/Debug/engine/libglfw3.a"
+  TARGET_FILE = vendor/glfw/src/libglfw3.a
   TARGET_PDB = glfw3.a.dbg
 
 
@@ -1548,7 +1548,7 @@ build engine/CMakeFiles/engine.dir/src/window.cpp.o: CXX_COMPILER__engine_Debug 
 #############################################
 # Link the static library bin/Linux - x86_64/Debug/engine/libengine.a
 
-build bin/Linux$ -$ x86_64/Debug/engine/libengine.a: CXX_STATIC_LIBRARY_LINKER__engine_Debug engine/CMakeFiles/engine.dir/src/components/action.cpp.o engine/CMakeFiles/engine.dir/src/components/camera.cpp.o engine/CMakeFiles/engine.dir/src/components/luascript.cpp.o engine/CMakeFiles/engine.dir/src/components/modelcomp.cpp.o engine/CMakeFiles/engine.dir/src/components/physicbody.cpp.o engine/CMakeFiles/engine.dir/src/components/transform.cpp.o engine/CMakeFiles/engine.dir/src/components/uuid.cpp.o engine/CMakeFiles/engine.dir/src/entity.cpp.o engine/CMakeFiles/engine.dir/src/entry_point.cpp.o engine/CMakeFiles/engine.dir/src/input.cpp.o engine/CMakeFiles/engine.dir/src/log.cpp.o engine/CMakeFiles/engine.dir/src/lua/luafunctions.cpp.o engine/CMakeFiles/engine.dir/src/lua/luatypes.cpp.o engine/CMakeFiles/engine.dir/src/luawrapper.cpp.o engine/CMakeFiles/engine.dir/src/manager.cpp.o engine/CMakeFiles/engine.dir/src/model.cpp.o engine/CMakeFiles/engine.dir/src/models.cpp.o engine/CMakeFiles/engine.dir/src/project.cpp.o engine/CMakeFiles/engine.dir/src/renderer.cpp.o engine/CMakeFiles/engine.dir/src/scene.cpp.o engine/CMakeFiles/engine.dir/src/serializer.cpp.o engine/CMakeFiles/engine.dir/src/shader.cpp.o engine/CMakeFiles/engine.dir/src/systems/actionsys.cpp.o engine/CMakeFiles/engine.dir/src/systems/luasys.cpp.o engine/CMakeFiles/engine.dir/src/systems/physicsys.cpp.o engine/CMakeFiles/engine.dir/src/systems/renderersys.cpp.o engine/CMakeFiles/engine.dir/src/texture.cpp.o engine/CMakeFiles/engine.dir/src/timer.cpp.o engine/CMakeFiles/engine.dir/src/util.cpp.o engine/CMakeFiles/engine.dir/src/window.cpp.o || bin/Linux$ -$ x86_64/Debug/engine/libGLAD.a bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a bin/Linux$ -$ x86_64/Debug/engine/libglfw3.a
+build bin/Linux$ -$ x86_64/Debug/engine/libengine.a: CXX_STATIC_LIBRARY_LINKER__engine_Debug engine/CMakeFiles/engine.dir/src/components/action.cpp.o engine/CMakeFiles/engine.dir/src/components/camera.cpp.o engine/CMakeFiles/engine.dir/src/components/luascript.cpp.o engine/CMakeFiles/engine.dir/src/components/modelcomp.cpp.o engine/CMakeFiles/engine.dir/src/components/physicbody.cpp.o engine/CMakeFiles/engine.dir/src/components/transform.cpp.o engine/CMakeFiles/engine.dir/src/components/uuid.cpp.o engine/CMakeFiles/engine.dir/src/entity.cpp.o engine/CMakeFiles/engine.dir/src/entry_point.cpp.o engine/CMakeFiles/engine.dir/src/input.cpp.o engine/CMakeFiles/engine.dir/src/log.cpp.o engine/CMakeFiles/engine.dir/src/lua/luafunctions.cpp.o engine/CMakeFiles/engine.dir/src/lua/luatypes.cpp.o engine/CMakeFiles/engine.dir/src/luawrapper.cpp.o engine/CMakeFiles/engine.dir/src/manager.cpp.o engine/CMakeFiles/engine.dir/src/model.cpp.o engine/CMakeFiles/engine.dir/src/models.cpp.o engine/CMakeFiles/engine.dir/src/project.cpp.o engine/CMakeFiles/engine.dir/src/renderer.cpp.o engine/CMakeFiles/engine.dir/src/scene.cpp.o engine/CMakeFiles/engine.dir/src/serializer.cpp.o engine/CMakeFiles/engine.dir/src/shader.cpp.o engine/CMakeFiles/engine.dir/src/systems/actionsys.cpp.o engine/CMakeFiles/engine.dir/src/systems/luasys.cpp.o engine/CMakeFiles/engine.dir/src/systems/physicsys.cpp.o engine/CMakeFiles/engine.dir/src/systems/renderersys.cpp.o engine/CMakeFiles/engine.dir/src/texture.cpp.o engine/CMakeFiles/engine.dir/src/timer.cpp.o engine/CMakeFiles/engine.dir/src/util.cpp.o engine/CMakeFiles/engine.dir/src/window.cpp.o || vendor/glad/libGLAD.a vendor/glfw/src/libglfw3.a vendor/yaml-cpp/libYAML_CPP.a
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = engine/CMakeFiles/engine.dir
   POST_BUILD = :
@@ -1640,7 +1640,7 @@ build game/CMakeFiles/game.dir/cmake_pch.hxx.gch: CXX_COMPILER__game_Debug /home
   DEFINES = -DYAML_CPP_STATIC_DEFINE
   DEP_FILE = game/CMakeFiles/game.dir/cmake_pch.hxx.gch.d
   FLAGS = -g -std=c++20 -Winvalid-pch -x c++-header -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/src -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image
+  INCLUDES = -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src
   OBJECT_DIR = game/CMakeFiles/game.dir
   OBJECT_FILE_DIR = game/CMakeFiles/game.dir
 
@@ -1648,7 +1648,7 @@ build game/CMakeFiles/game.dir/src/actions.cpp.o: CXX_COMPILER__game_Debug /home
   DEFINES = -DYAML_CPP_STATIC_DEFINE
   DEP_FILE = game/CMakeFiles/game.dir/src/actions.cpp.o.d
   FLAGS = -g -std=c++20 -Winvalid-pch -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/src -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image
+  INCLUDES = -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src
   OBJECT_DIR = game/CMakeFiles/game.dir
   OBJECT_FILE_DIR = game/CMakeFiles/game.dir/src
 
@@ -1656,7 +1656,7 @@ build game/CMakeFiles/game.dir/src/entry.cpp.o: CXX_COMPILER__game_Debug /home/b
   DEFINES = -DYAML_CPP_STATIC_DEFINE
   DEP_FILE = game/CMakeFiles/game.dir/src/entry.cpp.o.d
   FLAGS = -g -std=c++20 -Winvalid-pch -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/src -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image
+  INCLUDES = -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src
   OBJECT_DIR = game/CMakeFiles/game.dir
   OBJECT_FILE_DIR = game/CMakeFiles/game.dir/src
 
@@ -1664,7 +1664,7 @@ build game/CMakeFiles/game.dir/src/light.cpp.o: CXX_COMPILER__game_Debug /home/b
   DEFINES = -DYAML_CPP_STATIC_DEFINE
   DEP_FILE = game/CMakeFiles/game.dir/src/light.cpp.o.d
   FLAGS = -g -std=c++20 -Winvalid-pch -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/src -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image
+  INCLUDES = -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src
   OBJECT_DIR = game/CMakeFiles/game.dir
   OBJECT_FILE_DIR = game/CMakeFiles/game.dir/src
 
@@ -1672,7 +1672,7 @@ build game/CMakeFiles/game.dir/src/thing.cpp.o: CXX_COMPILER__game_Debug /home/b
   DEFINES = -DYAML_CPP_STATIC_DEFINE
   DEP_FILE = game/CMakeFiles/game.dir/src/thing.cpp.o.d
   FLAGS = -g -std=c++20 -Winvalid-pch -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx
-  INCLUDES = -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/src -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image
+  INCLUDES = -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src
   OBJECT_DIR = game/CMakeFiles/game.dir
   OBJECT_FILE_DIR = game/CMakeFiles/game.dir/src
 
@@ -1684,10 +1684,10 @@ build game/CMakeFiles/game.dir/src/thing.cpp.o: CXX_COMPILER__game_Debug /home/b
 #############################################
 # Link the executable bin/Linux - x86_64/Debug/game/game
 
-build bin/Linux$ -$ x86_64/Debug/game/game: CXX_EXECUTABLE_LINKER__game_Debug game/CMakeFiles/game.dir/src/actions.cpp.o game/CMakeFiles/game.dir/src/entry.cpp.o game/CMakeFiles/game.dir/src/light.cpp.o game/CMakeFiles/game.dir/src/thing.cpp.o | bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a bin/Linux$ -$ x86_64/Debug/engine/libglfw3.a bin/Linux$ -$ x86_64/Debug/engine/libengine.a /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a bin/Linux$ -$ x86_64/Debug/engine/libglfw3.a /usr/lib/x86_64-linux-gnu/librt.a /usr/lib/x86_64-linux-gnu/libm.so /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so bin/Linux$ -$ x86_64/Debug/engine/libGLAD.a vendor/lua/linux/liblua54.a || bin/Linux$ -$ x86_64/Debug/engine/libGLAD.a bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a bin/Linux$ -$ x86_64/Debug/engine/libengine.a bin/Linux$ -$ x86_64/Debug/engine/libglfw3.a
+build bin/Linux$ -$ x86_64/Debug/game/game: CXX_EXECUTABLE_LINKER__game_Debug game/CMakeFiles/game.dir/src/actions.cpp.o game/CMakeFiles/game.dir/src/entry.cpp.o game/CMakeFiles/game.dir/src/light.cpp.o game/CMakeFiles/game.dir/src/thing.cpp.o | vendor/yaml-cpp/libYAML_CPP.a vendor/glfw/src/libglfw3.a bin/Linux$ -$ x86_64/Debug/engine/libengine.a /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so vendor/yaml-cpp/libYAML_CPP.a vendor/glfw/src/libglfw3.a /usr/lib/x86_64-linux-gnu/librt.a /usr/lib/x86_64-linux-gnu/libm.so /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so vendor/glad/libGLAD.a vendor/lua/linux/liblua54.a || bin/Linux$ -$ x86_64/Debug/engine/libengine.a vendor/glad/libGLAD.a vendor/glfw/src/libglfw3.a vendor/yaml-cpp/libYAML_CPP.a
   FLAGS = -g
   LINK_FLAGS = -fuse-ld=gold
-  LINK_LIBRARIES = "bin/Linux - x86_64/Debug/engine/libYAML_CPP.a"  "bin/Linux - x86_64/Debug/engine/libglfw3.a"  "bin/Linux - x86_64/Debug/engine/libengine.a"  /usr/lib/x86_64-linux-gnu/libGLX.so  /usr/lib/x86_64-linux-gnu/libOpenGL.so  "bin/Linux - x86_64/Debug/engine/libYAML_CPP.a"  "bin/Linux - x86_64/Debug/engine/libglfw3.a"  /usr/lib/x86_64-linux-gnu/librt.a  -lm  -ldl  /usr/lib/x86_64-linux-gnu/libGLX.so  /usr/lib/x86_64-linux-gnu/libOpenGL.so  "bin/Linux - x86_64/Debug/engine/libGLAD.a"  vendor/lua/linux/liblua54.a
+  LINK_LIBRARIES = vendor/yaml-cpp/libYAML_CPP.a  vendor/glfw/src/libglfw3.a  "bin/Linux - x86_64/Debug/engine/libengine.a"  /usr/lib/x86_64-linux-gnu/libGLX.so  /usr/lib/x86_64-linux-gnu/libOpenGL.so  vendor/yaml-cpp/libYAML_CPP.a  vendor/glfw/src/libglfw3.a  /usr/lib/x86_64-linux-gnu/librt.a  -lm  -ldl  /usr/lib/x86_64-linux-gnu/libGLX.so  /usr/lib/x86_64-linux-gnu/libOpenGL.so  vendor/glad/libGLAD.a  vendor/lua/linux/liblua54.a
   OBJECT_DIR = game/CMakeFiles/game.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -1761,29 +1761,145 @@ build game/CMakeFiles/install/strip.util: CUSTOM_COMMAND game/all
 build game/install/strip: phony game/CMakeFiles/install/strip.util
 
 # =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /home/blid/rray/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for EXECUTABLE target radiator
+
+
+#############################################
+# Order-only phony target for radiator
+
+build cmake_object_order_depends_target_radiator: phony || cmake_object_order_depends_target_GLAD cmake_object_order_depends_target_YAML_CPP cmake_object_order_depends_target_engine cmake_object_order_depends_target_glfw
+
+build radiator/CMakeFiles/radiator.dir/cmake_pch.hxx.gch: CXX_COMPILER__radiator_Debug /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx.cxx | radiator/CMakeFiles/radiator.dir/cmake_pch.hxx || cmake_object_order_depends_target_radiator
+  DEFINES = -DYAML_CPP_STATIC_DEFINE
+  DEP_FILE = radiator/CMakeFiles/radiator.dir/cmake_pch.hxx.gch.d
+  FLAGS = -g -std=c++20 -Winvalid-pch -x c++-header -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx
+  INCLUDES = -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src
+  OBJECT_DIR = radiator/CMakeFiles/radiator.dir
+  OBJECT_FILE_DIR = radiator/CMakeFiles/radiator.dir
+
+build radiator/CMakeFiles/radiator.dir/src/main.cpp.o: CXX_COMPILER__radiator_Debug /home/blid/rray/radiator/src/main.cpp | radiator/CMakeFiles/radiator.dir/cmake_pch.hxx radiator/CMakeFiles/radiator.dir/cmake_pch.hxx.gch || cmake_object_order_depends_target_radiator
+  DEFINES = -DYAML_CPP_STATIC_DEFINE
+  DEP_FILE = radiator/CMakeFiles/radiator.dir/src/main.cpp.o.d
+  FLAGS = -g -std=c++20 -Winvalid-pch -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx
+  INCLUDES = -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src
+  OBJECT_DIR = radiator/CMakeFiles/radiator.dir
+  OBJECT_FILE_DIR = radiator/CMakeFiles/radiator.dir/src
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target radiator
+
+
+#############################################
+# Link the executable bin/Linux - x86_64/Debug/radiator/radiator
+
+build bin/Linux$ -$ x86_64/Debug/radiator/radiator: CXX_EXECUTABLE_LINKER__radiator_Debug radiator/CMakeFiles/radiator.dir/src/main.cpp.o | bin/Linux$ -$ x86_64/Debug/engine/libengine.a /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so vendor/glfw/src/libglfw3.a /usr/lib/x86_64-linux-gnu/librt.a /usr/lib/x86_64-linux-gnu/libm.so /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so vendor/yaml-cpp/libYAML_CPP.a vendor/glad/libGLAD.a vendor/lua/linux/liblua54.a || bin/Linux$ -$ x86_64/Debug/engine/libengine.a vendor/glad/libGLAD.a vendor/glfw/src/libglfw3.a vendor/yaml-cpp/libYAML_CPP.a
+  FLAGS = -g
+  LINK_FLAGS = -fuse-ld=gold
+  LINK_LIBRARIES = "bin/Linux - x86_64/Debug/engine/libengine.a"  /usr/lib/x86_64-linux-gnu/libGLX.so  /usr/lib/x86_64-linux-gnu/libOpenGL.so  vendor/glfw/src/libglfw3.a  /usr/lib/x86_64-linux-gnu/librt.a  -lm  -ldl  /usr/lib/x86_64-linux-gnu/libGLX.so  /usr/lib/x86_64-linux-gnu/libOpenGL.so  vendor/yaml-cpp/libYAML_CPP.a  vendor/glad/libGLAD.a  vendor/lua/linux/liblua54.a
+  OBJECT_DIR = radiator/CMakeFiles/radiator.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = "bin/Linux - x86_64/Debug/radiator/radiator"
+  TARGET_PDB = radiator.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build radiator/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/blid/rray/radiator && /usr/bin/ccmake -S/home/blid/rray -B/home/blid/rray
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build radiator/edit_cache: phony radiator/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build radiator/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/blid/rray/radiator && /usr/bin/cmake --regenerate-during-build -S/home/blid/rray -B/home/blid/rray
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build radiator/rebuild_cache: phony radiator/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build radiator/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build radiator/CMakeFiles/install.util: CUSTOM_COMMAND radiator/all
+  COMMAND = cd /home/blid/rray/radiator && /usr/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build radiator/install: phony radiator/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build radiator/CMakeFiles/install/local.util: CUSTOM_COMMAND radiator/all
+  COMMAND = cd /home/blid/rray/radiator && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build radiator/install/local: phony radiator/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build radiator/CMakeFiles/install/strip.util: CUSTOM_COMMAND radiator/all
+  COMMAND = cd /home/blid/rray/radiator && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build radiator/install/strip: phony radiator/CMakeFiles/install/strip.util
+
+# =============================================================================
 # Target aliases.
 
-build GLAD: phony bin/Linux$ -$ x86_64/Debug/engine/libGLAD.a
+build GLAD: phony vendor/glad/libGLAD.a
 
-build YAML_CPP: phony bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a
+build YAML_CPP: phony vendor/yaml-cpp/libYAML_CPP.a
 
 build engine: phony bin/Linux$ -$ x86_64/Debug/engine/libengine.a
 
 build game: phony bin/Linux$ -$ x86_64/Debug/game/game
 
-build glfw: phony bin/Linux$ -$ x86_64/Debug/engine/libglfw3.a
+build glfw: phony vendor/glfw/src/libglfw3.a
 
-build libGLAD.a: phony bin/Linux$ -$ x86_64/Debug/engine/libGLAD.a
+build libGLAD.a: phony vendor/glad/libGLAD.a
 
-build libYAML_CPP.a: phony bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a
+build libYAML_CPP.a: phony vendor/yaml-cpp/libYAML_CPP.a
 
 build libengine.a: phony bin/Linux$ -$ x86_64/Debug/engine/libengine.a
 
-build libglfw3.a: phony bin/Linux$ -$ x86_64/Debug/engine/libglfw3.a
+build libglfw3.a: phony vendor/glfw/src/libglfw3.a
 
-build libspdlogd.a: phony bin/Linux$ -$ x86_64/Debug/engine/libspdlogd.a
+build libspdlogd.a: phony vendor/spdlog/libspdlogd.a
 
-build spdlog: phony bin/Linux$ -$ x86_64/Debug/engine/libspdlogd.a
+build radiator: phony bin/Linux$ -$ x86_64/Debug/radiator/radiator
+
+build spdlog: phony vendor/spdlog/libspdlogd.a
 
 build uninstall: phony vendor/glfw/uninstall
 
@@ -1797,7 +1913,7 @@ build update_mappings: phony vendor/glfw/src/update_mappings
 #############################################
 # Folder: /home/blid/rray
 
-build all: phony vendor/spdlog/all vendor/yaml-cpp/all vendor/glad/all vendor/glfw/all engine/all game/all
+build all: phony vendor/spdlog/all vendor/yaml-cpp/all vendor/glad/all vendor/glfw/all engine/all game/all radiator/all
 
 # =============================================================================
 
@@ -1816,9 +1932,16 @@ build game/all: phony bin/Linux$ -$ x86_64/Debug/game/game
 # =============================================================================
 
 #############################################
+# Folder: /home/blid/rray/radiator
+
+build radiator/all: phony bin/Linux$ -$ x86_64/Debug/radiator/radiator
+
+# =============================================================================
+
+#############################################
 # Folder: /home/blid/rray/vendor/glad
 
-build vendor/glad/all: phony bin/Linux$ -$ x86_64/Debug/engine/libGLAD.a
+build vendor/glad/all: phony vendor/glad/libGLAD.a
 
 # =============================================================================
 
@@ -1832,21 +1955,21 @@ build vendor/glfw/all: phony vendor/glfw/src/all
 #############################################
 # Folder: /home/blid/rray/vendor/glfw/src
 
-build vendor/glfw/src/all: phony bin/Linux$ -$ x86_64/Debug/engine/libglfw3.a
+build vendor/glfw/src/all: phony vendor/glfw/src/libglfw3.a
 
 # =============================================================================
 
 #############################################
 # Folder: /home/blid/rray/vendor/spdlog
 
-build vendor/spdlog/all: phony bin/Linux$ -$ x86_64/Debug/engine/libspdlogd.a
+build vendor/spdlog/all: phony vendor/spdlog/libspdlogd.a
 
 # =============================================================================
 
 #############################################
 # Folder: /home/blid/rray/vendor/yaml-cpp
 
-build vendor/yaml-cpp/all: phony bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a
+build vendor/yaml-cpp/all: phony vendor/yaml-cpp/libYAML_CPP.a
 
 # =============================================================================
 # Built-in targets
@@ -1855,14 +1978,14 @@ build vendor/yaml-cpp/all: phony bin/Linux$ -$ x86_64/Debug/engine/libYAML_CPP.a
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /usr/share/cmake-3.22/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeDependentOption.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckCXXSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckFunctionExists.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFileCXX.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFiles.cmake /usr/share/cmake-3.22/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/FindFontconfig.cmake /usr/share/cmake-3.22/Modules/FindFreetype.cmake /usr/share/cmake-3.22/Modules/FindOpenGL.cmake /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.22/Modules/FindPackageMessage.cmake /usr/share/cmake-3.22/Modules/FindPkgConfig.cmake /usr/share/cmake-3.22/Modules/FindThreads.cmake /usr/share/cmake-3.22/Modules/FindX11.cmake /usr/share/cmake-3.22/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.22/Modules/SelectLibraryConfigurations.cmake /usr/share/cmake-3.22/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake CMakeLists.txt engine/CMakeLists.txt game/CMakeLists.txt vendor/glad/CMakeLists.txt vendor/glfw/CMake/cmake_uninstall.cmake.in vendor/glfw/CMake/glfw3.pc.in vendor/glfw/CMake/glfw3Config.cmake.in vendor/glfw/CMakeLists.txt vendor/glfw/src/CMakeLists.txt vendor/spdlog/CMakeLists.txt vendor/spdlog/cmake/ide.cmake vendor/spdlog/cmake/utils.cmake vendor/yaml-cpp/CMakeLists.txt
+build build.ninja: RERUN_CMAKE | /usr/share/cmake-3.22/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeDependentOption.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckCXXSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckFunctionExists.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFileCXX.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFiles.cmake /usr/share/cmake-3.22/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/FindFontconfig.cmake /usr/share/cmake-3.22/Modules/FindFreetype.cmake /usr/share/cmake-3.22/Modules/FindOpenGL.cmake /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.22/Modules/FindPackageMessage.cmake /usr/share/cmake-3.22/Modules/FindPkgConfig.cmake /usr/share/cmake-3.22/Modules/FindThreads.cmake /usr/share/cmake-3.22/Modules/FindX11.cmake /usr/share/cmake-3.22/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.22/Modules/SelectLibraryConfigurations.cmake /usr/share/cmake-3.22/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake CMakeLists.txt engine/CMakeLists.txt game/CMakeLists.txt radiator/CMakeLists.txt vendor/glad/CMakeLists.txt vendor/glfw/CMake/cmake_uninstall.cmake.in vendor/glfw/CMake/glfw3.pc.in vendor/glfw/CMake/glfw3Config.cmake.in vendor/glfw/CMakeLists.txt vendor/glfw/src/CMakeLists.txt vendor/spdlog/CMakeLists.txt vendor/spdlog/cmake/ide.cmake vendor/spdlog/cmake/utils.cmake vendor/yaml-cpp/CMakeLists.txt
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /usr/share/cmake-3.22/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeDependentOption.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckCXXSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckFunctionExists.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFileCXX.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFiles.cmake /usr/share/cmake-3.22/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/FindFontconfig.cmake /usr/share/cmake-3.22/Modules/FindFreetype.cmake /usr/share/cmake-3.22/Modules/FindOpenGL.cmake /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.22/Modules/FindPackageMessage.cmake /usr/share/cmake-3.22/Modules/FindPkgConfig.cmake /usr/share/cmake-3.22/Modules/FindThreads.cmake /usr/share/cmake-3.22/Modules/FindX11.cmake /usr/share/cmake-3.22/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.22/Modules/SelectLibraryConfigurations.cmake /usr/share/cmake-3.22/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake CMakeLists.txt engine/CMakeLists.txt game/CMakeLists.txt vendor/glad/CMakeLists.txt vendor/glfw/CMake/cmake_uninstall.cmake.in vendor/glfw/CMake/glfw3.pc.in vendor/glfw/CMake/glfw3Config.cmake.in vendor/glfw/CMakeLists.txt vendor/glfw/src/CMakeLists.txt vendor/spdlog/CMakeLists.txt vendor/spdlog/cmake/ide.cmake vendor/spdlog/cmake/utils.cmake vendor/yaml-cpp/CMakeLists.txt: phony
+build /usr/share/cmake-3.22/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeDependentOption.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckCXXSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckFunctionExists.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFileCXX.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFiles.cmake /usr/share/cmake-3.22/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/FindFontconfig.cmake /usr/share/cmake-3.22/Modules/FindFreetype.cmake /usr/share/cmake-3.22/Modules/FindOpenGL.cmake /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.22/Modules/FindPackageMessage.cmake /usr/share/cmake-3.22/Modules/FindPkgConfig.cmake /usr/share/cmake-3.22/Modules/FindThreads.cmake /usr/share/cmake-3.22/Modules/FindX11.cmake /usr/share/cmake-3.22/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.22/Modules/SelectLibraryConfigurations.cmake /usr/share/cmake-3.22/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake CMakeLists.txt engine/CMakeLists.txt game/CMakeLists.txt radiator/CMakeLists.txt vendor/glad/CMakeLists.txt vendor/glfw/CMake/cmake_uninstall.cmake.in vendor/glfw/CMake/glfw3.pc.in vendor/glfw/CMake/glfw3Config.cmake.in vendor/glfw/CMakeLists.txt vendor/glfw/src/CMakeLists.txt vendor/spdlog/CMakeLists.txt vendor/spdlog/cmake/ide.cmake vendor/spdlog/cmake/utils.cmake vendor/yaml-cpp/CMakeLists.txt: phony
 
 
 #############################################
