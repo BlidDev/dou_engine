@@ -58,6 +58,7 @@ namespace engine {
         bool operator==(Entity& other) {
             return uuid() == other.uuid();
         }
+
         void terminate() {
             check_null();
             scene->uuids.erase(uuid());

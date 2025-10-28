@@ -1,0 +1,23 @@
+Project Name: Editor
+Current Scene: Editor
+
+Window Width: 1280
+Window Height: 1280
+
+Paths:
+  Shaders:
+    - res/shaders
+  Models:
+    - res/models
+  Textures:
+    - res/textures
+Files:
+  - res/weirdthing.png
+
+Layers:
+  Layer 0:
+    Depth Test: true
+    Wireframe Mode: false
+    Is Framebuffer: true
+  Layer 2:
+    Wireframe Mode: false

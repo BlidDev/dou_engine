@@ -4,7 +4,13 @@ file(GLOB radiator_SRC
     "src/*.cpp"
     )
 
-add_executable(${NAME} ${${NAME}_SRC})
+file(GLOB imgui_SRC
+    "${CMAKE_SOURCE_DIR}/vendor/imgui/*.cpp"
+    "${CMAKE_SOURCE_DIR}/vendor/imgui/backends/*.cpp"
+    "${CMAKE_SOURCE_DIR}/vendor/imgui/misc/cpp/*.cpp"
+)
+
+add_executable(${NAME} ${${NAME}_SRC} ${imgui_SRC})
 
 set_target_properties(${NAME} 
     PROPERTIES
@@ -21,6 +27,8 @@ target_include_directories(${NAME} PRIVATE
     #${YAML_CPP_INCLUDE_DIRS}
     ${CMAKE_SOURCE_DIR}/vendor/glad/include/
     ${CMAKE_SOURCE_DIR}/vendor/glm
+    ${CMAKE_SOURCE_DIR}/vendor/imgui
+    ${CMAKE_SOURCE_DIR}/vendor/imgui/backends
 )
 
 
@@ -30,5 +38,15 @@ set(HEADER_FILES PRIVATE
 find_package(OpenGL REQUIRED)
 
 target_precompile_headers(${NAME} PRIVATE ${HEADER_FILES})
+
+if(UNIX AND NOT APPLE)
+    target_link_libraries(${NAME} PRIVATE
+        X11
+        Xi
+        Xcursor
+        Xrandr
+        Xinerama
+    )
+endif()
 
 target_link_libraries(${NAME} PRIVATE OpenGL::GL engine)

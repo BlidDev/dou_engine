@@ -28,7 +28,7 @@ namespace engine {
         read_layers(data, manager);
         read_paths(data, manager);
 
-        //manager->set_current(current.as<std::string>().c_str());
+        manager->set_current(current.as<std::string>().c_str());
         return 0;
 
     }
