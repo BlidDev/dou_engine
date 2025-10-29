@@ -1,5 +1,7 @@
 #include "editors.h"
 #include "glm/gtc/type_ptr.hpp"
+
+#define IMGUI_IMPL_OPENGL_LOADER_CUSTOM
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -438,9 +440,6 @@ void EScene::render_editorview(float dt) {
 
         //wrape_mouse_in_window(manager->main_window, size, pos);
         auto& lua = viewer.get_component<LuaActionComp>();
-        lua
-            .bind_field("thing", 0)
-            .bind_field("mouse_delta", glm::vec2(0.0f));
         lua.get_last().on_update(dt);
 
         looking = true;

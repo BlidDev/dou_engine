@@ -1,6 +1,7 @@
 #pragma once
-#include "imgui.h"
 #include <epch.h>
+#define IMGUI_IMPL_OPENGL_LOADER_CUSTOM
+#include "imgui.h"
 
 
 using namespace engine;

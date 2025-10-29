@@ -4,10 +4,7 @@ local cm
 local speed = 0.3
 local sensi = 0.1
 
-
 first = true
-
-thing = 0
 
 function on_init()
     t  = get_transform(scene, this)
@@ -16,6 +13,10 @@ function on_init()
 end
 
 function on_update(dt)
+    if first then 
+        mouse_delta = get_mouse_delta() * -sensi; first = false 
+    end
+
     velocity = vec3.new(0.0)
     speed = 3
     update_camera_target(cm, t.position);
@@ -31,19 +32,13 @@ function on_update(dt)
     speed = is_key_down(util.KeyboardKey.LEFT_SHIFT) and speed * 3 or speed
 
 
-    if not first then
-        mouse_delta = get_mouse_delta() * -sensi
-    else
-        first = false
-    end
+    mouse_delta = get_mouse_delta() * -sensi
 
-    handle_mouse_delta(cm, t.position, vec2.new(0.0), true)
+    handle_mouse_delta(cm, t.position, mouse_delta, true)
 
     forward = get_flat_forward(cm.target, t.position)
     right   = get_right(cm.target, t.position, cm.up)
 
-    log_trace("{}", thing)
-    thing = thing + 1
 
 
     move = (forward * f) + (right * r)

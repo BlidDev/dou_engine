@@ -1,698 +1,582 @@
 [
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/blid/rayengine/vendor/spdlog/include -g -std=c++20 -o vendor/spdlog/CMakeFiles/spdlog.dir/src/spdlog.cpp.o -c /home/blid/rayengine/vendor/spdlog/src/spdlog.cpp",
-  "file": "/home/blid/rayengine/vendor/spdlog/src/spdlog.cpp",
-  "output": "vendor/spdlog/CMakeFiles/spdlog.dir/src/spdlog.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/blid/rray/vendor/spdlog/include -g -std=c++20 -o vendor/spdlog/CMakeFiles/spdlog.dir/src/spdlog.cpp.o -c /home/blid/rray/vendor/spdlog/src/spdlog.cpp",
+  "file": "/home/blid/rray/vendor/spdlog/src/spdlog.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/blid/rayengine/vendor/spdlog/include -g -std=c++20 -o vendor/spdlog/CMakeFiles/spdlog.dir/src/stdout_sinks.cpp.o -c /home/blid/rayengine/vendor/spdlog/src/stdout_sinks.cpp",
-  "file": "/home/blid/rayengine/vendor/spdlog/src/stdout_sinks.cpp",
-  "output": "vendor/spdlog/CMakeFiles/spdlog.dir/src/stdout_sinks.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/blid/rray/vendor/spdlog/include -g -std=c++20 -o vendor/spdlog/CMakeFiles/spdlog.dir/src/stdout_sinks.cpp.o -c /home/blid/rray/vendor/spdlog/src/stdout_sinks.cpp",
+  "file": "/home/blid/rray/vendor/spdlog/src/stdout_sinks.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/blid/rayengine/vendor/spdlog/include -g -std=c++20 -o vendor/spdlog/CMakeFiles/spdlog.dir/src/color_sinks.cpp.o -c /home/blid/rayengine/vendor/spdlog/src/color_sinks.cpp",
-  "file": "/home/blid/rayengine/vendor/spdlog/src/color_sinks.cpp",
-  "output": "vendor/spdlog/CMakeFiles/spdlog.dir/src/color_sinks.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/blid/rray/vendor/spdlog/include -g -std=c++20 -o vendor/spdlog/CMakeFiles/spdlog.dir/src/color_sinks.cpp.o -c /home/blid/rray/vendor/spdlog/src/color_sinks.cpp",
+  "file": "/home/blid/rray/vendor/spdlog/src/color_sinks.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/blid/rayengine/vendor/spdlog/include -g -std=c++20 -o vendor/spdlog/CMakeFiles/spdlog.dir/src/file_sinks.cpp.o -c /home/blid/rayengine/vendor/spdlog/src/file_sinks.cpp",
-  "file": "/home/blid/rayengine/vendor/spdlog/src/file_sinks.cpp",
-  "output": "vendor/spdlog/CMakeFiles/spdlog.dir/src/file_sinks.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/blid/rray/vendor/spdlog/include -g -std=c++20 -o vendor/spdlog/CMakeFiles/spdlog.dir/src/file_sinks.cpp.o -c /home/blid/rray/vendor/spdlog/src/file_sinks.cpp",
+  "file": "/home/blid/rray/vendor/spdlog/src/file_sinks.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/blid/rayengine/vendor/spdlog/include -g -std=c++20 -o vendor/spdlog/CMakeFiles/spdlog.dir/src/async.cpp.o -c /home/blid/rayengine/vendor/spdlog/src/async.cpp",
-  "file": "/home/blid/rayengine/vendor/spdlog/src/async.cpp",
-  "output": "vendor/spdlog/CMakeFiles/spdlog.dir/src/async.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/blid/rray/vendor/spdlog/include -g -std=c++20 -o vendor/spdlog/CMakeFiles/spdlog.dir/src/async.cpp.o -c /home/blid/rray/vendor/spdlog/src/async.cpp",
+  "file": "/home/blid/rray/vendor/spdlog/src/async.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/blid/rayengine/vendor/spdlog/include -g -std=c++20 -o vendor/spdlog/CMakeFiles/spdlog.dir/src/cfg.cpp.o -c /home/blid/rayengine/vendor/spdlog/src/cfg.cpp",
-  "file": "/home/blid/rayengine/vendor/spdlog/src/cfg.cpp",
-  "output": "vendor/spdlog/CMakeFiles/spdlog.dir/src/cfg.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/blid/rray/vendor/spdlog/include -g -std=c++20 -o vendor/spdlog/CMakeFiles/spdlog.dir/src/cfg.cpp.o -c /home/blid/rray/vendor/spdlog/src/cfg.cpp",
+  "file": "/home/blid/rray/vendor/spdlog/src/cfg.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/blid/rayengine/vendor/spdlog/include -g -std=c++20 -o vendor/spdlog/CMakeFiles/spdlog.dir/src/bundled_fmtlib_format.cpp.o -c /home/blid/rayengine/vendor/spdlog/src/bundled_fmtlib_format.cpp",
-  "file": "/home/blid/rayengine/vendor/spdlog/src/bundled_fmtlib_format.cpp",
-  "output": "vendor/spdlog/CMakeFiles/spdlog.dir/src/bundled_fmtlib_format.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/blid/rray/vendor/spdlog/include -g -std=c++20 -o vendor/spdlog/CMakeFiles/spdlog.dir/src/bundled_fmtlib_format.cpp.o -c /home/blid/rray/vendor/spdlog/src/bundled_fmtlib_format.cpp",
+  "file": "/home/blid/rray/vendor/spdlog/src/bundled_fmtlib_format.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/binary.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/binary.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/binary.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/binary.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/binary.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/binary.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/binary.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/contrib/graphbuilder.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/contrib/graphbuilder.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/contrib/graphbuilder.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/contrib/graphbuilder.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/contrib/graphbuilder.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/contrib/graphbuilder.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/contrib/graphbuilder.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/contrib/graphbuilderadapter.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/contrib/graphbuilderadapter.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/contrib/graphbuilderadapter.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/contrib/graphbuilderadapter.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/contrib/graphbuilderadapter.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/contrib/graphbuilderadapter.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/contrib/graphbuilderadapter.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/convert.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/convert.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/convert.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/convert.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/convert.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/convert.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/convert.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/depthguard.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/depthguard.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/depthguard.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/depthguard.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/depthguard.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/depthguard.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/depthguard.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/directives.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/directives.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/directives.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/directives.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/directives.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/directives.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/directives.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emit.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/emit.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/emit.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emit.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emit.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/emit.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/emit.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitfromevents.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/emitfromevents.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/emitfromevents.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitfromevents.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitfromevents.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/emitfromevents.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/emitfromevents.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitter.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/emitter.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/emitter.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitter.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitter.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/emitter.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/emitter.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitterstate.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/emitterstate.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/emitterstate.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitterstate.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitterstate.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/emitterstate.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/emitterstate.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitterutils.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/emitterutils.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/emitterutils.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitterutils.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/emitterutils.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/emitterutils.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/emitterutils.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/exceptions.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/exceptions.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/exceptions.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/exceptions.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/exceptions.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/exceptions.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/exceptions.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/exp.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/exp.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/exp.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/exp.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/exp.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/exp.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/exp.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/fptostring.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/fptostring.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/fptostring.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/fptostring.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/fptostring.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/fptostring.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/fptostring.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/memory.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/memory.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/memory.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/memory.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/memory.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/memory.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/memory.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/node.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/node.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/node.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/node.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/node.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/node.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/node.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/node_data.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/node_data.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/node_data.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/node_data.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/node_data.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/node_data.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/node_data.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/nodebuilder.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/nodebuilder.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/nodebuilder.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/nodebuilder.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/nodebuilder.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/nodebuilder.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/nodebuilder.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/nodeevents.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/nodeevents.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/nodeevents.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/nodeevents.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/nodeevents.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/nodeevents.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/nodeevents.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/null.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/null.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/null.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/null.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/null.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/null.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/null.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/ostream_wrapper.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/ostream_wrapper.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/ostream_wrapper.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/ostream_wrapper.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/ostream_wrapper.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/ostream_wrapper.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/ostream_wrapper.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/parse.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/parse.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/parse.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/parse.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/parse.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/parse.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/parse.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/parser.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/parser.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/parser.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/parser.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/parser.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/parser.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/parser.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/regex_yaml.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/regex_yaml.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/regex_yaml.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/regex_yaml.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/regex_yaml.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/regex_yaml.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/regex_yaml.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scanner.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/scanner.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/scanner.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scanner.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scanner.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/scanner.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/scanner.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scanscalar.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/scanscalar.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/scanscalar.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scanscalar.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scanscalar.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/scanscalar.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/scanscalar.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scantag.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/scantag.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/scantag.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scantag.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scantag.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/scantag.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/scantag.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scantoken.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/scantoken.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/scantoken.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scantoken.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/scantoken.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/scantoken.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/scantoken.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/simplekey.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/simplekey.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/simplekey.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/simplekey.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/simplekey.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/simplekey.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/simplekey.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/singledocparser.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/singledocparser.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/singledocparser.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/singledocparser.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/singledocparser.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/singledocparser.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/singledocparser.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/stream.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/stream.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/stream.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/stream.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/stream.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/stream.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/stream.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/tag.cpp.o -c /home/blid/rayengine/vendor/yaml-cpp/src/tag.cpp",
-  "file": "/home/blid/rayengine/vendor/yaml-cpp/src/tag.cpp",
-  "output": "vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/tag.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/yaml-cpp/include -g -std=c++20 -o vendor/yaml-cpp/CMakeFiles/YAML_CPP.dir/src/tag.cpp.o -c /home/blid/rray/vendor/yaml-cpp/src/tag.cpp",
+  "file": "/home/blid/rray/vendor/yaml-cpp/src/tag.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DGLAD_STATIC_DEFINE -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/glad/include -g -o vendor/glad/CMakeFiles/GLAD.dir/src/glad.c.o -c /home/blid/rayengine/vendor/glad/src/glad.c",
-  "file": "/home/blid/rayengine/vendor/glad/src/glad.c",
-  "output": "vendor/glad/CMakeFiles/GLAD.dir/src/glad.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DGLAD_STATIC_DEFINE -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/glad/include -g -o vendor/glad/CMakeFiles/GLAD.dir/src/glad.c.o -c /home/blid/rray/vendor/glad/src/glad.c",
+  "file": "/home/blid/rray/vendor/glad/src/glad.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/context.c.o -c /home/blid/rayengine/vendor/glfw/src/context.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/context.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/context.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/context.c.o -c /home/blid/rray/vendor/glfw/src/context.c",
+  "file": "/home/blid/rray/vendor/glfw/src/context.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/init.c.o -c /home/blid/rayengine/vendor/glfw/src/init.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/init.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/init.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/init.c.o -c /home/blid/rray/vendor/glfw/src/init.c",
+  "file": "/home/blid/rray/vendor/glfw/src/init.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/input.c.o -c /home/blid/rayengine/vendor/glfw/src/input.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/input.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/input.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/input.c.o -c /home/blid/rray/vendor/glfw/src/input.c",
+  "file": "/home/blid/rray/vendor/glfw/src/input.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/monitor.c.o -c /home/blid/rayengine/vendor/glfw/src/monitor.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/monitor.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/monitor.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/monitor.c.o -c /home/blid/rray/vendor/glfw/src/monitor.c",
+  "file": "/home/blid/rray/vendor/glfw/src/monitor.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/platform.c.o -c /home/blid/rayengine/vendor/glfw/src/platform.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/platform.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/platform.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/platform.c.o -c /home/blid/rray/vendor/glfw/src/platform.c",
+  "file": "/home/blid/rray/vendor/glfw/src/platform.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o -c /home/blid/rayengine/vendor/glfw/src/vulkan.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/vulkan.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o -c /home/blid/rray/vendor/glfw/src/vulkan.c",
+  "file": "/home/blid/rray/vendor/glfw/src/vulkan.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/window.c.o -c /home/blid/rayengine/vendor/glfw/src/window.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/window.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/window.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/window.c.o -c /home/blid/rray/vendor/glfw/src/window.c",
+  "file": "/home/blid/rray/vendor/glfw/src/window.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o -c /home/blid/rayengine/vendor/glfw/src/egl_context.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/egl_context.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o -c /home/blid/rray/vendor/glfw/src/egl_context.c",
+  "file": "/home/blid/rray/vendor/glfw/src/egl_context.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o -c /home/blid/rayengine/vendor/glfw/src/osmesa_context.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/osmesa_context.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o -c /home/blid/rray/vendor/glfw/src/osmesa_context.c",
+  "file": "/home/blid/rray/vendor/glfw/src/osmesa_context.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/null_init.c.o -c /home/blid/rayengine/vendor/glfw/src/null_init.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/null_init.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/null_init.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/null_init.c.o -c /home/blid/rray/vendor/glfw/src/null_init.c",
+  "file": "/home/blid/rray/vendor/glfw/src/null_init.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o -c /home/blid/rayengine/vendor/glfw/src/null_monitor.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/null_monitor.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o -c /home/blid/rray/vendor/glfw/src/null_monitor.c",
+  "file": "/home/blid/rray/vendor/glfw/src/null_monitor.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/null_window.c.o -c /home/blid/rayengine/vendor/glfw/src/null_window.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/null_window.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/null_window.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/null_window.c.o -c /home/blid/rray/vendor/glfw/src/null_window.c",
+  "file": "/home/blid/rray/vendor/glfw/src/null_window.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o -c /home/blid/rayengine/vendor/glfw/src/null_joystick.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/null_joystick.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o -c /home/blid/rray/vendor/glfw/src/null_joystick.c",
+  "file": "/home/blid/rray/vendor/glfw/src/null_joystick.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o -c /home/blid/rayengine/vendor/glfw/src/posix_module.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/posix_module.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o -c /home/blid/rray/vendor/glfw/src/posix_module.c",
+  "file": "/home/blid/rray/vendor/glfw/src/posix_module.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o -c /home/blid/rayengine/vendor/glfw/src/posix_time.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/posix_time.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o -c /home/blid/rray/vendor/glfw/src/posix_time.c",
+  "file": "/home/blid/rray/vendor/glfw/src/posix_time.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o -c /home/blid/rayengine/vendor/glfw/src/posix_thread.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/posix_thread.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o -c /home/blid/rray/vendor/glfw/src/posix_thread.c",
+  "file": "/home/blid/rray/vendor/glfw/src/posix_thread.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o -c /home/blid/rayengine/vendor/glfw/src/x11_init.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/x11_init.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o -c /home/blid/rray/vendor/glfw/src/x11_init.c",
+  "file": "/home/blid/rray/vendor/glfw/src/x11_init.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o -c /home/blid/rayengine/vendor/glfw/src/x11_monitor.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/x11_monitor.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o -c /home/blid/rray/vendor/glfw/src/x11_monitor.c",
+  "file": "/home/blid/rray/vendor/glfw/src/x11_monitor.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o -c /home/blid/rayengine/vendor/glfw/src/x11_window.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/x11_window.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o -c /home/blid/rray/vendor/glfw/src/x11_window.c",
+  "file": "/home/blid/rray/vendor/glfw/src/x11_window.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o -c /home/blid/rayengine/vendor/glfw/src/xkb_unicode.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/xkb_unicode.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o -c /home/blid/rray/vendor/glfw/src/xkb_unicode.c",
+  "file": "/home/blid/rray/vendor/glfw/src/xkb_unicode.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o -c /home/blid/rayengine/vendor/glfw/src/glx_context.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/glx_context.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o -c /home/blid/rray/vendor/glfw/src/glx_context.c",
+  "file": "/home/blid/rray/vendor/glfw/src/glx_context.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/wl_init.c.o -c /home/blid/rayengine/vendor/glfw/src/wl_init.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/wl_init.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/wl_init.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/wl_init.c.o -c /home/blid/rray/vendor/glfw/src/wl_init.c",
+  "file": "/home/blid/rray/vendor/glfw/src/wl_init.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/wl_monitor.c.o -c /home/blid/rayengine/vendor/glfw/src/wl_monitor.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/wl_monitor.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/wl_monitor.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/wl_monitor.c.o -c /home/blid/rray/vendor/glfw/src/wl_monitor.c",
+  "file": "/home/blid/rray/vendor/glfw/src/wl_monitor.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/wl_window.c.o -c /home/blid/rayengine/vendor/glfw/src/wl_window.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/wl_window.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/wl_window.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/wl_window.c.o -c /home/blid/rray/vendor/glfw/src/wl_window.c",
+  "file": "/home/blid/rray/vendor/glfw/src/wl_window.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o -c /home/blid/rayengine/vendor/glfw/src/linux_joystick.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/linux_joystick.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o -c /home/blid/rray/vendor/glfw/src/linux_joystick.c",
+  "file": "/home/blid/rray/vendor/glfw/src/linux_joystick.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glfw/src -g -std=c99 -fPIC -Wall -o vendor/glfw/src/CMakeFiles/glfw.dir/posix_poll.c.o -c /home/blid/rayengine/vendor/glfw/src/posix_poll.c",
-  "file": "/home/blid/rayengine/vendor/glfw/src/posix_poll.c",
-  "output": "vendor/glfw/src/CMakeFiles/glfw.dir/posix_poll.c.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -DYAML_CPP_STATIC_DEFINE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glfw/src -g -fPIC -Wall -std=c99 -o vendor/glfw/src/CMakeFiles/glfw.dir/posix_poll.c.o -c /home/blid/rray/vendor/glfw/src/posix_poll.c",
+  "file": "/home/blid/rray/vendor/glfw/src/posix_poll.c"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -x c++-header -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch -c /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx.cxx",
-  "file": "/home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx.cxx",
-  "output": "engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -x c++-header -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/cmake_pch.hxx.gch -c /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx.cxx",
+  "file": "/home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx.cxx"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/components/action.cpp.o -c /home/blid/rayengine/engine/src/components/action.cpp",
-  "file": "/home/blid/rayengine/engine/src/components/action.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/components/action.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/components/action.cpp.o -c /home/blid/rray/engine/src/components/action.cpp",
+  "file": "/home/blid/rray/engine/src/components/action.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/components/camera.cpp.o -c /home/blid/rayengine/engine/src/components/camera.cpp",
-  "file": "/home/blid/rayengine/engine/src/components/camera.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/components/camera.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/components/camera.cpp.o -c /home/blid/rray/engine/src/components/camera.cpp",
+  "file": "/home/blid/rray/engine/src/components/camera.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/components/luascript.cpp.o -c /home/blid/rayengine/engine/src/components/luascript.cpp",
-  "file": "/home/blid/rayengine/engine/src/components/luascript.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/components/luascript.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/components/luascript.cpp.o -c /home/blid/rray/engine/src/components/luascript.cpp",
+  "file": "/home/blid/rray/engine/src/components/luascript.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/components/modelcomp.cpp.o -c /home/blid/rayengine/engine/src/components/modelcomp.cpp",
-  "file": "/home/blid/rayengine/engine/src/components/modelcomp.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/components/modelcomp.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/components/modelcomp.cpp.o -c /home/blid/rray/engine/src/components/modelcomp.cpp",
+  "file": "/home/blid/rray/engine/src/components/modelcomp.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/components/physicbody.cpp.o -c /home/blid/rayengine/engine/src/components/physicbody.cpp",
-  "file": "/home/blid/rayengine/engine/src/components/physicbody.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/components/physicbody.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/components/physicbody.cpp.o -c /home/blid/rray/engine/src/components/physicbody.cpp",
+  "file": "/home/blid/rray/engine/src/components/physicbody.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/components/transform.cpp.o -c /home/blid/rayengine/engine/src/components/transform.cpp",
-  "file": "/home/blid/rayengine/engine/src/components/transform.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/components/transform.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/components/transform.cpp.o -c /home/blid/rray/engine/src/components/transform.cpp",
+  "file": "/home/blid/rray/engine/src/components/transform.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/components/uuid.cpp.o -c /home/blid/rayengine/engine/src/components/uuid.cpp",
-  "file": "/home/blid/rayengine/engine/src/components/uuid.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/components/uuid.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/components/uuid.cpp.o -c /home/blid/rray/engine/src/components/uuid.cpp",
+  "file": "/home/blid/rray/engine/src/components/uuid.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/entity.cpp.o -c /home/blid/rayengine/engine/src/entity.cpp",
-  "file": "/home/blid/rayengine/engine/src/entity.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/entity.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/entity.cpp.o -c /home/blid/rray/engine/src/entity.cpp",
+  "file": "/home/blid/rray/engine/src/entity.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/entry_point.cpp.o -c /home/blid/rayengine/engine/src/entry_point.cpp",
-  "file": "/home/blid/rayengine/engine/src/entry_point.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/entry_point.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/entry_point.cpp.o -c /home/blid/rray/engine/src/entry_point.cpp",
+  "file": "/home/blid/rray/engine/src/entry_point.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/input.cpp.o -c /home/blid/rayengine/engine/src/input.cpp",
-  "file": "/home/blid/rayengine/engine/src/input.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/input.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/input.cpp.o -c /home/blid/rray/engine/src/input.cpp",
+  "file": "/home/blid/rray/engine/src/input.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/log.cpp.o -c /home/blid/rayengine/engine/src/log.cpp",
-  "file": "/home/blid/rayengine/engine/src/log.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/log.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/log.cpp.o -c /home/blid/rray/engine/src/log.cpp",
+  "file": "/home/blid/rray/engine/src/log.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/lua/luafunctions.cpp.o -c /home/blid/rayengine/engine/src/lua/luafunctions.cpp",
-  "file": "/home/blid/rayengine/engine/src/lua/luafunctions.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/lua/luafunctions.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/lua/luafunctions.cpp.o -c /home/blid/rray/engine/src/lua/luafunctions.cpp",
+  "file": "/home/blid/rray/engine/src/lua/luafunctions.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/lua/luatypes.cpp.o -c /home/blid/rayengine/engine/src/lua/luatypes.cpp",
-  "file": "/home/blid/rayengine/engine/src/lua/luatypes.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/lua/luatypes.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/lua/luatypes.cpp.o -c /home/blid/rray/engine/src/lua/luatypes.cpp",
+  "file": "/home/blid/rray/engine/src/lua/luatypes.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/luawrapper.cpp.o -c /home/blid/rayengine/engine/src/luawrapper.cpp",
-  "file": "/home/blid/rayengine/engine/src/luawrapper.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/luawrapper.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/luawrapper.cpp.o -c /home/blid/rray/engine/src/luawrapper.cpp",
+  "file": "/home/blid/rray/engine/src/luawrapper.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/manager.cpp.o -c /home/blid/rayengine/engine/src/manager.cpp",
-  "file": "/home/blid/rayengine/engine/src/manager.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/manager.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/manager.cpp.o -c /home/blid/rray/engine/src/manager.cpp",
+  "file": "/home/blid/rray/engine/src/manager.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/model.cpp.o -c /home/blid/rayengine/engine/src/model.cpp",
-  "file": "/home/blid/rayengine/engine/src/model.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/model.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/model.cpp.o -c /home/blid/rray/engine/src/model.cpp",
+  "file": "/home/blid/rray/engine/src/model.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/models.cpp.o -c /home/blid/rayengine/engine/src/models.cpp",
-  "file": "/home/blid/rayengine/engine/src/models.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/models.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/models.cpp.o -c /home/blid/rray/engine/src/models.cpp",
+  "file": "/home/blid/rray/engine/src/models.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/project.cpp.o -c /home/blid/rayengine/engine/src/project.cpp",
-  "file": "/home/blid/rayengine/engine/src/project.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/project.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/project.cpp.o -c /home/blid/rray/engine/src/project.cpp",
+  "file": "/home/blid/rray/engine/src/project.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/renderer.cpp.o -c /home/blid/rayengine/engine/src/renderer.cpp",
-  "file": "/home/blid/rayengine/engine/src/renderer.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/renderer.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/renderer.cpp.o -c /home/blid/rray/engine/src/renderer.cpp",
+  "file": "/home/blid/rray/engine/src/renderer.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/scene.cpp.o -c /home/blid/rayengine/engine/src/scene.cpp",
-  "file": "/home/blid/rayengine/engine/src/scene.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/scene.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/scene.cpp.o -c /home/blid/rray/engine/src/scene.cpp",
+  "file": "/home/blid/rray/engine/src/scene.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/serializer.cpp.o -c /home/blid/rayengine/engine/src/serializer.cpp",
-  "file": "/home/blid/rayengine/engine/src/serializer.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/serializer.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/serializer.cpp.o -c /home/blid/rray/engine/src/serializer.cpp",
+  "file": "/home/blid/rray/engine/src/serializer.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/shader.cpp.o -c /home/blid/rayengine/engine/src/shader.cpp",
-  "file": "/home/blid/rayengine/engine/src/shader.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/shader.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/shader.cpp.o -c /home/blid/rray/engine/src/shader.cpp",
+  "file": "/home/blid/rray/engine/src/shader.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/systems/actionsys.cpp.o -c /home/blid/rayengine/engine/src/systems/actionsys.cpp",
-  "file": "/home/blid/rayengine/engine/src/systems/actionsys.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/systems/actionsys.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/systems/actionsys.cpp.o -c /home/blid/rray/engine/src/systems/actionsys.cpp",
+  "file": "/home/blid/rray/engine/src/systems/actionsys.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/systems/luasys.cpp.o -c /home/blid/rayengine/engine/src/systems/luasys.cpp",
-  "file": "/home/blid/rayengine/engine/src/systems/luasys.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/systems/luasys.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/systems/luasys.cpp.o -c /home/blid/rray/engine/src/systems/luasys.cpp",
+  "file": "/home/blid/rray/engine/src/systems/luasys.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/systems/physicsys.cpp.o -c /home/blid/rayengine/engine/src/systems/physicsys.cpp",
-  "file": "/home/blid/rayengine/engine/src/systems/physicsys.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/systems/physicsys.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/systems/physicsys.cpp.o -c /home/blid/rray/engine/src/systems/physicsys.cpp",
+  "file": "/home/blid/rray/engine/src/systems/physicsys.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/systems/renderersys.cpp.o -c /home/blid/rayengine/engine/src/systems/renderersys.cpp",
-  "file": "/home/blid/rayengine/engine/src/systems/renderersys.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/systems/renderersys.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/systems/renderersys.cpp.o -c /home/blid/rray/engine/src/systems/renderersys.cpp",
+  "file": "/home/blid/rray/engine/src/systems/renderersys.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/texture.cpp.o -c /home/blid/rayengine/engine/src/texture.cpp",
-  "file": "/home/blid/rayengine/engine/src/texture.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/texture.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/texture.cpp.o -c /home/blid/rray/engine/src/texture.cpp",
+  "file": "/home/blid/rray/engine/src/texture.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/timer.cpp.o -c /home/blid/rayengine/engine/src/timer.cpp",
-  "file": "/home/blid/rayengine/engine/src/timer.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/timer.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/timer.cpp.o -c /home/blid/rray/engine/src/timer.cpp",
+  "file": "/home/blid/rray/engine/src/timer.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/util.cpp.o -c /home/blid/rayengine/engine/src/util.cpp",
-  "file": "/home/blid/rayengine/engine/src/util.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/util.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/util.cpp.o -c /home/blid/rray/engine/src/util.cpp",
+  "file": "/home/blid/rray/engine/src/util.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/window.cpp.o -c /home/blid/rayengine/engine/src/window.cpp",
-  "file": "/home/blid/rayengine/engine/src/window.cpp",
-  "output": "engine/CMakeFiles/engine.dir/src/window.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/stb_image -I/home/blid/rray/engine/include -I/src -I/home/blid/rray/vendor/glfw/include -g -std=c++20 -Winvalid-pch -include /home/blid/rray/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/window.cpp.o -c /home/blid/rray/engine/src/window.cpp",
+  "file": "/home/blid/rray/engine/src/window.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/game/include -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -x c++-header -include /home/blid/rayengine/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/cmake_pch.hxx.gch -c /home/blid/rayengine/game/CMakeFiles/game.dir/cmake_pch.hxx.cxx",
-  "file": "/home/blid/rayengine/game/CMakeFiles/game.dir/cmake_pch.hxx.cxx",
-  "output": "game/CMakeFiles/game.dir/cmake_pch.hxx.gch"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -x c++-header -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/cmake_pch.hxx.gch -c /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx.cxx",
+  "file": "/home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx.cxx"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/game/include -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/src/actions.cpp.o -c /home/blid/rayengine/game/src/actions.cpp",
-  "file": "/home/blid/rayengine/game/src/actions.cpp",
-  "output": "game/CMakeFiles/game.dir/src/actions.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/src/actions.cpp.o -c /home/blid/rray/game/src/actions.cpp",
+  "file": "/home/blid/rray/game/src/actions.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/game/include -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/src/entry.cpp.o -c /home/blid/rayengine/game/src/entry.cpp",
-  "file": "/home/blid/rayengine/game/src/entry.cpp",
-  "output": "game/CMakeFiles/game.dir/src/entry.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/src/entry.cpp.o -c /home/blid/rray/game/src/entry.cpp",
+  "file": "/home/blid/rray/game/src/entry.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/game/include -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/src/light.cpp.o -c /home/blid/rayengine/game/src/light.cpp",
-  "file": "/home/blid/rayengine/game/src/light.cpp",
-  "output": "game/CMakeFiles/game.dir/src/light.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/src/light.cpp.o -c /home/blid/rray/game/src/light.cpp",
+  "file": "/home/blid/rray/game/src/light.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/game/include -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/src/thing.cpp.o -c /home/blid/rayengine/game/src/thing.cpp",
-  "file": "/home/blid/rayengine/game/src/thing.cpp",
-  "output": "game/CMakeFiles/game.dir/src/thing.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/game/include -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/game/CMakeFiles/game.dir/cmake_pch.hxx -o game/CMakeFiles/game.dir/src/thing.cpp.o -c /home/blid/rray/game/src/thing.cpp",
+  "file": "/home/blid/rray/game/src/thing.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -x c++-header -include /home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/cmake_pch.hxx.gch -c /home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx.cxx",
-  "file": "/home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx.cxx",
-  "output": "radiator/CMakeFiles/radiator.dir/cmake_pch.hxx.gch"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/imgui -I/home/blid/rray/vendor/imgui/backends -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -x c++-header -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/cmake_pch.hxx.gch -c /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx.cxx",
+  "file": "/home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx.cxx"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/src/RTscene.cpp.o -c /home/blid/rayengine/radiator/src/RTscene.cpp",
-  "file": "/home/blid/rayengine/radiator/src/RTscene.cpp",
-  "output": "radiator/CMakeFiles/radiator.dir/src/RTscene.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/imgui -I/home/blid/rray/vendor/imgui/backends -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/src/RTscene.cpp.o -c /home/blid/rray/radiator/src/RTscene.cpp",
+  "file": "/home/blid/rray/radiator/src/RTscene.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/src/editors.cpp.o -c /home/blid/rayengine/radiator/src/editors.cpp",
-  "file": "/home/blid/rayengine/radiator/src/editors.cpp",
-  "output": "radiator/CMakeFiles/radiator.dir/src/editors.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/imgui -I/home/blid/rray/vendor/imgui/backends -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/src/editors.cpp.o -c /home/blid/rray/radiator/src/editors.cpp",
+  "file": "/home/blid/rray/radiator/src/editors.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/src/helper.cpp.o -c /home/blid/rayengine/radiator/src/helper.cpp",
-  "file": "/home/blid/rayengine/radiator/src/helper.cpp",
-  "output": "radiator/CMakeFiles/radiator.dir/src/helper.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/imgui -I/home/blid/rray/vendor/imgui/backends -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/src/helper.cpp.o -c /home/blid/rray/radiator/src/helper.cpp",
+  "file": "/home/blid/rray/radiator/src/helper.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/src/main.cpp.o -c /home/blid/rayengine/radiator/src/main.cpp",
-  "file": "/home/blid/rayengine/radiator/src/main.cpp",
-  "output": "radiator/CMakeFiles/radiator.dir/src/main.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/imgui -I/home/blid/rray/vendor/imgui/backends -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/src/main.cpp.o -c /home/blid/rray/radiator/src/main.cpp",
+  "file": "/home/blid/rray/radiator/src/main.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/src/showgui.cpp.o -c /home/blid/rayengine/radiator/src/showgui.cpp",
-  "file": "/home/blid/rayengine/radiator/src/showgui.cpp",
-  "output": "radiator/CMakeFiles/radiator.dir/src/showgui.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/imgui -I/home/blid/rray/vendor/imgui/backends -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/src/showgui.cpp.o -c /home/blid/rray/radiator/src/showgui.cpp",
+  "file": "/home/blid/rray/radiator/src/showgui.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/backends/imgui_impl_glfw.cpp.o -c /home/blid/rayengine/vendor/imgui/backends/imgui_impl_glfw.cpp",
-  "file": "/home/blid/rayengine/vendor/imgui/backends/imgui_impl_glfw.cpp",
-  "output": "radiator/CMakeFiles/radiator.dir/__/vendor/imgui/backends/imgui_impl_glfw.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/imgui -I/home/blid/rray/vendor/imgui/backends -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/backends/imgui_impl_glfw.cpp.o -c /home/blid/rray/vendor/imgui/backends/imgui_impl_glfw.cpp",
+  "file": "/home/blid/rray/vendor/imgui/backends/imgui_impl_glfw.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/backends/imgui_impl_opengl3.cpp.o -c /home/blid/rayengine/vendor/imgui/backends/imgui_impl_opengl3.cpp",
-  "file": "/home/blid/rayengine/vendor/imgui/backends/imgui_impl_opengl3.cpp",
-  "output": "radiator/CMakeFiles/radiator.dir/__/vendor/imgui/backends/imgui_impl_opengl3.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/imgui -I/home/blid/rray/vendor/imgui/backends -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/backends/imgui_impl_opengl3.cpp.o -c /home/blid/rray/vendor/imgui/backends/imgui_impl_opengl3.cpp",
+  "file": "/home/blid/rray/vendor/imgui/backends/imgui_impl_opengl3.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui.cpp.o -c /home/blid/rayengine/vendor/imgui/imgui.cpp",
-  "file": "/home/blid/rayengine/vendor/imgui/imgui.cpp",
-  "output": "radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/imgui -I/home/blid/rray/vendor/imgui/backends -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui.cpp.o -c /home/blid/rray/vendor/imgui/imgui.cpp",
+  "file": "/home/blid/rray/vendor/imgui/imgui.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_demo.cpp.o -c /home/blid/rayengine/vendor/imgui/imgui_demo.cpp",
-  "file": "/home/blid/rayengine/vendor/imgui/imgui_demo.cpp",
-  "output": "radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_demo.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/imgui -I/home/blid/rray/vendor/imgui/backends -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_demo.cpp.o -c /home/blid/rray/vendor/imgui/imgui_demo.cpp",
+  "file": "/home/blid/rray/vendor/imgui/imgui_demo.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_draw.cpp.o -c /home/blid/rayengine/vendor/imgui/imgui_draw.cpp",
-  "file": "/home/blid/rayengine/vendor/imgui/imgui_draw.cpp",
-  "output": "radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_draw.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/imgui -I/home/blid/rray/vendor/imgui/backends -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_draw.cpp.o -c /home/blid/rray/vendor/imgui/imgui_draw.cpp",
+  "file": "/home/blid/rray/vendor/imgui/imgui_draw.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_tables.cpp.o -c /home/blid/rayengine/vendor/imgui/imgui_tables.cpp",
-  "file": "/home/blid/rayengine/vendor/imgui/imgui_tables.cpp",
-  "output": "radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_tables.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/imgui -I/home/blid/rray/vendor/imgui/backends -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_tables.cpp.o -c /home/blid/rray/vendor/imgui/imgui_tables.cpp",
+  "file": "/home/blid/rray/vendor/imgui/imgui_tables.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_widgets.cpp.o -c /home/blid/rayengine/vendor/imgui/imgui_widgets.cpp",
-  "file": "/home/blid/rayengine/vendor/imgui/imgui_widgets.cpp",
-  "output": "radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_widgets.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/imgui -I/home/blid/rray/vendor/imgui/backends -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_widgets.cpp.o -c /home/blid/rray/vendor/imgui/imgui_widgets.cpp",
+  "file": "/home/blid/rray/vendor/imgui/imgui_widgets.cpp"
 },
 {
-  "directory": "/home/blid/rayengine",
-  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/misc/cpp/imgui_stdlib.cpp.o -c /home/blid/rayengine/vendor/imgui/misc/cpp/imgui_stdlib.cpp",
-  "file": "/home/blid/rayengine/vendor/imgui/misc/cpp/imgui_stdlib.cpp",
-  "output": "radiator/CMakeFiles/radiator.dir/__/vendor/imgui/misc/cpp/imgui_stdlib.cpp.o"
+  "directory": "/home/blid/rray",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rray/engine/include -I/home/blid/rray/radiator/include -I/home/blid/rray/vendor/glfw/include -I/home/blid/rray/vendor/glad/include -I/home/blid/rray/vendor/glm -I/home/blid/rray/vendor/imgui -I/home/blid/rray/vendor/imgui/backends -I/home/blid/rray/vendor/spdlog/include -I/home/blid/rray/vendor/entt -I/home/blid/rray/vendor/yaml-cpp/include -I/home/blid/rray/vendor/lua/include -I/home/blid/rray/vendor/sol2/include -I/home/blid/rray/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rray/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/misc/cpp/imgui_stdlib.cpp.o -c /home/blid/rray/vendor/imgui/misc/cpp/imgui_stdlib.cpp",
+  "file": "/home/blid/rray/vendor/imgui/misc/cpp/imgui_stdlib.cpp"
 }
 ]
