@@ -11,7 +11,7 @@ namespace engine {
     void read_layers(YAML::Node& node, SceneManager* manager);
     void read_paths(YAML::Node& node, SceneManager* manager);
 
-    int read_project_file(const char* path, SceneManager* manager, std::string* name) {
+    int read_project_file(const char* path, SceneManager* manager, std::string* name, bool set_current) {
         std::ifstream file(path);
         EG_ASSERT(file.fail(), "Project file path \"{}\" does not exist", path);
         std::stringstream str_stream;
@@ -28,6 +28,7 @@ namespace engine {
         read_layers(data, manager);
         read_paths(data, manager);
 
+        if (!set_current) return 0;
         manager->set_current(current.as<std::string>().c_str());
         return 0;
 
@@ -45,7 +46,7 @@ namespace engine {
             TRY_NODE(layer, "Wireframe Mode", bool, manager->get_layer_atrb(i)->wireframe);
             bool tmp = false;
             TRY_NODE(layer, "Is Framebuffer", bool, tmp);
-            //if (tmp) set_layer_to_framebuffer(manager, i);
+            if (tmp) set_layer_to_framebuffer(manager, i);
         }
     }
 

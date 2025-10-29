@@ -23,6 +23,11 @@ namespace engine {
         return glfwGetKey(INPUT_WINDOW, key) == GLFW_PRESS;
     }
 
+    bool is_mouse_pressed(const int button) {
+        EG_ASSERT(!INPUT_WINDOW, "Input window is not set or destroyed");
+        return glfwGetMouseButton(INPUT_WINDOW, button) == GLFW_PRESS;
+    }
+
     void set_input_mode(Scene* scene, int value, int mode) {
         glfwSetInputMode(scene->manager->main_window, value, mode);
     }

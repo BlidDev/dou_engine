@@ -1,9 +1,24 @@
 #pragma once
+#include "imgui.h"
 #include <epch.h>
 
 
 using namespace engine;
 
+struct Frambuffer {
+    unsigned int handler;
+    unsigned int rbo;
+    unsigned int texture;
+    ImVec2 last_scale;
+};
+
+
+struct EditorViewer {
+    EditorViewer() : thing(0) {}
+
+private:
+    int thing = 0;
+};
 
 class EScene : public Scene {
 public:
@@ -19,7 +34,7 @@ public:
 
 
     void init_imgui();
-    void update_imgui();
+    void update_imgui(float dt);
     void end_imgui();
 
     void render_entity(Entity current, bool* has_selected, bool root = false);
@@ -28,9 +43,15 @@ public:
 
     void render_overview(bool is_selected);
 
+    void render_editorview(float dt);
 private:
     bool close;
-    Entity player;
     UUID selected;
 
+    Frambuffer editorview;
+    Entity viewer;
 };
+
+
+void make_framebuffer(Frambuffer& fb, size_t w, size_t h);
+void rescale_framebuffer(Frambuffer& fb, size_t w, size_t h);

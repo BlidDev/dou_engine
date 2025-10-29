@@ -2,6 +2,7 @@
 #include "manager.h"
 #include "texture.h"
 
+#include "components/light.h"
 
 namespace engine {
 
@@ -143,5 +144,22 @@ namespace engine {
         atrb.framebuffer_texture =  final;
         manager->texture_lib.insert(std::make_pair(name, final));
         
+    }
+
+
+    void make_default_ubos(SceneManager* manager) {
+        manager->render_data.add("Matrices", 2 * sizeof(glm::mat4));
+        manager->render_data.add("Lighting", 2 * sizeof(glm::vec4));
+
+        size_t max = 32;
+        size_t dir_size = sizeof(engine::DirLightComp); 
+        size_t pnt_size = 3 * sizeof(glm::vec4); 
+        size_t spt_size = sizeof(SptLightComp) + sizeof(glm::vec4);
+
+        manager->render_data.add("SptLights", spt_size * max + sizeof(int));
+        manager->render_data.add("DirLights", dir_size * max + sizeof(int));
+        manager->render_data.add("PntLights", pnt_size * max + sizeof(int));
+
+        engine::ubos_shaders_bind(manager->render_data, manager->shader_lib);
     }
 }

@@ -631,6 +631,12 @@
 },
 {
   "directory": "/home/blid/rayengine",
+  "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/src/helper.cpp.o -c /home/blid/rayengine/radiator/src/helper.cpp",
+  "file": "/home/blid/rayengine/radiator/src/helper.cpp",
+  "output": "radiator/CMakeFiles/radiator.dir/src/helper.cpp.o"
+},
+{
+  "directory": "/home/blid/rayengine",
   "command": "/usr/bin/c++ -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=c++20 -Winvalid-pch -include /home/blid/rayengine/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/src/main.cpp.o -c /home/blid/rayengine/radiator/src/main.cpp",
   "file": "/home/blid/rayengine/radiator/src/main.cpp",
   "output": "radiator/CMakeFiles/radiator.dir/src/main.cpp.o"

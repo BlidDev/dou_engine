@@ -12,7 +12,7 @@ int engine::on_start(engine::SceneManager* manager) {
 
     manager->register_scene("Editor", new EScene);
 
-    read_project_file("res/projects/editor.prj", manager, &name);
+    read_project_file("res/projects/editor.prj", manager, &name, true);
 
     return 0;
 }

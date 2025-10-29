@@ -13,12 +13,11 @@ namespace engine {
     void send_material(Material &material);
 
     void opengl_renderer(RenderData &data, glm::vec2 view_size, Entity viewer,
-                         entt::registry &registry) {
+                         entt::registry &registry, bool external_clear) {
 
       auto p_trans = viewer.get_component<TransformComp>();
       auto p_camera = viewer.get_component<CameraComp>();
       auto objects = registry.view<TransformComp, ModelComp>();
-
 
       glm::mat4 projection = glm::perspective(
           glm::radians(p_camera.fovy), view_size.x / view_size.y, 0.1f, 100.0f);
@@ -40,8 +39,10 @@ namespace engine {
 
       send_lights(registry, data);
 
-      glClearColor(data.clear_color.r, data.clear_color.g, data.clear_color.b, data.clear_color.a);
-      glClear(data.clear_flags);
+      if(!external_clear) {
+          glClearColor(data.clear_color.r, data.clear_color.g, data.clear_color.b, data.clear_color.a);
+          glClear(data.clear_flags);
+      }
 
       for (int i = 0; i < MAX_RENDER_LAYERS; i++) {
           LayerAtrb atrb = data.layers_atrb[i];

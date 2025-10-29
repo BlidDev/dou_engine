@@ -5,23 +5,33 @@ EScene::EScene() : Scene("Editor") { close = false; }
 
 void EScene::on_create() {
     init_imgui();
-    lua_action_init(this);
 
     add_from_file("res/scenes/editortest.scene");
+    make_default_ubos(manager);
+
     update_render_data(manager, this);
+
+    make_framebuffer(editorview, 684, 698) ;
+
+
+    viewer = create_entity();
+    viewer.add_component<EditorViewer>();
+    viewer.add_component<TransformComp>(TransformBuilder().position(glm::vec3{0.0f}));
+    viewer.add_component<CameraComp>(CameraBuilder().build());
+    auto& lua = viewer.add_component<LuaActionComp>(viewer.uuid()).add(this, "res/scripts/editorcam.lua");
+    lua.get_last().on_init();
 }
 
 void EScene::on_update(float dt) {
     //close = is_key_pressed(GLFW_KEY_ESCAPE);
 
-    update_imgui();
+    update_imgui(dt);
     glfwSwapBuffers(manager->main_window);
     glfwPollEvents();
 }
 
 void EScene::on_end() {
     end_imgui();
-    lua_action_end(this);
 }
 
 bool EScene::should_close() {

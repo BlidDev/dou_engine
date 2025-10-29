@@ -3,7 +3,6 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-#include "imgui_internal.h"
 #include "misc/cpp/imgui_stdlib.h"
 
 void EScene::init_imgui() {
@@ -20,10 +19,11 @@ void EScene::init_imgui() {
 
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     io.Fonts->AddFontFromFileTTF("res/fonts/DejaVu.ttf", 16.0f);
+    io.WantSetMousePos = true;
     // io.FontGlobalScale = 1.5f;
 }
 
-void EScene::update_imgui() {
+void EScene::update_imgui(float dt) {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
@@ -45,10 +45,12 @@ void EScene::update_imgui() {
     render_entities(&has_selected);
     render_overview(has_selected);
 
+    render_editorview(dt);
+
     // Rendering
     ImGui::Render();
     glClearColor(0.45f, 0.55f, 0.60f, 1.00f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
@@ -63,7 +65,7 @@ void EScene::render_entities(bool *has_selected) {
     ImGui::Begin("Entities", nullptr, ImGuiWindowFlags_HorizontalScrollbar);
     for (auto [_, entity] : uuids) {
         Entity tmp = {this, entity};
-        if (tmp.is_child())
+        if (tmp.is_child() || tmp.has_component<EditorViewer>())
             continue;
         render_entity(tmp, has_selected, true);
     }
@@ -109,16 +111,16 @@ void sameline_color(const char* title, glm::vec3& v) {
     ImGui::ColorEdit3(std::format("##{}", title).c_str(), glm::value_ptr(v));
 }
 
-void sameline_v3(const char* title, glm::vec3& v, float min = 0.F, float max = 0.F) {
+void sameline_v3(const char* title, glm::vec3& v, float min = 0.F, float max = 0.F, float speed = 0.1f) {
     ImGui::Text("%s", title);
     ImGui::SameLine();
-    ImGui::DragFloat3(std::format("##{}", title).c_str(), glm::value_ptr(v), 1.0f, min, max);
+    ImGui::DragFloat3(std::format("##{}", title).c_str(), glm::value_ptr(v), speed, min, max);
 }
 
-void sameline_float(const char* title, float* v, float min = 0.F, float max = 0.F) {
+void sameline_float(const char* title, float* v, float min = 0.F, float max = 0.F, float speed = 0.1f) {
     ImGui::Text("%s", title);
     ImGui::SameLine();
-    ImGui::DragFloat(std::format("##{}", title).c_str(), v, 1.0f,min, max);
+    ImGui::DragFloat(std::format("##{}", title).c_str(), v, speed,min, max);
 }
 
 template <typename T>
@@ -400,3 +402,75 @@ void EScene::render_overview(bool is_selected) {
 
     ImGui::End();
 }
+
+void wrape_mouse_in_window(GLFWwindow* window, ImVec2 window_size, ImVec2 window_pos) {
+    ImVec2 pos = ImGui::GetMousePos();
+    glm::vec2 last = {pos.x, pos.y};
+    if(pos.x >= window_size.x + window_pos.x)
+        pos.x = window_pos.x;
+
+    if(pos.y >= window_size.y + window_pos.y)
+        pos.y = window_pos.y;
+
+    if (pos.x < window_pos.x)
+        pos.x = window_pos.x + window_size.x - 1;
+
+    if (pos.y < window_pos.y)
+        pos.y = window_pos.y + window_size.y - 1;
+
+    glm::vec2 current = {pos.x, pos.y};
+    if (current == last)
+        return;
+
+    glfwSetCursorPos(window, pos.x, pos.y);
+}
+
+void EScene::render_editorview(float dt) {
+
+    ImGui::Begin("Editor View");
+    ImVec2 size =ImGui::GetContentRegionAvail();
+    ImVec2 pos = ImGui::GetCursorScreenPos();
+
+    static bool looking = false;
+    if ((ImGui::IsWindowHovered() || looking) && is_mouse_pressed(GLFW_MOUSE_BUTTON_RIGHT)) {
+
+        glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+        //wrape_mouse_in_window(manager->main_window, size, pos);
+        auto& lua = viewer.get_component<LuaActionComp>();
+        lua
+            .bind_field("thing", 0)
+            .bind_field("mouse_delta", glm::vec2(0.0f));
+        lua.get_last().on_update(dt);
+
+        looking = true;
+    }
+    else {
+        looking = false;
+        glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
+        auto& lua = viewer.get_component<LuaActionComp>();
+        lua.bind_field("first", true);
+    }
+
+    if (glm::vec2(size.x, size.y) != glm::vec2(editorview.last_scale.x, editorview.last_scale.y))
+        rescale_framebuffer(editorview, size.x, size.y);
+
+    glViewport(0,0, size.x, size.y);
+    glBindFramebuffer(GL_FRAMEBUFFER, editorview.handler);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    opengl_renderer(manager->render_data,{size.x, size.y}, viewer, registry, true);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    ImGui::GetWindowDrawList()->AddImage(
+        (void*)(intptr_t)editorview.texture,
+        pos,
+        ImVec2(pos.x + size.x, pos.y + size.y),  
+        ImVec2(0, 1),
+        ImVec2(1, 0)
+    );
+
+
+    ImGui::End();
+}
+

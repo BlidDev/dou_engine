@@ -60,4 +60,7 @@ namespace engine {
     void set_layer_wireframe(RenderData& data, size_t layer, bool flag);
     void set_clear_flags(RenderData& data, int flags);
     void set_layer_to_framebuffer(SceneManager* manager, size_t layer);
+
+
+    void make_default_ubos(SceneManager* manager);
 }

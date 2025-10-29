@@ -1,4 +1,5 @@
 #include "thing.h"
+#include "renderer.h"
 
 
 ThingScene::ThingScene() : Scene("thing") {
@@ -11,9 +12,8 @@ void ThingScene::on_create() {
     //glfwSwapInterval(1);
     set_input_window(manager->main_window);
     glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    make_default_ubos(manager);
 
-    set_layer_to_framebuffer(manager, 0);
-    set_layer_depth(manager->render_data, 0, true);
     set_clear_color(manager->render_data, {0.0f,0.0f,0.0f,1.0f});
     set_clear_flags(manager->render_data, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

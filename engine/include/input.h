@@ -8,6 +8,7 @@ namespace engine {
     void set_input_window(GLFWwindow* window);
     glm::vec2 get_mouse_delta();
     bool is_key_pressed(const int key);
+    bool is_mouse_pressed(const int button);
 
     void set_input_mode(Scene* scene, int value, int mode);
 }

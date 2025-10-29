@@ -41,7 +41,7 @@ Entities:
       Tag: Cube
     Model:
       Model Name: cube
-      Layer: 2
+      Layer: 0
       Material:
         Shader: res/shaders/basic.glsl
         Filled: true

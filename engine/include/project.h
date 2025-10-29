@@ -9,5 +9,5 @@
 #include "manager.h"
 namespace engine {
 
-    int read_project_file(const char* path, SceneManager* manager, std::string* name);
+    int read_project_file(const char* path, SceneManager* manager, std::string* name, bool set_current = false);
 }
