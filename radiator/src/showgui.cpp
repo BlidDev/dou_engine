@@ -57,7 +57,9 @@ void save_working_file(SceneManager* manager, EScene* editor) {
 
 
 void saveas_working_file(SceneManager* manager, EScene* editor) {
-    const char* path = "res/scenes/editortest.scene";
+    nfdchar_t* path = nullptr;
+    get_path(&path);
+    if(!path) return;
     manager->write_scene_to_file(path, editor->working_scene); 
     EG_TRACE("Saving to [{}]", path);
 }

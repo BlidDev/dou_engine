@@ -1902,10 +1902,10 @@ build radiator/CMakeFiles/radiator.dir/__/vendor/imgui/misc/cpp/imgui_stdlib.cpp
 #############################################
 # Link the executable bin/Linux - x86_64/Debug/radiator/radiator
 
-build bin/Linux$ -$ x86_64/Debug/radiator/radiator: CXX_EXECUTABLE_LINKER__radiator_Debug radiator/CMakeFiles/radiator.dir/src/RTscene.cpp.o radiator/CMakeFiles/radiator.dir/src/editors.cpp.o radiator/CMakeFiles/radiator.dir/src/helper.cpp.o radiator/CMakeFiles/radiator.dir/src/main.cpp.o radiator/CMakeFiles/radiator.dir/src/overview.cpp.o radiator/CMakeFiles/radiator.dir/src/showgui.cpp.o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/backends/imgui_impl_glfw.cpp.o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/backends/imgui_impl_opengl3.cpp.o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui.cpp.o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_demo.cpp.o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_draw.cpp.o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_tables.cpp.o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_widgets.cpp.o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/misc/cpp/imgui_stdlib.cpp.o | bin/Linux$ -$ x86_64/Debug/engine/libengine.a radiator/vendor/nativefiledialog/bin/Linux$ -$ x86_64/Debug/nfd/libnfd.a /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so vendor/glfw/src/libglfw3.a /usr/lib/x86_64-linux-gnu/librt.a /usr/lib/x86_64-linux-gnu/libm.so /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so vendor/yaml-cpp/libYAML_CPP.a vendor/glad/libGLAD.a vendor/lua/linux/liblua54.a || bin/Linux$ -$ x86_64/Debug/engine/libengine.a vendor/glad/libGLAD.a vendor/glfw/src/libglfw3.a vendor/yaml-cpp/libYAML_CPP.a
+build bin/Linux$ -$ x86_64/Debug/radiator/radiator: CXX_EXECUTABLE_LINKER__radiator_Debug radiator/CMakeFiles/radiator.dir/src/RTscene.cpp.o radiator/CMakeFiles/radiator.dir/src/editors.cpp.o radiator/CMakeFiles/radiator.dir/src/helper.cpp.o radiator/CMakeFiles/radiator.dir/src/main.cpp.o radiator/CMakeFiles/radiator.dir/src/overview.cpp.o radiator/CMakeFiles/radiator.dir/src/showgui.cpp.o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/backends/imgui_impl_glfw.cpp.o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/backends/imgui_impl_opengl3.cpp.o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui.cpp.o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_demo.cpp.o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_draw.cpp.o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_tables.cpp.o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/imgui_widgets.cpp.o radiator/CMakeFiles/radiator.dir/__/vendor/imgui/misc/cpp/imgui_stdlib.cpp.o | bin/Linux$ -$ x86_64/Debug/engine/libengine.a bin/Linux$ -$ x86_64/Debug/nfd/libnfd.a /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so vendor/glfw/src/libglfw3.a /usr/lib/x86_64-linux-gnu/librt.a /usr/lib/x86_64-linux-gnu/libm.so /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so vendor/yaml-cpp/libYAML_CPP.a vendor/glad/libGLAD.a vendor/lua/linux/liblua54.a || bin/Linux$ -$ x86_64/Debug/engine/libengine.a vendor/glad/libGLAD.a vendor/glfw/src/libglfw3.a vendor/yaml-cpp/libYAML_CPP.a
   FLAGS = -g
   LINK_FLAGS = -fuse-ld=gold
-  LINK_LIBRARIES = -lX11  -lXi  -lXcursor  -lXrandr  -lXinerama  -lgtk-3  -lgdk-3  -lpangocairo-1.0  -lpango-1.0  -lharfbuzz  -latk-1.0  -lcairo-gobject  -lcairo  -lgdk_pixbuf-2.0  -lgio-2.0  -lgobject-2.0  -lglib-2.0  "bin/Linux - x86_64/Debug/engine/libengine.a"  "radiator/vendor/nativefiledialog/bin/Linux - x86_64/Debug/nfd/libnfd.a"  /usr/lib/x86_64-linux-gnu/libGLX.so  /usr/lib/x86_64-linux-gnu/libOpenGL.so  vendor/glfw/src/libglfw3.a  /usr/lib/x86_64-linux-gnu/librt.a  -lm  -ldl  /usr/lib/x86_64-linux-gnu/libGLX.so  /usr/lib/x86_64-linux-gnu/libOpenGL.so  vendor/yaml-cpp/libYAML_CPP.a  vendor/glad/libGLAD.a  vendor/lua/linux/liblua54.a
+  LINK_LIBRARIES = -lX11  -lXi  -lXcursor  -lXrandr  -lXinerama  -lgtk-3  -lgdk-3  -lpangocairo-1.0  -lpango-1.0  -lharfbuzz  -latk-1.0  -lcairo-gobject  -lcairo  -lgdk_pixbuf-2.0  -lgio-2.0  -lgobject-2.0  -lglib-2.0  "bin/Linux - x86_64/Debug/engine/libengine.a"  "bin/Linux - x86_64/Debug/nfd/libnfd.a"  /usr/lib/x86_64-linux-gnu/libGLX.so  /usr/lib/x86_64-linux-gnu/libOpenGL.so  vendor/glfw/src/libglfw3.a  /usr/lib/x86_64-linux-gnu/librt.a  -lm  -ldl  /usr/lib/x86_64-linux-gnu/libGLX.so  /usr/lib/x86_64-linux-gnu/libOpenGL.so  vendor/yaml-cpp/libYAML_CPP.a  vendor/glad/libGLAD.a  vendor/lua/linux/liblua54.a
   OBJECT_DIR = radiator/CMakeFiles/radiator.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -1979,6 +1979,118 @@ build radiator/CMakeFiles/install/strip.util: CUSTOM_COMMAND radiator/all
 build radiator/install/strip: phony radiator/CMakeFiles/install/strip.util
 
 # =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /home/blid/rray/radiator/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target nfd
+
+
+#############################################
+# Order-only phony target for nfd
+
+build cmake_object_order_depends_target_nfd: phony || radiator/vendor/nativefiledialog/CMakeFiles/nfd.dir
+
+build radiator/vendor/nativefiledialog/CMakeFiles/nfd.dir/src/nfd_common.c.o: C_COMPILER__nfd_Debug /home/blid/rray/radiator/vendor/nativefiledialog/src/nfd_common.c || cmake_object_order_depends_target_nfd
+  DEFINES = -DYAML_CPP_STATIC_DEFINE
+  DEP_FILE = radiator/vendor/nativefiledialog/CMakeFiles/nfd.dir/src/nfd_common.c.o.d
+  FLAGS = -g
+  INCLUDES = -I/usr/include/gtk-3.0 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/at-spi-2.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/fribidi -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/uuid -I/usr/include/freetype2 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/home/blid/rray/radiator/vendor/nativefiledialog/src/include
+  OBJECT_DIR = radiator/vendor/nativefiledialog/CMakeFiles/nfd.dir
+  OBJECT_FILE_DIR = radiator/vendor/nativefiledialog/CMakeFiles/nfd.dir/src
+
+build radiator/vendor/nativefiledialog/CMakeFiles/nfd.dir/src/nfd_gtk.c.o: C_COMPILER__nfd_Debug /home/blid/rray/radiator/vendor/nativefiledialog/src/nfd_gtk.c || cmake_object_order_depends_target_nfd
+  DEFINES = -DYAML_CPP_STATIC_DEFINE
+  DEP_FILE = radiator/vendor/nativefiledialog/CMakeFiles/nfd.dir/src/nfd_gtk.c.o.d
+  FLAGS = -g
+  INCLUDES = -I/usr/include/gtk-3.0 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/at-spi-2.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/fribidi -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/uuid -I/usr/include/freetype2 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/home/blid/rray/radiator/vendor/nativefiledialog/src/include
+  OBJECT_DIR = radiator/vendor/nativefiledialog/CMakeFiles/nfd.dir
+  OBJECT_FILE_DIR = radiator/vendor/nativefiledialog/CMakeFiles/nfd.dir/src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target nfd
+
+
+#############################################
+# Link the static library bin/Linux - x86_64/Debug/nfd/libnfd.a
+
+build bin/Linux$ -$ x86_64/Debug/nfd/libnfd.a: C_STATIC_LIBRARY_LINKER__nfd_Debug radiator/vendor/nativefiledialog/CMakeFiles/nfd.dir/src/nfd_common.c.o radiator/vendor/nativefiledialog/CMakeFiles/nfd.dir/src/nfd_gtk.c.o
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = radiator/vendor/nativefiledialog/CMakeFiles/nfd.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = "bin/Linux - x86_64/Debug/nfd/libnfd.a"
+  TARGET_PDB = nfd.a.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build radiator/vendor/nativefiledialog/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/blid/rray/radiator/vendor/nativefiledialog && /usr/bin/ccmake -S/home/blid/rray -B/home/blid/rray
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build radiator/vendor/nativefiledialog/edit_cache: phony radiator/vendor/nativefiledialog/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build radiator/vendor/nativefiledialog/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/blid/rray/radiator/vendor/nativefiledialog && /usr/bin/cmake --regenerate-during-build -S/home/blid/rray -B/home/blid/rray
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build radiator/vendor/nativefiledialog/rebuild_cache: phony radiator/vendor/nativefiledialog/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build radiator/vendor/nativefiledialog/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build radiator/vendor/nativefiledialog/CMakeFiles/install.util: CUSTOM_COMMAND radiator/vendor/nativefiledialog/all
+  COMMAND = cd /home/blid/rray/radiator/vendor/nativefiledialog && /usr/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build radiator/vendor/nativefiledialog/install: phony radiator/vendor/nativefiledialog/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build radiator/vendor/nativefiledialog/CMakeFiles/install/local.util: CUSTOM_COMMAND radiator/vendor/nativefiledialog/all
+  COMMAND = cd /home/blid/rray/radiator/vendor/nativefiledialog && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build radiator/vendor/nativefiledialog/install/local: phony radiator/vendor/nativefiledialog/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build radiator/vendor/nativefiledialog/CMakeFiles/install/strip.util: CUSTOM_COMMAND radiator/vendor/nativefiledialog/all
+  COMMAND = cd /home/blid/rray/radiator/vendor/nativefiledialog && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build radiator/vendor/nativefiledialog/install/strip: phony radiator/vendor/nativefiledialog/CMakeFiles/install/strip.util
+
+# =============================================================================
 # Target aliases.
 
 build GLAD: phony vendor/glad/libGLAD.a
@@ -1999,7 +2111,11 @@ build libengine.a: phony bin/Linux$ -$ x86_64/Debug/engine/libengine.a
 
 build libglfw3.a: phony vendor/glfw/src/libglfw3.a
 
+build libnfd.a: phony bin/Linux$ -$ x86_64/Debug/nfd/libnfd.a
+
 build libspdlogd.a: phony vendor/spdlog/libspdlogd.a
+
+build nfd: phony bin/Linux$ -$ x86_64/Debug/nfd/libnfd.a
 
 build radiator: phony bin/Linux$ -$ x86_64/Debug/radiator/radiator
 
@@ -2038,7 +2154,14 @@ build game/all: phony bin/Linux$ -$ x86_64/Debug/game/game
 #############################################
 # Folder: /home/blid/rray/radiator
 
-build radiator/all: phony bin/Linux$ -$ x86_64/Debug/radiator/radiator
+build radiator/all: phony bin/Linux$ -$ x86_64/Debug/radiator/radiator radiator/vendor/nativefiledialog/all
+
+# =============================================================================
+
+#############################################
+# Folder: /home/blid/rray/radiator/vendor/nativefiledialog
+
+build radiator/vendor/nativefiledialog/all: phony bin/Linux$ -$ x86_64/Debug/nfd/libnfd.a
 
 # =============================================================================
 
@@ -2082,14 +2205,14 @@ build vendor/yaml-cpp/all: phony vendor/yaml-cpp/libYAML_CPP.a
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /usr/share/cmake-3.22/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeDependentOption.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckCXXSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckFunctionExists.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFileCXX.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFiles.cmake /usr/share/cmake-3.22/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/FindFontconfig.cmake /usr/share/cmake-3.22/Modules/FindFreetype.cmake /usr/share/cmake-3.22/Modules/FindOpenGL.cmake /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.22/Modules/FindPackageMessage.cmake /usr/share/cmake-3.22/Modules/FindPkgConfig.cmake /usr/share/cmake-3.22/Modules/FindThreads.cmake /usr/share/cmake-3.22/Modules/FindX11.cmake /usr/share/cmake-3.22/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.22/Modules/SelectLibraryConfigurations.cmake /usr/share/cmake-3.22/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake CMakeLists.txt engine/CMakeLists.txt game/CMakeLists.txt radiator/CMakeLists.txt vendor/glad/CMakeLists.txt vendor/glfw/CMake/cmake_uninstall.cmake.in vendor/glfw/CMake/glfw3.pc.in vendor/glfw/CMake/glfw3Config.cmake.in vendor/glfw/CMakeLists.txt vendor/glfw/src/CMakeLists.txt vendor/spdlog/CMakeLists.txt vendor/spdlog/cmake/ide.cmake vendor/spdlog/cmake/utils.cmake vendor/yaml-cpp/CMakeLists.txt
+build build.ninja: RERUN_CMAKE | /usr/share/cmake-3.22/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeDependentOption.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckCXXSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckFunctionExists.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFileCXX.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFiles.cmake /usr/share/cmake-3.22/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/FindFontconfig.cmake /usr/share/cmake-3.22/Modules/FindFreetype.cmake /usr/share/cmake-3.22/Modules/FindOpenGL.cmake /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.22/Modules/FindPackageMessage.cmake /usr/share/cmake-3.22/Modules/FindPkgConfig.cmake /usr/share/cmake-3.22/Modules/FindThreads.cmake /usr/share/cmake-3.22/Modules/FindX11.cmake /usr/share/cmake-3.22/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.22/Modules/SelectLibraryConfigurations.cmake /usr/share/cmake-3.22/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake CMakeLists.txt engine/CMakeLists.txt game/CMakeLists.txt radiator/CMakeLists.txt radiator/vendor/nativefiledialog/CMakeLists.txt vendor/glad/CMakeLists.txt vendor/glfw/CMake/cmake_uninstall.cmake.in vendor/glfw/CMake/glfw3.pc.in vendor/glfw/CMake/glfw3Config.cmake.in vendor/glfw/CMakeLists.txt vendor/glfw/src/CMakeLists.txt vendor/spdlog/CMakeLists.txt vendor/spdlog/cmake/ide.cmake vendor/spdlog/cmake/utils.cmake vendor/yaml-cpp/CMakeLists.txt
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /usr/share/cmake-3.22/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeDependentOption.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckCXXSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckFunctionExists.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFileCXX.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFiles.cmake /usr/share/cmake-3.22/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/FindFontconfig.cmake /usr/share/cmake-3.22/Modules/FindFreetype.cmake /usr/share/cmake-3.22/Modules/FindOpenGL.cmake /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.22/Modules/FindPackageMessage.cmake /usr/share/cmake-3.22/Modules/FindPkgConfig.cmake /usr/share/cmake-3.22/Modules/FindThreads.cmake /usr/share/cmake-3.22/Modules/FindX11.cmake /usr/share/cmake-3.22/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.22/Modules/SelectLibraryConfigurations.cmake /usr/share/cmake-3.22/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake CMakeLists.txt engine/CMakeLists.txt game/CMakeLists.txt radiator/CMakeLists.txt vendor/glad/CMakeLists.txt vendor/glfw/CMake/cmake_uninstall.cmake.in vendor/glfw/CMake/glfw3.pc.in vendor/glfw/CMake/glfw3Config.cmake.in vendor/glfw/CMakeLists.txt vendor/glfw/src/CMakeLists.txt vendor/spdlog/CMakeLists.txt vendor/spdlog/cmake/ide.cmake vendor/spdlog/cmake/utils.cmake vendor/yaml-cpp/CMakeLists.txt: phony
+build /usr/share/cmake-3.22/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeDependentOption.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckCXXSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckFunctionExists.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFileCXX.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFiles.cmake /usr/share/cmake-3.22/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/FindFontconfig.cmake /usr/share/cmake-3.22/Modules/FindFreetype.cmake /usr/share/cmake-3.22/Modules/FindOpenGL.cmake /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.22/Modules/FindPackageMessage.cmake /usr/share/cmake-3.22/Modules/FindPkgConfig.cmake /usr/share/cmake-3.22/Modules/FindThreads.cmake /usr/share/cmake-3.22/Modules/FindX11.cmake /usr/share/cmake-3.22/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.22/Modules/SelectLibraryConfigurations.cmake /usr/share/cmake-3.22/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake CMakeLists.txt engine/CMakeLists.txt game/CMakeLists.txt radiator/CMakeLists.txt radiator/vendor/nativefiledialog/CMakeLists.txt vendor/glad/CMakeLists.txt vendor/glfw/CMake/cmake_uninstall.cmake.in vendor/glfw/CMake/glfw3.pc.in vendor/glfw/CMake/glfw3Config.cmake.in vendor/glfw/CMakeLists.txt vendor/glfw/src/CMakeLists.txt vendor/spdlog/CMakeLists.txt vendor/spdlog/cmake/ide.cmake vendor/spdlog/cmake/utils.cmake vendor/yaml-cpp/CMakeLists.txt: phony
 
 
 #############################################

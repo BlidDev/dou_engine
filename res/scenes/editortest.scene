@@ -4,57 +4,13 @@ Render Data:
   Ambient: [1, 1, 1]
   Ambient Strength: 0.1
 Entities:
-  - Entity: 12568984642125840200
+  - Entity: 3584098771626346685
     Tag:
-      Tag: Player
+      Tag: Floor
     Transform:
-      Position: [0, 1, -4]
-      Size: [0.1, 1, 0.1]
-      Rotation: [0, 0, 0]
-    PhysicsBody:
-      Gravity: 0.28
-      Velocity: [0, 0, 0]
-      Accelaration: [0, 0, 0]
-      Is Solid: true
-      Is Static: true
-      Move Delta: [0, 0, 0]
-    Camera:
-      Target: [0, 0, 4]
-      Up: [0, 1, 0]
-      FovY: 70
-      Projection: 0
-      Max Distance: 30
-    Lua Actions:
-      - Path: res/scripts/player.lua
-        Fields:
-          other: [u, 2267790415927404941]
-          this: [u, 12568984642125840200]
-          jump: [i, 10]
-          init_speed: [i, 3]
-          othero: [u, 2257790415927404942]
-          sensi: [f, 0.1]
-    PntLight:
-      Color: [0.7, 0.2, 0.2]
-      Constant: 1
-      Linear: 0.7
-      Quadratic: 1.8
-    SptLight:
-      Color: [0.97, 0.96, 0.51]
-      Direction: [0, -1, 0]
-      Constant: 1
-      Linear: 0.05
-      Quadratic: 0.021
-      Cut off: 28.5
-      Outer cut off: 35.5
-    Children:
-      - 2267790415927404941
-  - Entity: 2267790415927404942
-    Tag:
-      Tag: Subject
-    Transform:
-      Position: [0, 1, 0]
-      Size: [3, 0.8, 3]
-      Rotation: [0, 0, 0]
+      Position: [0, -0.5, 0]
+      Size: [1000, 0.1, 1000]
+      Rotation: [90, 0, 0]
     Model:
       Model Name: cube_tl
       Layer: 0
@@ -63,7 +19,7 @@ Entities:
         Filled: false
         Ambient: [1, 1, 1]
         Diffuse: [1, 1, 1]
-        Specular: [1, 1, 1]
+        Specular: [0, 0, 0]
         Shininess: 0
         Texture: res/textures/proto.png
         Textured: true
@@ -75,50 +31,6 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-    Lua Actions:
-      - Path: res/scripts/cube.lua
-        Fields:
-          this: [u, 2267790415927404942]
-  - Entity: 2257790415927404942
-    Tag:
-      Tag: SubjectC
-    Transform:
-      Position: [0, 1, 0]
-      Size: [3, 0.3, 3]
-      Rotation: [0, 0, 0]
-    Model:
-      Model Name: cube_tl
-      Layer: 0
-      Material:
-        Shader: res/shaders/lighting.glsl
-        Filled: true
-        Ambient: [1, 1, 1]
-        Diffuse: [1, 1, 1]
-        Specular: [1, 1, 1]
-        Shininess: 38.4
-        Texture: UNKNOWN
-        Textured: false
-        Immune: false
-    PhysicsBody:
-      Gravity: 0
-      Velocity: [0, 0, 0]
-      Accelaration: [0, 0, 0]
-      Is Solid: true
-      Is Static: true
-      Move Delta: [0, 0, 0]
-      Intersect Callback: [res/scripts/trigger.lua, inter]
-    Lua Actions:
-      - Path: res/scripts/trigger.lua
-        Fields:
-          this: [u, 2257790415927404942]
-    SptLight:
-      Color: [1, 1, 1]
-      Direction: [0, -1, -1]
-      Constant: 1
-      Linear: 0.05
-      Quadratic: 0.021
-      Cut off: 15.5
-      Outer cut off: 20.5
   - Entity: 2267790415927404941
     Tag:
       Tag: Cube
@@ -163,13 +75,53 @@ Entities:
       Quadratic: 0.16
     Parent:
       Parent: 12568984642125840200
-  - Entity: 3584098771626346685
+  - Entity: 2257790415927404942
     Tag:
-      Tag: Floor
+      Tag: SubjectC
     Transform:
-      Position: [0, -0.5, 0]
-      Size: [1000, 0.1, 1000]
-      Rotation: [90, 0, 0]
+      Position: [0, 1, 0]
+      Size: [3, 0.3, 3]
+      Rotation: [0, 0, 0]
+    Model:
+      Model Name: cube_tl
+      Layer: 0
+      Material:
+        Shader: res/shaders/lighting.glsl
+        Filled: true
+        Ambient: [1, 1, 1]
+        Diffuse: [1, 1, 1]
+        Specular: [1, 1, 1]
+        Shininess: 38.4
+        Texture: UNKNOWN
+        Textured: false
+        Immune: false
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+      Intersect Callback: [res/scripts/trigger.lua, inter]
+    Lua Actions:
+      - Path: res/scripts/trigger.lua
+        Fields:
+          this: [u, 2257790415927404942]
+    SptLight:
+      Color: [1, 1, 1]
+      Direction: [0, -1, -1]
+      Constant: 1
+      Linear: 0.05
+      Quadratic: 0.021
+      Cut off: 15.5
+      Outer cut off: 20.5
+  - Entity: 2267790415927404942
+    Tag:
+      Tag: Subject
+    Transform:
+      Position: [0, 1, 0]
+      Size: [3, 0.8, 3]
+      Rotation: [0, 0, 0]
     Model:
       Model Name: cube_tl
       Layer: 0
@@ -178,7 +130,7 @@ Entities:
         Filled: false
         Ambient: [1, 1, 1]
         Diffuse: [1, 1, 1]
-        Specular: [0, 0, 0]
+        Specular: [1, 1, 1]
         Shininess: 0
         Texture: res/textures/proto.png
         Textured: true
@@ -190,3 +142,51 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
+    Lua Actions:
+      - Path: res/scripts/cube.lua
+        Fields:
+          this: [u, 2267790415927404942]
+  - Entity: 12568984642125840200
+    Tag:
+      Tag: Player
+    Transform:
+      Position: [0, 1, -4]
+      Size: [0.1, 1, 0.1]
+      Rotation: [0, 0, 0]
+    PhysicsBody:
+      Gravity: 0.28
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+    Camera:
+      Target: [0, 0, 4]
+      Up: [0, 1, 0]
+      FovY: 70
+      Projection: 0
+      Max Distance: 30
+    Lua Actions:
+      - Path: res/scripts/player.lua
+        Fields:
+          othero: [u, 2257790415927404942]
+          init_speed: [i, 3]
+          other: [u, 2267790415927404941]
+          jump: [i, 10]
+          this: [u, 12568984642125840200]
+          sensi: [f, 0.1]
+    PntLight:
+      Color: [0.7, 0.2, 0.2]
+      Constant: 1
+      Linear: 0.7
+      Quadratic: 1.8
+    SptLight:
+      Color: [0.97, 0.96, 0.51]
+      Direction: [0, -1, 0]
+      Constant: 1
+      Linear: 0.05
+      Quadratic: 0.021
+      Cut off: 28.5
+      Outer cut off: 35.5
+    Children:
+      - 2267790415927404941

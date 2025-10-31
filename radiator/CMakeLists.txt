@@ -47,13 +47,14 @@ if(UNIX AND NOT APPLE)
     )
 endif()
 
+add_subdirectory("${CMAKE_SOURCE_DIR}/${NAME}/vendor/nativefiledialog")
 
 if(WIN32)
     set(NFD_PATH
-        "${CMAKE_SOURCE_DIR}/radiator/vendor/nativefiledialog/bin/${CMAKE_SYSTEM_NAME} - ${CMAKE_SYSTEM_PROCESSOR}/${CMAKE_BUILD_TYPE}/nfd/nfd.lib")
+        "${OUT_PATH}/nfd/nfd.lib")
 elseif(UNIX AND NOT APPLE)
     set(NFD_PATH
-        "${CMAKE_SOURCE_DIR}/radiator/vendor/nativefiledialog/bin/${CMAKE_SYSTEM_NAME} - ${CMAKE_SYSTEM_PROCESSOR}/${CMAKE_BUILD_TYPE}/nfd/libnfd.a")
+        "${OUT_PATH}/nfd/libnfd.a")
 endif()
 
 
@@ -64,5 +65,7 @@ if(UNIX AND NOT APPLE)
     target_include_directories(${NAME} PRIVATE ${GTK3_INCLUDE_DIRS})
     target_link_libraries(${NAME} PRIVATE ${GTK3_LIBRARIES})
 endif()
+
+
 
 target_link_libraries(${NAME} PRIVATE OpenGL::GL engine "${NFD_PATH}")
