@@ -21,14 +21,12 @@ set_target_properties(${NAME}
 target_include_directories(${NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/engine/include
     ${CMAKE_SOURCE_DIR}/${NAME}/include
-    #${CMAKE_SOURCE_DIR}/vendor/spdlog/include
-    #${CMAKE_SOURCE_DIR}/vendor/entt
     ${CMAKE_SOURCE_DIR}/vendor/glfw/include
-    #${YAML_CPP_INCLUDE_DIRS}
     ${CMAKE_SOURCE_DIR}/vendor/glad/include/
     ${CMAKE_SOURCE_DIR}/vendor/glm
     ${CMAKE_SOURCE_DIR}/vendor/imgui
     ${CMAKE_SOURCE_DIR}/vendor/imgui/backends
+    ${CMAKE_SOURCE_DIR}/${NAME}/vendor/nativefiledialog/src/include
 )
 
 
@@ -49,4 +47,22 @@ if(UNIX AND NOT APPLE)
     )
 endif()
 
-target_link_libraries(${NAME} PRIVATE OpenGL::GL engine)
+
+if(WIN32)
+    set(NFD_PATH
+        "${CMAKE_SOURCE_DIR}/radiator/vendor/nativefiledialog/bin/${CMAKE_SYSTEM_NAME} - ${CMAKE_SYSTEM_PROCESSOR}/${CMAKE_BUILD_TYPE}/nfd/nfd.lib")
+elseif(UNIX AND NOT APPLE)
+    set(NFD_PATH
+        "${CMAKE_SOURCE_DIR}/radiator/vendor/nativefiledialog/bin/${CMAKE_SYSTEM_NAME} - ${CMAKE_SYSTEM_PROCESSOR}/${CMAKE_BUILD_TYPE}/nfd/libnfd.a")
+endif()
+
+
+
+if(UNIX AND NOT APPLE)
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
+    target_include_directories(${NAME} PRIVATE ${GTK3_INCLUDE_DIRS})
+    target_link_libraries(${NAME} PRIVATE ${GTK3_LIBRARIES})
+endif()
+
+target_link_libraries(${NAME} PRIVATE OpenGL::GL engine "${NFD_PATH}")

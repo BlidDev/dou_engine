@@ -1,10 +1,15 @@
 local t
 local cm
 
-local speed = 0.3
+local speed = initial_speed
 local sensi = 0.1
+local mouse_delta
+local velocity
 
 first = true
+
+initial_speed = 3
+
 
 function on_init()
     t  = get_transform(scene, this)
@@ -13,20 +18,21 @@ function on_init()
 end
 
 function on_update(dt)
+    
+    speed = initial_speed
     if first then 
         mouse_delta = get_mouse_delta() * -sensi; first = false 
     end
 
     velocity = vec3.new(0.0)
-    speed = 3
     update_camera_target(cm, t.position);
   
     if is_key_down(util.KeyboardKey.Q) then velocity.y =  -0.1 end
     if is_key_down(util.KeyboardKey.E) then velocity.y =   0.1 end
 
 
-    f = is_key(util.KeyboardKey.W) - is_key(util.KeyboardKey.S)
-    r = is_key(util.KeyboardKey.D) - is_key(util.KeyboardKey.A)
+    local f = is_key(util.KeyboardKey.W) - is_key(util.KeyboardKey.S)
+    local r = is_key(util.KeyboardKey.D) - is_key(util.KeyboardKey.A)
 
     -- sprint
     speed = is_key_down(util.KeyboardKey.LEFT_SHIFT) and speed * 3 or speed
@@ -36,12 +42,12 @@ function on_update(dt)
 
     handle_mouse_delta(cm, t.position, mouse_delta, true)
 
-    forward = get_flat_forward(cm.target, t.position)
-    right   = get_right(cm.target, t.position, cm.up)
+    local forward = get_flat_forward(cm.target, t.position)
+    local right   = get_right(cm.target, t.position, cm.up)
 
 
 
-    move = (forward * f) + (right * r)
+    local move = (forward * f) + (right * r)
     move.y = 0.0
     velocity = velocity +  move * speed * dt
 

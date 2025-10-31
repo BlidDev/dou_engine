@@ -69,16 +69,16 @@ namespace engine {
 
               glUseProgram(obj.material.shader);
 
-              if ((obj.material.attributes & MODEL_FILLED) == MODEL_FILLED)
-                  set_shader_v3(obj.material.shader, "color", obj.material.ambient);
-
+              send_material(obj.material);
+             
               glm::mat4 model = pos.get_model();
               set_shader_m4(obj.material.shader, "model", model);
 
-              if (obj.model.normals()) { // probably lighted
+              bool filled = (obj.material.attributes & MODEL_FILLED) == MODEL_FILLED;
+
+              if (obj.model.normals() && !filled) { // probably lighted
                   glm::mat4 normal = glm::transpose(glm::inverse(model));
                   set_shader_m3(obj.material.shader, "normal_mat", normal);
-                  send_material(obj.material);
               }
 
 
@@ -159,9 +159,18 @@ namespace engine {
         for (auto [_, t, s] : spts.each()) {
           if (counter >= max)
             break;
+          float tmp_cutoff = s.cutoff;
+          float tmp_outer_cutoff = s.outer_cutoff;
+          s.cutoff = glm::cos(glm::radians(tmp_cutoff));
+          s.outer_cutoff = glm::cos(glm::radians(tmp_outer_cutoff));
+
           size_t base = counter * ssize;
+
           data.sub(base, light_size, &s)
               .sub(base + light_size, sizeof(glm::vec3), &t.position);
+
+          s.cutoff = tmp_cutoff;
+          s.outer_cutoff = tmp_outer_cutoff;
           ++counter;
         }
 

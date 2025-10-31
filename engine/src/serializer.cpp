@@ -83,6 +83,14 @@ namespace YAML {
 
 namespace engine {
 
+    template <typename T>
+    static void make_field_node(YAML::Emitter& out,T field, char ident) {
+        out<<YAML::Flow;
+        out<<YAML::BeginSeq<<ident<<field<<YAML::EndSeq;
+    }
+
+    #define EMIT_FIELD(name,var, type, ident) if (var.is<type>())  {out<<YAML::Key<<name; make_field_node(out, var.as<type>(), ident);}
+
     YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec3& v) {
         out<<YAML::Flow;
         out<<YAML::BeginSeq<<v.x<<v.y<<v.z<<YAML::EndSeq;
@@ -125,6 +133,7 @@ namespace engine {
             out<<YAML::Key<<"Model"<<YAML::BeginMap;
                 auto& m = entity.get_component<ModelComp>();
                 out<<YAML::Key<<"Model Name"<<YAML::Value<<m.model.name;
+                out<<YAML::Key<<"Layer"<<YAML::Value<<m.layer;
                 out<<YAML::Key<<"Material"<<YAML::BeginMap;
                     out<<YAML::Key<<"Shader"<<YAML::Value<<m.material.shader.path;
                     out<<YAML::Key<<"Filled"<<YAML::Value<<((MODEL_FILLED & m.material.attributes) == MODEL_FILLED);
@@ -135,7 +144,6 @@ namespace engine {
                     out<<YAML::Key<<"Texture"<<YAML::Value<<m.material.texture.path;
                     out<<YAML::Key<<"Textured"<<YAML::Value<<((MODEL_TEXTURED & m.material.attributes) == MODEL_TEXTURED);
                     out<<YAML::Key<<"Immune"<<YAML::Value<<((MODEL_IMMUNE & m.material.attributes) == MODEL_IMMUNE);
-                    out<<YAML::Key<<"Layer"<<YAML::Value<<m.layer;
                 out<<YAML::EndMap;
 
 
@@ -197,11 +205,17 @@ namespace engine {
                     out<<YAML::Key<<"Path"<<scp.path;
                     out<<YAML::Key<<"Fields"<<YAML::BeginMap;
                         for (auto& [k,v] : scp.env) {
-                            if ( !k.is<std::string>() || v.is<sol::function>() || !v.is<UUID>())
+                            if ( !k.is<std::string>() || v.is<sol::function>())
                                 continue;
+                            
                             std::string str = k.as<std::string>();
-                            UUID uuid = v.as<UUID>();
-                            out<<YAML::Key<<str<<YAML::Value<<uuid.get_uuid();
+
+                                 EMIT_FIELD(str, v, UUID, 'u')
+                            else EMIT_FIELD(str, v, int,   'i')
+                            else EMIT_FIELD(str, v, float, 'f')
+                            else EMIT_FIELD(str, v, bool, 'b')
+                            // fucking hell
+
                         }
                     out<<YAML::EndMap;
                     out<<YAML::EndMap;
@@ -231,9 +245,9 @@ namespace engine {
 
         if (entity.has_component<SptLightComp>()) {
             auto& l = entity.get_component<SptLightComp>();
-            out<<YAML::Key<<"PntLight"<<YAML::BeginMap;
+            out<<YAML::Key<<"SptLight"<<YAML::BeginMap;
                 out<<YAML::Key<<"Color"<<YAML::Value<<l.color;
-                out<<YAML::Key<<"Direction"<<YAML::Value<<l.color;
+                out<<YAML::Key<<"Direction"<<YAML::Value<<l.direction;
                 out<<YAML::Key<<"Constant"<<YAML::Value<<l.constant;
                 out<<YAML::Key<<"Linear"<<YAML::Value<<l.linear;
                 out<<YAML::Key<<"Quadratic"<<YAML::Value<<l.quadratic;
@@ -258,7 +272,7 @@ namespace engine {
 
         if (entity.has_component<ChildrenComp>()) {
             auto& c = entity.get_component<ChildrenComp>();
-            out<<YAML::Key<<"Chidren"<<YAML::BeginSeq;
+            out<<YAML::Key<<"Children"<<YAML::BeginSeq;
             for (auto& child : c.children) {
                 out<<YAML::Value<<child;
             }
@@ -273,7 +287,7 @@ namespace engine {
     static void read_entity_from_file(YAML::Node& entity, Scene* scene) {
         uint64_t uuid = entity["Entity"].as<uint64_t>(); 
 
-        Entity read_entity = scene->create_entity_with_uuid(uuid);
+        Entity read_entity = scene->uuid_to_entity(uuid);
 
         auto tag_comp = entity["Tag"];
         if (tag_comp)
@@ -378,8 +392,17 @@ namespace engine {
 
                 for (auto f : m["Fields"]) {
                     std::string name = f.first.as<std::string>();
-                    uint64_t id = f.second.as<uint64_t>();
-                    ls.bind_field(name, UUID(id));
+                    EG_ASSERT(!f.second.IsSequence(), " {} - Invaild field decleration", name);
+                    char type_flag = f.second[0].as<char>();
+                    YAML::Node var = f.second[1];
+                    switch (type_flag) {
+                        case 'u': ls.bind_field(name, UUID(var.as<uint64_t>())); break;
+                        case 'i': ls.bind_field(name, var.as<int>()); break;
+                        case 'f': ls.bind_field(name, var.as<float>()); break;
+                        case 'b': ls.bind_field(name, var.as<bool>()); break;
+                        default: EG_ASSERT(true, "Invaild type flag \'{}\' in lua field {}",type_flag, name); break;
+                    }
+
                 }
             }
         }
@@ -411,8 +434,8 @@ namespace engine {
             l.linear = slight["Linear"].as<float>();
             l.quadratic = slight["Quadratic"].as<float>();
 
-            l.cutoff =       glm::cos(glm::radians(slight["Cut off"].as<float>()));
-            l.outer_cutoff = glm::cos(glm::radians(slight["Outer cut off"].as<float>()));
+            l.cutoff =       slight["Cut off"].as<float>();
+            l.outer_cutoff = slight["Outer cut off"].as<float>();
         }
 
 
@@ -434,6 +457,7 @@ namespace engine {
 
     void SceneManager::write_scene_to_file(const char* path, Scene* scene) {
         std::ofstream file(path);
+        EG_ASSERT(!file.is_open(), "Could not open {}", path);
         YAML::Emitter out;
         out<<YAML::BeginMap;
         out<<YAML::Key<<"Scene"<<YAML::Value<<scene->name;
@@ -445,11 +469,12 @@ namespace engine {
         out<<YAML::EndMap;
 
         out<<YAML::Key<<"Entities"<<YAML::Value<<YAML::BeginSeq;
-
-        for (auto e : scene->registry.view<entt::entity>()) {
+        auto view = scene->registry.view<entt::entity>();
+        for (auto e : view) {
             Entity entity(scene, e);
             if (!entity)
-                return;
+                continue;
+            
             write_entity_to_file(out, entity);
         }
 
@@ -459,39 +484,12 @@ namespace engine {
         file.close();
     }
 
-    // FIXME
-    Scene* SceneManager::scene_from_file(const char* path) {
-        std::ifstream stream(path);
-        std::stringstream str_stream;
-        str_stream<<stream.rdbuf();
-
-        YAML::Node data = YAML::Load(str_stream.str());
-
-        EG_ASSERT(!data["Scene"],"Cannot read {}, scene does not exist", path );
-
-        std::string scene_name = data["Scene"].as<std::string>();
-        Scene* scene = new Scene(scene_name);
-
-       
-        EG_ASSERT(!data["Render Data"], "Section Render Data for scene {} not found", scene_name);
-
-        auto render_data = data["Render Data"];
-        scene->main_camera = UUID(render_data["Main Camera"].as<uint64_t>());
-        scene->ambient = render_data["Ambient"].as<glm::vec3>();
-        scene->ambient_strength = render_data["Ambient Strength"].as<float>();
-
-
-        EG_ASSERT(!data["Entities"], "Section Entities for scene {} not found", scene_name);
-        auto entities = data["Entities"];
-
+    void detect_and_add_entities(YAML::Node& entities, Scene* scene) {
         for (auto entity : entities) {
-            read_entity_from_file(entity, scene);
+            EG_ASSERT(!entity["Entity"], "No uuid given to entity");
+            uint64_t uuid = entity["Entity"].as<uint64_t>(); 
+            scene->create_entity_with_uuid(uuid);
         }
-
-
-        EG_CORE_INFO("Finished reading scene {}", scene_name.c_str());
-
-        return scene;
     }
 
     void Scene::add_from_file(const char* path) {
@@ -515,6 +513,7 @@ namespace engine {
 
         EG_ASSERT(!data["Entities"], "Section Entities for scene {} not found", scene_name);
         auto entities = data["Entities"];
+        detect_and_add_entities(entities, this);
 
         for (auto entity : entities) {
             read_entity_from_file(entity, this);

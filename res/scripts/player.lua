@@ -2,9 +2,10 @@ local ph
 local t
 local cm
 
+init_speed = 3
 local speed =3
-local jump = 10
-local sensi = 0.1
+jump = 10
+sensi = 0.1
 
 local affectedcounter = 0
 local affected = true
@@ -33,9 +34,9 @@ local wire = false
 local made_child = false
 
 function on_update(dt)
-    fps = 1/dt
+    local fps = 1/dt
     --log_info("fps: {}", fps)
-    speed = 3
+    speed = init_speed
     update_camera_target(cm, t.position);
 
     if is_key_down(util.KeyboardKey.LEFT_ALT) and affectedcounter > 10 then
@@ -60,24 +61,24 @@ function on_update(dt)
     end
 
 
-    f = is_key(util.KeyboardKey.W) - is_key(util.KeyboardKey.S)
-    r = is_key(util.KeyboardKey.D) - is_key(util.KeyboardKey.A)
+    local f = is_key(util.KeyboardKey.W) - is_key(util.KeyboardKey.S)
+    local r = is_key(util.KeyboardKey.D) - is_key(util.KeyboardKey.A)
 
 
     -- sprint
     speed = is_key_down(util.KeyboardKey.LEFT_SHIFT) and speed * 3 or speed
 
 
-    mouse_delta = get_mouse_delta() * -0.1
+    local mouse_delta = get_mouse_delta() * -0.1
 
-    last_dir = get_camera_dir(cm.target, t.position)
+    local last_dir = get_camera_dir(cm.target, t.position)
 
     if captured then handle_mouse_delta(cm, t.position, mouse_delta, true) end
 
-    forward = get_flat_forward(cm.target, t.position)
-    right   = get_right(cm.target, t.position, cm.up)
+    local forward = get_flat_forward(cm.target, t.position)
+    local right   = get_right(cm.target, t.position, cm.up)
 
-    move = (forward * f) + (right * r)
+    local move = (forward * f) + (right * r)
     move.y = 0.0
     ph.velocity = ph.velocity +  move * speed
 
@@ -91,7 +92,7 @@ function on_update(dt)
         counter = 0
     end
 
-    spot = get_spotlight(scene, this)
+    local spot = get_spotlight(scene, this)
     tmp = get_camera_dir(cm.target, t.position)
     spot.direction = last_dir
     if flashlight then spot.color = vec3.new(0.97, 0.96, 0.51) else spot.color = vec3.new(0.0) end

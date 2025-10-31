@@ -52,7 +52,7 @@ namespace engine {
         void remove_parent();
 
         operator bool() const {
-            return (entity_id == entt::null) || (scene == nullptr);
+            return (entity_id != entt::null) || (scene == nullptr);
         }
 
         bool operator==(Entity& other) {

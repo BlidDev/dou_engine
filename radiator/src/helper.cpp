@@ -1,4 +1,5 @@
 #include "editors.h"
+#include "glm/gtc/type_ptr.hpp"
 
 
 void make_framebuffer(Frambuffer& fb, size_t w, size_t h) {
@@ -39,4 +40,55 @@ void rescale_framebuffer(Frambuffer& fb, size_t w, size_t h) {
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, fb.rbo);
 
     fb.last_scale = ImVec2(w,h);
+}
+
+
+
+void sameline_color(const char* title, glm::vec3& v) {
+    ImGui::Text("%s", title);
+    ImGui::SameLine();
+    ImGui::ColorEdit3(std::format("##{}", title).c_str(), glm::value_ptr(v));
+}
+
+void sameline_v3(const char* title, glm::vec3& v, float min, float max, float speed) {
+    ImGui::Text("%s", title);
+    ImGui::SameLine();
+    ImGui::DragFloat3(std::format("##{}", title).c_str(), glm::value_ptr(v), speed, min, max);
+}
+
+void sameline_v2(const char* title, glm::vec2& v, float min, float max, float speed) {
+    ImGui::Text("%s", title);
+    ImGui::SameLine();
+    ImGui::DragFloat2(std::format("##{}", title).c_str(), glm::value_ptr(v), speed, min, max);
+}
+
+void sameline_float(const char* title, float* v, float min, float max, float speed) {
+    ImGui::Text("%s", title);
+    ImGui::SameLine();
+    ImGui::DragFloat(std::format("##{}", title).c_str(), v, speed,min, max);
+}
+
+
+void sameline_int(const char* title, int* v, int min, int max, int speed) {
+    ImGui::Text("%s", title);
+    ImGui::SameLine();
+    ImGui::DragInt(std::format("##{}", title).c_str(), v, speed,min, max);
+}
+
+
+bool EScene::is_key(int k, int a) {
+    return key_query[k - 32] == a;
+}
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    EScene::key_query[key-32] = action;
+}
+
+bool check_key_combo(int keys[], int combo_len) {
+    for (int i = 0; i < combo_len; i++) {
+        if (!is_key_pressed(keys[i]))
+            return false;
+    }
+
+    return true;
 }

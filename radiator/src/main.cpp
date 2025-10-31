@@ -10,8 +10,12 @@ int engine::on_start(engine::SceneManager* manager) {
 
     std::string name;
 
-    manager->register_scene("Editor", new EScene);
+    EScene* editor = new EScene();
+    editor->working_scene = new RTScene();
+    manager->register_scene("working", editor->working_scene);
+    manager->register_scene("Editor", editor);
 
+    EG_ASSERT(!editor->working_scene, "Working scene not set");
     read_project_file("res/projects/editor.prj", manager, &name, true);
 
     return 0;

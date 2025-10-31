@@ -30,7 +30,7 @@ Entities:
         Shininess: 0
         Texture: res/textures/proto.png
         Textured: true
-        Immune: true
+        Immune: false
 
   - Entity: 2267790415927404941
     Transform:
@@ -41,7 +41,7 @@ Entities:
       Tag: Cube
     Model:
       Model Name: cube
-      Layer: 2
+      Layer: 0
       Material:
         Shader: res/shaders/basic.glsl
         Filled: true
@@ -142,7 +142,7 @@ Entities:
     Lua Actions:
       - Path: res/scripts/cube.lua
         Fields:
-          this: [u, 2267790415927404942]
+          this: 2267790415927404942
 
   - Entity: 12568984642125840200
     Tag:
@@ -152,7 +152,7 @@ Entities:
       Size: [0.1, 1.0, 0.1]
       Rotation: [0, 0 ,0]
     PhysicsBody:
-      Gravity: 0.028
+      Gravity: 0.28
       Velocity: [0, 0, 0]
       Accelaration: [0, 0, 0]
       Is Solid: true
@@ -167,12 +167,8 @@ Entities:
     Lua Actions:
       - Path: res/scripts/player.lua
         Fields:
-          other: [u, 2267790415927404941]
-          this: [u, 12568984642125840200]
-          jump: [i, 20]
-          init_speed: [i, 3]
-          othero: [u, 2257790415927404942]
-          sensi: [f, 0.1]
+          other: 2267790415927404941
+          othero: 2257790415927404942
     SptLight:
       Color: [0.97, 0.96, 0.51]
       Direction: [0, -1, 0]
@@ -187,45 +183,46 @@ Entities:
       Constant: 1.0
       Linear: 0.7
       Quadratic: 1.8
+    Children:
+      - 2267790415927404941
+# - Entity: 2257790415927404841
+#   Transform:
+#     Position: [0, 0, 0]
+#     Size: [4,2,2]
+#     Rotation: [0, 0 ,0]
+#   Tag:
+#     Tag: Framething
+#   Model:
+#     Model Name: quad_tex
+#     Layer: 1
+#     Material:
+#       Shader: res/shaders/gui.glsl
+#       Filled: true
+#       Ambient:  [1,1,1]
+#       Diffuse:  [1,1,1]
+#       Specular: [1,1,1]
+#       Shininess: 38.4
+#       Texture: FRAMEBUFFER0
+#       Textured: true
+#       Immune: true
 
-  - Entity: 2257790415927404841
-    Transform:
-      Position: [0, 0, 0]
-      Size: [4,2,2]
-      Rotation: [0, 0 ,0]
-    Tag:
-      Tag: Framething
-    Model:
-      Model Name: quad_tex
-      Layer: 1
-      Material:
-        Shader: res/shaders/gui.glsl
-        Filled: true
-        Ambient:  [1,1,1]
-        Diffuse:  [1,1,1]
-        Specular: [1,1,1]
-        Shininess: 38.4
-        Texture: FRAMEBUFFER0
-        Textured: true
-        Immune: true
-
-  - Entity: 2247790415927404841
-    Transform:
-      Position: [0, 0, 0]
-      Size: [2,1,1]
-      Rotation: [0, 0 ,0]
-    Tag:
-      Tag: Framething
-    Model:
-      Model Name: quad_tex
-      Layer: 2
-      Material:
-        Shader: res/shaders/lightingt.glsl
-        Filled: true
-        Ambient:  [1,1,1]
-        Diffuse:  [1,1,1]
-        Specular: [1,1,1]
-        Shininess: 38.4
-        Texture: FRAMEBUFFER0
-        Textured: true
-        Immune: true
+# - Entity: 2247790415927404841
+#   Transform:
+#     Position: [0, 0, 0]
+#     Size: [2,1,1]
+#     Rotation: [0, 0 ,0]
+#   Tag:
+#     Tag: Framething
+#   Model:
+#     Model Name: quad_tex
+#     Layer: 2
+#     Material:
+#       Shader: res/shaders/lightingt.glsl
+#       Filled: true
+#       Ambient:  [1,1,1]
+#       Diffuse:  [1,1,1]
+#       Specular: [1,1,1]
+#       Shininess: 38.4
+#       Texture: FRAMEBUFFER0
+#       Textured: true
+#       Immune: true

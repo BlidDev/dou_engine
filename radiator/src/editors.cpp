@@ -1,12 +1,20 @@
 #include "editors.h"
 
-EScene::EScene() : Scene("Editor") { close = false; }
+int EScene::key_query[ GLFW_KEY_LAST - 32]= {};
+
+EScene::EScene() : Scene("Editor") { 
+    save_path = "UNSET";
+    close = false; 
+    for (int i = 0; i < GLFW_KEY_LAST - 32; i++)
+        key_query[i] = -1;
+
+}
 
 
 void EScene::on_create() {
     init_imgui();
 
-    add_from_file("res/scenes/editortest.scene");
+    glfwSetKeyCallback(manager->main_window, key_callback);
     make_default_ubos(manager);
 
     update_render_data(manager, this);
@@ -24,6 +32,7 @@ void EScene::on_create() {
 
 void EScene::on_update(float dt) {
     //close = is_key_pressed(GLFW_KEY_ESCAPE);
+
 
     update_imgui(dt);
     glfwSwapBuffers(manager->main_window);

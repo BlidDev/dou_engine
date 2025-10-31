@@ -32,6 +32,12 @@ namespace engine {
             current = name;
     }
 
+    void SceneManager::clear_scene(Scene* scene) {
+        end_actions(scene->registry);
+        scene->registry.clear();
+        scene->uuids.clear();
+    }
+
     void SceneManager::end_scene(Scene* scene) {
         scene->on_end();
         end_actions(scene->registry);

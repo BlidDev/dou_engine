@@ -17,8 +17,18 @@ void main() {
 #version 330 core
 out vec4 frag_color;
 
+
+struct Material {
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+    float shininess;
+};
+
+
 uniform vec3 color;
+uniform Material material;
 
 void main() {
-    frag_color = vec4(color, 1.0f);
+    frag_color = vec4(material.ambient, 1.0f);
 }
