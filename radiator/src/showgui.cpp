@@ -59,7 +59,9 @@ void saveas_working_file(SceneManager* manager, EScene* editor) {
 
 size_t counter = 0;
 
-void EScene::update_imgui(float dt) {
+EditorState EScene::update_imgui(float dt) {
+    EditorState state = EditorState::Normal;
+
     counter++;
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
@@ -81,6 +83,10 @@ void EScene::update_imgui(float dt) {
         save_working_file(manager, this);
         counter = 0;
     }
+    else if (is_key_pressed(GLFW_KEY_F5) && counter > 10) {
+        state = EditorState::Preview;
+        counter = 0;
+    }
 
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
@@ -98,6 +104,12 @@ void EScene::update_imgui(float dt) {
             if (ImGui::MenuItem("Quit")) close = true;
             ImGui::EndMenu();
         }
+
+        ImGui::Spacing();
+        if (ImGui::ArrowButton("Play", ImGuiDir::ImGuiDir_Right)) {
+            state = EditorState::Preview;
+        }
+        
 
 
         ImGui::EndMainMenuBar();
@@ -117,6 +129,8 @@ void EScene::update_imgui(float dt) {
     glClearColor(0.45f, 0.55f, 0.60f, 1.00f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+    return state;
 }
 
 void EScene::end_imgui() {

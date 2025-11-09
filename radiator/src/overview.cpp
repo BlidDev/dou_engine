@@ -1,5 +1,7 @@
+#include "components/transform.h"
 #include "editors.h"
 
+#define IMGUI_IMPL_OPENGL_LOADER_CUSTOM
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "misc/cpp/imgui_stdlib.h"
@@ -22,7 +24,8 @@ void render_tag(TagComp &tag) {
     }
 }
 
-void render_transform(TransformComp &t) {
+
+void render_transform(TransformComp& t) {
     sameline_v3("Position", t.position);
     sameline_v3("Rotation", t.rotation);
     sameline_v3("Size    ", t.size);
@@ -30,6 +33,43 @@ void render_transform(TransformComp &t) {
         t = TransformComp();
     }
 }
+
+void apply_delta_on_children(Entity& e, glm::vec3 delta) {
+    for (auto child : e.get_children()) {
+        Entity tmp = e.scene_ptr()->uuid_to_entity(child);
+
+        if (!tmp.has_component<TransformComp>()) continue;
+        tmp.get_component<TransformComp>().position += delta;
+
+        if (!tmp.is_parent()) continue;
+        apply_delta_on_children(tmp, delta);
+    }
+
+}
+
+void try_transform(Entity& e){
+  if (e.has_component<TransformComp>()) {                                          
+    if (ImGui::CollapsingHeader("TransformComp",ImGuiTreeNodeFlags_DefaultOpen)) {
+
+        ImGui::Indent();
+        auto id=e.uuid()+typeid(TransformComp).hash_code();
+        ImGui::PushID(id);
+        auto& t = e.get_component<TransformComp>();
+        glm::vec3 last = t.position;
+        render_transform(t);
+        if (t.position != last && e.is_parent()) {
+            apply_delta_on_children(e, t.position - last);
+        }
+        cmp_other_options<TransformComp>(e);
+        ImGui::Unindent();
+        ImGui::Separator();
+        ImGui::Spacing();
+        ImGui::PopID();
+    }                                                                          
+  }
+}
+
+
 
 void render_physicsbody(PhysicsBodyComp &p) {
     sameline_float("Gravity", &p.gravity);
@@ -298,7 +338,7 @@ void EScene::render_overview(bool is_selected) {
         ImGui::SetClipboardText(std::format("{}", (uint64_t)tmp.uuid()).c_str());
 
     TRY_COMPONENT(tmp, TagComp, tag);
-    TRY_COMPONENT(tmp, TransformComp, transform);
+    try_transform(tmp);
     TRY_COMPONENT(tmp, PhysicsBodyComp, physicsbody);
     TRY_COMPONENT(tmp, ModelComp, model, manager);
 

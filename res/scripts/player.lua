@@ -18,6 +18,7 @@ function on_init()
     t  = get_transform(scene, this)
     cm = get_camera(scene, this)
     update_camera_target(cm, t.position)
+    set_input_mode(scene, util.InputSbj.CURSOR, util.InputMode.CURSOR_DISABLED)
 end
 
 

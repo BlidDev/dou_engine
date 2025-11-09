@@ -1,5 +1,6 @@
 #pragma once
 #include "RTscene.h"
+#include "state.h"
 #include <epch.h>
 #define IMGUI_IMPL_OPENGL_LOADER_CUSTOM
 #include "imgui.h"
@@ -34,9 +35,10 @@ public:
 
     bool should_close(); 
 
+    void make_viewer();
 
     void init_imgui();
-    void update_imgui(float dt);
+    EditorState update_imgui(float dt);
     void end_imgui();
 
     void render_entity(Entity current, bool* has_selected, bool root = false);
@@ -65,6 +67,12 @@ private:
     Entity viewer;
 
 };
+
+void open_working_file(SceneManager* manager, RTScene* working_scene, EScene* editor);
+void save_working_file(SceneManager* manager, EScene* editor);
+void saveas_working_file(SceneManager* manager, EScene* editor);
+
+
 
 
 void make_framebuffer(Frambuffer& fb, size_t w, size_t h);
