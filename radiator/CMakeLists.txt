@@ -8,6 +8,7 @@ file(GLOB imgui_SRC
     "${CMAKE_SOURCE_DIR}/vendor/imgui/*.cpp"
     "${CMAKE_SOURCE_DIR}/vendor/imgui/backends/*.cpp"
     "${CMAKE_SOURCE_DIR}/vendor/imgui/misc/cpp/*.cpp"
+    "${CMAKE_SOURCE_DIR}/${NAME}/vendor/tinyfiledialogs/tinyfiledialogs.cpp"
 )
 
 add_executable(${NAME} ${${NAME}_SRC} ${imgui_SRC})
@@ -26,7 +27,7 @@ target_include_directories(${NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/vendor/glm
     ${CMAKE_SOURCE_DIR}/vendor/imgui
     ${CMAKE_SOURCE_DIR}/vendor/imgui/backends
-    ${CMAKE_SOURCE_DIR}/${NAME}/vendor/nativefiledialog/src/include
+    "${CMAKE_SOURCE_DIR}/${NAME}/vendor/tinyfiledialogs"
 )
 
 
@@ -47,25 +48,5 @@ if(UNIX AND NOT APPLE)
     )
 endif()
 
-add_subdirectory("${CMAKE_SOURCE_DIR}/${NAME}/vendor/nativefiledialog")
 
-if(WIN32)
-    set(NFD_PATH
-        "${OUT_PATH}/nfd/nfd.lib")
-elseif(UNIX AND NOT APPLE)
-    set(NFD_PATH
-        "${OUT_PATH}/nfd/libnfd.a")
-endif()
-
-
-
-if(UNIX AND NOT APPLE)
-    find_package(PkgConfig REQUIRED)
-    pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
-    target_include_directories(${NAME} PRIVATE ${GTK3_INCLUDE_DIRS})
-    target_link_libraries(${NAME} PRIVATE ${GTK3_LIBRARIES})
-endif()
-
-
-
-target_link_libraries(${NAME} PRIVATE OpenGL::GL engine "${NFD_PATH}")
+target_link_libraries(${NAME} PRIVATE OpenGL::GL engine)

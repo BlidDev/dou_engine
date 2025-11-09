@@ -1,5 +1,6 @@
 #include "manager.h"
 #include "luawrapper.h"
+#include "component.h"
 
 
 namespace engine {

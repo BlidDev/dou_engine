@@ -2,6 +2,7 @@
 #include "log.h"
 #include "luawrapper.h"
 #include "util.h"
+#include "component.h"
 
 namespace engine {
 

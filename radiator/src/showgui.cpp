@@ -2,13 +2,13 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
-#define IMGUI_IMPL_OPENGL_LOADER_CUSTOM
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
+#define IMGUI_IMPL_OPENGL_LOADER_CUSTOM
 #include <imgui_impl_opengl3.h>
 #include <misc/cpp/imgui_stdlib.h>
-#include <nfd.h>
 
+#include <tinyfiledialogs.h>
 
 
 void EScene::init_imgui() {
@@ -29,14 +29,9 @@ void EScene::init_imgui() {
     // io.FontGlobalScale = 1.5f;
 }
 
-void get_path(nfdchar_t** path) {
-    nfdresult_t res = NFD_OpenDialog(nullptr, nullptr, path);
-    if (res == NFD_ERROR) {EG_ASSERT(true, "{}", NFD_GetError());}
-}
 
 void open_working_file(SceneManager* manager, RTScene* working_scene, EScene* editor){
-    nfdchar_t* path = nullptr;
-    get_path(&path);
+    char* path = tinyfd_openFileDialog("Open a Scene file", nullptr, 0, nullptr, nullptr,0);
     if(!path) return;
     manager->clear_scene(working_scene);
     working_scene->add_from_file(path);
@@ -46,8 +41,7 @@ void open_working_file(SceneManager* manager, RTScene* working_scene, EScene* ed
 
 void save_working_file(SceneManager* manager, EScene* editor) {
     if (editor->save_path == "UNSET") {
-        nfdchar_t* path= nullptr;
-        get_path(&path);
+        char* path= tinyfd_saveFileDialog("Save Current Scene", nullptr, 0, nullptr, nullptr);
         if (!path) return;
         editor->save_path = path;
     }
@@ -57,9 +51,8 @@ void save_working_file(SceneManager* manager, EScene* editor) {
 
 
 void saveas_working_file(SceneManager* manager, EScene* editor) {
-    nfdchar_t* path = nullptr;
-    get_path(&path);
-    if(!path) return;
+    char* path= tinyfd_saveFileDialog("Save Current Scene As", nullptr, 0, nullptr, nullptr);
+    if (!path) return;
     manager->write_scene_to_file(path, editor->working_scene); 
     EG_TRACE("Saving to [{}]", path);
 }
