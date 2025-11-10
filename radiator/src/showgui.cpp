@@ -1,4 +1,5 @@
-#include "editors.h"
+#include "components/modelcomp.h"
+#include "helper.h"
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -100,6 +101,10 @@ EditorState EScene::update_imgui(float dt) {
                 saveas_working_file(manager,this);
             }
 
+            if (ImGui::MenuItem("Project Settings")) {
+                show_project_settings = true;
+            }
+
 
             if (ImGui::MenuItem("Quit")) close = true;
             ImGui::EndMenu();
@@ -123,6 +128,8 @@ EditorState EScene::update_imgui(float dt) {
     render_overview(has_selected);
 
     render_editorview(dt);
+    if (show_project_settings)
+        render_psettings();
 
     // Rendering
     ImGui::Render();
@@ -140,7 +147,46 @@ void EScene::end_imgui() {
 }
 
 void EScene::render_entities(bool *has_selected) {
-    ImGui::Begin("Entities", nullptr, ImGuiWindowFlags_HorizontalScrollbar);
+    ImGui::Begin("Entities", nullptr, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar);
+
+    if (ImGui::BeginMenuBar()) {
+
+        if (ImGui::BeginMenu("New")) {
+            if( ImGui::MenuItem("Empty Entity") ) {
+                auto e = working_scene->create_entity();
+                if (selected) {
+                    e.make_child_of(selected);
+                }
+            }
+
+            if( ImGui::MenuItem("Cube") ) {
+                auto e = working_scene->create_entity();
+                e.add_component<TagComp>("Unnamed Cube");
+                e.add_component<TransformComp>();
+                e.add_component<ModelComp>(working_scene->get_model("cube"), 
+                                           MaterialBuilder()
+                                                           .set_shader(working_scene->get_shader("res/shaders/basic.glsl"))
+                                                           .set_color(glm::vec3(1.0f)));
+                if (selected) {
+                    e.make_child_of(selected);
+                }
+            }
+
+            ImGui::EndMenu();
+        }
+
+        if (selected) {
+            ImGui::SameLine(0, 10.0f);
+            if (ImGui::Button("Delete")) {
+                working_scene->remove_entity(selected);
+                selected = 0;
+                *has_selected = false;
+            }
+        }
+
+        ImGui::EndMenuBar();
+    }
+    
 
     for (auto [_, entity] : working_scene->uuids) {
         Entity tmp = {working_scene, entity};
@@ -158,9 +204,7 @@ void EScene::render_entity(Entity current, bool *has_selected, bool root) {
     if (!current.is_parent())flags |= ImGuiTreeNodeFlags_Leaf;
 
 
-    std::string name = (current.has_component<TagComp>()) ? 
-                        current.get_component<TagComp>().tag :
-                        std::format("Unnamed entity {}...", current.uuid() >> 16);
+    std::string name = make_entity_name(current);
 
     flags |= ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow;
 
@@ -231,3 +275,50 @@ void EScene::render_editorview(float dt) {
     ImGui::End();
 }
 
+
+
+void EScene::render_psettings() {
+    ImGui::Begin("Project Settings");
+
+    if (ImGui::CollapsingHeader("Global Variables")) {
+        ImGui::Indent();
+
+        ImGui::Text("Main camera: "); ImGui::SameLine();
+        ImGui::SetCursorPosX(get_centered_pos("Main Camera: "));
+        UUID current = working_scene->main_camera;
+        std::string sample = "Not Set";
+        if (current) {
+            Entity tmp = working_scene->uuid_to_entity(current);
+            sample = make_entity_name(tmp);
+        }
+
+        auto view = working_scene->registry.view<CameraComp, TransformComp>();
+
+        if( ImGui::BeginCombo("##", sample.c_str()) ) {
+            for (auto& e : view) {
+                Entity tmp = {working_scene, e};
+                bool is_selected = (current) ? e == working_scene->uuid_to_entt(current) : false;
+                if (ImGui::Selectable(make_entity_name(tmp).c_str(), is_selected)) {
+                    current = working_scene->entt_to_uuid(e);
+                }
+
+                if (is_selected)
+                    ImGui::SetItemDefaultFocus();
+            }
+            ImGui::EndCombo();
+        }
+
+        if (current)
+            working_scene->main_camera = current;
+
+
+    }
+
+    if (ImGui::CollapsingHeader("Layers")) {
+
+    }
+
+    if (ImGui::Button("Close"))
+        show_project_settings = false;
+    ImGui::End();
+}

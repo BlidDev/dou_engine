@@ -1,7 +1,133 @@
 Scene: RT
 Render Data:
-  Main Camera: 0
+  Main Camera: 11356166092682591270
   Ambient: [1, 1, 1]
   Ambient Strength: 0.1
+  Clear Color: [0, 0, 0, 0]
 Entities:
-  []
+  - Entity: 7365611525932255574
+    Tag:
+      Tag: 2
+    Transform:
+      Position: [22.9, 3.8, 0]
+      Size: [3, 0.1, 9.6]
+      Rotation: [0, 0, 0]
+    Model:
+      Model Name: cube
+      Layer: 0
+      Material:
+        Shader: res/shaders/basic.glsl
+        Filled: true
+        Ambient: [1, 1, 1]
+        Diffuse: [1, 1, 1]
+        Specular: [1, 1, 1]
+        Shininess: 32
+        Texture: UNKNOWN
+        Textured: false
+        Immune: false
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: false
+      Is Static: true
+      Move Delta: [0, 0, 0]
+      Intersect Callback: [/home/blid/rayengine/res/scripts/trigger.lua, inter]
+    Lua Actions:
+      - Path: /home/blid/rayengine/res/scripts/trigger.lua
+        Fields:
+          this: [u, 7365611525932255574]
+  - Entity: 13565742144981661366
+    Tag:
+      Tag: Unnamed Cube
+    Transform:
+      Position: [16.5, 0, 0]
+      Size: [5.3, 1, 9.9]
+      Rotation: [0, 0, 0]
+    Model:
+      Model Name: cube
+      Layer: 0
+      Material:
+        Shader: res/shaders/basic.glsl
+        Filled: true
+        Ambient: [1, 1, 1]
+        Diffuse: [1, 1, 1]
+        Specular: [1, 1, 1]
+        Shininess: 32
+        Texture: UNKNOWN
+        Textured: false
+        Immune: false
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+  - Entity: 11356166092682591270
+    Tag:
+      Tag: Player
+    Transform:
+      Position: [0, 5.7, 0]
+      Size: [1, 1, 1]
+      Rotation: [0, 0, 0]
+    PhysicsBody:
+      Gravity: 0.2
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+    Camera:
+      Target: [0, 0, 1]
+      Up: [0, 1, 0]
+      FovY: 70
+      Projection: 0
+      Max Distance: 30
+    Lua Actions:
+      - Path: /home/blid/rayengine/res/scripts/player.lua
+        Fields:
+          sensi: [f, 0.1]
+          this: [u, 11356166092682591270]
+          init_speed: [i, 3]
+          jump: [i, 20]
+    SptLight:
+      Color: [0.97, 0.96, 0.51]
+      Direction: [0, -1, 0]
+      Constant: 1
+      Linear: 0.05
+      Quadratic: 0.021
+      Cut off: 28.5
+      Outer cut off: 35.5
+  - Entity: 17999117371155926849
+    Tag:
+      Tag: Base
+    Transform:
+      Position: [0, 0, 0]
+      Size: [9.8, 1.3, 15.6]
+      Rotation: [0, 0, 0]
+    Model:
+      Model Name: cube_tl
+      Layer: 0
+      Material:
+        Shader: res/shaders/lightingt.glsl
+        Filled: false
+        Ambient: [1, 1, 1]
+        Diffuse: [1, 1, 1]
+        Specular: [1, 1, 1]
+        Shininess: 0
+        Texture: res/textures/mmm.png
+        Textured: true
+        Immune: false
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+    DirLight:
+      Direction: [-0.2, -1, -0.3]
+      Ambient: 0.1
+      Color: [1, 0.8919511, 0.4978903]
+      Strength: 0.6

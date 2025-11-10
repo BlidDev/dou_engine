@@ -5,6 +5,7 @@
 namespace engine {
     sol::state LuaManager::state;
 
+
     void LuaManager::init() {
         state.open_libraries(sol::lib::string, sol::lib::base, sol::lib::coroutine, sol::lib::io, sol::lib::math);
         expose_env(state);
@@ -60,7 +61,25 @@ namespace engine {
         }
     }
 
+    void LuaActionComp::remove(std::string path) {
+        int i = 0; bool found = false;
+        for (auto& s : scripts) {
+            if (s.path == path) {found = true; break;}
+            i++;
+        }
 
+        EG_ASSERT(!found, "Trying to remove non registered script {}", path);
+        scripts.erase(scripts.begin() + i);
+    }
+
+
+    bool LuaActionComp::find(const char* path) {
+        for (auto& s : scripts) {
+            if (s.path == path)
+                return true;
+        }
+        return false;
+    }
 
     LuaActionComp::LuaActionComp(UUID self) {
         this->self = self;

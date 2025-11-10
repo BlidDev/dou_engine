@@ -3,7 +3,7 @@ Render Data:
   Main Camera: 12568984642125840200
   Ambient: [1, 1, 1]
   Ambient Strength: 0.1
-  Clear Color: [0, 0, 0, 0]
+  Clear Color: [0, 0, 0, 1]
 Entities:
   - Entity: 3584098771626346685
     Tag:
@@ -80,7 +80,7 @@ Entities:
     Tag:
       Tag: SubjectC
     Transform:
-      Position: [0, 1, 0]
+      Position: [8.7, 1, 0]
       Size: [3, 0.3, 3]
       Rotation: [0, 0, 0]
     Model:
@@ -89,7 +89,7 @@ Entities:
       Material:
         Shader: res/shaders/lighting.glsl
         Filled: true
-        Ambient: [1, 0, 0]
+        Ambient: [1, 1, 1]
         Diffuse: [1, 1, 1]
         Specular: [1, 1, 1]
         Shininess: 38.4
@@ -120,7 +120,7 @@ Entities:
     Tag:
       Tag: Subject
     Transform:
-      Position: [-4.9, 2.8, 0]
+      Position: [0, 1, 0]
       Size: [3, 0.8, 3]
       Rotation: [0, 0, 0]
     Model:
@@ -171,11 +171,11 @@ Entities:
       - Path: res/scripts/player.lua
         Fields:
           this: [u, 12568984642125840200]
+          othero: [u, 2257790415927404942]
+          other: [u, 2267790415927404941]
+          init_speed: [i, 3]
           sensi: [f, 0.1]
           jump: [i, 10]
-          init_speed: [i, 6]
-          other: [u, 2267790415927404941]
-          othero: [u, 2257790415927404942]
     PntLight:
       Color: [0.7, 0.2, 0.2]
       Constant: 1

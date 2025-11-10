@@ -30,6 +30,7 @@ namespace engine {
     }
 
     void Entity::make_child_of(UUID parent) {
+        EG_ASSERT(parent == uuid(), "Trying to set {} a parent of itself");
         if(is_child()) {
             Entity& tmp = get_parent();
             EG_ASSERT(tmp.uuid() == parent, "Trying to make {} a child of {} twice", uuid(), parent);
@@ -64,6 +65,8 @@ namespace engine {
         }
         tmp_child.add_component<ParentComp>(*this);
 
+        if (!has_component<PhysicsBodyComp>()) return;
+
         make_physically_dominant(*this);
     }
 
@@ -83,10 +86,12 @@ namespace engine {
     }
 
     void Entity::remove_child(UUID child) {
-        auto children = get_children();
+        auto& children = get_children();
         EG_ASSERT(std::find(children.begin(), children.end(), child) == children.end(), "remove_child(): Entity {} is not a child of {}", child, uuid());
         Entity childe = scene->uuid_to_entity(child);
-        make_physically_dominant(childe);
+        if (childe.has_component<PhysicsBodyComp>())
+            make_physically_dominant(childe);
+
         childe.remove_parent();
         children.erase(std::remove(children.begin(), children.end(), child), children.end());
     }

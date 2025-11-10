@@ -39,6 +39,9 @@ namespace engine {
        LuaActionComp& add(Scene* scene, std::string path);
        LuaActionComp& add(LuaUpdate update);
 
+       void remove(std::string path);
+       bool find(const char* path);
+
        template<typename T>
        LuaActionComp& bind_field(std::string name, T value) {
            scripts.back().env[name] = value;

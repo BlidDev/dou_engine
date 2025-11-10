@@ -1,5 +1,6 @@
 #include "editors.h"
 #include "runtime.h"
+#include "helper.h"
 
 int EScene::key_query[ GLFW_KEY_LAST - 32]= {};
 
@@ -9,6 +10,8 @@ EScene::EScene() : Scene("Editor") {
     for (int i = 0; i < GLFW_KEY_LAST - 32; i++)
         key_query[i] = -1;
 
+    selected = 0;
+    show_project_settings = false;
 }
 
 
@@ -24,7 +27,7 @@ void EScene::make_viewer() {
 void EScene::on_create() {
     init_imgui();
 
-    glfwSetKeyCallback(manager->main_window, key_callback);
+
     make_default_ubos(manager);
 
     update_render_data(manager, this);
@@ -32,11 +35,19 @@ void EScene::on_create() {
     make_framebuffer(editorview, 684, 698) ;
 
     make_viewer();
+    debug_open = false;
 }
 
 void EScene::on_update(float dt) {
-    //close = is_key_pressed(GLFW_KEY_ESCAPE);
-
+    int _debug[] = {GLFW_KEY_LEFT_SHIFT, GLFW_KEY_F9};
+    if (check_key_combo(_debug, 2) && !debug_open) {
+        debug_open = true;
+        working_scene->add_from_file("res/scenes/editortest.scene");
+        save_path = "res/scenes/editortest.scene";
+    }
+    if (is_key_pressed(GLFW_KEY_ESCAPE)) {
+        selected = 0;
+    }
 
     if(update_imgui(dt) == EditorState::Preview) {
         run_rt_scene(this);

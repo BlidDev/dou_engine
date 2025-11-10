@@ -1,5 +1,6 @@
-#include "editors.h"
+#include "helper.h"
 #include "glm/gtc/type_ptr.hpp"
+#include "imgui.h"
 
 
 void make_framebuffer(Frambuffer& fb, size_t w, size_t h) {
@@ -91,4 +92,19 @@ bool check_key_combo(int keys[], int combo_len) {
     }
 
     return true;
+}
+
+std::string make_entity_name(Entity &entity) {
+    std::string name = (entity.has_component<TagComp>()) ? 
+                        entity.get_component<TagComp>().tag :
+                        std::format("Unnamed entity {}...", entity.uuid() >> 16);
+    return name;
+}
+
+
+float get_centered_pos(const char* text) {
+    auto width = ImGui::GetWindowWidth();
+    auto text_width = ImGui::CalcTextSize(text).x;
+
+    return ((width - text_width) / 2.0f);
 }

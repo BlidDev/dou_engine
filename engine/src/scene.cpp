@@ -2,18 +2,15 @@
 #include "entity.h"
 #include "manager.h"
 
-namespace engine 
-{
+namespace engine {
 
-    Entity Scene::create_entity() {
-        return create_entity_with_uuid(UUID());
-    }
+Entity Scene::create_entity() { return create_entity_with_uuid(UUID()); }
 
-    Entity Scene::create_entity_with_uuid(uint64_t uuid) {
-        Entity tmp(this, registry.create());
-        tmp.add_component<UUID>(uuid);
-        uuids.insert(std::make_pair(uuid, tmp.id()));
-        return tmp;
+Entity Scene::create_entity_with_uuid(uint64_t uuid) {
+  Entity tmp(this, registry.create());
+  tmp.add_component<UUID>(uuid);
+  uuids.insert(std::make_pair(uuid, tmp.id()));
+  return tmp;
     }
 
     Entity Scene::uuid_to_entity(UUID uuid) {
@@ -24,6 +21,27 @@ namespace engine
     entt::entity Scene::uuid_to_entt(UUID uuid) {
         EG_ASSERT(uuids.find(uuid) == uuids.end(), "ERROR: Unknown UUID {}", uuid.get_uuid());
         return uuids[uuid];
+    }
+
+    UUID Scene::entt_to_uuid(entt::entity id) {
+        EG_ASSERT(!registry.valid(id), "Trying to convert non existant id to uuid");
+        for (auto& [uuid, entt] : uuids) {
+            if (entt == id) {
+                return uuid;
+            }
+        }
+
+        EG_ASSERT(true, "Could not convert id to uuid");
+    }
+
+    void Scene::remove_entity(UUID uuid) {
+        Entity e = uuid_to_entity(uuid);
+        if (e.is_child()) {
+            e.get_parent().remove_child(uuid);
+        }
+
+        uuids.erase(uuid);
+        registry.destroy(e.id());
     }
 
     void Scene::register_shader(const char* name) {
@@ -46,5 +64,4 @@ namespace engine
         return manager->model_lib.at(std::string(name));
     }
 
-
-}
+    } // namespace engine
