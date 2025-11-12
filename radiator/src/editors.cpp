@@ -33,9 +33,12 @@ void EScene::on_create() {
     update_render_data(manager, this);
 
     make_framebuffer(editorview, 684, 698) ;
+    make_framebuffer(pickerview, 684, 698) ;
 
     make_viewer();
     debug_open = false;
+
+    picker_shader = get_shader("res/shaders/picker.glsl");
 }
 
 void EScene::on_update(float dt) {

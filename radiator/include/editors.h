@@ -48,6 +48,8 @@ public:
     void render_overview(bool is_selected);
 
     void render_editorview(float dt);
+    void render_pickerview();
+    entt::entity entity_from_view(ImVec2 pos, ImVec2 size);
 
     void render_psettings();
 
@@ -67,6 +69,9 @@ private:
     UUID selected;
 
     Frambuffer editorview;
+
+    Frambuffer pickerview;
+    Shader picker_shader;
     Entity viewer;
 
 };

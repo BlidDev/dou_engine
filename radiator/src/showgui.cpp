@@ -1,5 +1,6 @@
 #include "components/modelcomp.h"
 #include "helper.h"
+#include "imgui_internal.h"
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -61,6 +62,9 @@ void saveas_working_file(SceneManager* manager, EScene* editor) {
 size_t counter = 0;
 
 EditorState EScene::update_imgui(float dt) {
+
+    glClearColor(0.0f,0.0f,0.0f,1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     EditorState state = EditorState::Normal;
 
     counter++;
@@ -133,8 +137,6 @@ EditorState EScene::update_imgui(float dt) {
 
     // Rendering
     ImGui::Render();
-    glClearColor(0.45f, 0.55f, 0.60f, 1.00f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     return state;
@@ -254,14 +256,20 @@ void EScene::render_editorview(float dt) {
         lua.bind_field("first", true);
     }
 
-    if (glm::vec2(size.x, size.y) != glm::vec2(editorview.last_scale.x, editorview.last_scale.y))
+    if (glm::vec2(size.x, size.y) != glm::vec2(editorview.last_scale.x, editorview.last_scale.y)) {
         rescale_framebuffer(editorview, size.x, size.y);
+        rescale_framebuffer(pickerview, size.x, size.y);
+    }
 
     glViewport(0,0, size.x, size.y);
     glBindFramebuffer(GL_FRAMEBUFFER, editorview.handler);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     opengl_renderer(manager->render_data,{size.x, size.y}, viewer, working_scene->registry, true);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    
+    render_pickerview();
+
+    ImGui::InvisibleButton("editor_viewport", size);
 
     ImGui::GetWindowDrawList()->AddImage(
         (void*)(intptr_t)editorview.texture,
@@ -271,11 +279,114 @@ void EScene::render_editorview(float dt) {
         ImVec2(1, 0)
     );
 
+    if (ImGui::IsWindowHovered() && 
+        ImGui::IsMouseReleased(ImGuiMouseButton_Left) && 
+        !looking) {
+
+        ImVec2 mouse = ImGui::GetMousePos();
+        ImVec2 item_min = ImGui::GetItemRectMin();
+        ImVec2 item_max = ImGui::GetItemRectMax();
+
+        ImVec2 local = ImVec2(mouse.x - item_min.x, mouse.y - item_min.y);
+        float w = item_max.x - item_min.x;
+        float h = item_max.y - item_min.y;
+
+        if (w <= 0.0f || h <= 0.0f) return;
+
+        float u = local.x / w;
+        float v = local.y / h;
+        v = 1.0f - v;
+
+
+
+        ImGuiIO& io = ImGui::GetIO();
+        float fb_scale_x = io.DisplayFramebufferScale.x; 
+        float fb_scale_y = io.DisplayFramebufferScale.y;
+
+        int tex_w = size.x * fb_scale_x;
+        int tex_h = size.y * fb_scale_y;
+
+        int tex_x = (int)floorf(u * (float)tex_w);
+        int tex_y = (int)floorf(v * (float)tex_h);
+
+        tex_x = std::max(0, std::min(tex_x, tex_w - 1));
+        tex_y = std::max(0, std::min(tex_y, tex_h - 1));
+
+        entt::entity picked = entity_from_view(ImVec2(tex_x, tex_y), size);
+
+        if (picked != entt::null){
+            Entity e{working_scene, picked};
+            selected = e.uuid();
+        }
+        else { selected = 0; }
+    }
 
     ImGui::End();
 }
 
 
+void EScene::render_pickerview() {
+    ImVec2 size = ImGui::GetContentRegionAvail();
+
+    glViewport(0,0, size.x, size.y);
+    glBindFramebuffer(GL_FRAMEBUFFER, pickerview.handler);
+    glEnable(GL_DEPTH_TEST);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(1.0f,1.0f,1.0f,1.0f);
+
+    auto trans = viewer.get_component<TransformComp>();
+    auto camera = viewer.get_component<CameraComp>();
+    auto objects = working_scene->registry.view<TransformComp, ModelComp>();
+
+    glUseProgram(picker_shader);
+
+    for (auto [e, t, m] : objects.each()) {
+        int r = ((uint32_t)e & 0x000000FF) >>  0;
+        int g = ((uint32_t)e & 0x0000FF00) >>  8;
+        int b = ((uint32_t)e & 0x00FF0000) >> 16;
+        set_shader_v3(picker_shader, "id_color", {r/255.0f, g/255.0f, b/255.0f});
+        glm::mat4 model = t.get_model();
+        set_shader_m4(picker_shader, "model", model);
+
+        glBindVertexArray(m.model.VAO);
+        if (m.model.nindices != 0) {
+            glDrawElements(GL_TRIANGLES, m.model.nindices, GL_UNSIGNED_INT, 0);
+            continue;
+        }
+        glDrawArrays(GL_TRIANGLES, 0, m.model.nvertices);
+    }
+
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+entt::entity EScene::entity_from_view(ImVec2 pos, ImVec2 size) {
+
+    if (pos.x >= size.x || pos.y >= size.y || pos.x < 0 || pos.y < 0)
+        return entt::null;
+    unsigned char pixel[4]; // RGBA
+                            //
+    glGetTextureSubImage(
+        pickerview.texture,
+        0,        
+        pos.x, pos.y, 0,  
+        1, 1, 1, 
+        GL_RGBA,
+        GL_UNSIGNED_BYTE,
+        sizeof(pixel),
+        pixel
+    );
+    // Convert the color back to an integer ID
+    int picked = 
+        pixel[0] + 
+        pixel[1] * 256 +
+        pixel[2] * 256*256;
+    if (picked == 0) {
+        return entt::null;
+    }
+
+
+    return entt::entity(picked);
+}
 
 void EScene::render_psettings() {
     ImGui::Begin("Project Settings");
