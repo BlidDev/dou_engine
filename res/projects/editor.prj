@@ -5,6 +5,8 @@ Window Width: 1280
 Window Height: 1280
 
 Paths:
+  Scenes:
+    - res/essentials/scenes
   Shaders:
     - res/shaders
   Models:

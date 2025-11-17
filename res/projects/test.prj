@@ -2,6 +2,8 @@ Project Name: Testp
 Current Scene: thing
 
 Paths:
+  Scenes:
+    - res/scenes
   Shaders:
     - res/shaders
   Models:

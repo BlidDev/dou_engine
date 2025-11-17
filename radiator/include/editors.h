@@ -57,7 +57,7 @@ public:
     
 
 public:
-    RTScene* working_scene;
+    Scene* working_scene;
     static int key_query[GLFW_KEY_LAST - 32];
     std::string save_path;
 

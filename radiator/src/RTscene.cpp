@@ -1,6 +1,8 @@
 #include "RTscene.h"
 
-RTScene::RTScene() : Scene("RT") { close = false; }
+RTScene::RTScene() : Scene("RT") { 
+    close = false; 
+}
 
 
 void RTScene::on_create() {

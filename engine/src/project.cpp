@@ -2,31 +2,52 @@
 #include <sys/stat.h>
 #include <filesystem>
 #include "project.h"
+#include "manager.h"
 
 
 #define TRY_NODE(node,name, type, lhs) if(node[name]){ lhs = node[name].as<type>();}
 
 namespace engine {
 
-    void read_layers(YAML::Node& node, SceneManager* manager);
-    void read_paths(YAML::Node& node, SceneManager* manager);
+    ProjectData::ProjectData(std::string name) {
+        name = name;
+        root_path = "";
+        scene_paths = {};
+        shader_paths = {};
+        texture_paths = {};
+        model_paths = {};
+    }
 
-    int read_project_file(const char* path, SceneManager* manager, std::string* name, bool set_current) {
+    static void read_layers(YAML::Node& node, SceneManager* manager);
+    static void read_paths(YAML::Node& node, SceneManager* manager);
+    static void read_scenes(YAML::Node& node, SceneManager* manager);
+
+    int read_project_file(const char* path, SceneManager* manager, bool set_current) {
+        DU_ASSERT(!manager, "Trying to read project {} but SceneManager is null");
+
         std::ifstream file(path);
         DU_ASSERT(file.fail(), "Project file path \"{}\" does not exist", path);
         std::stringstream str_stream;
         str_stream<<file.rdbuf();
 
         YAML::Node data = YAML::Load(str_stream.str());
+        ProjectData* p_data = &manager->project_data;
 
         DU_ASSERT(!data["Project Name"], "Project name not provided in \"{}\"", path);
-        *name = data["Project Name"].as<std::string>();
+        p_data->name = data["Project Name"].as<std::string>();
+
+        std::string root_path = "";
+        TRY_NODE(data["Root Path"], "Root Path", std::string, root_path);
+        if(!root_path.empty())
+            p_data->root_path = std::filesystem::path(root_path);
+
 
         YAML::Node current = data["Current Scene"];
         DU_ASSERT(!current, "Project does not provide current scene name");
 
         read_layers(data, manager);
         read_paths(data, manager);
+        read_scenes(data, manager);
 
         if (!set_current) return 0;
         manager->set_current(current.as<std::string>().c_str());
@@ -34,7 +55,7 @@ namespace engine {
 
     }
 
-    void read_layers(YAML::Node& node, SceneManager* manager) {
+    static void read_layers(YAML::Node& node, SceneManager* manager) {
         auto layers = node["Layers"];
         if (!layers) return;
 
@@ -50,21 +71,22 @@ namespace engine {
         }
     }
 
-    void read_paths(YAML::Node& node, SceneManager* manager) {
+    static void read_paths(YAML::Node& node, SceneManager* manager) {
         namespace fs = std::filesystem; 
-
+        ProjectData* p_data = &manager->project_data;
         auto paths = node["Paths"];
         if (!paths) return;
 
         auto shaders = paths["Shaders"];
         if (shaders) {
             for (auto path : shaders) {
-                std::string p = path.as<std::string>();
-                for (const auto & entry : fs::directory_iterator(p)) {
-                    fs::path fs(entry);
-                    if (fs.extension() != ".glsl") continue;
-                    std::string final = std::format("{}/{}", p,fs.filename().string());
-                    manager->register_shader(final.c_str());
+                fs::path sh_dir = path.as<std::string>();
+                DU_ASSERT(!fs::is_directory(sh_dir), "Trying to read shaders from {} no such directory", sh_dir.string());
+                p_data->shader_paths.push_back(sh_dir);
+
+                for (const auto & entry : fs::directory_iterator(sh_dir)) {
+                    if (entry.path().extension() != ".glsl") continue;
+                    manager->register_shader(entry.path().c_str());
                 }
             }
         }
@@ -72,12 +94,13 @@ namespace engine {
         auto textures = paths["Textures"];
         if (textures) {
             for (auto path : textures) {
-                std::string p = path.as<std::string>();
-                for (const auto & entry : fs::directory_iterator(p)) {
-                    fs::path fs(entry);
-                    if (fs.extension() != ".png" && fs.extension() != "jpg") continue;
-                    std::string final = std::format("{}/{}", p,fs.filename().string());
-                    manager->register_texture(final.c_str());
+                fs::path tx_dir = path.as<std::string>();
+                DU_ASSERT(!fs::is_directory(tx_dir), "Trying to read textures from {} no such directory", tx_dir.string());
+                p_data->texture_paths.push_back(tx_dir);
+                for (const auto & entry : fs::directory_iterator(tx_dir)) {
+                    fs::path tmp = entry.path();
+                    if (tmp.extension() != ".png" && tmp.extension() != "jpg") continue;
+                    manager->register_texture(tmp.c_str());
                 }
             }
         }
@@ -85,19 +108,46 @@ namespace engine {
         auto models = paths["Models"];
         if (models) {
             for (auto path : models) {
-                std::string p = path.as<std::string>();
-                for (const auto & entry : fs::directory_iterator(p)) {
-                    fs::path fs(entry);
-                    if (fs.extension() != ".sff") continue;
-                    std::string final = std::format("{}/{}", p,fs.filename().string());
+                fs::path md_dir = path.as<std::string>();
+                DU_ASSERT(!fs::is_directory(md_dir), "Trying to read models from {} no such directory", md_dir.string());
+                p_data->model_paths.push_back(md_dir);
+                for (const auto & entry : fs::directory_iterator(md_dir)) {
+                    if (entry.path().extension() != ".sff") continue;
                     std::string model_name = "unnamed";
 
-                    Model model = model_from_file(final.c_str(), &model_name);
+                    Model model = model_from_file(entry.path().c_str(), &model_name);
                     DU_ASSERT(model_name == "unnamed", "Model {} wasn't given any name");
                     manager->register_model(model_name.c_str(), model);
                 }
 
             }
+        }
+
+    }
+
+
+
+    static void read_scenes(YAML::Node& node, SceneManager* manager) {
+        namespace fs = std::filesystem;
+        auto paths = node["Paths"];
+        if(!paths) return;
+        auto scenes = paths["Scenes"];
+        if(!scenes) return;
+
+        for (auto path : scenes) {
+            fs::path sc_dir = path.as<std::string>();
+            DU_ASSERT(!fs::is_directory(sc_dir), "Trying to read scenes from {} no such directory", sc_dir.string());
+            manager->project_data.scene_paths.push_back(sc_dir);
+
+            for (const auto& entry : fs::directory_iterator(sc_dir)) {
+                fs::path tmp = entry.path();
+                if (tmp.extension() != ".scene") continue;
+                std::string name = extract_scene_name(tmp.c_str());
+                Scene* rt = manager->register_scene(name.c_str(), create_runtime_scene());
+                rt->name = name;
+                rt->file_path = tmp;
+            }
+
         }
 
     }

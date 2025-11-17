@@ -527,4 +527,18 @@ namespace engine {
         DU_CORE_INFO("Finished adding to scene {}", scene_name.c_str());
     }
 
+
+    std::string extract_scene_name(const char* path) {
+        std::ifstream stream(path);
+        DU_ASSERT(stream.fail(), "Could not extract scene name from {}", path);
+        std::stringstream str_stream;
+        str_stream<<stream.rdbuf();
+
+        YAML::Node data = YAML::Load(str_stream.str());
+
+        DU_ASSERT(!data["Scene"],"Cannot extract from {}, scene name does not exist", path );
+
+        return data["Scene"].as<std::string>();
+    }
+
 }

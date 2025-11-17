@@ -8,7 +8,7 @@ void run_rt_scene(EScene *editor) {
     auto manager = editor->manager;
     save_working_file(manager, editor);
 
-    manager->current = "working";
+    manager->current = editor->working_scene->name;
     manager->switched = true;
 
     glViewport(0,0, manager->render_data.screen_w, manager->render_data.screen_h);

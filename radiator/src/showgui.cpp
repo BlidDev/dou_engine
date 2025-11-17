@@ -31,7 +31,7 @@ void EScene::init_imgui() {
 }
 
 
-void open_working_file(SceneManager* manager, RTScene* working_scene, EScene* editor){
+void open_working_file(SceneManager* manager, Scene* working_scene, EScene* editor){
     char* path = tinyfd_openFileDialog("Open a Scene file", nullptr, 0, nullptr, nullptr,0);
     if(!path) return;
     manager->clear_scene(working_scene);

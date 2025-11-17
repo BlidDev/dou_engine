@@ -1,16 +1,17 @@
 #include "manager.h"
-#include "systems.h"
+#include "systems/physicsys.h"
 
 namespace engine {
     SceneManager::SceneManager() {
         current = "NONE";
-        root_path = "";
+        project_data = ProjectData("Unnamed Project");
     }
 
     Scene* SceneManager::register_scene(const char* name, Scene* scene) {
         DU_ASSERT(scenes.contains(name), "Scene {} already exists", name);
         scene->manager = this;
         scenes.insert(std::make_pair(name, scene));
+        DU_CORE_DEBUG_TRACE("Registered scene {}", name);
         return scene;
     }
 
@@ -45,9 +46,14 @@ namespace engine {
         scene->uuids.clear();
     }
 
+    const std::filesystem::path& SceneManager::root_path() {
+        return project_data.root_path;
+    }
+
     Scene* SceneManager::get_current() {
         Scene* ptr = nullptr;
         DU_ASSERT(current == "NONE", "Current scene not set");
+        DU_ASSERT(scenes.find(current) == scenes.end(), "Current set to non existant scene \"{}\"", current);
         ptr = scenes.at(current);
         return ptr;
     }
@@ -66,7 +72,8 @@ namespace engine {
     namespace fs = std::filesystem;
 
     void SceneManager::register_shader(const char* path) {
-        fs::path fs_path = root_path / fs::path(path);
+        fs::path fs_path = fs::path(path);
+        if (!fs_path.is_absolute()) fs_path = root_path() / fs_path;
         DU_ASSERT(shader_lib.find(fs_path.filename()) != shader_lib.end(), "Shader [{}] already registered", path);
 
         shader_lib.insert(std::make_pair(fs_path.filename().string(), complie_shader_file(fs_path.c_str())));
@@ -75,7 +82,8 @@ namespace engine {
     }
 
     void SceneManager::register_texture(const char* path) {
-        fs::path fs_path = root_path / fs::path(path);
+        fs::path fs_path = fs::path(path);
+        if (!fs_path.is_absolute()) fs_path = root_path() / fs_path;
         DU_ASSERT(texture_lib.find(fs_path.filename()) != texture_lib.end(), "Texture [{}] already registered", path);
         texture_lib.insert(std::make_pair(fs_path.filename().string(), load_texture_from_file(fs_path.c_str())));
 
@@ -100,6 +108,14 @@ namespace engine {
     LayerAtrb* SceneManager::get_layer_atrb(size_t layer) {
         DU_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Trying to retrieve invalid layer [{}]");
         return &render_data.layers_atrb[layer];
+    }
+
+    size_t SceneManager::num_of_scenes() {
+        return scenes.size();
+    }
+
+    const std::unordered_map<std::string, Scene*>& SceneManager::get_scenes() {
+        return scenes;
     }
 
     void update_render_data(SceneManager* manager, Scene* current) {

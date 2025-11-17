@@ -1,10 +1,12 @@
 #pragma once
 #include "model.h"
+#include "project.h"
 #include "renderer.h"
 #include "scene.h"
 #include "shader.h"
 #include "texture.h"
 #include "window.h"
+#include "project.h"
 
 namespace engine {
 
@@ -27,6 +29,11 @@ namespace engine {
 
         LayerAtrb* get_layer_atrb(size_t layer);
 
+        const std::filesystem::path& root_path();
+
+        size_t num_of_scenes();
+        const std::unordered_map<std::string, Scene*>& get_scenes();
+
         Scene* get_current();
         ~SceneManager();
 
@@ -39,11 +46,13 @@ namespace engine {
         std::unordered_map<std::string, Model>model_lib;
         RenderData render_data;
 
-        std::filesystem::path root_path;
+        ProjectData project_data;
     private:
         std::unordered_map<std::string, Scene*>scenes;
     };
 
     void update_render_data(SceneManager* manager, Scene* current);
+
+    std::string extract_scene_name(const char* path);
 }
 

@@ -1,4 +1,5 @@
 #include "editors.h"
+#include "project.h"
 #include "runtime.h"
 #include "helper.h"
 
@@ -12,6 +13,7 @@ EScene::EScene() : Scene("Editor") {
 
     selected = 0;
     show_project_settings = false;
+    working_scene = nullptr;
 }
 
 
@@ -39,6 +41,20 @@ void EScene::on_create() {
     debug_open = false;
 
     picker_shader = get_shader("picker.glsl");
+
+    if (!working_scene) {
+        if (manager->num_of_scenes() > 1) {
+            for (auto [n, s] : manager->get_scenes()) {
+                if (n == "Editor" || n == "Greeter") continue;
+                working_scene = s;
+
+                if (working_scene->file_path.empty()) return;
+                save_path = working_scene->file_path;
+                working_scene->add_from_file(working_scene->file_path.c_str()); return;
+            }
+        }
+        working_scene = manager->register_scene("Unnamed RT", create_runtime_scene());
+    }
 }
 
 void EScene::on_update(float dt) {

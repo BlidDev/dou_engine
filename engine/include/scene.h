@@ -10,7 +10,9 @@ namespace engine {
     class Entity;
     class Scene {
     public:
-        Scene(const std::string name) : name(name) {}
+        Scene(const std::string name) : name(name) {
+            file_path = "";
+        }
         virtual void on_create() {};
         virtual void on_update(float dt)  {};
         virtual void on_end() {};
@@ -51,5 +53,7 @@ namespace engine {
         UUID main_camera = 0;
         glm::vec3 ambient = {1.0f, 1.0f, 1.0f};
         float ambient_strength = 0.1f;
+    public:
+        std::filesystem::path file_path;
     };
 }
