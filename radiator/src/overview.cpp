@@ -4,7 +4,6 @@
 #include "imgui.h"
 #include "tinyfiledialogs.h"
 
-#define IMGUI_IMPL_OPENGL_LOADER_CUSTOM
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "misc/cpp/imgui_stdlib.h"
@@ -39,7 +38,7 @@ void str_to_cmp(Entity& e, std::string& name, Scene* scene) {
     else if(name == "DirLightComp") { e.add_component<DirLightComp>(); }
     else if(name == "PntLightComp") { e.add_component<PntLightComp>(); }
     else if(name == "SptLightComp") { e.add_component<SptLightComp>(); }
-    else { EG_ASSERT(true, "Unkown component name [{}]", name); }
+    else { DU_ASSERT(true, "Unkown component name [{}]", name); }
 
 }
 
@@ -207,9 +206,8 @@ void render_tex_select(ModelComp& m, SceneManager* manager) {
 
     ImGui::Text("Texture"); ImGui::SameLine();
     std::vector<std::string>textures = {"UNKNOWN"};
-    int i = 0, current = 0;
-    for (auto& [k,_] : manager->texture_lib) {textures.push_back(k);}
-    for (auto& k : textures) {if(m.material.texture.path == k) {current = i; break;}  i++;}
+    int i = 1, current = 0;
+    for (auto& [k,_] : manager->texture_lib) {textures.push_back(k);if(m.material.texture.path == k) {current = i;} i++;}
 
     std::string last = textures[current];
     if (ImGui::BeginCombo("##Texture", last.c_str())) {
@@ -246,8 +244,7 @@ void render_shader_select(ModelComp& m, SceneManager* manager) {
     ImGui::Text("Shader "); ImGui::SameLine();
     std::vector<std::string>shaders;
     int i = 0, current = 0;
-    for (auto& [k,_] : manager->shader_lib) {shaders.push_back(k);}
-    for (auto& k : shaders) {if(m.material.shader.path == k) {current = i; break;}  i++;}
+    for (auto& [k,_] : manager->shader_lib) {shaders.push_back(k);if(m.material.shader.path == k) {current = i;}  i++;}
 
     std::string last = shaders[current];
     if (ImGui::BeginCombo("##Shader", last.c_str())) {
@@ -275,8 +272,7 @@ void render_model_select(ModelComp& m, SceneManager* manager) {
     ImGui::Text("Model  "); ImGui::SameLine();
     std::vector<std::string>models;
     int i = 0, current = 0;
-    for (auto& [k,_] : manager->model_lib) {models.push_back(k);}
-    for (auto& k : models) {if(m.model.name == k) {current = i; break;}  i++;}
+    for (auto& [k,_] : manager->model_lib) {models.push_back(k);if(m.model.name == k) {current = i;}  i++;}
 
     std::string last = models[current];
     if (ImGui::BeginCombo("##Model", last.c_str())) {

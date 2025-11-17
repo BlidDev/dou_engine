@@ -10,6 +10,7 @@
 #include <sstream>
 #include <cstddef>
 #include <fstream>
+#include <filesystem>
 
 #include <algorithm>
 #include <memory.h>

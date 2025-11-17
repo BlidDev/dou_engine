@@ -55,7 +55,7 @@ void LightScene::on_update(float dt) {
   glfwPollEvents();
 }
 
-void LightScene::on_end() { EG_TRACE("light end called"); }
+void LightScene::on_end() { DU_TRACE("light end called"); }
 
 bool LightScene::should_close() {
   return glfwWindowShouldClose(manager->main_window) || close;

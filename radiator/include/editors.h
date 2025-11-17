@@ -2,7 +2,6 @@
 #include "RTscene.h"
 #include "state.h"
 #include <epch.h>
-#define IMGUI_IMPL_OPENGL_LOADER_CUSTOM
 #include "imgui.h"
 
 

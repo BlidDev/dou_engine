@@ -21,7 +21,7 @@ namespace engine {
         if (!result.valid()) {
             sol::error e = result;
             inital_error = e.what();
-            EG_CORE_ERROR("{}", inital_error);
+            DU_CORE_ERROR("{}", inital_error);
         }
         env["util"] = state["util"];
         env["this"] = self;
@@ -35,7 +35,7 @@ namespace engine {
         auto result = init();
         if (!result.valid()) {
             sol::error e = result;
-            EG_ERROR("{} {}", inital_error,e.what());
+            DU_ERROR("{} {}", inital_error,e.what());
         }
     }
 
@@ -46,7 +46,7 @@ namespace engine {
         auto result = update(dt);
         if (!result.valid()) {
             sol::error e = result;
-            EG_ERROR("{} {}", inital_error,e.what());
+            DU_ERROR("{} {}", inital_error,e.what());
         }
     }
 
@@ -57,7 +57,7 @@ namespace engine {
         auto result = end();
         if (!result.valid()) {
             sol::error e = result;
-            EG_ERROR("{} {}", inital_error,e.what());
+            DU_ERROR("{} {}", inital_error,e.what());
         }
     }
 
@@ -68,7 +68,7 @@ namespace engine {
             i++;
         }
 
-        EG_ASSERT(!found, "Trying to remove non registered script {}", path);
+        DU_ASSERT(!found, "Trying to remove non registered script {}", path);
         scripts.erase(scripts.begin() + i);
     }
 

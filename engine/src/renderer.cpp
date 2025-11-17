@@ -45,7 +45,7 @@ namespace engine {
     }
 
     RenderData& RenderData::add(const char* name, size_t size) {
-        EG_ASSERT(does_ubo_exist(name, ubos), "UBO {} already exists", name);
+        DU_ASSERT(does_ubo_exist(name, ubos), "UBO {} already exists", name);
 
         unsigned int handler;
         glGenBuffers(1, &handler);
@@ -65,7 +65,7 @@ namespace engine {
             if (name == ubo.name) 
                 return ubo;
         }
-        EG_ASSERT(true, "No UBO named {}", name);
+        DU_ASSERT(true, "No UBO named {}", name);
     }
 
     RenderData& RenderData::bind(const char* name) { 
@@ -90,12 +90,12 @@ namespace engine {
     }
 
     void set_layer_depth(RenderData& data, size_t layer, bool flag) {
-        EG_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Trying to set depth flag to invalid layer [{}]");
+        DU_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Trying to set depth flag to invalid layer [{}]");
         data.layers_atrb[layer].depth = flag;
     }
 
     void set_layer_wireframe(RenderData& data, size_t layer, bool flag) {
-        EG_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Trying to set wireframe flag to invalid layer [{}]");
+        DU_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Trying to set wireframe flag to invalid layer [{}]");
         data.layers_atrb[layer].wireframe = flag;
     }
 
@@ -104,7 +104,7 @@ namespace engine {
     }
 
     void set_layer_to_framebuffer(SceneManager* manager, size_t layer) {
-        EG_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Trying to set invalid layer [{}] to a framebuffer layer");
+        DU_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Trying to set invalid layer [{}] to a framebuffer layer");
         LayerAtrb& atrb = manager->render_data.layers_atrb[layer];
 
         glGenFramebuffers(1, &atrb.framebuffer);
@@ -126,7 +126,7 @@ namespace engine {
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo); // now actually attach it
         // now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-            EG_CORE_ERROR("Could not make frame buffer for layer {}", layer);
+            DU_CORE_ERROR("Could not make frame buffer for layer {}", layer);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
         Texture final;
@@ -138,7 +138,7 @@ namespace engine {
         final.nrc = -1,
         final.path = name;
 
-        EG_CORE_INFO("Created new framebuffer texture [{}]", name);
+        DU_CORE_INFO("Created new framebuffer texture [{}]", name);
 
         atrb.is_framebuffer = true;
         atrb.framebuffer_texture =  final;

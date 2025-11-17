@@ -176,14 +176,14 @@ namespace engine {
     }
 
     void print_v4(const char* name, glm::vec4& v) {
-        EG_CORE_INFO("{}: {} {} {} {}",name,v.x, v.y,v.z, v.w);
+        DU_CORE_INFO("{}: {} {} {} {}",name,v.x, v.y,v.z, v.w);
     }
     void print_v3(const char* name, glm::vec3& v) {
-        EG_CORE_INFO("{}: {} {} {}",name,v.x, v.y,v.z);
+        DU_CORE_INFO("{}: {} {} {}",name,v.x, v.y,v.z);
     }
 
     void print_v2(const char* name, glm::vec2& v) {
-        EG_CORE_INFO("{}: {} {}",name,v.x, v.y);
+        DU_CORE_INFO("{}: {} {}",name,v.x, v.y);
     }
 
 

@@ -21,7 +21,7 @@ void make_framebuffer(Frambuffer& fb, size_t w, size_t h) {
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, fb.rbo); // now actually attach it
     // now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-        EG_CORE_ERROR("Could not make frame buffer for editor view}");
+        DU_CORE_ERROR("Could not make frame buffer for editor view}");
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     fb.last_scale = ImVec2(w,h);

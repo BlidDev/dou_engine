@@ -63,7 +63,7 @@ namespace engine {
 
               if((!immune && distance > p_camera.max_distance) || obj.layer != i) continue;
 
-              EG_ASSERT(obj.material.attributes == 0, "Model [{}] has no attributes",
+              DU_ASSERT(obj.material.attributes == 0, "Model [{}] has no attributes",
                       obj.model.name);
 
 

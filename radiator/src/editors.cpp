@@ -38,7 +38,7 @@ void EScene::on_create() {
     make_viewer();
     debug_open = false;
 
-    picker_shader = get_shader("res/shaders/picker.glsl");
+    picker_shader = get_shader("picker.glsl");
 }
 
 void EScene::on_update(float dt) {

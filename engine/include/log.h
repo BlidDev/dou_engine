@@ -15,16 +15,22 @@ namespace engine {
 
 }
 
-#define EG_CORE_TRACE(...)    Log::get_core_logger()->trace(__VA_ARGS__)
-#define EG_CORE_INFO(...)     Log::get_core_logger()->info(__VA_ARGS__)
-#define EG_CORE_WARN(...)     Log::get_core_logger()->warn(__VA_ARGS__)
-#define EG_CORE_ERROR(...)    Log::get_core_logger()->error(__VA_ARGS__)
-#define EG_CORE_CRITICAL(...) Log::get_core_logger()->critical(__VA_ARGS__)
+#define DU_CORE_TRACE(...)    Log::get_core_logger()->trace(__VA_ARGS__)
+#define DU_CORE_INFO(...)     Log::get_core_logger()->info(__VA_ARGS__)
+#define DU_CORE_WARN(...)     Log::get_core_logger()->warn(__VA_ARGS__)
+#define DU_CORE_ERROR(...)    Log::get_core_logger()->error(__VA_ARGS__)
+#define DU_CORE_CRITICAL(...) Log::get_core_logger()->critical(__VA_ARGS__)
 
-#define EG_TRACE(...)    Log::get_client_logger()->trace(__VA_ARGS__)
-#define EG_INFO(...)     Log::get_client_logger()->info(__VA_ARGS__)
-#define EG_WARN(...)     Log::get_client_logger()->warn(__VA_ARGS__)
-#define EG_ERROR(...)    Log::get_client_logger()->error(__VA_ARGS__)
-#define EG_CRITICAL(...) Log::get_client_logger()->critical(__VA_ARGS__)
+#define DU_TRACE(...)    Log::get_client_logger()->trace(__VA_ARGS__)
+#define DU_INFO(...)     Log::get_client_logger()->info(__VA_ARGS__)
+#define DU_WARN(...)     Log::get_client_logger()->warn(__VA_ARGS__)
+#define DU_ERROR(...)    Log::get_client_logger()->error(__VA_ARGS__)
+#define DU_CRITICAL(...) Log::get_client_logger()->critical(__VA_ARGS__)
 
-
+#ifdef DU_DEBUG
+    #define DU_CORE_DEBUG_TRACE(...) DU_CORE_TRACE(__VA_ARGS__)
+    #define DU_DEBUG_TRACE(...) DU_TRACE(__VA_ARGS__)
+#else
+    #define DU_CORE_DEBUG_TRACE(...) 
+    #define DU_DEBUG_TRACE(...) 
+#endif

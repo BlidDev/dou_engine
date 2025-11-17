@@ -284,7 +284,7 @@ namespace engine {
 
     }
 
-    static void read_entity_from_file(YAML::Node& entity, Scene* scene) {
+    static void read_entity_from_file(YAML::Node& entity, Scene* scene, std::filesystem::path root) {
         uint64_t uuid = entity["Entity"].as<uint64_t>(); 
 
         Entity read_entity = scene->uuid_to_entity(uuid);
@@ -310,7 +310,7 @@ namespace engine {
             std::string shader_name = material["Shader"].as<std::string>();
             m.material.shader = scene->get_shader(shader_name.c_str());
             m.layer = model_comp["Layer"].as<size_t>();
-            EG_ASSERT(m.layer > MAX_RENDER_LAYERS, "Invalid layer number given: {}", m.layer);
+            DU_ASSERT(m.layer > MAX_RENDER_LAYERS, "Invalid layer number given: {}", m.layer);
 
             std::string texture_path = material["Texture"].as<std::string>();
             bool filled =   material["Filled"].as<bool>();
@@ -388,11 +388,11 @@ namespace engine {
             auto& ls = read_entity.add_component<LuaActionComp>(LuaActionComp(UUID(uuid)));
             for (auto m : lua_actions) {
                 std::string path = m["Path"].as<std::string>();
-                ls.add(scene,path);
+                ls.add(scene,(root / std::filesystem::path(path)));
 
                 for (auto f : m["Fields"]) {
                     std::string name = f.first.as<std::string>();
-                    EG_ASSERT(!f.second.IsSequence(), " {} - Invaild field decleration", name);
+                    DU_ASSERT(!f.second.IsSequence(), " {} - Invaild field decleration", name);
                     char type_flag = f.second[0].as<char>();
                     YAML::Node var = f.second[1];
                     switch (type_flag) {
@@ -400,7 +400,7 @@ namespace engine {
                         case 'i': ls.bind_field(name, var.as<int>()); break;
                         case 'f': ls.bind_field(name, var.as<float>()); break;
                         case 'b': ls.bind_field(name, var.as<bool>()); break;
-                        default: EG_ASSERT(true, "Invaild type flag \'{}\' in lua field {}",type_flag, name); break;
+                        default: DU_ASSERT(true, "Invaild type flag \'{}\' in lua field {}",type_flag, name); break;
                     }
 
                 }
@@ -457,7 +457,7 @@ namespace engine {
 
     void SceneManager::write_scene_to_file(const char* path, Scene* scene) {
         std::ofstream file(path);
-        EG_ASSERT(!file.is_open(), "Could not open {}", path);
+        DU_ASSERT(!file.is_open(), "Could not open {}", path);
         YAML::Emitter out;
         out<<YAML::BeginMap;
         out<<YAML::Key<<"Scene"<<YAML::Value<<scene->name;
@@ -487,25 +487,25 @@ namespace engine {
 
     void detect_and_add_entities(YAML::Node& entities, Scene* scene) {
         for (auto entity : entities) {
-            EG_ASSERT(!entity["Entity"], "No uuid given to entity");
+            DU_ASSERT(!entity["Entity"], "No uuid given to entity");
             uint64_t uuid = entity["Entity"].as<uint64_t>(); 
             scene->create_entity_with_uuid(uuid);
         }
     }
 
-    void Scene::add_from_file(const char* path) {
+    void Scene::add_from_file(const char* path, std::filesystem::path root) {
         std::ifstream stream(path);
         std::stringstream str_stream;
         str_stream<<stream.rdbuf();
 
         YAML::Node data = YAML::Load(str_stream.str());
 
-        EG_ASSERT(!data["Scene"],"Cannot read {}, scene does not exist", path );
+        DU_ASSERT(!data["Scene"],"Cannot read {}, scene does not exist", path );
 
         std::string scene_name = data["Scene"].as<std::string>();
         name = scene_name;
 
-        EG_ASSERT(!data["Render Data"], "Section Render Data for scene {} not found", scene_name);
+        DU_ASSERT(!data["Render Data"], "Section Render Data for scene {} not found", scene_name);
 
         auto render_data = data["Render Data"];
         main_camera = UUID(render_data["Main Camera"].as<uint64_t>());
@@ -516,15 +516,15 @@ namespace engine {
             set_clear_color(manager->render_data,render_data["Clear Color"].as<glm::vec4>());
         
 
-        EG_ASSERT(!data["Entities"], "Section Entities for scene {} not found", scene_name);
+        DU_ASSERT(!data["Entities"], "Section Entities for scene {} not found", scene_name);
         auto entities = data["Entities"];
         detect_and_add_entities(entities, this);
 
         for (auto entity : entities) {
-            read_entity_from_file(entity, this);
+            read_entity_from_file(entity, this, root);
         }
 
-        EG_CORE_INFO("Finished adding to scene {}", scene_name.c_str());
+        DU_CORE_INFO("Finished adding to scene {}", scene_name.c_str());
     }
 
 }

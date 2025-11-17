@@ -37,7 +37,7 @@ namespace engine {
             return ph.intersects_callback(scene, e, o);
         }
         else if (ph.lua_callback) {
-            EG_ASSERT(!scene.registry.any_of<LuaActionComp>(e), 
+            DU_ASSERT(!scene.registry.any_of<LuaActionComp>(e), 
                     "LuaCallback is set to ({}, {}) but entity does not have any scripts attached", ph.lua_callback.path, ph.lua_callback.function);
             LuaActionComp lua_a = scene.registry.get<LuaActionComp>(e);
             UUID eu = scene.registry.get<UUID>(e);
@@ -101,7 +101,7 @@ namespace engine {
 
                 glm::vec3 res = intersects.to_glm();
                 if (!ph.is_static) 
-                    EG_INFO("res: {}", res);
+                    DU_INFO("res: {}", res);
                 if (e == o || !intersects) continue;
                 if (ph.is_solid && oph.is_solid) {
                     apply_aabb_on_scalars(&ph.move_delta, &ph.velocity, intersects, &allowed_x, &allowed_y, &allowed_z);

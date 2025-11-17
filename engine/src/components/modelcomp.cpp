@@ -15,7 +15,7 @@ namespace engine {
     }
 
     void Material::print() {
-        EG_CORE_INFO("Material: {} {} {}",
+        DU_CORE_INFO("Material: {} {} {}",
                 shader.path, shader.program, attributes);
     }
 
@@ -77,7 +77,7 @@ namespace engine {
             this->model = model;
             this->material = material;
             this->layer = layer;
-            EG_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Invalid layer number [{}]", layer);
+            DU_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Invalid layer number [{}]", layer);
         }
     
 

@@ -37,6 +37,7 @@ set(HEADER_FILES PRIVATE
 find_package(OpenGL REQUIRED)
 
 target_precompile_headers(${NAME} PRIVATE ${HEADER_FILES})
+target_compile_definitions(${NAME} PUBLIC IMGUI_IMPL_OPENGL_LOADER_CUSTOM)
 
 if(UNIX AND NOT APPLE)
     target_link_libraries(${NAME} PRIVATE

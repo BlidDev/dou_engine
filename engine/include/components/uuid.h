@@ -16,7 +16,7 @@ namespace engine {
         }
 
         inline uint64_t get_uuid() { return uuid; }
-        inline void display() { EG_CORE_INFO("{}", uuid); }
+        inline void display() { DU_CORE_INFO("{}", uuid); }
     private:
         uint64_t uuid;
     };

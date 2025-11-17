@@ -28,8 +28,8 @@ namespace engine {
 
             for (auto& child : children) {
                 Entity tmp = scene->uuid_to_entity(child);
-                EG_ASSERT(tmp.has_component<ParentComp>(), "Entity {} already has a parent", child);
-                EG_ASSERT(tmp == self, "Trying to make {} a parent of itself", self.uuid());
+                DU_ASSERT(tmp.has_component<ParentComp>(), "Entity {} already has a parent", child);
+                DU_ASSERT(tmp == self, "Trying to make {} a parent of itself", self.uuid());
                 tmp.add_component<ParentComp>(self);
                 this->children.push_back(child);
             }

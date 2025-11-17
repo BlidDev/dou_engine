@@ -10,7 +10,7 @@ namespace engine {
         std::stringstream streams[2];
 
         std::ifstream file(path);
-        EG_ASSERT(file.fail(), "Could not open file [{}]", path);
+        DU_ASSERT(file.fail(), "Could not open file [{}]", path);
 
         std::string line = "";
         while (std::getline(file, line)) {
@@ -43,7 +43,7 @@ namespace engine {
         glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
         if (!success) {
             glGetShaderInfoLog(vertex, 512, NULL, v_log);
-            EG_CORE_ERROR("Could not compile vertex shader [{}]: {}", path, v_log);
+            DU_CORE_ERROR("Could not compile vertex shader [{}]: {}", path, v_log);
             return {0, "ERROR"};
         }
 
@@ -55,7 +55,7 @@ namespace engine {
         glGetShaderiv(frag, GL_COMPILE_STATUS, &success);
         if (!success) {
             glGetShaderInfoLog(frag, 512, NULL, f_log);
-            EG_CORE_ERROR("Could not compile fragment shader [{}]: {}", path, f_log);
+            DU_CORE_ERROR("Could not compile fragment shader [{}]: {}", path, f_log);
             return {0, "ERROR"};
 ;
         }
@@ -72,14 +72,14 @@ namespace engine {
         glGetShaderiv(frag, GL_COMPILE_STATUS, &success);
         if (!success) {
             glGetShaderInfoLog(frag, 512, NULL, p_log);
-            EG_CORE_ERROR("Could not link shader [{}]: {}", path, p_log);
+            DU_CORE_ERROR("Could not link shader [{}]: {}", path, p_log);
             return {0, "ERROR"};
         }
         glDeleteShader(vertex);
         glDeleteShader(frag);
 
 
-        return {program, path};
+        return {program, std::filesystem::path(path).filename()};
     }
 
     void set_shader_f(Shader shader, const char *name, float value) {

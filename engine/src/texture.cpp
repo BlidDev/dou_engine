@@ -26,7 +26,7 @@ namespace engine {
 
         unsigned char *data = stbi_load(path, &w, &h, &nrc, 0);
 
-        EG_ASSERT(!data, "Could not load texture [{}]", path);
+        DU_ASSERT(!data, "Could not load texture [{}]", path);
         stbi_set_flip_vertically_on_load(true);
 
         auto format = (nrc == 4) ? GL_RGBA : GL_RGB;
@@ -36,10 +36,10 @@ namespace engine {
 
         Texture res;
         res.texture = texture;
-        res.path = path;
+        res.path = std::filesystem::path(path).filename();
         res.w = w; res.h = h; res.nrc = nrc;
 
-        //EG_INFO("{} {} {} {}", texture, w, h, nrc);
+        //DU_INFO("{} {} {} {}", texture, w, h, nrc);
 
         return res;
     }

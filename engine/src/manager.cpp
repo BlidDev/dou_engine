@@ -1,14 +1,14 @@
 #include "manager.h"
 #include "systems.h"
-#include "util.h"
 
 namespace engine {
     SceneManager::SceneManager() {
         current = "NONE";
+        root_path = "";
     }
 
     Scene* SceneManager::register_scene(const char* name, Scene* scene) {
-        EG_ASSERT(scenes.contains(name), "Scene {} already exists", name);
+        DU_ASSERT(scenes.contains(name), "Scene {} already exists", name);
         scene->manager = this;
         scenes.insert(std::make_pair(name, scene));
         return scene;
@@ -16,7 +16,7 @@ namespace engine {
 
     Scene* SceneManager::get_scene(const char* name) {
         Scene* ptr = nullptr;
-        EG_ASSERT(scenes.find(name) == scenes.end(),"Scene {} does not exist", name);
+        DU_ASSERT(scenes.find(name) == scenes.end(),"Scene {} does not exist", name);
         ptr = scenes.at(name);
         return ptr;
     }
@@ -47,7 +47,7 @@ namespace engine {
 
     Scene* SceneManager::get_current() {
         Scene* ptr = nullptr;
-        EG_ASSERT(current == "NONE", "Current scene not set");
+        DU_ASSERT(current == "NONE", "Current scene not set");
         ptr = scenes.at(current);
         return ptr;
     }
@@ -63,32 +63,42 @@ namespace engine {
         }
     }
 
+    namespace fs = std::filesystem;
 
     void SceneManager::register_shader(const char* path) {
-        EG_ASSERT(shader_lib.find(std::string(path)) != shader_lib.end(), "Shader [{}] already registered", path);
-        shader_lib.insert(std::make_pair(std::string(path), complie_shader_file(path)));
+        fs::path fs_path = root_path / fs::path(path);
+        DU_ASSERT(shader_lib.find(fs_path.filename()) != shader_lib.end(), "Shader [{}] already registered", path);
+
+        shader_lib.insert(std::make_pair(fs_path.filename().string(), complie_shader_file(fs_path.c_str())));
+
+        DU_CORE_DEBUG_TRACE("Registered shader {}", fs_path.filename().string());
     }
 
     void SceneManager::register_texture(const char* path) {
-        EG_ASSERT(texture_lib.find(std::string(path)) != texture_lib.end(), "Texture [{}] already registered", path);
-        texture_lib.insert(std::make_pair(std::string(path), load_texture_from_file(path)));
+        fs::path fs_path = root_path / fs::path(path);
+        DU_ASSERT(texture_lib.find(fs_path.filename()) != texture_lib.end(), "Texture [{}] already registered", path);
+        texture_lib.insert(std::make_pair(fs_path.filename().string(), load_texture_from_file(fs_path.c_str())));
+
+        DU_CORE_DEBUG_TRACE("Registered texture {}", fs_path.filename().string());
     }
 
     void SceneManager::register_texture(std::string name, Texture texture) {
-        EG_ASSERT(texture_lib.find(std::string(name)) != texture_lib.end(), "Texture [{}] already registered", name);
+        DU_ASSERT(texture_lib.find(std::string(name)) != texture_lib.end(), "Texture [{}] already registered", name);
 
         texture_lib.insert(std::make_pair(name, texture));
+        DU_CORE_DEBUG_TRACE("Registered texture {}", name);
     }
 
     void SceneManager::register_model(const char* name, Model model) {
-        EG_ASSERT(model_lib.find(std::string(name)) != model_lib.end(), "Model [{}] already registered", name);
+        DU_ASSERT(model_lib.find(std::string(name)) != model_lib.end(), "Model [{}] already registered", name);
         model.name = name;
         model_lib.insert(std::make_pair(std::string(name), model));
+        DU_CORE_DEBUG_TRACE("Registered model {}", name);
     }
 
 
     LayerAtrb* SceneManager::get_layer_atrb(size_t layer) {
-        EG_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Trying to retrieve invalid layer [{}]");
+        DU_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Trying to retrieve invalid layer [{}]");
         return &render_data.layers_atrb[layer];
     }
 

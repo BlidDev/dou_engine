@@ -54,16 +54,16 @@ namespace engine {
                 if (s.path != callback.path)
                     continue;
                 sol::function fn = s.env[callback.function];
-                EG_ASSERT(!fn, "The scripts {} does not contain {}", callback.path, callback.function);
+                DU_ASSERT(!fn, "The scripts {} does not contain {}", callback.path, callback.function);
                 auto result = fn(std::forward<Args>(args)...);
                 if (!result.valid()) {
                     sol::error e = result;
-                    EG_ERROR("{}", e.what());
+                    DU_ERROR("{}", e.what());
                 }
                 return (int)result;
             }
 
-            EG_ASSERT(true, "No script ({}) attached to entity", callback.path);
+            DU_ASSERT(true, "No script ({}) attached to entity", callback.path);
             return -1;
         }
 

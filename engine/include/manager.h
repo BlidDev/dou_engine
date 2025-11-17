@@ -38,6 +38,8 @@ namespace engine {
         std::unordered_map<std::string, Texture>texture_lib;
         std::unordered_map<std::string, Model>model_lib;
         RenderData render_data;
+
+        std::filesystem::path root_path;
     private:
         std::unordered_map<std::string, Scene*>scenes;
     };

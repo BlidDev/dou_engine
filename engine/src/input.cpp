@@ -19,12 +19,12 @@ namespace engine {
     }
 
     bool is_key_pressed(const int key) {
-        EG_ASSERT(!INPUT_WINDOW, "Input window is not set or destroyed");
+        DU_ASSERT(!INPUT_WINDOW, "Input window is not set or destroyed");
         return glfwGetKey(INPUT_WINDOW, key) == GLFW_PRESS;
     }
 
     bool is_mouse_pressed(const int button) {
-        EG_ASSERT(!INPUT_WINDOW, "Input window is not set or destroyed");
+        DU_ASSERT(!INPUT_WINDOW, "Input window is not set or destroyed");
         return glfwGetMouseButton(INPUT_WINDOW, button) == GLFW_PRESS;
     }
 

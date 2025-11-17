@@ -6,7 +6,6 @@
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
-#define IMGUI_IMPL_OPENGL_LOADER_CUSTOM
 #include <imgui_impl_opengl3.h>
 #include <misc/cpp/imgui_stdlib.h>
 
@@ -28,7 +27,7 @@ void EScene::init_imgui() {
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     io.Fonts->AddFontFromFileTTF("res/fonts/DejaVu.ttf", 16.0f);
     io.WantSetMousePos = true;
-    // io.FontGlobalScale = 1.5f;
+    io.FontGlobalScale = 1.5f;
 }
 
 
@@ -48,7 +47,7 @@ void save_working_file(SceneManager* manager, EScene* editor) {
         editor->save_path = path;
     }
     manager->write_scene_to_file(editor->save_path.c_str(), editor->working_scene); 
-    EG_TRACE("Saving to [{}]", editor->save_path);
+    DU_TRACE("Saving to [{}]", editor->save_path);
 }
 
 
@@ -56,7 +55,7 @@ void saveas_working_file(SceneManager* manager, EScene* editor) {
     char* path= tinyfd_saveFileDialog("Save Current Scene As", nullptr, 0, nullptr, nullptr);
     if (!path) return;
     manager->write_scene_to_file(path, editor->working_scene); 
-    EG_TRACE("Saving to [{}]", path);
+    DU_TRACE("Saving to [{}]", path);
 }
 
 size_t counter = 0;
@@ -167,7 +166,7 @@ void EScene::render_entities(bool *has_selected) {
                 e.add_component<TransformComp>();
                 e.add_component<ModelComp>(working_scene->get_model("cube"), 
                                            MaterialBuilder()
-                                                           .set_shader(working_scene->get_shader("res/shaders/basic.glsl"))
+                                                           .set_shader(working_scene->get_shader("basic.glsl"))
                                                            .set_color(glm::vec3(1.0f)));
                 if (selected) {
                     e.make_child_of(selected);
@@ -331,8 +330,8 @@ void EScene::render_pickerview() {
     glViewport(0,0, size.x, size.y);
     glBindFramebuffer(GL_FRAMEBUFFER, pickerview.handler);
     glEnable(GL_DEPTH_TEST);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(1.0f,1.0f,1.0f,1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     auto trans = viewer.get_component<TransformComp>();
     auto camera = viewer.get_component<CameraComp>();
@@ -380,10 +379,9 @@ entt::entity EScene::entity_from_view(ImVec2 pos, ImVec2 size) {
         pixel[0] + 
         pixel[1] * 256 +
         pixel[2] * 256*256;
-    if (picked == 0) {
+    if (picked == 0x00FFFFFF) {
         return entt::null;
     }
-
 
     return entt::entity(picked);
 }

@@ -20,20 +20,20 @@ namespace engine {
     }
 
     Entity& Entity::get_parent() {
-        EG_ASSERT(!is_child(), "Entity {} does not have a parent", uuid());
+        DU_ASSERT(!is_child(), "Entity {} does not have a parent", uuid());
         return get_component<ParentComp>().parent;
     }
 
     std::vector<UUID>& Entity::get_children() {
-        EG_ASSERT(!is_parent(), "Entity {} does not have children", uuid());
+        DU_ASSERT(!is_parent(), "Entity {} does not have children", uuid());
         return get_component<ChildrenComp>().children;
     }
 
     void Entity::make_child_of(UUID parent) {
-        EG_ASSERT(parent == uuid(), "Trying to set {} a parent of itself");
+        DU_ASSERT(parent == uuid(), "Trying to set {} a parent of itself");
         if(is_child()) {
             Entity& tmp = get_parent();
-            EG_ASSERT(tmp.uuid() == parent, "Trying to make {} a child of {} twice", uuid(), parent);
+            DU_ASSERT(tmp.uuid() == parent, "Trying to make {} a child of {} twice", uuid(), parent);
             tmp.remove_child(uuid());
             tmp = Entity::null();
         }
@@ -43,11 +43,11 @@ namespace engine {
 
     void Entity::add_child(UUID child) {
         if (!is_parent()) {
-            EG_ASSERT(child == uuid(), "Trying to make {} a parent of itself", child);
+            DU_ASSERT(child == uuid(), "Trying to make {} a parent of itself", child);
             add_component<ChildrenComp>().children.push_back(child);
             Entity tmp_child = scene->uuid_to_entity(child);
             if (tmp_child.has_component<ParentComp>()) {
-                EG_ASSERT(tmp_child.get_parent(), "Entity {} already has a parent {}", tmp_child.uuid(), tmp_child.get_parent().uuid());
+                DU_ASSERT(tmp_child.get_parent(), "Entity {} already has a parent {}", tmp_child.uuid(), tmp_child.get_parent().uuid());
                 tmp_child.get_parent() = *this;
             }
             tmp_child.add_component<ParentComp>(*this);
@@ -55,12 +55,12 @@ namespace engine {
         }
 
         auto& children = get_component<ChildrenComp>().children;
-        EG_ASSERT(std::find(children.begin(), children.end(), child) != children.end(), "add_child(): Entity {} is already a child of {}", child, uuid());
+        DU_ASSERT(std::find(children.begin(), children.end(), child) != children.end(), "add_child(): Entity {} is already a child of {}", child, uuid());
         children.push_back(child);
 
         Entity tmp_child = scene->uuid_to_entity(child);
         if (tmp_child.has_component<ParentComp>()) {
-            EG_ASSERT(tmp_child.get_parent(), "Entity {} already has a parent {}", tmp_child.uuid(), tmp_child.get_parent().uuid());
+            DU_ASSERT(tmp_child.get_parent(), "Entity {} already has a parent {}", tmp_child.uuid(), tmp_child.get_parent().uuid());
             tmp_child.get_parent() = *this;
         }
         tmp_child.add_component<ParentComp>(*this);
@@ -87,7 +87,7 @@ namespace engine {
 
     void Entity::remove_child(UUID child) {
         auto& children = get_children();
-        EG_ASSERT(std::find(children.begin(), children.end(), child) == children.end(), "remove_child(): Entity {} is not a child of {}", child, uuid());
+        DU_ASSERT(std::find(children.begin(), children.end(), child) == children.end(), "remove_child(): Entity {} is not a child of {}", child, uuid());
         Entity childe = scene->uuid_to_entity(child);
         if (childe.has_component<PhysicsBodyComp>())
             make_physically_dominant(childe);
@@ -97,7 +97,7 @@ namespace engine {
     }
 
     void Entity::remove_parent() {
-        EG_ASSERT(!is_child(), "Entity {} does not have a parent to remove", uuid());
+        DU_ASSERT(!is_child(), "Entity {} does not have a parent to remove", uuid());
         remove_component<ParentComp>();
     }
 

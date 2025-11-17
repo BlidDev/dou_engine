@@ -8,11 +8,11 @@ namespace engine {
     }
 
     void CameraComp::log() {
-        EG_CORE_INFO("Camera:");
-        EG_CORE_INFO("\tUp: ({}, {}, {})", up.x, up.y, up.z);
-        EG_CORE_INFO("\tTarget: ({}, {}, {})", target.x, target.y, target.z);
-        EG_CORE_INFO("\tFovy: {}", fovy);
-        EG_CORE_INFO("\tProj: {}", (int)projection);
+        DU_CORE_INFO("Camera:");
+        DU_CORE_INFO("\tUp: ({}, {}, {})", up.x, up.y, up.z);
+        DU_CORE_INFO("\tTarget: ({}, {}, {})", target.x, target.y, target.z);
+        DU_CORE_INFO("\tFovy: {}", fovy);
+        DU_CORE_INFO("\tProj: {}", (int)projection);
     }
 
     CameraBuilder::CameraBuilder() {

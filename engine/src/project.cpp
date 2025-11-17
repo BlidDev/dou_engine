@@ -13,17 +13,17 @@ namespace engine {
 
     int read_project_file(const char* path, SceneManager* manager, std::string* name, bool set_current) {
         std::ifstream file(path);
-        EG_ASSERT(file.fail(), "Project file path \"{}\" does not exist", path);
+        DU_ASSERT(file.fail(), "Project file path \"{}\" does not exist", path);
         std::stringstream str_stream;
         str_stream<<file.rdbuf();
 
         YAML::Node data = YAML::Load(str_stream.str());
 
-        EG_ASSERT(!data["Project Name"], "Project name not provided in \"{}\"", path);
+        DU_ASSERT(!data["Project Name"], "Project name not provided in \"{}\"", path);
         *name = data["Project Name"].as<std::string>();
 
         YAML::Node current = data["Current Scene"];
-        EG_ASSERT(!current, "Project does not provide current scene name");
+        DU_ASSERT(!current, "Project does not provide current scene name");
 
         read_layers(data, manager);
         read_paths(data, manager);
@@ -93,7 +93,7 @@ namespace engine {
                     std::string model_name = "unnamed";
 
                     Model model = model_from_file(final.c_str(), &model_name);
-                    EG_ASSERT(model_name == "unnamed", "Model {} wasn't given any name");
+                    DU_ASSERT(model_name == "unnamed", "Model {} wasn't given any name");
                     manager->register_model(model_name.c_str(), model);
                 }
 

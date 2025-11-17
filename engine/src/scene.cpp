@@ -19,19 +19,19 @@ Entity Scene::create_entity_with_uuid(uint64_t uuid) {
     }
 
     entt::entity Scene::uuid_to_entt(UUID uuid) {
-        EG_ASSERT(uuids.find(uuid) == uuids.end(), "ERROR: Unknown UUID {}", uuid.get_uuid());
+        DU_ASSERT(uuids.find(uuid) == uuids.end(), "ERROR: Unknown UUID {}", uuid.get_uuid());
         return uuids[uuid];
     }
 
     UUID Scene::entt_to_uuid(entt::entity id) {
-        EG_ASSERT(!registry.valid(id), "Trying to convert non existant id to uuid");
+        DU_ASSERT(!registry.valid(id), "Trying to convert non existant id to uuid");
         for (auto& [uuid, entt] : uuids) {
             if (entt == id) {
                 return uuid;
             }
         }
 
-        EG_ASSERT(true, "Could not convert id to uuid");
+        DU_ASSERT(true, "Could not convert id to uuid");
     }
 
     void Scene::remove_entity(UUID uuid) {
@@ -49,17 +49,17 @@ Entity Scene::create_entity_with_uuid(uint64_t uuid) {
     }
 
     Shader Scene::get_shader(const char* name) {
-        EG_ASSERT(manager->shader_lib.find(name) == manager->shader_lib.end(), "Could not find registered shader [{}]", name);
+        DU_ASSERT(manager->shader_lib.find(name) == manager->shader_lib.end(), "Could not find registered shader [{}]", name);
 
         return manager->shader_lib.at(std::string(name));
     }
     Texture Scene::get_texture(const char* name) {
-        EG_ASSERT(manager->texture_lib.find(name) == manager->texture_lib.end(), "Could not find registered texture [{}]", name);
+        DU_ASSERT(manager->texture_lib.find(name) == manager->texture_lib.end(), "Could not find registered texture [{}]", name);
 
         return manager->texture_lib.at(std::string(name));
     }
     Model Scene::get_model(const char* name) {
-        EG_ASSERT(manager->model_lib.find(name) == manager->model_lib.end(), "Could not find registered model [{}]", name);
+        DU_ASSERT(manager->model_lib.find(name) == manager->model_lib.end(), "Could not find registered model [{}]", name);
 
         return manager->model_lib.at(std::string(name));
     }

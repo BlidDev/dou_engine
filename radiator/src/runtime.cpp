@@ -3,7 +3,7 @@
 #include "editors.h"
 
 void run_rt_scene(EScene *editor) {
-    EG_INFO("Playing now");
+    DU_INFO("Playing now");
     
     auto manager = editor->manager;
     save_working_file(manager, editor);

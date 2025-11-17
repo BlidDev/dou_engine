@@ -29,7 +29,7 @@ namespace engine {
 
         if (set)
             set_context(this);
-        EG_ASSERT(!window, "Failed to create GLFW window \"{}\"", title);
+        DU_ASSERT(!window, "Failed to create GLFW window \"{}\"", title);
     }
 
     glm::vec2 Window::size() {
@@ -52,6 +52,6 @@ namespace engine {
 
     void set_context(Window *window) {
         glfwMakeContextCurrent(*window);
-        EG_ASSERT(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "Failed to initialize GLAD");
+        DU_ASSERT(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "Failed to initialize GLAD");
     }
 }

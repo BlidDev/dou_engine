@@ -73,19 +73,19 @@ namespace engine {
     }
 
     void log_trace(std::string format, sol::variadic_args args) {
-      EG_TRACE(variadic_args_to_str(format, args));
+      DU_TRACE(variadic_args_to_str(format, args));
     }
 
     void log_info(std::string format, sol::variadic_args args) {
-      EG_INFO(variadic_args_to_str(format, args));
+      DU_INFO(variadic_args_to_str(format, args));
     }
 
     void log_warn(std::string format, sol::variadic_args args) {
-      EG_WARN(variadic_args_to_str(format, args));
+      DU_WARN(variadic_args_to_str(format, args));
     }
 
     void log_error(std::string format, sol::variadic_args args) {
-      EG_ERROR(variadic_args_to_str(format, args));
+      DU_ERROR(variadic_args_to_str(format, args));
     }
 
 

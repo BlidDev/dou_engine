@@ -25,13 +25,13 @@ namespace engine {
         UUID entt_to_uuid(entt::entity id);
         void remove_entity(UUID uuid);
 
-        void add_from_file(const char* path);
+        void add_from_file(const char* path, std::filesystem::path root = "");
 
         template <typename T>
         T& get_uuid_component(UUID uuid) {
-            EG_ASSERT(uuids.find(uuid) == uuids.end(), "Unknown UUID {}", uuid.get_uuid());
+            DU_ASSERT(uuids.find(uuid) == uuids.end(), "Unknown UUID {}", uuid.get_uuid());
             entt::entity entity = uuids[uuid];
-            EG_ASSERT(!registry.any_of<T>(entity), "Trying to get non existant uuid component {} from entity {}", typeid(T).name(), uuid.get_uuid());
+            DU_ASSERT(!registry.any_of<T>(entity), "Trying to get non existant uuid component {} from entity {}", typeid(T).name(), uuid.get_uuid());
             return registry.get<T>(entity);
         }
 

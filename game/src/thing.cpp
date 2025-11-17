@@ -43,7 +43,7 @@ void ThingScene::on_update(float dt) {
 
 
 void ThingScene::on_end() {
-    EG_TRACE("thing end called");
+    DU_TRACE("thing end called");
     lua_action_end(this);
 }
 

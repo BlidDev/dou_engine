@@ -53,7 +53,7 @@ namespace engine {
     }
 
     PhysicsBodyBuilder& PhysicsBodyBuilder::bind_intersects_callback(std::string path, std::string function) {
-        EG_ASSERT(path.empty(), "Path given to bind_intersects_callback is empty");
+        DU_ASSERT(path.empty(), "Path given to bind_intersects_callback is empty");
         ENTT_ASSERT(function.empty(), "Function given to bind_intersects_callback is empty");
         physicbody.lua_callback = {path, function};
         return *this;
@@ -77,7 +77,7 @@ namespace engine {
     }
 
     void make_physically_dominant(Entity entity) {
-        EG_ASSERT(!entity.has_component<PhysicsBodyComp>(), "Entity {} is trying to be dominant but has no physics body", entity.uuid());
+        DU_ASSERT(!entity.has_component<PhysicsBodyComp>(), "Entity {} is trying to be dominant but has no physics body", entity.uuid());
         entity.get_component<PhysicsBodyComp>().dominance = Dominance::Dominant;
         if (!entity.is_parent()) return;
         for (auto& child : entity.get_children()) {

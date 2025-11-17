@@ -84,7 +84,7 @@ namespace engine {
         glGenBuffers(1, &model.VBO);
         if (indices_p)
             glGenBuffers(1, &model.EBO);
-        EG_ASSERT(!vertices_p,"Null vertices gave to model [{}]", model.name);
+        DU_ASSERT(!vertices_p,"Null vertices gave to model [{}]", model.name);
         
         glBindVertexArray(model.VAO);
         glBindBuffer(GL_ARRAY_BUFFER, model.VBO);
@@ -100,7 +100,7 @@ namespace engine {
         model.vao_format = vao_format;
 
         glBindVertexArray(0);
-        //EG_INFO("vao: {} vbo: {} ebo: {} nv: {} ni: {}", model.VAO, model.VBO, model.EBO, model.nvertices, model.nindices);
+        //DU_INFO("vao: {} vbo: {} ebo: {} nv: {} ni: {}", model.VAO, model.VBO, model.EBO, model.nvertices, model.nindices);
         return model;
     }
 
@@ -116,7 +116,7 @@ namespace engine {
         std::string tmp_name = "unnamed";
 
         std::ifstream file(path);
-        EG_ASSERT(!file.is_open(), "Could not open file [{}]", path);
+        DU_ASSERT(!file.is_open(), "Could not open file [{}]", path);
 
         std::vector<float>vertices = {};
         std::vector<unsigned int>indices = {};
@@ -144,7 +144,7 @@ namespace engine {
                     if (format_word == "POS") {continue;}
                     else if (format_word == "TEX") {model_builder.textured(); continue;}
                     else if (format_word == "NOR") {model_builder.normals(); continue;}
-                    EG_CORE_ERROR("Unkown format word give [{}]", format_word);
+                    DU_CORE_ERROR("Unkown format word give [{}]", format_word);
                 }
             }
             else if (index == ReadIndex::Vertices) {
@@ -162,12 +162,12 @@ namespace engine {
                 }
             }
             else {
-                EG_CORE_ERROR("First line must be one of @FORMAT/VERTICES/INDICES");
+                DU_CORE_ERROR("First line must be one of @FORMAT/VERTICES/INDICES");
             }
         }
         file.close();
 
-        EG_ASSERT(vertices.empty(), "No positions given to model [{}]", path);
+        DU_ASSERT(vertices.empty(), "No positions given to model [{}]", path);
         model_builder.vertices(&vertices[0], vertices.size());
 
         if (!indices.empty()) {
