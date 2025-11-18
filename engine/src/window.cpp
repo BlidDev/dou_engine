@@ -37,6 +37,9 @@ namespace engine {
             return tmp;
     }
 
+    void Window::maximize() {
+        glfwMaximizeWindow(window);
+    }
 
     void init_glfw() {
 

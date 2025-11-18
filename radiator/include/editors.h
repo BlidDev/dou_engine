@@ -14,6 +14,16 @@ struct Frambuffer {
     ImVec2 last_scale;
 };
 
+struct ResouceLists {
+   std::vector<std::string> scenes;
+   std::vector<std::string> shaders;
+   std::vector<std::string> textures;
+   std::vector<std::string> models;
+
+   ResouceLists();
+   void init(SceneManager* manager);
+};
+
 
 struct EditorViewer {
     EditorViewer() : thing(0) {}
@@ -65,6 +75,7 @@ public:
     std::string save_path;
 
     bool show_project_settings;
+    ResouceLists resource_lists;
 private:
     bool debug_open;
     bool close;

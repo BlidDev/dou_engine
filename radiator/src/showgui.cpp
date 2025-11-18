@@ -143,6 +143,7 @@ EditorState EScene::update_imgui(float dt) {
 
     bool has_selected = false;
     if (working_scene) {
+        render_resources();
         render_entities(&has_selected);
         render_overview(has_selected);
 
@@ -445,7 +446,7 @@ void EScene::render_psettings() {
     if (ImGui::CollapsingHeader("Layers")) {
 
     }
-
+;
     if (ImGui::Button("Close"))
         show_project_settings = false;
     ImGui::End();
@@ -507,6 +508,43 @@ void EScene::render_create_scene() {
 
 void EScene::render_resources() {
     ImGui::Begin("Resources");
+    const ResouceLists& lists = resource_lists;
 
+    if (ImGui::TreeNodeEx("Scenes", ImGuiTreeNodeFlags_DefaultOpen)) {
+        for (const auto& scene : lists.scenes) {
+            if (scene == "EDITOREditor" || scene == "EDITORGreeter") continue;
+            ImGui::BulletText("%s", scene.c_str());
+            if (working_scene->name == scene) continue;
+            ImGui::SameLine(0, 15.0f);
+            if (ImGui::Button("Set Current")) {
+
+            }
+        }
+        ImGui::TreePop();
+    }
+
+    if (ImGui::TreeNodeEx("Resources", ImGuiTreeNodeFlags_DefaultOpen)) {
+        if (ImGui::TreeNode("Shaders")) {
+            for (const auto& shader : lists.shaders) {
+                ImGui::BulletText("%s", shader.c_str());
+            }
+            ImGui::TreePop();
+        }
+
+        if (ImGui::TreeNode("Textures")) {
+            for (const auto& texture : lists.textures) {
+                ImGui::BulletText("%s", texture.c_str());
+            }
+            ImGui::TreePop();
+        }
+
+        if (ImGui::TreeNode("Models")) {
+            for (const auto& model : lists.models) {
+                ImGui::BulletText("%s", model.c_str());
+            }
+            ImGui::TreePop();
+        }
+        ImGui::TreePop();
+    }
     ImGui::End();
 }

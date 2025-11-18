@@ -3,6 +3,21 @@
 #include "runtime.h"
 #include "helper.h"
 
+ResouceLists::ResouceLists() {
+    scenes = {};
+    shaders = {};
+    textures = {};
+    models = {};
+}
+
+void ResouceLists::init(SceneManager* manager) {
+    for (const auto& [k,_] : manager->get_scenes()) {scenes.push_back(k);}
+    for (const auto& [k,_] : manager->shader_lib) {shaders.push_back(k);};
+    for (const auto& [k,_] : manager->texture_lib) {textures.push_back(k);};
+    for (const auto& [k,_] : manager->model_lib) {models.push_back(k);};
+}
+
+
 int EScene::key_query[ GLFW_KEY_LAST - 32]= {};
 
 EScene::EScene() : Scene("Editor") { 
@@ -15,6 +30,7 @@ EScene::EScene() : Scene("Editor") {
     show_project_settings = false;
     working_scene = nullptr;
     creating_scene = false;
+    resource_lists = ResouceLists();
 }
 
 
@@ -28,6 +44,7 @@ void EScene::make_viewer() {
 }
 
 void EScene::on_create() {
+    manager->main_window.maximize();
     init_imgui();
 
 
@@ -39,6 +56,7 @@ void EScene::on_create() {
     make_framebuffer(pickerview, 684, 698) ;
 
     make_viewer();
+    resource_lists.init(manager);
     debug_open = false;
 
     {
@@ -46,6 +64,7 @@ void EScene::on_create() {
         register_shader("res/shaders/picker.glsl");
     }
     picker_shader = get_shader("picker.glsl");
+
 
     if (!working_scene) {
         if (manager->num_of_scenes() <= 2) {creating_scene = true; return;}

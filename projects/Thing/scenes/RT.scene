@@ -5,14 +5,33 @@ Render Data:
   Ambient Strength: 0.1
   Clear Color: [0, 0, 0, 1]
 Entities:
-  - Entity: 11152776846094461390
+  - Entity: 9703913328098630830
     Tag:
-      Tag: Light
-    DirLight:
-      Direction: [-0.2, -1, -0.3]
-      Ambient: 0.1
-      Color: [0.9692308, 0.89773935, 0.49505326]
-      Strength: 0.5
+      Tag: Player
+    Transform:
+      Position: [0, 3.3, 0]
+      Size: [1, 1, 1]
+      Rotation: [0, 0, 0]
+    PhysicsBody:
+      Gravity: 0.3
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: false
+      Move Delta: [0, 0, 0]
+    Camera:
+      Target: [0, 0, 1]
+      Up: [0, 1, 0]
+      FovY: 70
+      Projection: 0
+      Max Distance: 30
+    Lua Actions:
+      - Path: /home/blid/rayengine/projects/Thing/scripts/player.lua
+        Fields:
+          jump: [i, 10]
+          this: [u, 9703913328098630830]
+          init_speed: [i, 3]
+          sensi: [f, 0.1]
   - Entity: 7287929405305775506
     Tag:
       Tag: Unnamed Cube
@@ -33,3 +52,11 @@ Entities:
         Texture: mmm.png
         Textured: true
         Immune: false
+  - Entity: 11152776846094461390
+    Tag:
+      Tag: Light
+    DirLight:
+      Direction: [-0.2, -1, -0.3]
+      Ambient: 0.1
+      Color: [0.9692308, 0.89773935, 0.49505326]
+      Strength: 0.5

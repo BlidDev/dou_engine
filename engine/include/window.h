@@ -14,6 +14,8 @@ namespace engine {
 
         glm::vec2 size();
 
+        void maximize();
+
         operator GLFWwindow*() {
             return window;
         }
