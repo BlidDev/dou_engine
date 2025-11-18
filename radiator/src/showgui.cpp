@@ -504,3 +504,9 @@ void EScene::render_create_scene() {
     ImGui::Unindent();
     ImGui::End();
 }
+
+void EScene::render_resources() {
+    ImGui::Begin("Resources");
+
+    ImGui::End();
+}

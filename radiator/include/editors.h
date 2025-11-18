@@ -47,6 +47,7 @@ public:
 
     void render_editorview(float dt);
     void render_pickerview();
+    void render_resources();
     entt::entity entity_from_view(ImVec2 pos, ImVec2 size);
 
     void render_psettings();

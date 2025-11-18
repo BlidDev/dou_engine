@@ -1,6 +1,7 @@
 #include "greeter.h"
 #include "GLFW/glfw3.h"
 #include "helper.h"
+#include <format>
 #include <tinyfiledialogs.h>
 
 #include <filesystem>
@@ -20,6 +21,7 @@ void Greeter::on_create() {
 
     if (GImGui != nullptr) return;
     initialize_imgui(manager);
+    detect_projects();
 }
 
 void Greeter::on_update(float dt) {
@@ -48,6 +50,8 @@ void Greeter::on_update(float dt) {
                                 1, filter, nullptr, false);
                         open_project(path, true);
                     }
+
+                    render_existing_projects();
                 
                 ImGui::Unindent();
                 ImGui::End();
@@ -142,4 +146,45 @@ void Greeter::open_project(const char* path, bool add_paths) {
     }
 
     manager->set_current("EDITOREditor");
+}
+
+
+void Greeter::detect_projects() {
+    for(auto& entry : fs::directory_iterator("projects")) {
+        if (!entry.is_directory()) continue;
+        std::string name = entry.path().filename().string();
+        fs::path path = std::format("projects/{}/{}.prj", name, name);
+        if (!fs::exists(path)) continue;
+        detected_projects.push_back(path);
+        DU_DEBUG_TRACE("Detected: {}", path.c_str());
+    }
+}
+
+
+void Greeter::render_existing_projects() {
+    if(detected_projects.empty()) return;
+
+    ImGui::Dummy({0, 25.0f});
+    ImGui::Separator();
+    ImGui::Dummy({0, 25.0f});
+    ImGui::BeginChild("Detected Projects", 
+            ImVec2(ImGui::GetContentRegionAvail().x * 0.95f, 
+                   ImGui::GetWindowHeight() * 0.3f)
+            , ImGuiChildFlags_Borders, ImGuiWindowFlags_MenuBar);
+    if (ImGui::BeginMenuBar()) {
+        ImGui::Text("Detected Projects");
+        ImGui::EndMenuBar();
+    }
+
+    for (const auto& path : detected_projects) {
+        ImGui::Text("%s", path.c_str());
+        ImGui::SameLine();
+        float width = ImGui::GetWindowWidth();
+        ImGui::SetCursorPosX((width * 0.93)- ImGui::CalcTextSize("Open").x);
+        if (ImGui::Button(std::format("Open##{}", path).c_str())) {
+            open_project(path.c_str(), true);
+        }
+    }
+
+    ImGui::EndChild();
 }
