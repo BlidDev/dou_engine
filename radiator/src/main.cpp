@@ -1,5 +1,6 @@
 #include <espch.h>
 #include "editors.h"
+#include "greeter.h"
 
 int engine::on_start(engine::SceneManager* manager) {
 
@@ -10,9 +11,12 @@ int engine::on_start(engine::SceneManager* manager) {
 
     std::string name;
 
-    manager->register_scene("Editor", new EScene);
+    Greeter* greeter = new Greeter;
+    greeter->editor = new EScene;
+    manager->register_scene("EDITOREditor", greeter->editor);
+    manager->register_scene("EDITORGreeter", greeter);
 
-    read_project_file("res/projects/editor.prj", manager, true);
+    manager->set_current("EDITORGreeter");
 
     return 0;
 }

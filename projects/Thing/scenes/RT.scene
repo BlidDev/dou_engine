@@ -1,0 +1,35 @@
+Scene: RT
+Render Data:
+  Main Camera: 0
+  Ambient: [1, 1, 1]
+  Ambient Strength: 0.1
+  Clear Color: [0, 0, 0, 1]
+Entities:
+  - Entity: 11152776846094461390
+    Tag:
+      Tag: Light
+    DirLight:
+      Direction: [-0.2, -1, -0.3]
+      Ambient: 0.1
+      Color: [0.9692308, 0.89773935, 0.49505326]
+      Strength: 0.5
+  - Entity: 7287929405305775506
+    Tag:
+      Tag: Unnamed Cube
+    Transform:
+      Position: [0, 0, 0]
+      Size: [3, 0.5, 3]
+      Rotation: [0, 0, 0]
+    Model:
+      Model Name: cube_tl
+      Layer: 0
+      Material:
+        Shader: lightingt.glsl
+        Filled: false
+        Ambient: [1, 1, 1]
+        Diffuse: [1, 1, 1]
+        Specular: [1, 1, 1]
+        Shininess: 10
+        Texture: mmm.png
+        Textured: true
+        Immune: false

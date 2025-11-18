@@ -1,6 +1,7 @@
 #pragma once
 #include "editors.h"
 
+void initialize_imgui(SceneManager* manager);
 
 void make_framebuffer(Frambuffer& fb, size_t w, size_t h);
 void rescale_framebuffer(Frambuffer& fb, size_t w, size_t h);
@@ -8,6 +9,8 @@ void rescale_framebuffer(Frambuffer& fb, size_t w, size_t h);
 
 
 
+void sameline_text(const char* title, std::string* v);
+void sameline_checkbox(const char* title, bool* v);
 void sameline_color(const char* title, glm::vec3& v);
 void sameline_v3(const char* title, glm::vec3& v, float min = 0.F, float max = 0.F, float speed = 0.1f);
 void sameline_v2(const char* title, glm::vec2& v, float min = 0.F, float max = 0.F, float speed = 0.1f);
@@ -47,3 +50,4 @@ std::string make_entity_name(Entity& entity);
 
 
 float get_centered_pos(const char* text);
+

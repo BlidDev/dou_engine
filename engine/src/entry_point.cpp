@@ -24,6 +24,10 @@ int main() {
     {
         double now = glfwGetTime();
         double dt = now - start;
+        if (manager.old) {
+            manager.end_scene(manager.old);
+            manager.old = nullptr;
+        }
         if (manager.switched) { 
             current = manager.get_current();
             manager.switched = false;

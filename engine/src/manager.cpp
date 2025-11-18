@@ -5,6 +5,7 @@ namespace engine {
     SceneManager::SceneManager() {
         current = "NONE";
         project_data = ProjectData("Unnamed Project");
+        old = nullptr;
     }
 
     Scene* SceneManager::register_scene(const char* name, Scene* scene) {
@@ -26,8 +27,7 @@ namespace engine {
     void SceneManager::set_current(const char* name) {
         switched = true;
         if (current != "NONE") {
-            Scene* old = get_current();
-            end_scene(old);
+            old = get_current();
         }
         if(get_scene(name))
             current = name;

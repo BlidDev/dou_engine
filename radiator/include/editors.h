@@ -43,7 +43,6 @@ public:
     void render_entity(Entity current, bool* has_selected, bool root = false);
     void render_entities(bool* has_selected);
 
-
     void render_overview(bool is_selected);
 
     void render_editorview(float dt);
@@ -52,6 +51,9 @@ public:
 
     void render_psettings();
 
+    void save_project();
+    Scene* create_scene(const char* name);
+    void render_create_scene();
 
     bool is_key(int k, int a);
     
@@ -73,8 +75,25 @@ private:
     Shader picker_shader;
     Entity viewer;
 
+    bool creating_scene;
 };
 
 void open_working_file(SceneManager* manager, RTScene* working_scene, EScene* editor);
 void save_working_file(SceneManager* manager, EScene* editor);
 void saveas_working_file(SceneManager* manager, EScene* editor);
+
+
+struct RootReseter {
+    RootReseter(ProjectData* v) {
+        data = v;
+        backup = data->root_path;
+        data->root_path = "";
+    }
+
+    ~RootReseter() {
+        data->root_path = backup;
+    }
+
+    ProjectData* data;
+    fs::path backup;
+};

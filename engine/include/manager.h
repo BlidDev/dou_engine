@@ -40,6 +40,8 @@ namespace engine {
     public:
         std::string current;
         bool switched;
+        Scene* old;
+        
         Window main_window;
         std::unordered_map<std::string, Shader>shader_lib;
         std::unordered_map<std::string, Texture>texture_lib;

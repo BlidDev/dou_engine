@@ -1,0 +1,12 @@
+Project Name: Thing
+Root Path: projects/Thing
+Startup Scene: RT
+Paths:
+  Scenes:
+    - scenes
+  Shaders:
+    - shaders
+  Textures:
+    - textures
+  Models:
+    - models

@@ -2,6 +2,6 @@
 
 
 enum EditorState {
-    Normal,
-    Preview
+    EditorNormal,
+    EditorPreview
 };

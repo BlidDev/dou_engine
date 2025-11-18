@@ -11,23 +11,11 @@
 
 #include <tinyfiledialogs.h>
 
+extern ImGuiContext* GImGui;
 
 void EScene::init_imgui() {
-
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO &io = ImGui::GetIO();
-    (void)io;
-    ImGui::StyleColorsDark();
-
-    // Setup Platform/Renderer bindings
-    ImGui_ImplGlfw_InitForOpenGL(manager->main_window, true);
-    ImGui_ImplOpenGL3_Init("#version 330");
-
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-    io.Fonts->AddFontFromFileTTF("res/fonts/DejaVu.ttf", 16.0f);
-    io.WantSetMousePos = true;
-    io.FontGlobalScale = 1.5f;
+    if (GImGui != nullptr) return;
+    initialize_imgui(manager);
 }
 
 
@@ -58,13 +46,36 @@ void saveas_working_file(SceneManager* manager, EScene* editor) {
     DU_TRACE("Saving to [{}]", path);
 }
 
+
+
+void EScene::save_project() {
+    ProjectData& data = manager->project_data;
+    if(data.root_path.empty()) {
+        const char* tmp_path = tinyfd_selectFolderDialog("Select Directory To Save Project", std::filesystem::current_path().c_str());
+        if (!tmp_path) return;
+        data.root_path = tmp_path;
+    }
+
+    if (data.scene_paths.empty()) {data.scene_paths.push_back(data.root_path);}
+    for (auto [k, s] : manager->get_scenes()) {
+        if (k == "EDITOREditor" || k == "EDITORGreeter") continue;
+        std::string path = s->file_path;
+        if (path.empty())
+            path = std::format("{}/{}/{}.scene", data.root_path.string(), data.scene_paths[0].string(), s->name);
+        manager->write_scene_to_file(path.c_str(), s);
+    }
+    std::string prj_path = std::format("{}/{}.prj", data.root_path.string(), data.name).c_str();
+
+    write_project_file(prj_path.c_str(), data, manager->render_data.layers_atrb);
+}
+
 size_t counter = 0;
 
 EditorState EScene::update_imgui(float dt) {
 
     glClearColor(0.0f,0.0f,0.0f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    EditorState state = EditorState::Normal;
+    EditorState state = EditorState::EditorNormal;
 
     counter++;
     ImGui_ImplOpenGL3_NewFrame();
@@ -88,12 +99,16 @@ EditorState EScene::update_imgui(float dt) {
         counter = 0;
     }
     else if (is_key_pressed(GLFW_KEY_F5) && counter > 10) {
-        state = EditorState::Preview;
+        state = EditorState::EditorPreview;
         counter = 0;
     }
 
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
+
+            if (ImGui::MenuItem("Save Project")) {
+                save_project();
+            }
             if (ImGui::MenuItem("Open", "Ctrl + O")) {
                 open_working_file(manager, working_scene, this);
             }
@@ -115,7 +130,7 @@ EditorState EScene::update_imgui(float dt) {
 
         ImGui::Spacing();
         if (ImGui::ArrowButton("Play", ImGuiDir::ImGuiDir_Right)) {
-            state = EditorState::Preview;
+            state = EditorState::EditorPreview;
         }
         
 
@@ -127,12 +142,16 @@ EditorState EScene::update_imgui(float dt) {
     ImGui::DockSpaceOverViewport();
 
     bool has_selected = false;
-    render_entities(&has_selected);
-    render_overview(has_selected);
+    if (working_scene) {
+        render_entities(&has_selected);
+        render_overview(has_selected);
 
-    render_editorview(dt);
+        render_editorview(dt);
+    }
     if (show_project_settings)
         render_psettings();
+    if (creating_scene)
+        render_create_scene();
 
     // Rendering
     ImGui::Render();
@@ -429,5 +448,59 @@ void EScene::render_psettings() {
 
     if (ImGui::Button("Close"))
         show_project_settings = false;
+    ImGui::End();
+}
+
+
+static std::string scene_name = "";
+static bool set_current = true;
+
+void EScene::render_create_scene() {
+    ImGui::Begin("Create a new scene");
+    ImGui::Indent();
+
+       if ((ImGui::IsWindowFocused() || !ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow)) && !ImGui::IsAnyItemActive())
+           ImGui::SetKeyboardFocusHere();
+        sameline_text("Scene Name", &scene_name);
+        bool exists = (scene_name.empty()) ? false : manager->get_scenes().find(scene_name) != manager->get_scenes().end();
+        if(exists) {
+            ImGui::Dummy({0, 10.0f});
+            ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 0,0,255));
+            ImGui::Text("Error: Scene \"{}\" already exists.");
+            ImGui::PopStyleColor();
+        }
+
+
+        if (!exists && !scene_name.empty()) {
+            ImGui::Dummy({0, 10.0f});
+            if(working_scene)
+                sameline_checkbox("Make Current", &set_current);
+        }
+
+        //ImGui::SetCursorPosY(ImGui::GetWindowHeight() * 0.9f);
+        if (working_scene) {
+            if(ImGui::Button("Cancel")) {
+                ImGui::Unindent();
+                ImGui::End();
+                scene_name = "";
+                set_current = true;
+                creating_scene = false;
+                return;
+            }
+            ImGui::SameLine(0, 10.0f);
+        }
+
+        if (!exists && !scene_name.empty()) {
+            if(ImGui::Button("Create") || is_key_pressed(GLFW_KEY_ENTER)) {
+                Scene* tmp = create_scene(scene_name.c_str());
+                if (set_current)
+                    working_scene = tmp;
+                set_current = true;
+                scene_name = "";
+                creating_scene = false;
+            }
+        }
+
+    ImGui::Unindent();
     ImGui::End();
 }

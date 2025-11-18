@@ -483,6 +483,7 @@ namespace engine {
         out<<YAML::EndMap;
         file<<out.c_str();
         file.close();
+        DU_CORE_DEBUG_TRACE("Written {}", path);
     }
 
     void detect_and_add_entities(YAML::Node& entities, Scene* scene) {

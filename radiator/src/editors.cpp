@@ -14,6 +14,7 @@ EScene::EScene() : Scene("Editor") {
     selected = 0;
     show_project_settings = false;
     working_scene = nullptr;
+    creating_scene = false;
 }
 
 
@@ -40,20 +41,31 @@ void EScene::on_create() {
     make_viewer();
     debug_open = false;
 
+    {
+        RootReseter r(&manager->project_data);
+        register_shader("res/shaders/picker.glsl");
+    }
     picker_shader = get_shader("picker.glsl");
 
     if (!working_scene) {
-        if (manager->num_of_scenes() > 1) {
-            for (auto [n, s] : manager->get_scenes()) {
-                if (n == "Editor" || n == "Greeter") continue;
-                working_scene = s;
+        if (manager->num_of_scenes() <= 2) {creating_scene = true; return;}
 
-                if (working_scene->file_path.empty()) return;
-                save_path = working_scene->file_path;
-                working_scene->add_from_file(working_scene->file_path.c_str()); return;
-            }
+        for (auto [n, s] : manager->get_scenes()) {
+            if (n == "EDITOREditor" || n == "EDITORGreeter") continue;
+            working_scene = s;
+
+            if (working_scene->file_path.empty()) return;
+            save_path = working_scene->file_path;
+            working_scene->add_from_file(working_scene->file_path.c_str()); return;
+            manager->project_data.startup_scene = s->name;
         }
-        working_scene = manager->register_scene("Unnamed RT", create_runtime_scene());
+
+//        working_scene = manager->register_scene("Unnamed RT", create_runtime_scene());
+ //       manager->project_data.startup_scene = working_scene->name;
+    }
+    else {
+        if(!working_scene->uuids.empty() || working_scene->file_path.empty()) return;
+        working_scene->add_from_file(working_scene->file_path.c_str());
     }
 }
 
@@ -68,7 +80,7 @@ void EScene::on_update(float dt) {
         selected = 0;
     }
 
-    if(update_imgui(dt) == EditorState::Preview) {
+    if(update_imgui(dt) == EditorState::EditorPreview) {
         run_rt_scene(this);
     }
     glfwSwapBuffers(manager->main_window);
@@ -84,3 +96,8 @@ bool EScene::should_close() {
 }
 
 
+Scene* EScene::create_scene(const char* name) {
+    Scene* tmp = manager->register_scene(name, create_runtime_scene());
+    tmp->name = name;
+    return tmp;
+}

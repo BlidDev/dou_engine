@@ -445,6 +445,12 @@
 },
 {
   "directory": "/home/blid/rayengine/build",
+  "command": "/usr/bin/c++ -DDU_DEBUG -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=gnu++20 -fdiagnostics-color=always -Winvalid-pch -include /home/blid/rayengine/build/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/default_rt.cpp.o -c /home/blid/rayengine/engine/src/default_rt.cpp",
+  "file": "/home/blid/rayengine/engine/src/default_rt.cpp",
+  "output": "engine/CMakeFiles/engine.dir/src/default_rt.cpp.o"
+},
+{
+  "directory": "/home/blid/rayengine/build",
   "command": "/usr/bin/c++ -DDU_DEBUG -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/stb_image -I/home/blid/rayengine/engine/include -I/src -I/home/blid/rayengine/vendor/glfw/include -g -std=gnu++20 -fdiagnostics-color=always -Winvalid-pch -include /home/blid/rayengine/build/engine/CMakeFiles/engine.dir/cmake_pch.hxx -o engine/CMakeFiles/engine.dir/src/entity.cpp.o -c /home/blid/rayengine/engine/src/entity.cpp",
   "file": "/home/blid/rayengine/engine/src/entity.cpp",
   "output": "engine/CMakeFiles/engine.dir/src/entity.cpp.o"
@@ -628,6 +634,12 @@
   "command": "/usr/bin/c++ -DDU_DEBUG -DIMGUI_IMPL_OPENGL_LOADER_CUSTOM -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/radiator/vendor/tinyfiledialogs -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=gnu++20 -fdiagnostics-color=always -Winvalid-pch -include /home/blid/rayengine/build/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/src/editors.cpp.o -c /home/blid/rayengine/radiator/src/editors.cpp",
   "file": "/home/blid/rayengine/radiator/src/editors.cpp",
   "output": "radiator/CMakeFiles/radiator.dir/src/editors.cpp.o"
+},
+{
+  "directory": "/home/blid/rayengine/build",
+  "command": "/usr/bin/c++ -DDU_DEBUG -DIMGUI_IMPL_OPENGL_LOADER_CUSTOM -DYAML_CPP_STATIC_DEFINE -I/home/blid/rayengine/engine/include -I/home/blid/rayengine/radiator/include -I/home/blid/rayengine/vendor/glfw/include -I/home/blid/rayengine/vendor/glad/include -I/home/blid/rayengine/vendor/glm -I/home/blid/rayengine/vendor/imgui -I/home/blid/rayengine/vendor/imgui/backends -I/home/blid/rayengine/radiator/vendor/tinyfiledialogs -I/home/blid/rayengine/vendor/spdlog/include -I/home/blid/rayengine/vendor/entt -I/home/blid/rayengine/vendor/yaml-cpp/include -I/home/blid/rayengine/vendor/lua/include -I/home/blid/rayengine/vendor/sol2/include -I/home/blid/rayengine/vendor/stb_image -I/src -g -std=gnu++20 -fdiagnostics-color=always -Winvalid-pch -include /home/blid/rayengine/build/radiator/CMakeFiles/radiator.dir/cmake_pch.hxx -o radiator/CMakeFiles/radiator.dir/src/greeter.cpp.o -c /home/blid/rayengine/radiator/src/greeter.cpp",
+  "file": "/home/blid/rayengine/radiator/src/greeter.cpp",
+  "output": "radiator/CMakeFiles/radiator.dir/src/greeter.cpp.o"
 },
 {
   "directory": "/home/blid/rayengine/build",
