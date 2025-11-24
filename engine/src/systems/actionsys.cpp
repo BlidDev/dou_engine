@@ -9,19 +9,9 @@ namespace engine {
         auto actions = scene->registry.view<ActionsComp>();
 
         for (auto [entity, actns] : actions.each()) {
-            for (auto& act : actns.actions) {
-                Entity e = {scene, entity};
+            for (ActionsComp::UpdatePtr& act : actns.actions) {
+               Entity e = {scene, entity};
                 act->on_update(scene, e, dt);
-            }
-        }
-    }
-
-    void end_actions(entt::registry& registry) {
-        auto actions = registry.view<ActionsComp>();
-
-        for (auto [_, act] : actions.each()) {
-            for (UpdateComp* u : act.actions) {
-                delete u;
             }
         }
     }

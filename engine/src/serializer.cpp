@@ -153,7 +153,7 @@ namespace engine {
         if (entity.has_component<ActionsComp>()) {
             out<<YAML::Key<<"Native Actions"<<YAML::BeginSeq;
                 ActionsComp& a = entity.get_component<ActionsComp>();
-                for (const auto& action : a.actions) {
+                for (auto& action : a.actions) {
                     out<<YAML::BeginMap;
                         out<<YAML::Key<<"Name"<<YAML::Value<<action->inner_name;
                         action->serialize(out);

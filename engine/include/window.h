@@ -11,6 +11,7 @@ namespace engine {
         Window(const std::string& title, 
                unsigned int w, unsigned int h, 
                FbCallBack fb = nullptr,bool set = true);
+        ~Window();
 
         glm::vec2 size();
 

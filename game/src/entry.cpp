@@ -22,14 +22,14 @@ int engine::on_start(engine::SceneManager* manager) {
     manager->register_model("cube_tex", ModelBuilder().vertices(engine::P_CUBE_TEXTURE, 180).textured());
 
 
-    manager->register_scene("light", new LightScene());
-    manager->register_scene("thing", new ThingScene());
+    manager->register_scene<LightScene>("light");
+    manager->register_scene<ThingScene>("thing");
     manager->set_current("thing");
     return 0;
 }
 
 
-int engine::on_end() {
+int engine::on_end(engine::SceneManager* manager) {
     glfwTerminate();
     return 0;
 }

@@ -32,6 +32,9 @@ namespace engine {
         DU_ASSERT(!window, "Failed to create GLFW window \"{}\"", title);
     }
 
+    Window::~Window() {
+    }
+
     glm::vec2 Window::size() {
             glm::vec2 tmp = {(float)w, (float)h};
             return tmp;

@@ -14,36 +14,35 @@ namespace engine {
 
     }
 
-    std::unordered_map<std::string, UpdateComp*>ActionsComp::registered_actions = {};
+    std::unordered_map<std::string, ActionsComp::UpdatePtr>ActionsComp::registered_actions = {};
 
-    ActionsComp::ActionsComp() {
-        actions = {};
+    ActionsComp::ActionsComp() : actions() {
     }
 
     ActionsComp& ActionsComp::add(UpdateComp* comp, std::string name) {
         comp->inner_name = name;
-        actions.push_back(comp);
+        actions.push_back(UpdatePtr(comp));
         return *this;
     }
 
     ActionsComp& ActionsComp::add(const char* action) {
         const auto& it = registered_actions.find(std::string(action));
         DU_ASSERT(it == registered_actions.end(), "Trying to add unregistered action [{}]", action);
-        UpdateComp* tmp = it->second;
+        UpdateComp* tmp = it->second.get();
         UpdateComp* update = tmp->copy();
         update->inner_name = tmp->inner_name;
-        actions.push_back(update);
+        actions.push_back(UpdatePtr(update));
 
         return *this;
     }
 
     UpdateComp* ActionsComp::get_last() {
         DU_ASSERT(actions.empty(), "Trying to get non existant action in get_last()");
-        return actions.back();
+        return actions.back().get();
     }
 
     bool ActionsComp::register_action(const std::string &name, UpdateComp *comp) {
-        if (registered_actions.find(name) != registered_actions.end()) {
+        if (registered_actions.contains(name)) {
             DU_CORE_ERROR("Action %s is already registered", name.c_str());
             return false;
         }
@@ -52,9 +51,4 @@ namespace engine {
         return true;
     }
 
-    void ActionsComp::free_registered_actions() {
-        for (auto& [_, action] : registered_actions) {
-            delete action;
-        }
-    }
 }

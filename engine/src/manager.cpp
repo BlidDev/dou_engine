@@ -8,11 +8,20 @@ namespace engine {
         old = nullptr;
     }
 
-    Scene* SceneManager::register_scene(const char* name, Scene* scene) {
+    Scene* SceneManager::register_scene(const char* name, std::unique_ptr<Scene> scene) {
         DU_ASSERT(scenes.contains(name), "Scene {} already exists", name);
         scene->manager = this;
-        scenes.insert(std::make_pair(name, scene));
+        auto p = scenes.insert(std::make_pair(name, std::move(scene)));
         DU_CORE_DEBUG_TRACE("Registered scene {}", name);
+        return p.first->second.get();
+    }
+
+    Scene* SceneManager::register_scene(const char* name, std::unique_ptr<Scene>& scene) {
+        return register_scene(name, std::move(scene));
+    }
+
+    Scene* SceneManager::register_scene_raw(const char* name, Scene* scene) {
+        register_scene(name, std::unique_ptr<Scene>(scene));
         return scene;
     }
 
@@ -20,7 +29,7 @@ namespace engine {
         const auto& it = scenes.find(name);
         DU_ASSERT(it == scenes.end(),"Scene {} does not exist", name);
         
-        return it->second;
+        return it->second.get();
     }
 
 
@@ -34,14 +43,12 @@ namespace engine {
     }
 
     void SceneManager::clear_scene(Scene* scene) {
-        end_actions(scene->registry);
         scene->registry.clear();
         scene->uuids.clear();
     }
 
     void SceneManager::end_scene(Scene* scene) {
         scene->on_end();
-        end_actions(scene->registry);
         scene->registry.clear();
         scene->uuids.clear();
     }
@@ -55,7 +62,7 @@ namespace engine {
 
         const auto& it = scenes.find(current);
         DU_ASSERT(it == scenes.end(), "Current set to non existant scene \"{}\"", current);
-        return it->second;
+        return it->second.get();
     }
 
     void SceneManager::end() {
@@ -64,9 +71,7 @@ namespace engine {
     }
 
     SceneManager::~SceneManager() {
-        for (auto& [_, scene] : scenes) {
-            delete scene;
-        }
+        // automatically deletes every scene
     }
 
     namespace fs = std::filesystem;
@@ -75,7 +80,7 @@ namespace engine {
         fs::path fs_path = fs::path(path);
         if (!fs_path.is_absolute()) fs_path = root_path() / fs_path;
 
-        DU_ASSERT(shader_lib.find(fs_path.filename()) != shader_lib.end(), "Shader [{}] already registered", path);
+        DU_ASSERT(shader_lib.contains(fs_path.filename()), "Shader [{}] already registered", path);
 
 
         shader_lib.insert(std::make_pair(fs_path.filename().string(), complie_shader_file(fs_path.c_str())));
@@ -87,20 +92,20 @@ namespace engine {
         if (!fs_path.is_absolute()) fs_path = root_path() / fs_path;
 
 
-        DU_ASSERT(texture_lib.find(fs_path.filename()) != texture_lib.end(), "Texture [{}] already registered", path);
+        DU_ASSERT(texture_lib.contains(fs_path.filename()), "Texture [{}] already registered", path);
         texture_lib.insert(std::make_pair(fs_path.filename().string(), load_texture_from_file(fs_path.c_str())));
         DU_CORE_DEBUG_TRACE("Registered texture {}", fs_path.filename().string());
     }
 
     void SceneManager::register_texture(std::string name, Texture texture) {
-        DU_ASSERT(texture_lib.find(std::string(name)) != texture_lib.end(), "Texture [{}] already registered", name);
+        DU_ASSERT(texture_lib.contains(name), "Texture [{}] already registered", name);
 
         texture_lib.insert(std::make_pair(name, texture));
         DU_CORE_DEBUG_TRACE("Registered texture {}", name);
     }
 
     void SceneManager::register_model(const char* name, Model model) {
-        DU_ASSERT(model_lib.find(std::string(name)) != model_lib.end(), "Model [{}] already registered", name);
+        DU_ASSERT(model_lib.contains(name), "Model [{}] already registered", name);
         model.name = name;
         model_lib.insert(std::make_pair(std::string(name), model));
         DU_CORE_DEBUG_TRACE("Registered model {}", name);
@@ -116,7 +121,7 @@ namespace engine {
         return scenes.size();
     }
 
-    const std::unordered_map<std::string, Scene*>& SceneManager::get_scenes() {
+    const SceneLib& SceneManager::get_scenes() const {
         return scenes;
     }
 

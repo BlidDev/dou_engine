@@ -68,9 +68,6 @@ void Greeter::on_update(float dt) {
 }
 
 void Greeter::on_end() {
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
 }
 
 bool Greeter::should_close() {

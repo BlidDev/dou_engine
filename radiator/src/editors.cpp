@@ -71,7 +71,7 @@ void EScene::on_create() {
 
         for (const auto& [n, s] : manager->get_scenes()) {
             if (n == "EDITOREditor" || n == "EDITORGreeter") continue;
-            working_scene = s;
+            working_scene = s.get();
 
             if (working_scene->file_path.empty()) return;
             save_path = working_scene->file_path;

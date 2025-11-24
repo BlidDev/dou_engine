@@ -1,6 +1,9 @@
-#include <espch.h>
+#include <epch.h>
 #include "editors.h"
+#include "entry_point.h"
 #include "greeter.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 
 int engine::on_start(engine::SceneManager* manager) {
 
@@ -13,8 +16,8 @@ int engine::on_start(engine::SceneManager* manager) {
 
     Greeter* greeter = new Greeter;
     greeter->editor = new EScene;
-    manager->register_scene("EDITOREditor", greeter->editor);
-    manager->register_scene("EDITORGreeter", greeter);
+    manager->register_scene_raw("EDITOREditor", greeter->editor);
+    manager->register_scene_raw("EDITORGreeter", greeter);
 
     manager->set_current("EDITORGreeter");
 
@@ -22,6 +25,15 @@ int engine::on_start(engine::SceneManager* manager) {
 }
 
 
-Scene* engine::create_runtime_scene() {
-    return new RTScene;
+std::unique_ptr<Scene> engine::create_runtime_scene() {
+    return std::make_unique<RTScene>();
+}
+
+int engine::on_end(engine::SceneManager* manager) {
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+    glfwDestroyWindow(manager->main_window);
+    glfwTerminate();
+    return 0;
 }

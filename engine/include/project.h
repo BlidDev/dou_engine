@@ -30,5 +30,5 @@ namespace engine {
     void write_project_file(const char* path, ProjectData& data, LayerAtrb layers[] = nullptr, size_t nlayers = MAX_RENDER_LAYERS);
 
 
-    extern Scene* create_runtime_scene();
+    extern std::unique_ptr<Scene> create_runtime_scene();
 }

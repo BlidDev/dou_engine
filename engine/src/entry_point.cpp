@@ -38,6 +38,7 @@ int main() {
         start = now;
     }
 
+    on_end(&manager);
 
     manager.end();
     

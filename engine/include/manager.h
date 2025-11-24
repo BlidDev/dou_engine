@@ -10,10 +10,30 @@
 
 namespace engine {
 
+    using SceneLib = std::unordered_map<std::string, std::unique_ptr<Scene>>;
     class SceneManager {
     public:
         SceneManager();
-        Scene* register_scene(const char* name, Scene* scene);
+        Scene* register_scene(const char* name, std::unique_ptr<Scene> scene);
+        Scene* register_scene(const char* name, std::unique_ptr<Scene>& scene);
+
+        /**
+         * register_scene_raw - overrides the unique_ptr gaurd and pass a raw pointer instead
+         * @name: name of the scene
+         * @scene: raw pointer to a scene object
+         *
+         * Note: This function does take control over the raw pointer meaning it will
+         * automatically delete it when Scene Manager goes out of scope!
+         */
+
+        Scene* register_scene_raw(const char* name, Scene* scene);
+
+        template <typename T, typename ...Args>
+        Scene* register_scene(const char* name, Args&&... args) {
+            return register_scene(name, std::make_unique<Scene>(std::forward<Args>(args)...));
+        }
+
+
         Scene* get_scene(const char* name);
         void set_current(const char* name);
         void clear_scene(Scene* scene);
@@ -32,7 +52,7 @@ namespace engine {
         const std::filesystem::path& root_path();
 
         size_t num_of_scenes();
-        const std::unordered_map<std::string, Scene*>& get_scenes();
+        const SceneLib& get_scenes() const;
 
         Scene* get_current();
         ~SceneManager();
@@ -50,7 +70,7 @@ namespace engine {
 
         ProjectData project_data;
     private:
-        std::unordered_map<std::string, Scene*>scenes;
+        SceneLib scenes;
     };
 
     void update_render_data(SceneManager* manager, Scene* current);

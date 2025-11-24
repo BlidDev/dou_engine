@@ -62,7 +62,7 @@ void EScene::save_project() {
         std::string path = s->file_path;
         if (path.empty())
             path = std::format("{}/{}/{}.scene", data.root_path.string(), data.scene_paths[0].string(), s->name);
-        manager->write_scene_to_file(path.c_str(), s);
+        manager->write_scene_to_file(path.c_str(), s.get());
     }
     std::string prj_path = std::format("{}/{}.prj", data.root_path.string(), data.name).c_str();
 
@@ -165,9 +165,6 @@ EditorState EScene::update_imgui(float dt) {
 }
 
 void EScene::end_imgui() {
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
 }
 
 void EScene::render_entities(bool *has_selected) {
@@ -466,7 +463,7 @@ void EScene::render_create_scene() {
        if ((ImGui::IsWindowFocused() || !ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow)) && !ImGui::IsAnyItemActive())
            ImGui::SetKeyboardFocusHere();
         sameline_text("Scene Name", &scene_name);
-        bool exists = (scene_name.empty()) ? false : manager->get_scenes().find(scene_name) != manager->get_scenes().end();
+        bool exists = (scene_name.empty()) ? false : manager->get_scenes().contains(scene_name);
         if(exists) {
             ImGui::Dummy({0, 10.0f});
             ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 0,0,255));
