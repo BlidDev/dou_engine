@@ -31,17 +31,18 @@ namespace engine {
 
         template <typename T>
         T& get_uuid_component(UUID uuid) {
-            DU_ASSERT(uuids.find(uuid) == uuids.end(), "Unknown UUID {}", uuid.get_uuid());
-            entt::entity entity = uuids[uuid];
+            const auto& it = uuids.find(uuid);
+            DU_ASSERT(it == uuids.end(), "Unknown UUID {}", uuid.get_uuid());
+            entt::entity entity = it->second;
             DU_ASSERT(!registry.any_of<T>(entity), "Trying to get non existant uuid component {} from entity {}", typeid(T).name(), uuid.get_uuid());
             return registry.get<T>(entity);
         }
 
         void register_shader(const char* path);
 
-        Shader get_shader(const char* name);
-        Texture get_texture(const char* name);
-        Model get_model(const char* name);
+        Shader& get_shader(const char* name);
+        Texture& get_texture(const char* name);
+        Model& get_model(const char* name);
         
     public:
         entt::registry registry;

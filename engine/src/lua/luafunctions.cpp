@@ -59,7 +59,7 @@ namespace engine {
     std::string variadic_args_to_str(std::string &format,
                                      sol::variadic_args &args) {
       fmt::dynamic_format_arg_store<fmt::format_context> store;
-      for (auto a : args) {
+      for (const auto& a : args) {
         if (a.is<int>())
           store.push_back(a.as<int>());
         else if (a.is<float>())

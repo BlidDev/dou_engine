@@ -77,7 +77,7 @@ namespace engine {
     }
 
     int apply_on_children(Scene& scene, std::vector<UUID>& children, glm::vec3 final_delta) {
-        for (auto& child : children) {
+        for (const auto& child : children) {
             Entity tmp_child = scene.uuid_to_entity(child);
             if (tmp_child.has_component<TransformComp>())
                 tmp_child.get_component<TransformComp>().position += final_delta;

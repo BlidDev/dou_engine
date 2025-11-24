@@ -70,16 +70,16 @@ namespace engine {
         make_physically_dominant(*this);
     }
 
-    void Entity::add_children(std::vector<UUID> children) {
-        for (auto child : children) {
+    void Entity::add_children(const std::vector<UUID>& children) {
+        for (const auto& child : children) {
             add_child(child);
         }
     }
 
     void Entity::remove_children() {
-        auto children = get_children();
+        const auto& children = get_children();
         //physically_disown_children(*this);
-        for (auto child : children) {
+        for (const auto& child : children) {
             remove_child(child);
         }
         remove_component<ChildrenComp>();
@@ -87,12 +87,14 @@ namespace engine {
 
     void Entity::remove_child(UUID child) {
         auto& children = get_children();
-        DU_ASSERT(std::find(children.begin(), children.end(), child) == children.end(), "remove_child(): Entity {} is not a child of {}", child, uuid());
-        Entity childe = scene->uuid_to_entity(child);
-        if (childe.has_component<PhysicsBodyComp>())
-            make_physically_dominant(childe);
 
-        childe.remove_parent();
+        DU_ASSERT(std::find(children.begin(), children.end(), child) == children.end(), "remove_child(): Entity {} is not a child of {}", child, uuid());
+        Entity child_e = scene->uuid_to_entity(child);
+
+        if (child_e.has_component<PhysicsBodyComp>())
+            make_physically_dominant(child_e);
+
+        child_e.remove_parent();
         children.erase(std::remove(children.begin(), children.end(), child), children.end());
     }
 

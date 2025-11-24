@@ -69,7 +69,7 @@ void EScene::on_create() {
     if (!working_scene) {
         if (manager->num_of_scenes() <= 2) {creating_scene = true; return;}
 
-        for (auto [n, s] : manager->get_scenes()) {
+        for (const auto& [n, s] : manager->get_scenes()) {
             if (n == "EDITOREditor" || n == "EDITORGreeter") continue;
             working_scene = s;
 

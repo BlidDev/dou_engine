@@ -20,7 +20,7 @@ namespace engine {
         auto actions = registry.view<ActionsComp>();
 
         for (auto [_, act] : actions.each()) {
-            for (auto* u : act.actions) {
+            for (UpdateComp* u : act.actions) {
                 delete u;
             }
         }

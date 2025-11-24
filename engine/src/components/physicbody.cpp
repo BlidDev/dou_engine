@@ -70,7 +70,7 @@ namespace engine {
         }
 
         if (!entity.is_parent()) return;
-        for (auto& child : entity.get_children()) {
+        for (const auto& child : entity.get_children()) {
             make_owned(entity.scene_ptr()->uuid_to_entity(child));
         }
 
@@ -80,14 +80,14 @@ namespace engine {
         DU_ASSERT(!entity.has_component<PhysicsBodyComp>(), "Entity {} is trying to be dominant but has no physics body", entity.uuid());
         entity.get_component<PhysicsBodyComp>().dominance = Dominance::Dominant;
         if (!entity.is_parent()) return;
-        for (auto& child : entity.get_children()) {
+        for (const auto& child : entity.get_children()) {
             make_owned(entity.scene_ptr()->uuid_to_entity(child));
         }
     }
 
 
     void physically_disown_children(Entity entity) {
-        for (auto& child : entity.get_children()) {
+        for (const auto& child : entity.get_children()) {
             Entity tmp = entity.scene_ptr()->uuid_to_entity(child);
             if (!tmp.has_component<PhysicsBodyComp>()) {
                 if (!tmp.is_parent()) continue;

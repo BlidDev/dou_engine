@@ -81,7 +81,7 @@ namespace engine {
 
         auto shaders = paths["Shaders"];
         if (shaders) {
-            for (auto path : shaders) {
+            for (const auto& path : shaders) {
                 fs::path sh_dir = path.as<std::string>();
                 fs::path actual = p_data->root_path / sh_dir;
                 DU_ASSERT(!fs::is_directory(actual), "Trying to read shaders from {} no such directory", actual.string());
@@ -96,7 +96,7 @@ namespace engine {
 
         auto textures = paths["Textures"];
         if (textures) {
-            for (auto path : textures) {
+            for (const auto& path : textures) {
                 fs::path tx_dir = path.as<std::string>();
                 fs::path actual = p_data->root_path / tx_dir;
                 DU_ASSERT(!fs::is_directory(actual), "Trying to read textures from {} no such directory", actual.string());
@@ -111,7 +111,7 @@ namespace engine {
 
         auto models = paths["Models"];
         if (models) {
-            for (auto path : models) {
+            for (const auto& path : models) {
                 fs::path md_dir = path.as<std::string>();
                 fs::path actual = p_data->root_path / md_dir;
                 DU_ASSERT(!fs::is_directory(actual), "Trying to read models from {} no such directory", actual.string());
@@ -139,7 +139,7 @@ namespace engine {
         auto scenes = paths["Scenes"];
         if(!scenes) return;
 
-        for (auto path : scenes) {
+        for (const auto& path : scenes) {
             fs::path sc_dir = path.as<std::string>();
             fs::path actual = manager->project_data.root_path / sc_dir;
             DU_ASSERT(!fs::is_directory(actual), "Trying to read scenes from {} no such directory", actual.string());
@@ -177,19 +177,19 @@ namespace engine {
             
             out<<ym::Key<<"Paths"<<ym::BeginMap;
                 out<<ym::Key<<"Scenes"<<ym::BeginSeq;
-                    for (auto& p : data.scene_paths) { out<<ym::Key<<p.c_str(); }
+                    for (const auto& p : data.scene_paths) { out<<ym::Key<<p.c_str(); }
                 out<<ym::EndSeq;
 
                 out<<ym::Key<<"Shaders"<<ym::BeginSeq;
-                    for (auto& p : data.shader_paths) { out<<ym::Key<<p.c_str(); }
+                    for (const auto& p : data.shader_paths) { out<<ym::Key<<p.c_str(); }
                 out<<ym::EndSeq;
 
                 out<<ym::Key<<"Textures"<<ym::BeginSeq;
-                    for (auto& p : data.texture_paths) { out<<ym::Key<<p.c_str(); }
+                    for (const auto& p : data.texture_paths) { out<<ym::Key<<p.c_str(); }
                 out<<ym::EndSeq;
 
                 out<<ym::Key<<"Models"<<ym::BeginSeq;
-                    for (auto& p : data.model_paths) { out<<ym::Key<<p.c_str(); }
+                    for (const auto& p : data.model_paths) { out<<ym::Key<<p.c_str(); }
                 out<<ym::EndSeq;
             out<<ym::EndMap;
 

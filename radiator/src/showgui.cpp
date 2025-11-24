@@ -57,7 +57,7 @@ void EScene::save_project() {
     }
 
     if (data.scene_paths.empty()) {data.scene_paths.push_back(data.root_path);}
-    for (auto [k, s] : manager->get_scenes()) {
+    for (const auto& [k, s] : manager->get_scenes()) {
         if (k == "EDITOREditor" || k == "EDITORGreeter") continue;
         std::string path = s->file_path;
         if (path.empty())
@@ -109,14 +109,17 @@ EditorState EScene::update_imgui(float dt) {
             if (ImGui::MenuItem("Save Project")) {
                 save_project();
             }
-            if (ImGui::MenuItem("Open", "Ctrl + O")) {
-                open_working_file(manager, working_scene, this);
-            }
-            if (ImGui::MenuItem("Save", "Ctrl + S")) {
-                save_working_file(manager,this);
-            }
-            if (ImGui::MenuItem("Save As", "Ctrl + Shift + S")) {
-                saveas_working_file(manager,this);
+            //if (ImGui::MenuItem("Open", "Ctrl + O")) {
+            //    open_working_file(manager, working_scene, this);
+            //}
+            //if (ImGui::MenuItem("Save", "Ctrl + S")) {
+            //    save_working_file(manager,this);
+            //}
+            //if (ImGui::MenuItem("Save As", "Ctrl + Shift + S")) {
+            //    saveas_working_file(manager,this);
+            //}
+            if(ImGui::MenuItem("New Scene")) {
+                creating_scene = true;
             }
 
             if (ImGui::MenuItem("Project Settings")) {
@@ -209,7 +212,7 @@ void EScene::render_entities(bool *has_selected) {
     }
     
 
-    for (auto [_, entity] : working_scene->uuids) {
+    for (const auto& [_, entity] : working_scene->uuids) {
         Entity tmp = {working_scene, entity};
         if (tmp.is_child())// || tmp.has_component<EditorViewer>())
             continue;
@@ -240,7 +243,7 @@ void EScene::render_entity(Entity current, bool *has_selected, bool root) {
         }
 
         if (current.is_parent()) {
-            for (auto child : current.get_children()) {
+            for (const auto& child : current.get_children()) {
                 render_entity(working_scene->uuid_to_entity(child), has_selected);
             }
         }
@@ -359,7 +362,7 @@ void EScene::render_pickerview() {
 
     glUseProgram(picker_shader);
 
-    for (auto [e, t, m] : objects.each()) {
+    for (const auto& [e, t, m] : objects.each()) {
         int r = ((uint32_t)e & 0x000000FF) >>  0;
         int g = ((uint32_t)e & 0x0000FF00) >>  8;
         int b = ((uint32_t)e & 0x00FF0000) >> 16;
@@ -424,7 +427,7 @@ void EScene::render_psettings() {
         auto view = working_scene->registry.view<CameraComp, TransformComp>();
 
         if( ImGui::BeginCombo("##", sample.c_str()) ) {
-            for (auto& e : view) {
+            for (const auto& e : view) {
                 Entity tmp = {working_scene, e};
                 bool is_selected = (current) ? e == working_scene->uuid_to_entt(current) : false;
                 if (ImGui::Selectable(make_entity_name(tmp).c_str(), is_selected)) {
@@ -499,6 +502,8 @@ void EScene::render_create_scene() {
                 set_current = true;
                 scene_name = "";
                 creating_scene = false;
+                resource_lists = ResouceLists();
+                resource_lists.init(manager);
             }
         }
 

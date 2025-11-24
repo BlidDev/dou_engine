@@ -17,10 +17,10 @@ namespace engine {
     }
 
     Scene* SceneManager::get_scene(const char* name) {
-        Scene* ptr = nullptr;
-        DU_ASSERT(scenes.find(name) == scenes.end(),"Scene {} does not exist", name);
-        ptr = scenes.at(name);
-        return ptr;
+        const auto& it = scenes.find(name);
+        DU_ASSERT(it == scenes.end(),"Scene {} does not exist", name);
+        
+        return it->second;
     }
 
 
@@ -51,11 +51,11 @@ namespace engine {
     }
 
     Scene* SceneManager::get_current() {
-        Scene* ptr = nullptr;
         DU_ASSERT(current == "NONE", "Current scene not set");
-        DU_ASSERT(scenes.find(current) == scenes.end(), "Current set to non existant scene \"{}\"", current);
-        ptr = scenes.at(current);
-        return ptr;
+
+        const auto& it = scenes.find(current);
+        DU_ASSERT(it == scenes.end(), "Current set to non existant scene \"{}\"", current);
+        return it->second;
     }
 
     void SceneManager::end() {
@@ -64,8 +64,8 @@ namespace engine {
     }
 
     SceneManager::~SceneManager() {
-        for (auto& scene : scenes) {
-            delete scene.second;
+        for (auto& [_, scene] : scenes) {
+            delete scene;
         }
     }
 
@@ -74,19 +74,21 @@ namespace engine {
     void SceneManager::register_shader(const char* path) {
         fs::path fs_path = fs::path(path);
         if (!fs_path.is_absolute()) fs_path = root_path() / fs_path;
+
         DU_ASSERT(shader_lib.find(fs_path.filename()) != shader_lib.end(), "Shader [{}] already registered", path);
 
-        shader_lib.insert(std::make_pair(fs_path.filename().string(), complie_shader_file(fs_path.c_str())));
 
+        shader_lib.insert(std::make_pair(fs_path.filename().string(), complie_shader_file(fs_path.c_str())));
         DU_CORE_DEBUG_TRACE("Registered shader {}", fs_path.filename().string());
     }
 
     void SceneManager::register_texture(const char* path) {
         fs::path fs_path = fs::path(path);
         if (!fs_path.is_absolute()) fs_path = root_path() / fs_path;
+
+
         DU_ASSERT(texture_lib.find(fs_path.filename()) != texture_lib.end(), "Texture [{}] already registered", path);
         texture_lib.insert(std::make_pair(fs_path.filename().string(), load_texture_from_file(fs_path.c_str())));
-
         DU_CORE_DEBUG_TRACE("Registered texture {}", fs_path.filename().string());
     }
 

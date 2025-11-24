@@ -7,8 +7,6 @@
 // layers
 
 #include "renderer.h"
-namespace fs = std::filesystem;
-
 
 namespace engine {
     class SceneManager;
@@ -18,10 +16,10 @@ namespace engine {
         std::string name;
         std::string startup_scene;
         std::filesystem::path root_path;
-        std::vector<fs::path> scene_paths;
-        std::vector<fs::path> shader_paths;
-        std::vector<fs::path> texture_paths;
-        std::vector<fs::path> model_paths;
+        std::vector<std::filesystem::path> scene_paths;
+        std::vector<std::filesystem::path> shader_paths;
+        std::vector<std::filesystem::path> texture_paths;
+        std::vector<std::filesystem::path> model_paths;
 
         ProjectData(std::string name = "");
     };

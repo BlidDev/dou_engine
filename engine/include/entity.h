@@ -46,7 +46,7 @@ namespace engine {
 
         void make_child_of(UUID parent);
         void add_child(UUID child);
-        void add_children(std::vector<UUID> children);
+        void add_children(const std::vector<UUID>& children);
         void remove_child(UUID child);
         void remove_children();
         void remove_parent();

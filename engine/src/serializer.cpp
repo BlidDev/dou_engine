@@ -89,7 +89,7 @@ namespace engine {
         out<<YAML::BeginSeq<<ident<<field<<YAML::EndSeq;
     }
 
-    #define EMIT_FIELD(name,var, type, ident) if (var.is<type>())  {out<<YAML::Key<<name; make_field_node(out, var.as<type>(), ident);}
+    #define EMMIT_FIELD(name,var, type, ident) if (var.is<type>())  {out<<YAML::Key<<name; make_field_node(out, var.as<type>(), ident);}
 
     YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec3& v) {
         out<<YAML::Flow;
@@ -153,7 +153,7 @@ namespace engine {
         if (entity.has_component<ActionsComp>()) {
             out<<YAML::Key<<"Native Actions"<<YAML::BeginSeq;
                 ActionsComp& a = entity.get_component<ActionsComp>();
-                for (auto action : a.actions) {
+                for (const auto& action : a.actions) {
                     out<<YAML::BeginMap;
                         out<<YAML::Key<<"Name"<<YAML::Value<<action->inner_name;
                         action->serialize(out);
@@ -200,20 +200,19 @@ namespace engine {
         if (entity.has_component<LuaActionComp>()) {
             auto& l = entity.get_component<LuaActionComp>();
             out<<YAML::Key<<"Lua Actions"<<YAML::BeginSeq;
-                for (auto scp : l.scripts) {
+                for (const auto& scp : l.scripts) {
                     out<<YAML::BeginMap;
                     out<<YAML::Key<<"Path"<<scp.path;
                     out<<YAML::Key<<"Fields"<<YAML::BeginMap;
-                        for (auto& [k,v] : scp.env) {
+                        for (const auto& [k,v] : scp.env) {
                             if ( !k.is<std::string>() || v.is<sol::function>())
                                 continue;
                             
                             std::string str = k.as<std::string>();
-
-                                 EMIT_FIELD(str, v, UUID, 'u')
-                            else EMIT_FIELD(str, v, int,   'i')
-                            else EMIT_FIELD(str, v, float, 'f')
-                            else EMIT_FIELD(str, v, bool, 'b')
+                                 EMMIT_FIELD(str, v, UUID, 'u')
+                            else EMMIT_FIELD(str, v, int,   'i')
+                            else EMMIT_FIELD(str, v, float, 'f')
+                            else EMMIT_FIELD(str, v, bool, 'b')
                             // fucking hell
 
                         }
@@ -273,7 +272,7 @@ namespace engine {
         if (entity.has_component<ChildrenComp>()) {
             auto& c = entity.get_component<ChildrenComp>();
             out<<YAML::Key<<"Children"<<YAML::BeginSeq;
-            for (auto& child : c.children) {
+            for (const auto& child : c.children) {
                 out<<YAML::Value<<child;
             }
             out<<YAML::EndSeq;
@@ -342,7 +341,7 @@ namespace engine {
         auto actions_comp = entity["Native Actions"];
         if (actions_comp) {
             ActionsComp& ac = read_entity.add_component<ActionsComp>();
-            for (auto action : actions_comp) {
+            for (const auto& action : actions_comp) {
                 std::string action_name = action["Name"].as<std::string>();
                 UpdateComp* a = ac.add(action_name.c_str()).get_last();
                 a->dserialize(action);
@@ -386,11 +385,11 @@ namespace engine {
         auto lua_actions = entity["Lua Actions"];
         if (lua_actions) {
             auto& ls = read_entity.add_component<LuaActionComp>(LuaActionComp(UUID(uuid)));
-            for (auto m : lua_actions) {
+            for (const auto& m : lua_actions) {
                 std::string path = m["Path"].as<std::string>();
                 ls.add(scene,(root / std::filesystem::path(path)));
 
-                for (auto f : m["Fields"]) {
+                for (const auto& f : m["Fields"]) {
                     std::string name = f.first.as<std::string>();
                     DU_ASSERT(!f.second.IsSequence(), " {} - Invaild field decleration", name);
                     char type_flag = f.second[0].as<char>();
@@ -447,7 +446,7 @@ namespace engine {
 
         auto children = entity["Children"];
         if (children) {
-            for (auto child : children) {
+            for (const auto& child : children) {
                 UUID c = child.as<UUID>();
                 read_entity.add_child(c);
             }
@@ -471,7 +470,7 @@ namespace engine {
 
         out<<YAML::Key<<"Entities"<<YAML::Value<<YAML::BeginSeq;
         auto view = scene->registry.view<entt::entity>();
-        for (auto e : view) {
+        for (const auto& e : view) {
             Entity entity(scene, e);
             if (!entity)
                 continue;
@@ -487,7 +486,7 @@ namespace engine {
     }
 
     void detect_and_add_entities(YAML::Node& entities, Scene* scene) {
-        for (auto entity : entities) {
+        for (const auto& entity : entities) {
             DU_ASSERT(!entity["Entity"], "No uuid given to entity");
             uint64_t uuid = entity["Entity"].as<uint64_t>(); 
             scene->create_entity_with_uuid(uuid);

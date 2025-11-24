@@ -7,17 +7,12 @@
 namespace engine {
 
     bool does_ubo_exist(const char* name, std::vector<UBO>& ubos) {
-        for (auto& ubo : ubos) {
-            if (name == ubo.name) {
-                return true;
-            }
-        }
-        return false;
+        return std::find_if(ubos.begin(), ubos.end(), [&name](const UBO& u) {return u.name == name;}) != ubos.end();
     }
 
     void ubos_shaders_bind(RenderData& data, std::unordered_map<std::string, Shader>& shaders) {
-        for (auto& ubo : data.ubos) {
-            for (auto& [_, shader] : shaders) {
+        for (const auto& ubo : data.ubos) {
+            for (const auto& [_, shader] : shaders) {
                 unsigned int index = glGetUniformBlockIndex(shader.program, ubo.name.c_str());
                 glUniformBlockBinding(shader.program, index, ubo.binding_point);
             }

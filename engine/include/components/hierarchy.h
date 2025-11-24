@@ -26,7 +26,7 @@ namespace engine {
             if (!scene || children.empty()) 
                 return;
 
-            for (auto& child : children) {
+            for (const auto& child : children) {
                 Entity tmp = scene->uuid_to_entity(child);
                 DU_ASSERT(tmp.has_component<ParentComp>(), "Entity {} already has a parent", child);
                 DU_ASSERT(tmp == self, "Trying to make {} a parent of itself", self.uuid());

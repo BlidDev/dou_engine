@@ -19,19 +19,16 @@ Entity Scene::create_entity_with_uuid(uint64_t uuid) {
     }
 
     entt::entity Scene::uuid_to_entt(UUID uuid) {
-        DU_ASSERT(uuids.find(uuid) == uuids.end(), "ERROR: Unknown UUID {}", uuid.get_uuid());
-        return uuids[uuid];
+        const auto& it = uuids.find(uuid);
+        DU_ASSERT(it == uuids.end(), "ERROR: Unknown UUID {}", uuid.get_uuid());
+        return it->second;
     }
 
     UUID Scene::entt_to_uuid(entt::entity id) {
         DU_ASSERT(!registry.valid(id), "Trying to convert non existant id to uuid");
-        for (auto& [uuid, entt] : uuids) {
-            if (entt == id) {
-                return uuid;
-            }
-        }
-
-        DU_ASSERT(true, "Could not convert id to uuid");
+        const auto it = std::find_if(uuids.begin(), uuids.end(), [&id](const auto& pair){return pair.second == id;});
+        DU_ASSERT(it == uuids.end(), "Could not convert id {} to uuid", (uint32_t)id);
+        return it->first;
     }
 
     void Scene::remove_entity(UUID uuid) {
@@ -48,20 +45,23 @@ Entity Scene::create_entity_with_uuid(uint64_t uuid) {
         manager->register_shader(name);
     }
 
-    Shader Scene::get_shader(const char* name) {
-        DU_ASSERT(manager->shader_lib.find(name) == manager->shader_lib.end(), "Could not find registered shader [{}]", name);
+    Shader& Scene::get_shader(const char* name) {
+        const auto& it = manager->shader_lib.find(name);
+        DU_ASSERT(it == manager->shader_lib.end(), "Could not find registered shader [{}]", name);
 
-        return manager->shader_lib.at(std::string(name));
+        return it->second;
     }
-    Texture Scene::get_texture(const char* name) {
-        DU_ASSERT(manager->texture_lib.find(name) == manager->texture_lib.end(), "Could not find registered texture [{}]", name);
+    Texture& Scene::get_texture(const char* name) {
+        const auto& it = manager->texture_lib.find(name);
+        DU_ASSERT(it == manager->texture_lib.end(), "Could not find registered texture [{}]", name);
 
-        return manager->texture_lib.at(std::string(name));
+        return it->second;
     }
-    Model Scene::get_model(const char* name) {
-        DU_ASSERT(manager->model_lib.find(name) == manager->model_lib.end(), "Could not find registered model [{}]", name);
+    Model& Scene::get_model(const char* name) {
+        const auto& it = manager->model_lib.find(name);
+        DU_ASSERT(it == manager->model_lib.end(), "Could not find registered model [{}]", name);
 
-        return manager->model_lib.at(std::string(name));
+        return it->second;
     }
 
-    } // namespace engine
+} 

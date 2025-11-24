@@ -27,8 +27,9 @@ namespace engine {
     }
 
     ActionsComp& ActionsComp::add(const char* action) {
-        DU_ASSERT(registered_actions.find(std::string(action)) == registered_actions.end(), "Trying to add unregistered action [{}]", action);
-        UpdateComp* tmp = registered_actions.find(action)->second;
+        const auto& it = registered_actions.find(std::string(action));
+        DU_ASSERT(it == registered_actions.end(), "Trying to add unregistered action [{}]", action);
+        UpdateComp* tmp = it->second;
         UpdateComp* update = tmp->copy();
         update->inner_name = tmp->inner_name;
         actions.push_back(update);
@@ -52,8 +53,8 @@ namespace engine {
     }
 
     void ActionsComp::free_registered_actions() {
-        for (auto& element : registered_actions) {
-            delete element.second;
+        for (auto& [_, action] : registered_actions) {
+            delete action;
         }
     }
 }

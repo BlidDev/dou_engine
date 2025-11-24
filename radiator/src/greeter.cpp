@@ -148,9 +148,10 @@ void Greeter::open_project(const char* path, bool add_paths) {
     manager->set_current("EDITOREditor");
 }
 
+namespace fs = std::filesystem;
 
 void Greeter::detect_projects() {
-    for(auto& entry : fs::directory_iterator("projects")) {
+    for(const auto& entry : fs::directory_iterator("projects")) {
         if (!entry.is_directory()) continue;
         std::string name = entry.path().filename().string();
         fs::path path = std::format("projects/{}/{}.prj", name, name);

@@ -62,23 +62,15 @@ namespace engine {
     }
 
     void LuaActionComp::remove(std::string path) {
-        int i = 0; bool found = false;
-        for (auto& s : scripts) {
-            if (s.path == path) {found = true; break;}
-            i++;
-        }
+        const auto& it = std::find_if(scripts.begin(), scripts.end(), [&path] (const auto& s){ return s.path == path; });
 
-        DU_ASSERT(!found, "Trying to remove non registered script {}", path);
-        scripts.erase(scripts.begin() + i);
+        DU_ASSERT(it == scripts.end(), "Trying to remove non registered script {}", path);
+        scripts.erase(it);
     }
 
 
     bool LuaActionComp::find(const char* path) {
-        for (auto& s : scripts) {
-            if (s.path == path)
-                return true;
-        }
-        return false;
+        return std::find_if(scripts.begin(), scripts.end(), [&path](const auto& s) {return s.path == path;}) != scripts.end();
     }
 
     LuaActionComp::LuaActionComp(UUID self) {
@@ -86,22 +78,26 @@ namespace engine {
         scripts = {};
     }
 
-    LuaActionComp::LuaActionComp(UUID self, std::vector<LuaUpdate> scripts) {
+    LuaActionComp::LuaActionComp(UUID self, const std::vector<LuaUpdate>& scripts) {
         this->self = self;
         this->scripts = scripts;
     }
 
     LuaActionComp& LuaActionComp::add(Scene* scene, std::string path) {
+        if (find(path.c_str())) { DU_CORE_DEBUG_TRACE("{} is already attached to {}. Ignoring", path, self); return *this;}
+
         scripts.push_back(LuaUpdate(self, scene,LuaManager::state,path));
         return *this;
     }
 
     LuaActionComp& LuaActionComp::add(LuaUpdate update) {
+        if (find(update.path.c_str())) { DU_CORE_DEBUG_TRACE("{} is already attached to {}. Ignoring", update.path, self); return *this;}
         scripts.push_back(update);
         return *this;
     }
 
     LuaUpdate& LuaActionComp::get_last() {
+        
         return scripts.back();
     }
 

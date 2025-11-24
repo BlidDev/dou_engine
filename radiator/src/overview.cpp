@@ -7,6 +7,7 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "misc/cpp/imgui_stdlib.h"
+#include <array>
 
 #define DUMMY ImGui::Dummy(ImVec2(0, 22.0f))
 #define NOSPACE
@@ -49,7 +50,7 @@ void add_comp(Entity& entity, Scene* scene) {
     std::string current = "NONE";
 
     if( ImGui::BeginCombo("##", "Add Component") ) {
-        for (auto& e : cmp_vec) {
+        for (const auto& e : cmp_vec) {
             bool is_selected = current == e;
             if (ImGui::Selectable(e.c_str(), is_selected)) {
                 current = e;
@@ -97,7 +98,7 @@ void render_transform(TransformComp& t) {
 }
 
 void apply_delta_on_children(Entity& e, glm::vec3 delta) {
-    for (auto child : e.get_children()) {
+    for (auto& child : e.get_children()) {
         Entity tmp = e.scene_ptr()->uuid_to_entity(child);
 
         if (!tmp.has_component<TransformComp>()) continue;
@@ -195,19 +196,13 @@ void render_camera(CameraComp& c) {
 
 const char* num_to_str[MAX_RENDER_LAYERS] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"};
 
-bool str_vec_getter(void* data, int n, const char** out_text)
-{
-    const std::vector<std::string>* v = static_cast<std::vector<std::string>*>(data);
-    *out_text = v->at(n).c_str();
-    return true;
-}
-
 void render_tex_select(ModelComp& m, SceneManager* manager) {
 
     ImGui::Text("Texture"); ImGui::SameLine();
     std::vector<std::string>textures = {"UNKNOWN"};
+    textures.reserve(manager->texture_lib.size());
     int i = 1, current = 0;
-    for (auto& [k,_] : manager->texture_lib) {textures.push_back(k);if(m.material.texture.path == k) {current = i;} i++;}
+    for (const auto& [k,_] : manager->texture_lib) {textures.emplace_back(k);if(m.material.texture.path == k) {current = i;} i++;}
 
     std::string last = textures[current];
     if (ImGui::BeginCombo("##Texture", last.c_str())) {
@@ -243,8 +238,9 @@ void render_shader_select(ModelComp& m, SceneManager* manager) {
 
     ImGui::Text("Shader "); ImGui::SameLine();
     std::vector<std::string>shaders;
+    shaders.reserve(manager->shader_lib.size());
     int i = 0, current = 0;
-    for (auto& [k,_] : manager->shader_lib) {shaders.push_back(k);if(m.material.shader.path == k) {current = i;}  i++;}
+    for (const auto& [k,_] : manager->shader_lib) {shaders.emplace_back(k);if(m.material.shader.path == k) {current = i;}  i++;}
 
     std::string last = shaders[current];
     if (ImGui::BeginCombo("##Shader", last.c_str())) {
@@ -271,8 +267,9 @@ void render_model_select(ModelComp& m, SceneManager* manager) {
 
     ImGui::Text("Model  "); ImGui::SameLine();
     std::vector<std::string>models;
+    models.reserve(manager->model_lib.size());
     int i = 0, current = 0;
-    for (auto& [k,_] : manager->model_lib) {models.push_back(k);if(m.model.name == k) {current = i;}  i++;}
+    for (const auto& [k,_] : manager->model_lib) {models.emplace_back(k);if(m.model.name == k) {current = i;}  i++;}
 
     std::string last = models[current];
     if (ImGui::BeginCombo("##Model", last.c_str())) {
@@ -418,7 +415,7 @@ void render_children(ChildrenComp& c, Scene* scene, Entity& parent) {
     auto width = ImGui::GetWindowWidth();
 
     int i = 0;
-    for (auto& child : c.children) {
+    for (const auto& child : c.children) {
         Entity current = scene->uuid_to_entity(child);
 
         std::string name = make_entity_name(current);
@@ -445,7 +442,7 @@ void add_children(Entity& self, Scene* scene) {
     ImGui::SetCursorPosX(get_centered_pos("Add Child") / 2.0f);
 
     if( ImGui::BeginCombo("##", "Add Child") ) {
-        for (auto& e : view) {
+        for (const auto& e : view) {
             if (e == self.id()) continue;;
             Entity tmp = {scene, e};
             bool is_selected = e == current;

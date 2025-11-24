@@ -9,6 +9,3 @@
         } \
     } while (0)
 
-#define DU_HANDLEI(condition, res) \
-    int tmp = condition; \
-    if (tmp == res) {return res;}

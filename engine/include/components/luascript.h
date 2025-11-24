@@ -34,7 +34,13 @@ namespace engine {
 
     struct LuaActionComp {
        LuaActionComp(UUID self);
-       LuaActionComp(UUID self,std::vector<LuaUpdate> scripts);
+       LuaActionComp(UUID self, const std::vector<LuaUpdate>& scripts);
+
+        template<typename ...Args>
+        LuaActionComp(UUID self, Args&&... args) {
+            this->self = self;
+            scripts = {std::forward<Args>(args)...};
+        }
 
        LuaActionComp& add(Scene* scene, std::string path);
        LuaActionComp& add(LuaUpdate update);
@@ -50,21 +56,20 @@ namespace engine {
 
         template<typename ...Args>
         int call_at(const LuaCallback& callback, Args&&... args) {
-            for (auto& s : scripts) {
-                if (s.path != callback.path)
-                    continue;
-                sol::function fn = s.env[callback.function];
-                DU_ASSERT(!fn, "The scripts {} does not contain {}", callback.path, callback.function);
-                auto result = fn(std::forward<Args>(args)...);
-                if (!result.valid()) {
-                    sol::error e = result;
-                    DU_ERROR("{}", e.what());
-                }
-                return (int)result;
-            }
+            auto script = std::find_if(scripts.begin(), scripts.end(), [&callback](const auto& s) {return s.path == callback.path;});
+            DU_ASSERT(script == scripts.end(), "No script ({}) attached to entity", callback.path);
 
-            DU_ASSERT(true, "No script ({}) attached to entity", callback.path);
-            return -1;
+
+            
+            sol::function fn = script->env[callback.function];
+            DU_ASSERT(!fn, "The scripts {} does not contain {}", callback.path, callback.function);
+
+            auto result = fn(std::forward<Args>(args)...);
+            if (!result.valid()) {
+                sol::error e = result;
+                DU_ERROR("{}", e.what());
+            }
+            return (int)result;
         }
 
        LuaUpdate& get_last();
