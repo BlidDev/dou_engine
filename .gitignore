@@ -117,3 +117,5 @@ engine/*.vcxproj
 engine/*.vcxproj.filters
 vendor/glad/*.vcxproj
 vendor/glad/*.vcxproj.filters
+
+compile_commands.json
