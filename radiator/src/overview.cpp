@@ -14,6 +14,7 @@
 #define NOSPACE
 
 #define PUSH_CMP(vec, entity, type) if(!entity.has_component<type>()) {vec.push_back(std::format("{}", #type));}
+
 std::vector<std::string> make_cmp_vec(Entity& e) {
     std::vector<std::string> vec; vec.reserve(9);
     PUSH_CMP(vec, e, TagComp);
@@ -103,6 +104,81 @@ void cmp_other_options(Entity &e) {
     }
 }
 
+
+template<typename T>
+void render_lib_select(const char* label,T& subject, std::string& own,
+        const std::unordered_map<std::string, T>& lib, 
+        std::function<void(std::string&)> ptr = nullptr,
+        std::initializer_list<std::string> append = {}) {
+
+    ImGui::Text("%s ", label); ImGui::SameLine();
+
+    std::vector<std::string>tmp = append;
+    int i = 0, current = 0;
+    if (!own.empty()) {
+        tmp.reserve(lib.size());
+        for (const auto& [k,_] : lib) {tmp.push_back(k);if(own == k) {current = i;}  i++;}
+    }
+
+    std::string last = tmp[current];
+    if (ImGui::BeginCombo(std::format("##{}", label).c_str(), last.c_str())) {
+        for (int i = 0; i < tmp.size(); i++) {
+            bool is_selected = (current == i);
+            if (ImGui::Selectable(tmp[i].c_str(), is_selected)) {
+                current = i;
+            }
+
+            if (is_selected) {
+                ImGui::SetItemDefaultFocus();
+            }
+        }
+
+        ImGui::EndCombo();
+        if (tmp[current] == last) return;
+
+        if(!ptr) {
+            subject = lib.at(tmp[current]);
+            return;
+        }
+        ptr(tmp[current]);
+            
+    }
+}
+
+bool render_script_select(LuaActionComp& la, Scene* scene) {
+
+    ImGui::Text("Add Script"); ImGui::SameLine();
+
+    const auto& lib = scene->manager->script_lib;
+    std::vector<std::string>tmp = {"Select"};
+    int current = 0;
+    tmp.reserve(lib.size());
+    for (const auto& [k,_] : lib) {tmp.push_back(k);}
+
+    if (ImGui::BeginCombo("##AddScript", tmp[current].c_str())) {
+        for (int i = 0; i < tmp.size(); i++) {
+            bool is_selected = (current == i);
+            if (ImGui::Selectable(tmp[i].c_str(), is_selected)) {
+                current = i;
+            }
+
+            if (is_selected) {
+                ImGui::SetItemDefaultFocus();
+            }
+        }
+
+        ImGui::EndCombo();
+
+        if (current == 0) return false;
+        la.add(scene, tmp[current]);
+        return true;
+    }
+
+    return false;
+
+}
+
+
 void render_tag(TagComp &tag) {
     ImGui::Text("Tag: "); ImGui::SameLine();
     ImGui::InputText("##Tag", &tag.tag);
@@ -165,26 +241,38 @@ void render_physicsbody(PhysicsBodyComp &p, Entity &e) {
 
     if(ImGui::TreeNode("Lua Callback")) {
         ImGui::Text("Current: \"%s\"", p.lua_callback.path.c_str());
-        ImGui::SameLine(0, 10.0f); 
-        if (ImGui::Button("Set")) {
-            char const * filter[] = {"*.lua"};
-            char* path = tinyfd_openFileDialog("Select Script file", nullptr, 1, filter, nullptr,0);
-            p.lua_callback.path = path;
-            if (e.has_component<LuaActionComp>()) {
+
+        if(e.has_component<LuaActionComp>()) {
+            ImGui::Text("Select Script"); ImGui::SameLine();
+
+            const auto& lib = e.scene_ptr()->manager->script_lib;
+            std::vector<std::string>tmp = {"##"};
+            int current = 0, i = 0;
+            tmp.reserve(lib.size());
+            for (const auto& [k,_] : lib) {tmp.push_back(k); if(k == p.lua_callback.path) {current = i;} i++;}
+
+            if(combo_guts("##SelectScript", tmp, current, 0)) {
                 auto& la = e.get_component<LuaActionComp>();
-                if (!la.find(path))
-                    la.add(e.scene_ptr(),path);
-            }
-            else {
-                auto& la = e.add_component<LuaActionComp>(e.uuid());
-                la.add(e.scene_ptr(),path);
+                std::string& chosen = tmp[current];
+                p.lua_callback.path = chosen;
+                if(!la.find(chosen.c_str()))
+                    la.add(e.scene_ptr(), chosen.c_str());
             }
 
         }
+        else {
+            if (!p.lua_callback.path.empty() || !p.lua_callback.function.empty()) {
+                p.lua_callback = {"", ""};
+            }
+            if(ImGui::Button("Add LuaActionComp")) {
+                e.add_component<LuaActionComp>(e.uuid());
+            }
+        }
+       
+        if(!p.lua_callback.path.empty()) {
+            sameline_text("Function: ", &p.lua_callback.function);
+        }
 
-        ImGui::Text("Function: \"%s\"", p.lua_callback.function.c_str());
-        ImGui::SameLine(0, 10.0f); 
-        ImGui::InputText("##", &p.lua_callback.function);
         ImGui::TreePop();
     }
 
@@ -220,114 +308,32 @@ void render_camera(CameraComp& c) {
 
 const char* num_to_str[MAX_RENDER_LAYERS] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"};
 
-void render_tex_select(ModelComp& m, SceneManager* manager) {
-
-    ImGui::Text("Texture"); ImGui::SameLine();
-    std::vector<std::string>textures = {"UNKNOWN"};
-    textures.reserve(manager->texture_lib.size());
-    int i = 1, current = 0;
-    for (const auto& [k,_] : manager->texture_lib) {textures.push_back(k);if(m.material.texture.path == k) {current = i;} i++;}
-
-    std::string last = textures[current];
-    if (ImGui::BeginCombo("##Texture", last.c_str())) {
-        for (int i = 0; i < textures.size(); i++) {
-            bool is_selected = (current == i);
-            if (ImGui::Selectable(textures[i].c_str(), is_selected)) {
-                current = i;
-            }
-
-            if (is_selected) {
-                ImGui::SetItemDefaultFocus();
-            }
-        }
-
-        ImGui::EndCombo();
-
-        if (textures[current] == last) return;
-        if (textures[current] == "UNKNOWN") {
-            m.material.texture = Texture();
-            m.material.attributes &= ~MODEL_TEXTURED;
-            m.material.attributes |= MODEL_FILLED;
-            return;
-        }
-
-        m.material.texture = manager->texture_lib[textures[current]];
-        m.material.attributes |= MODEL_TEXTURED;
-        m.material.attributes &= ~MODEL_FILLED;
-    }
-}
-
-
-void render_shader_select(ModelComp& m, SceneManager* manager) {
-
-    ImGui::Text("Shader "); ImGui::SameLine();
-    std::vector<std::string>shaders;
-    shaders.reserve(manager->shader_lib.size());
-    int i = 0, current = 0;
-    for (const auto& [k,_] : manager->shader_lib) {shaders.push_back(k);if(m.material.shader.path == k) {current = i;}  i++;}
-
-    std::string last = shaders[current];
-    if (ImGui::BeginCombo("##Shader", last.c_str())) {
-        for (int i = 0; i < shaders.size(); i++) {
-            bool is_selected = (current == i);
-            if (ImGui::Selectable(shaders[i].c_str(), is_selected)) {
-                current = i;
-            }
-
-            if (is_selected) {
-                ImGui::SetItemDefaultFocus();
-            }
-        }
-
-        ImGui::EndCombo();
-        if (shaders[current] == last) return;
-
-        m.material.shader = manager->shader_lib[shaders[current]];
-
-    }
-}
-
-void render_model_select(ModelComp& m, SceneManager* manager) {
-
-    ImGui::Text("Model  "); ImGui::SameLine();
-    std::vector<std::string>models;
-    models.reserve(manager->model_lib.size());
-    int i = 0, current = 0;
-    for (const auto& [k,_] : manager->model_lib) {models.push_back(k);if(m.model.name == k) {current = i;}  i++;}
-
-    std::string last = models[current];
-    if (ImGui::BeginCombo("##Model", last.c_str())) {
-        for (int i = 0; i < models.size(); i++) {
-            bool is_selected = (current == i);
-            if (ImGui::Selectable(models[i].c_str(), is_selected)) {
-                current = i;
-            }
-
-            if (is_selected) {
-                ImGui::SetItemDefaultFocus();
-            }
-        }
-
-        ImGui::EndCombo();
-        if (models[current] == last) return;
-
-        m.model = manager->model_lib[models[current]];
-
-    }
-}
 
 void render_model(ModelComp& m, SceneManager* manager) {
     render_combo("Render Layer", &m.layer, num_to_str, MAX_RENDER_LAYERS);
 
-    render_shader_select(m, manager);
-    render_model_select(m,manager);
-    render_tex_select(m, manager);
+    render_lib_select("Shader", m.material.shader, m.material.shader.path, manager->shader_lib);
+    render_lib_select("Model", m.model, m.model.name, manager->model_lib);
+    render_lib_select("Texture", m.material.texture, m.material.texture.path, manager->texture_lib, 
+            [&m, &manager](std::string& chosen){
+                if (chosen == "UNKNOWN") {
+                    m.material.texture = Texture();
+                    m.material.attributes &= ~MODEL_TEXTURED;
+                    m.material.attributes |= MODEL_FILLED;
+                    return;
+                }
+
+                m.material.texture = manager->texture_lib[chosen];
+                m.material.attributes |= MODEL_TEXTURED;
+                m.material.attributes &= ~MODEL_FILLED;
+            }, {"UNKOWN"});
+
 
     if (ImGui::TreeNode("Material Args")) {
         sameline_color("Ambient ", m.material.ambient);
         sameline_color("Diffuse ", m.material.diffuse);
         sameline_color("Specular", m.material.specular);
-        sameline_float("Shininess", &m.material.shininess, 0.0f, 1.0f);
+        sameline_float("Shininess", &m.material.shininess);
 
         bool is_filled = (m.material.attributes & MODEL_FILLED) == MODEL_FILLED;
         bool is_textured = (m.material.attributes & MODEL_TEXTURED) == MODEL_TEXTURED;
@@ -416,12 +422,7 @@ void render_luascript(LuaActionComp& l, Scene* scene) {
             ImGui::TreePop();
         }
     }
-    if(ImGui::Button("Add Script")) {
-        char const * filter[] = {"*.lua"};
-        char* path = tinyfd_openFileDialog("Open a Script file", nullptr, 1, filter, nullptr,0);
-
-        l.add(scene, path);
-    }
+    render_script_select(l,scene);
 }
 
 void render_parent(ParentComp& p, Scene* scene, Entity& self) {

@@ -7,12 +7,18 @@
 namespace engine {
 
     struct UBO {
-        unsigned int handler;
-        unsigned int binding_point;
+        uint32_t handler;
+        uint32_t binding_point;
         size_t size;
         std::string name;
 
-        UBO& set_sub(size_t start, size_t size, void* value);
+        UBO(uint32_t handler = 0, uint32_t binding = 0, size_t size = 0, const char* name = "UNSETUBO");
+        UBO(const UBO& other);
+        UBO& operator=(const UBO& other);
+
+        UBO(UBO&& other);
+        UBO& operator=(UBO&& other);
+
     };
 
 
@@ -52,6 +58,7 @@ namespace engine {
         int clear_flags;
     };
 
+
     void ubos_shaders_bind(RenderData& data, std::unordered_map<std::string, Shader>& shaders);
 
     struct SceneManager;
@@ -64,3 +71,22 @@ namespace engine {
 
     void make_default_ubos(SceneManager* manager);
 }
+
+#include "formatting.h"
+
+template<>
+struct fmt::formatter<engine::UBO> : fmt::formatter<std::string>{
+    auto format(const engine::UBO& u, format_context& ctx) const {
+        return fmt::formatter<std::string>::format(fmt::format("UBO: {} H:{} | B:{} | S:{}", u.name, u.handler, u.binding_point, u.size),ctx);
+    }
+};
+
+template<>
+struct fmt::formatter<engine::RenderData> : fmt::formatter<std::string>{
+    auto format(const engine::RenderData& d, format_context& ctx) const {
+        return fmt::formatter<std::string>::format(
+                fmt::format("\nUBOs: {}, sW: {}, sH: {}, mLights: {}\nAmbient: {} - Strength: {}\nClear: {}",
+                    d.ubos.size(), d.screen_w, d.screen_h, d.max_lights, d.ambient, d.ambient_strength, d.clear_color), ctx);
+    }
+};
+

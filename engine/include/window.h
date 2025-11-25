@@ -20,6 +20,10 @@ namespace engine {
         operator GLFWwindow*() {
             return window;
         }
+
+        explicit operator bool() {
+            return window != nullptr;
+        }
     private:
         GLFWwindow* window;
         unsigned int w,h;

@@ -159,9 +159,11 @@ void EScene::render_entities(bool *has_selected) {
         if (ImGui::BeginMenu("New")) {
             if( ImGui::MenuItem("Empty Entity") ) {
                 auto e = working_scene->create_entity();
+                e.add_component<TagComp>("Unnamed");
                 if (selected) {
                     e.make_child_of(selected);
                 }
+                selected = e.uuid();
             }
 
             if( ImGui::MenuItem("Cube") ) {
@@ -175,6 +177,7 @@ void EScene::render_entities(bool *has_selected) {
                 if (selected) {
                     e.make_child_of(selected);
                 }
+                selected = e.uuid();
             }
 
             ImGui::EndMenu();
@@ -503,7 +506,10 @@ void EScene::render_resources() {
             if (working_scene->name == scene) continue;
             ImGui::SameLine(0, 15.0f);
             if (ImGui::Button("Set Current")) {
-
+                working_scene = manager->get_scene(scene.c_str());
+                selected = 0;
+                if (!working_scene->file_path.empty() && working_scene->uuids.empty())
+                    working_scene->add_from_file(working_scene->file_path.c_str());
             }
         }
         ImGui::TreePop();

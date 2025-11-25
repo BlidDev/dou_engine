@@ -21,6 +21,7 @@ namespace engine {
 
     struct LuaUpdate {
         LuaUpdate(UUID self, Scene* scene, sol::state& state, std::string path);
+        LuaUpdate();
         void on_init();
         void on_update(float dt);
         void on_end();

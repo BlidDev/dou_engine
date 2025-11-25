@@ -39,6 +39,13 @@ namespace engine {
         }
     }
 
+    LuaUpdate::LuaUpdate() {
+        env = nullptr;
+        path = "";
+        self = 0;
+        inital_error = "";
+    }
+
     void LuaUpdate::on_update(float dt) {
         sol::protected_function update = env["on_update"];
         if (!update) // does not exist

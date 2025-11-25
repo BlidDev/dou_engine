@@ -3,7 +3,6 @@
 #include <filesystem>
 #include "project.h"
 #include "manager.h"
-#include "yaml-cpp/emittermanip.h"
 
 
 #define TRY_NODE(node,name, type, lhs) if(node[name]){ lhs = node[name].as<type>();}

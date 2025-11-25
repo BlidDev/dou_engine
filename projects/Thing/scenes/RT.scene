@@ -28,9 +28,9 @@ Entities:
     Lua Actions:
       - Path: player.lua
         Fields:
-          jump: [i, 10]
-          sensi: [f, 0.1]
           this: [u, 9703913328098630830]
+          sensi: [f, 0.1]
+          jump: [i, 10]
           init_speed: [i, 3]
     SptLight:
       Color: [0.5261538, 0.5261538, 0.5261538]
@@ -75,3 +75,35 @@ Entities:
       Ambient: 0.1
       Color: [0.9692308, 0.89773935, 0.49505326]
       Strength: 0.5
+  - Entity: 2240326152093192729
+    Tag:
+      Tag: f Cube
+    Transform:
+      Position: [2.1, 0.6, 0]
+      Size: [1, 1, 1]
+      Rotation: [0, 0, 0]
+    Model:
+      Model Name: cube
+      Layer: 0
+      Material:
+        Shader: basic.glsl
+        Filled: true
+        Ambient: [1, 1, 1]
+        Diffuse: [1, 1, 1]
+        Specular: [1, 1, 1]
+        Shininess: 32
+        Texture: UNKNOWN
+        Textured: false
+        Immune: false
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: false
+      Is Static: true
+      Move Delta: [0, 0, 0]
+      Intersect Callback: [trigger.lua, inter]
+    Lua Actions:
+      - Path: trigger.lua
+        Fields:
+          this: [u, 2240326152093192729]

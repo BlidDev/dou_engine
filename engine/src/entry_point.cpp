@@ -38,6 +38,8 @@ int main() {
         start = now;
     }
 
+    current->on_end();
+
     on_end(&manager);
 
     manager.end();

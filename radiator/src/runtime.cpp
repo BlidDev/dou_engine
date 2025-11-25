@@ -5,42 +5,51 @@
 void run_rt_scene(EScene *editor) {
     DU_INFO("Playing now");
     
-    auto manager = editor->manager;
     editor->save_project();
 
-    manager->current = editor->working_scene->name;
-    manager->switched = true;
+    const ProjectData& project_data = editor->manager->project_data;
+    std::string path = std::format("{}/{}.prj", project_data.root_path.c_str(), project_data.name);
 
-    glViewport(0,0, manager->render_data.screen_w, manager->render_data.screen_h);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    SceneManager rt_manager;
+    read_project_file(path.c_str(), &rt_manager, false, true);
 
-    Scene* current = editor->working_scene;
+    {
+        SceneManager* emanager = editor->manager;
 
-    if (!current->file_path.empty() && current->uuids.empty())
-        current->add_from_file(current->file_path.c_str());
+        rt_manager.main_window = emanager->main_window;
+        rt_manager.render_data = emanager->render_data;
+        ubos_shaders_bind(rt_manager.render_data, rt_manager.shader_lib);
+
+    }
+    DU_ASSERT(!rt_manager.main_window, "Runtime SceneManager main_window is null");
+
+    glViewport(0,0, rt_manager.render_data.screen_w, rt_manager.render_data.screen_h);
+    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+    Scene* current = rt_manager.get_current();
 
     double start = glfwGetTime();
     while (!current->should_close())
     {
         double now = glfwGetTime();
         double dt = now - start;
-        if (manager->switched) { 
-            current = manager->get_current();
-            manager->switched = false;
+        if (rt_manager.old) {
+            rt_manager.end_scene(rt_manager.old);
+            rt_manager.old = nullptr;
+        }
+        if (rt_manager.switched) { 
+            current = rt_manager.get_current();
+            rt_manager.switched = false;
             current->on_create();
-            update_render_data(manager, current);
+            update_render_data(&rt_manager, current);
         }
         current->on_update(dt);
         start = now;
     }
 
-    manager->end_scene(editor->working_scene);
-    if(!editor->working_scene->file_path.empty())
-        editor->working_scene->add_from_file(editor->working_scene->file_path.c_str());
+    current->on_end();
 
-
-    manager->current = "EDITOREditor";
-    manager->switched = false;
     //editor->init_imgui();
     //editor->make_viewer();
 }

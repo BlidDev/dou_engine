@@ -5,6 +5,7 @@
 #include "components/transform.h"
 #include "components/physicbody.h"
 #include "components/luascript.h"
+#include "formatting.h"
 
 
 namespace engine {
@@ -39,9 +40,9 @@ namespace engine {
         else if (ph.lua_callback) {
             DU_ASSERT(!scene.registry.any_of<LuaActionComp>(e), 
                     "LuaCallback is set to ({}, {}) but entity does not have any scripts attached", ph.lua_callback.path, ph.lua_callback.function);
-            LuaActionComp lua_a = scene.registry.get<LuaActionComp>(e);
-            UUID eu = scene.registry.get<UUID>(e);
-            UUID ou = scene.registry.get<UUID>(o);
+            LuaActionComp& lua_a = scene.registry.get<LuaActionComp>(e);
+            UUID& eu = scene.registry.get<UUID>(e);
+            UUID& ou = scene.registry.get<UUID>(o);
             return lua_a.call_at(ph.lua_callback, eu, ou);
         }
 

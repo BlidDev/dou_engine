@@ -108,6 +108,31 @@ void sameline_int(const char* title, int* v, int min, int max, int speed) {
 }
 
 
+
+
+bool combo_guts(const char* label, const std::vector<std::string>& tmp,int& current, int safety) {
+    if (ImGui::BeginCombo(label, tmp[current].c_str())) {
+        for (int i = 0; i < tmp.size(); i++) {
+            bool is_selected = (current == i);
+            if (ImGui::Selectable(tmp[i].c_str(), is_selected)) {
+                current = i;
+            }
+
+            if (is_selected) {
+                ImGui::SetItemDefaultFocus();
+            }
+        }
+
+        ImGui::EndCombo();
+        if (current == safety) return false;
+        return true;
+    }
+    return false;
+}
+
+
+
+
 bool EScene::is_key(int k, int a) {
     return key_query[k - 32] == a;
 }

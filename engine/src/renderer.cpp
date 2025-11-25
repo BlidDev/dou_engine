@@ -6,6 +6,44 @@
 
 namespace engine {
 
+    UBO::UBO(uint32_t handler, uint32_t binding, size_t size, const char* name) {
+        this->handler = handler;
+        this->binding_point = binding;
+        this->size = size;
+        this->name = name;
+    }
+
+    UBO::UBO(const UBO& other) {
+        handler = other.handler;
+        binding_point = other.binding_point;
+        size = other.size;
+        name = other.name;
+
+    }
+
+    UBO& UBO::operator=(const UBO& other) {
+        handler = other.handler;
+        binding_point = other.binding_point;
+        size = other.size;
+        name = other.name;
+        return *this;
+    }
+
+    UBO::UBO(UBO&& other) {
+        handler = other.handler;
+        binding_point = other.binding_point;
+        size = other.size;
+        name = std::move(other.name);
+    }
+
+    UBO& UBO::operator=(UBO&& other) {
+        handler = other.handler;
+        binding_point = other.binding_point;
+        size = other.size;
+        name = std::move(other.name);
+        return *this;
+    }
+
     bool does_ubo_exist(const char* name, std::vector<UBO>& ubos) {
         return std::find_if(ubos.begin(), ubos.end(), [&name](const UBO& u) {return u.name == name;}) != ubos.end();
     }
@@ -36,7 +74,7 @@ namespace engine {
         ambient_strength = 0.1f;
         max_lights = 32;
         clear_color = {0.0f, 0.0f, 0.0f, 1.0f};
-        clear_flags = GL_COLOR_BUFFER_BIT;
+        clear_flags = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT;
     }
 
     RenderData& RenderData::add(const char* name, size_t size) {
@@ -50,7 +88,7 @@ namespace engine {
 
         glBindBufferRange(GL_UNIFORM_BUFFER, counter, handler, 0, size);
 
-        ubos.push_back({handler, counter, size, name});
+        ubos.emplace_back(handler, counter, size, name);
         counter++;
         return *this;
     }
@@ -143,6 +181,7 @@ namespace engine {
 
 
     void make_default_ubos(SceneManager* manager) {
+        manager->render_data.ubos.reserve(5);
         manager->render_data.add("Matrices", 2 * sizeof(glm::mat4));
         manager->render_data.add("Lighting", 2 * sizeof(glm::vec4));
 

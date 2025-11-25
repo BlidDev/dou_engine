@@ -5,6 +5,7 @@ namespace engine {
         current = "NONE";
         project_data = ProjectData("Unnamed Project");
         old = nullptr;
+        switched = true;
 
         shader_lib = {};
         texture_lib = {};

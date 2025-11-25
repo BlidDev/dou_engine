@@ -41,6 +41,8 @@ void render_combo(const char* label, T* subject, const char** index, size_t arr_
 
 }
 
+bool combo_guts(const char* label, const std::vector<std::string>& tmp,int& current, int safety = -1);
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 

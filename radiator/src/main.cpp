@@ -6,13 +6,12 @@
 #include "imgui_impl_opengl3.h"
 
 int engine::on_start(engine::SceneManager* manager) {
+    uint32_t screen_w = 1280, screen_h = 720;
 
-    manager->main_window = Window("Radiator", 1280, 720);
-    manager->render_data.screen_w = 1280;
-    manager->render_data.screen_h = 720;
+    manager->main_window = Window("Radiator", screen_w, screen_h);
+    manager->render_data.screen_w = screen_w;
+    manager->render_data.screen_h = screen_h;
     engine::set_input_window(manager->main_window);
-
-    std::string name;
 
     Greeter* greeter = new Greeter;
     greeter->editor = new EScene;

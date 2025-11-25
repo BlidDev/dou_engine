@@ -14,7 +14,7 @@ Paths:
     - scripts
 Layers:
   Layer 0:
-    Depth Test: false
+    Depth Test: true
     Wireframe Mode: false
     Is FrameBuffer: false
   Layer 1:
