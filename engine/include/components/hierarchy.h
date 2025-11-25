@@ -26,6 +26,7 @@ namespace engine {
             if (!scene || children.empty()) 
                 return;
 
+            this->children.reserve(children.size());
             for (const auto& child : children) {
                 Entity tmp = scene->uuid_to_entity(child);
                 DU_ASSERT(tmp.has_component<ParentComp>(), "Entity {} already has a parent", child);

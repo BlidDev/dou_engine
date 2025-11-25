@@ -21,8 +21,8 @@ namespace engine {
       PntLightComp() {
         color = glm::vec3(1.0f);
         constant = 1.0f;
-        linear = 0.22f;
-        quadratic = 0.20f;
+        linear = 0.05f;
+        quadratic = 0.021f;
       }
 
       glm::vec3 color;
@@ -37,11 +37,11 @@ namespace engine {
       SptLightComp() {
         color = glm::vec4(1.0f);
         constant = 1.0f;
-        linear = 0.22f;
-        quadratic = 0.20f;
+        linear = 0.05f;
+        quadratic = 0.021f;
         direction = {0.0f, -1.0f, 0.0f};
-        cutoff = glm::cos(glm::radians(12.5f));
-        outer_cutoff = glm::cos(glm::radians(17.5f));
+        cutoff = 12.5f;
+        outer_cutoff = 17.5;
       }
 
       glm::vec3 color;

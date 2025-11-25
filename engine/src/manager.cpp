@@ -1,11 +1,15 @@
 #include "manager.h"
-#include "systems/physicsys.h"
 
 namespace engine {
-    SceneManager::SceneManager() {
+    SceneManager::SceneManager() : main_window() {
         current = "NONE";
         project_data = ProjectData("Unnamed Project");
         old = nullptr;
+
+        shader_lib = {};
+        texture_lib = {};
+        model_lib = {};
+        script_lib = {};
     }
 
     Scene* SceneManager::register_scene(const char* name, std::unique_ptr<Scene> scene) {
@@ -111,6 +115,15 @@ namespace engine {
         DU_CORE_DEBUG_TRACE("Registered model {}", name);
     }
 
+    void SceneManager::register_script(const char* path) {
+        fs::path fs_path = fs::path(path);
+        if (!fs_path.is_absolute()) fs_path = root_path() / fs_path;
+
+        DU_ASSERT(script_lib.contains(fs_path.filename()), "Script path [{}] already registered", path);
+
+        script_lib.insert({fs_path.filename().string(), fs_path.string()});
+        DU_CORE_DEBUG_TRACE("Registered script {}", fs_path.filename().string());
+    }
 
     LayerAtrb* SceneManager::get_layer_atrb(size_t layer) {
         DU_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Trying to retrieve invalid layer [{}]");

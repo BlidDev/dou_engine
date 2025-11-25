@@ -8,13 +8,14 @@
 #include "imgui_impl_opengl3.h"
 #include "misc/cpp/imgui_stdlib.h"
 #include <array>
+#include <functional>
 
 #define DUMMY ImGui::Dummy(ImVec2(0, 22.0f))
 #define NOSPACE
 
 #define PUSH_CMP(vec, entity, type) if(!entity.has_component<type>()) {vec.push_back(std::format("{}", #type));}
 std::vector<std::string> make_cmp_vec(Entity& e) {
-    std::vector<std::string> vec;
+    std::vector<std::string> vec; vec.reserve(9);
     PUSH_CMP(vec, e, TagComp);
     PUSH_CMP(vec, e, TransformComp);
     PUSH_CMP(vec, e, PhysicsBodyComp);
@@ -27,20 +28,43 @@ std::vector<std::string> make_cmp_vec(Entity& e) {
     return vec;
 }
 
-void str_to_cmp(Entity& e, std::string& name, Scene* scene) {
-    if(name == "TagComp") { e.add_component<TagComp>("Unnamed"); }
-    else if(name == "TransformComp") { e.add_component<TransformComp>(); }
-    else if(name == "PhysicsBodyComp") { e.add_component<PhysicsBodyComp>(); }
-    else if(name == "CameraComp") { e.add_component<CameraComp>(
-            CameraBuilder().up({0,1,0}).target({0,0,1}).fovy(70).build()
-            ); }
-    else if(name == "LuaActionComp") { e.add_component<LuaActionComp>(e.uuid()); }
-    else if(name == "ModelComp") { e.add_component<ModelComp>(scene->get_model("cube"), MaterialBuilder().set_shader(scene->get_shader("res/shaders/basic.glsl")).set_color(glm::vec3(1.0f))); }
-    else if(name == "DirLightComp") { e.add_component<DirLightComp>(); }
-    else if(name == "PntLightComp") { e.add_component<PntLightComp>(); }
-    else if(name == "SptLightComp") { e.add_component<SptLightComp>(); }
-    else { DU_ASSERT(true, "Unkown component name [{}]", name); }
 
+using CompMakerFn = std::function<void(Entity&, Scene*)>;
+
+static const std::unordered_map<std::string, CompMakerFn> StrCompFactory = {
+    {"TagComp", [](Entity& e, Scene*){ e.add_component<TagComp>("Unnamed");}},
+
+    {"TransformComp", [](Entity& e, Scene*){ e.add_component<TransformComp>(); }},
+
+    {"PhysicsBodyComp", [](Entity& e, Scene*){ e.add_component<PhysicsBodyComp>(); }},
+
+    {
+     "CameraComp", [](Entity&e, Scene*){ e.add_component<CameraComp>(CameraBuilder().up({0,1,0}).target({0,0,1}).fovy(70).build()); }
+    },
+
+    {"LuaActionComp", [](Entity& e, Scene*){ e.add_component<LuaActionComp>(e.uuid()); }},
+
+    {
+     "ModelComp", [](Entity& e, Scene* scene){ 
+            e.add_component<ModelComp>(scene->get_model("cube"), MaterialBuilder().set_shader(scene->get_shader("res/shaders/basic.glsl"))
+                                                                                  .set_color(glm::vec3(1.0f))); 
+        }
+
+    },
+
+    {"DirLightComp", [](Entity& e, Scene*){ e.add_component<DirLightComp>(); }},
+
+    {"PntLightComp", [](Entity& e, Scene*){ e.add_component<PntLightComp>(); }},
+
+    {"SptLightComp", [](Entity& e, Scene*){ e.add_component<SptLightComp>(); }},
+};
+
+
+void str_to_cmp(Entity& e, std::string& name, Scene* scene) {
+    const auto& it = StrCompFactory.find(name);
+    DU_ASSERT(it == StrCompFactory.end(), "Unkown component typename [{}]", name); 
+
+    it->second(e, scene);
 }
 
 void add_comp(Entity& entity, Scene* scene) {
@@ -202,7 +226,7 @@ void render_tex_select(ModelComp& m, SceneManager* manager) {
     std::vector<std::string>textures = {"UNKNOWN"};
     textures.reserve(manager->texture_lib.size());
     int i = 1, current = 0;
-    for (const auto& [k,_] : manager->texture_lib) {textures.emplace_back(k);if(m.material.texture.path == k) {current = i;} i++;}
+    for (const auto& [k,_] : manager->texture_lib) {textures.push_back(k);if(m.material.texture.path == k) {current = i;} i++;}
 
     std::string last = textures[current];
     if (ImGui::BeginCombo("##Texture", last.c_str())) {
@@ -240,7 +264,7 @@ void render_shader_select(ModelComp& m, SceneManager* manager) {
     std::vector<std::string>shaders;
     shaders.reserve(manager->shader_lib.size());
     int i = 0, current = 0;
-    for (const auto& [k,_] : manager->shader_lib) {shaders.emplace_back(k);if(m.material.shader.path == k) {current = i;}  i++;}
+    for (const auto& [k,_] : manager->shader_lib) {shaders.push_back(k);if(m.material.shader.path == k) {current = i;}  i++;}
 
     std::string last = shaders[current];
     if (ImGui::BeginCombo("##Shader", last.c_str())) {
@@ -269,7 +293,7 @@ void render_model_select(ModelComp& m, SceneManager* manager) {
     std::vector<std::string>models;
     models.reserve(manager->model_lib.size());
     int i = 0, current = 0;
-    for (const auto& [k,_] : manager->model_lib) {models.emplace_back(k);if(m.model.name == k) {current = i;}  i++;}
+    for (const auto& [k,_] : manager->model_lib) {models.push_back(k);if(m.model.name == k) {current = i;}  i++;}
 
     std::string last = models[current];
     if (ImGui::BeginCombo("##Model", last.c_str())) {
@@ -340,8 +364,8 @@ void render_sptlight(SptLightComp& s) {
 
     sameline_v3   ("Direction   ",  s.direction, -1.0f, 1.0f);
     sameline_color("Color       ",  s.color);
-    sameline_float("Cutoff      ", &s.cutoff, 0.0, 1.0f);
-    sameline_float("Outer Cutoff", &s.outer_cutoff, 0.0, 1.0f);
+    sameline_float("Cutoff      ", &s.cutoff);
+    sameline_float("Outer Cutoff", &s.outer_cutoff);
     sameline_float("Constant    ", &s.constant, 0.0, 1.0f);
     sameline_float("Linear      ", &s.linear, 0.0, 1.0f);
     sameline_float("Quadratic   ", &s.quadratic, 0.0, 1.0f);

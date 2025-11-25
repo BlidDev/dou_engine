@@ -46,6 +46,7 @@ namespace engine {
         void register_texture(const char* path);
         void register_texture(std::string name, Texture texture);
         void register_model(const char* name, Model model);
+        void register_script(const char* path);
 
         LayerAtrb* get_layer_atrb(size_t layer);
 
@@ -63,9 +64,10 @@ namespace engine {
         Scene* old;
         
         Window main_window;
-        std::unordered_map<std::string, Shader>shader_lib;
-        std::unordered_map<std::string, Texture>texture_lib;
-        std::unordered_map<std::string, Model>model_lib;
+        std::unordered_map<std::string, Shader>     shader_lib;
+        std::unordered_map<std::string, Texture>    texture_lib;
+        std::unordered_map<std::string, Model>      model_lib;
+        std::unordered_map<std::string, std::string>script_lib;
         RenderData render_data;
 
         ProjectData project_data;

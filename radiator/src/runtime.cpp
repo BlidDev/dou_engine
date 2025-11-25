@@ -6,7 +6,7 @@ void run_rt_scene(EScene *editor) {
     DU_INFO("Playing now");
     
     auto manager = editor->manager;
-    save_working_file(manager, editor);
+    editor->save_project();
 
     manager->current = editor->working_scene->name;
     manager->switched = true;
@@ -15,6 +15,9 @@ void run_rt_scene(EScene *editor) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     Scene* current = editor->working_scene;
+
+    if (!current->file_path.empty() && current->uuids.empty())
+        current->add_from_file(current->file_path.c_str());
 
     double start = glfwGetTime();
     while (!current->should_close())
@@ -32,10 +35,11 @@ void run_rt_scene(EScene *editor) {
     }
 
     manager->end_scene(editor->working_scene);
-    editor->working_scene->add_from_file(editor->save_path.c_str());
+    if(!editor->working_scene->file_path.empty())
+        editor->working_scene->add_from_file(editor->working_scene->file_path.c_str());
 
 
-    manager->current = "Editor";
+    manager->current = "EDITOREditor";
     manager->switched = false;
     //editor->init_imgui();
     //editor->make_viewer();

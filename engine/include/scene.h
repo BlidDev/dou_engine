@@ -43,6 +43,7 @@ namespace engine {
         Shader& get_shader(const char* name);
         Texture& get_texture(const char* name);
         Model& get_model(const char* name);
+        std::string& get_script(const char* name);
         
     public:
         entt::registry registry;

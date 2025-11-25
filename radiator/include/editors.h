@@ -14,13 +14,14 @@ struct Frambuffer {
     ImVec2 last_scale;
 };
 
-struct ResouceLists {
+struct ResourceLists {
    std::vector<std::string> scenes;
    std::vector<std::string> shaders;
    std::vector<std::string> textures;
    std::vector<std::string> models;
+   std::vector<std::string> scripts;
 
-   ResouceLists();
+   ResourceLists();
    void init(SceneManager* manager);
 };
 
@@ -75,7 +76,7 @@ public:
     std::string save_path;
 
     bool show_project_settings;
-    ResouceLists resource_lists;
+    ResourceLists resource_lists;
 private:
     bool debug_open;
     bool close;

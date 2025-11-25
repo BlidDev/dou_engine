@@ -14,7 +14,7 @@ namespace engine {
 
     LuaUpdate::LuaUpdate(UUID self, Scene* scene, sol::state& state, std::string path) {
         this->self = self;
-        this->path = path;
+        this->path = std::filesystem::path(path).filename();
         inital_error = "";
         env = sol::environment(state,sol::create, state.globals());
         auto result = state.safe_script_file(path, env, &sol::script_pass_on_error);
@@ -86,7 +86,7 @@ namespace engine {
     LuaActionComp& LuaActionComp::add(Scene* scene, std::string path) {
         if (find(path.c_str())) { DU_CORE_DEBUG_TRACE("{} is already attached to {}. Ignoring", path, self); return *this;}
 
-        scripts.push_back(LuaUpdate(self, scene,LuaManager::state,path));
+        scripts.push_back(LuaUpdate(self, scene,LuaManager::state,scene->get_script(path.c_str())));
         return *this;
     }
 

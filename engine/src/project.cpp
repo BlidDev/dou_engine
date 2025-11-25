@@ -18,6 +18,7 @@ namespace engine {
         shader_paths = {};
         texture_paths = {};
         model_paths = {};
+        script_paths = {};
     }
 
     static void read_layers(YAML::Node& node, SceneManager* manager);
@@ -128,6 +129,21 @@ namespace engine {
             }
         }
 
+        auto scripts = paths["Scripts"];
+        if (scripts) {
+            for (const auto& path : scripts) {
+                fs::path sh_dir = path.as<std::string>();
+                fs::path actual = p_data->root_path / sh_dir;
+                DU_ASSERT(!fs::is_directory(actual), "Trying to read scripts from {} no such directory", actual.string());
+                if(add_paths) p_data->script_paths.push_back(sh_dir);
+
+                for (const auto & entry : fs::directory_iterator(actual)) {
+                    if (entry.path().extension() != ".lua") continue;
+                    manager->register_script((sh_dir / entry.path().filename()).c_str());
+                }
+            }
+        }
+
     }
 
 
@@ -190,6 +206,10 @@ namespace engine {
 
                 out<<ym::Key<<"Models"<<ym::BeginSeq;
                     for (const auto& p : data.model_paths) { out<<ym::Key<<p.c_str(); }
+                out<<ym::EndSeq;
+
+                out<<ym::Key<<"Scripts"<<ym::BeginSeq;
+                    for (const auto& p : data.script_paths) { out<<ym::Key<<p.c_str(); }
                 out<<ym::EndSeq;
             out<<ym::EndMap;
 

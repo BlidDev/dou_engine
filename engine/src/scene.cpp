@@ -64,4 +64,10 @@ Entity Scene::create_entity_with_uuid(uint64_t uuid) {
         return it->second;
     }
 
+    std::string& Scene::get_script(const char* name) {
+        const auto& it = manager->script_lib.find(name);
+        DU_ASSERT(it == manager->script_lib.end(), "Could not find registered script [{}]", name);
+
+        return it->second;
+    }
 } 

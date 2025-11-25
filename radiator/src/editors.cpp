@@ -3,18 +3,29 @@
 #include "runtime.h"
 #include "helper.h"
 
-ResouceLists::ResouceLists() {
+ResourceLists::ResourceLists() {
     scenes = {};
     shaders = {};
     textures = {};
     models = {};
+    scripts = {};
 }
 
-void ResouceLists::init(SceneManager* manager) {
-    for (const auto& [k,_] : manager->get_scenes()) {scenes.push_back(k);}
-    for (const auto& [k,_] : manager->shader_lib) {shaders.push_back(k);};
-    for (const auto& [k,_] : manager->texture_lib) {textures.push_back(k);};
-    for (const auto& [k,_] : manager->model_lib) {models.push_back(k);};
+void ResourceLists::init(SceneManager* manager) {
+    scenes.reserve(manager->get_scenes().size()); 
+        for (const auto& [k,_] : manager->get_scenes()) {scenes.push_back(k);}
+
+    shaders.reserve(manager->shader_lib.size());  
+        for (const auto& [k,_] : manager->shader_lib) {shaders.push_back(k);};
+
+    textures.reserve(manager->texture_lib.size());  
+        for (const auto& [k,_] : manager->texture_lib) {textures.push_back(k);};
+
+    models.reserve(manager->model_lib.size());  
+        for (const auto& [k,_] : manager->model_lib) {models.push_back(k);};
+
+    scripts.reserve(manager->script_lib.size());  
+        for (const auto& [k,_] : manager->script_lib) {scripts.push_back(k);};
 }
 
 
@@ -30,7 +41,7 @@ EScene::EScene() : Scene("Editor") {
     show_project_settings = false;
     working_scene = nullptr;
     creating_scene = false;
-    resource_lists = ResouceLists();
+    resource_lists = ResourceLists();
 }
 
 
@@ -39,7 +50,7 @@ void EScene::make_viewer() {
     viewer.add_component<EditorViewer>();
     viewer.add_component<TransformComp>(TransformBuilder().position(glm::vec3{0.0f}));
     viewer.add_component<CameraComp>(CameraBuilder().build());
-    auto& lua = viewer.add_component<LuaActionComp>(viewer.uuid()).add(this, "res/scripts/editorcam.lua");
+    auto& lua = viewer.add_component<LuaActionComp>(viewer.uuid()).add(this, "editorcam.lua");
     lua.get_last().on_init();
 }
 
@@ -55,16 +66,18 @@ void EScene::on_create() {
     make_framebuffer(editorview, 684, 698) ;
     make_framebuffer(pickerview, 684, 698) ;
 
-    make_viewer();
     resource_lists.init(manager);
     debug_open = false;
 
     {
         RootReseter r(&manager->project_data);
         register_shader("res/shaders/picker.glsl");
+        manager->register_script("res/scripts/editorcam.lua");
     }
+
     picker_shader = get_shader("picker.glsl");
 
+    make_viewer();
 
     if (!working_scene) {
         if (manager->num_of_scenes() <= 2) {creating_scene = true; return;}

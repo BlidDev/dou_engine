@@ -19,25 +19,12 @@ void EScene::init_imgui() {
 }
 
 
-void open_working_file(SceneManager* manager, Scene* working_scene, EScene* editor){
-    char* path = tinyfd_openFileDialog("Open a Scene file", nullptr, 0, nullptr, nullptr,0);
+void add_to_working_file(SceneManager* manager, Scene* working_scene, EScene* editor){
+    char* path = tinyfd_openFileDialog("Add From A Scene File", nullptr, 0, nullptr, nullptr,0);
     if(!path) return;
     manager->clear_scene(working_scene);
     working_scene->add_from_file(path);
-    editor->save_path = path;
 }
-
-
-void save_working_file(SceneManager* manager, EScene* editor) {
-    if (editor->save_path == "UNSET") {
-        char* path= tinyfd_saveFileDialog("Save Current Scene", nullptr, 0, nullptr, nullptr);
-        if (!path) return;
-        editor->save_path = path;
-    }
-    manager->write_scene_to_file(editor->save_path.c_str(), editor->working_scene); 
-    DU_TRACE("Saving to [{}]", editor->save_path);
-}
-
 
 void saveas_working_file(SceneManager* manager, EScene* editor) {
     char* path= tinyfd_saveFileDialog("Save Current Scene As", nullptr, 0, nullptr, nullptr);
@@ -87,15 +74,15 @@ EditorState EScene::update_imgui(float dt) {
     int _saveas[] = {GLFW_KEY_LEFT_CONTROL, GLFW_KEY_LEFT_SHIFT, GLFW_KEY_S};
 
     if (check_key_combo(_open, 2) && counter > 10){
-        open_working_file(manager, working_scene, this);
+        add_to_working_file(manager, working_scene, this);
+        counter = 0;
+    }
+    else if (check_key_combo(_save, 2) && counter > 10){
+        save_project();
         counter = 0;
     }
     else if (check_key_combo(_saveas, 3) && counter > 10){
         saveas_working_file(manager, this);
-        counter = 0;
-    }
-    else if (check_key_combo(_save, 2) && counter > 10){
-        save_working_file(manager, this);
         counter = 0;
     }
     else if (is_key_pressed(GLFW_KEY_F5) && counter > 10) {
@@ -109,15 +96,12 @@ EditorState EScene::update_imgui(float dt) {
             if (ImGui::MenuItem("Save Project")) {
                 save_project();
             }
-            //if (ImGui::MenuItem("Open", "Ctrl + O")) {
-            //    open_working_file(manager, working_scene, this);
-            //}
-            //if (ImGui::MenuItem("Save", "Ctrl + S")) {
-            //    save_working_file(manager,this);
-            //}
-            //if (ImGui::MenuItem("Save As", "Ctrl + Shift + S")) {
-            //    saveas_working_file(manager,this);
-            //}
+            if (ImGui::MenuItem("Import From Scene", "Ctrl + O")) {
+                add_to_working_file(manager, working_scene, this);
+            }
+            if (ImGui::MenuItem("Extract Current Scene", "Ctrl + Shift + S")) {
+                saveas_working_file(manager,this);
+            }
             if(ImGui::MenuItem("New Scene")) {
                 creating_scene = true;
             }
@@ -499,7 +483,7 @@ void EScene::render_create_scene() {
                 set_current = true;
                 scene_name = "";
                 creating_scene = false;
-                resource_lists = ResouceLists();
+                resource_lists = ResourceLists();
                 resource_lists.init(manager);
             }
         }
@@ -510,7 +494,7 @@ void EScene::render_create_scene() {
 
 void EScene::render_resources() {
     ImGui::Begin("Resources");
-    const ResouceLists& lists = resource_lists;
+    const ResourceLists& lists = resource_lists;
 
     if (ImGui::TreeNodeEx("Scenes", ImGuiTreeNodeFlags_DefaultOpen)) {
         for (const auto& scene : lists.scenes) {
@@ -543,6 +527,13 @@ void EScene::render_resources() {
         if (ImGui::TreeNode("Models")) {
             for (const auto& model : lists.models) {
                 ImGui::BulletText("%s", model.c_str());
+            }
+            ImGui::TreePop();
+        }
+
+        if (ImGui::TreeNode("Scripts")) {
+            for (const auto& script : lists.scripts) {
+                ImGui::BulletText("%s", script.c_str());
             }
             ImGui::TreePop();
         }

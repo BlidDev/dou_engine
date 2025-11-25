@@ -71,6 +71,7 @@ namespace engine {
     }
 
     void Entity::add_children(const std::vector<UUID>& children) {
+        get_children().reserve(children.size());
         for (const auto& child : children) {
             add_child(child);
         }
