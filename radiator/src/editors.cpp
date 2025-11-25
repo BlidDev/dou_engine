@@ -61,7 +61,6 @@ void EScene::on_create() {
 
     make_default_ubos(manager);
 
-    update_render_data(manager, this);
 
     make_framebuffer(editorview, 684, 698) ;
     make_framebuffer(pickerview, 684, 698) ;

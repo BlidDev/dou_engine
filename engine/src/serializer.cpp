@@ -463,9 +463,9 @@ namespace engine {
 
         out<<YAML::Key<<"Render Data"<<YAML::BeginMap;
             out<<YAML::Key<<"Main Camera"<<YAML::Value<<(uint64_t)scene->main_camera;
-            out<<YAML::Key<<"Ambient"<<YAML::Value<<scene->ambient;
-            out<<YAML::Key<<"Ambient Strength"<<YAML::Value<<scene->ambient_strength;
-            out<<YAML::Key<<"Clear Color"<<YAML::Value<<scene->manager->render_data.clear_color;
+            out<<YAML::Key<<"Ambient"<<YAML::Value<<scene->s_render_data.ambient;
+            out<<YAML::Key<<"Ambient Strength"<<YAML::Value<<scene->s_render_data.ambient_strength;
+            out<<YAML::Key<<"Clear Color"<<YAML::Value<<scene->s_render_data.clear_color;
         out<<YAML::EndMap;
 
         out<<YAML::Key<<"Entities"<<YAML::Value<<YAML::BeginSeq;
@@ -509,12 +509,9 @@ namespace engine {
 
         auto render_data = data["Render Data"];
         main_camera = UUID(render_data["Main Camera"].as<uint64_t>());
-        ambient = render_data["Ambient"].as<glm::vec3>();
-        ambient_strength = render_data["Ambient Strength"].as<float>();
-
-        if (render_data["Clear Color"])
-            set_clear_color(manager->render_data,render_data["Clear Color"].as<glm::vec4>());
-        
+        s_render_data.clear_color = render_data["Clear Color"].as<glm::vec4>();
+        s_render_data.ambient = render_data["Ambient"].as<glm::vec3>();
+        s_render_data.ambient_strength = render_data["Ambient Strength"].as<float>();
 
         DU_ASSERT(!data["Entities"], "Section Entities for scene {} not found", scene_name);
         auto entities = data["Entities"];

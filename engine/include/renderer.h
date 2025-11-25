@@ -47,22 +47,30 @@ namespace engine {
         unsigned int counter;
         unsigned int bounded;
     public:
-        glm::vec3 ambient;
-        float ambient_strength;
         unsigned int max_lights;
     public:
         size_t screen_w;
         size_t screen_h;
         LayerAtrb layers_atrb[MAX_RENDER_LAYERS];
-        glm::vec4 clear_color;
         int clear_flags;
+    };
+
+    struct SceneRenderData {
+        glm::vec4 clear_color;
+        glm::vec3 ambient;
+        float ambient_strength;
+
+        SceneRenderData() {
+            clear_color = glm::vec4(0.0f);
+            ambient = glm::vec3(1.0f);
+            ambient_strength = 0.1f;
+        }
     };
 
 
     void ubos_shaders_bind(RenderData& data, std::unordered_map<std::string, Shader>& shaders);
 
     struct SceneManager;
-    void set_clear_color(RenderData& data, glm::vec4 color);
     void set_layer_depth(RenderData& data, size_t layer, bool flag);
     void set_layer_wireframe(RenderData& data, size_t layer, bool flag);
     void set_clear_flags(RenderData& data, int flags);
@@ -85,8 +93,8 @@ template<>
 struct fmt::formatter<engine::RenderData> : fmt::formatter<std::string>{
     auto format(const engine::RenderData& d, format_context& ctx) const {
         return fmt::formatter<std::string>::format(
-                fmt::format("\nUBOs: {}, sW: {}, sH: {}, mLights: {}\nAmbient: {} - Strength: {}\nClear: {}",
-                    d.ubos.size(), d.screen_w, d.screen_h, d.max_lights, d.ambient, d.ambient_strength, d.clear_color), ctx);
+                fmt::format("\nUBOs: {}, sW: {}, sH: {}, mLights: {}",
+                    d.ubos.size(), d.screen_w, d.screen_h, d.max_lights), ctx);
     }
 };
 

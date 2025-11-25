@@ -138,9 +138,4 @@ namespace engine {
     const SceneLib& SceneManager::get_scenes() const {
         return scenes;
     }
-
-    void update_render_data(SceneManager* manager, Scene* current) {
-        manager->render_data.ambient = current->ambient;
-        manager->render_data.ambient_strength = current->ambient_strength;
-    }
 }

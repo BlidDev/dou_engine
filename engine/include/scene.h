@@ -2,6 +2,7 @@
 #include "components/uuid.h"
 #include "model.h"
 #include <espch.h>
+#include "renderer.h"
 #include "shader.h"
 #include "texture.h"
 namespace engine {
@@ -10,9 +11,8 @@ namespace engine {
     class Entity;
     class Scene {
     public:
-        Scene(const std::string name) : name(name) {
-            file_path = "";
-        }
+        Scene(const std::string name);
+
         virtual void on_create() {};
         virtual void on_update(float dt)  {};
         virtual void on_end() {};
@@ -46,6 +46,7 @@ namespace engine {
         std::string& get_script(const char* name);
         
     public:
+        SceneRenderData s_render_data;
         entt::registry registry;
         SceneManager* manager;
         std::string name;
@@ -53,8 +54,6 @@ namespace engine {
 
     public:
         UUID main_camera = 0;
-        glm::vec3 ambient = {1.0f, 1.0f, 1.0f};
-        float ambient_strength = 0.1f;
     public:
         std::filesystem::path file_path;
     };

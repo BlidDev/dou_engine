@@ -14,11 +14,9 @@ void ThingScene::on_create() {
     glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     make_default_ubos(manager);
 
-    set_clear_color(manager->render_data, {0.0f,0.0f,0.0f,1.0f});
     set_clear_flags(manager->render_data, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     add_from_file("res/thing.scene");
-    update_render_data(manager, this);
 
     player = uuid_to_entity(main_camera);
     lua_action_init(this);

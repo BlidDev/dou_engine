@@ -1,9 +1,9 @@
-Scene: RT
+Scene: Main
 Render Data:
   Main Camera: 9703913328098630830
   Ambient: [1, 1, 1]
   Ambient Strength: 0.1
-  Clear Color: [0, 0, 0, 1]
+  Clear Color: [1, 0, 1, 1]
 Entities:
   - Entity: 9703913328098630830
     Tag:
@@ -29,9 +29,9 @@ Entities:
       - Path: player.lua
         Fields:
           this: [u, 9703913328098630830]
-          sensi: [f, 0.1]
           jump: [i, 10]
           init_speed: [i, 3]
+          sensi: [f, 0.1]
     SptLight:
       Color: [0.5261538, 0.5261538, 0.5261538]
       Direction: [0, -1, 0]

@@ -70,10 +70,7 @@ namespace engine {
         ubos = {};
         counter = 0;
         bounded = 0;
-        ambient = {1.0f, 1.0f, 1.0f};
-        ambient_strength = 0.1f;
         max_lights = 32;
-        clear_color = {0.0f, 0.0f, 0.0f, 1.0f};
         clear_flags = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT;
     }
 
@@ -115,11 +112,6 @@ namespace engine {
 
     void RenderData::unbind() { 
         glBindBuffer(GL_UNIFORM_BUFFER, 0);
-    }
-
-
-    void set_clear_color(RenderData& data, glm::vec4 color) {
-        data.clear_color = color;
     }
 
     void set_layer_depth(RenderData& data, size_t layer, bool flag) {

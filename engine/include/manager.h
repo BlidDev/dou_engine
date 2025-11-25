@@ -75,8 +75,6 @@ namespace engine {
         SceneLib scenes;
     };
 
-    void update_render_data(SceneManager* manager, Scene* current);
-
     std::string extract_scene_name(const char* path);
 }
 

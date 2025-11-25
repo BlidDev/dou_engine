@@ -13,7 +13,8 @@ namespace engine {
     void send_material(Material &material);
 
     void opengl_renderer(RenderData &data, glm::vec2 view_size, Entity viewer,
-                         entt::registry &registry, bool external_clear) {
+                         entt::registry &registry, 
+                         SceneRenderData* s_render_data, bool external_clear) {
 
       auto p_trans = viewer.get_component<TransformComp>();
       auto p_camera = viewer.get_component<CameraComp>();
@@ -25,14 +26,18 @@ namespace engine {
       update_camera_target(p_camera, p_trans.position);
       glm::mat4 view = glm::lookAt(p_trans.position, p_camera.target, p_camera.up);
 
+      glm::vec4 clear_color = (s_render_data) ? s_render_data->clear_color : glm::vec4(0.0f);
+      glm::vec3 ambient = (s_render_data) ? s_render_data->ambient : glm::vec3(1.0f);
+      float ambient_strength = (s_render_data) ? s_render_data->ambient_strength : 0.1f;
+
       data.bind("Matrices")
           .sub(0, sizeof(glm::mat4), glm::value_ptr(projection))
           .sub(sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(view))
           .unbind();
 
       data.bind("Lighting")
-          .sub(0, sizeof(glm::vec3), glm::value_ptr(data.ambient))
-          .sub(sizeof(glm::vec3), sizeof(float), &data.ambient_strength)
+          .sub(0, sizeof(glm::vec3), glm::value_ptr(ambient))
+          .sub(sizeof(glm::vec3), sizeof(float), &ambient_strength)
           .sub(sizeof(glm::vec4), sizeof(glm::vec3),
                glm::value_ptr(p_trans.position))
           .unbind();
@@ -40,7 +45,7 @@ namespace engine {
       send_lights(registry, data);
 
       if(!external_clear) {
-          glClearColor(data.clear_color.r, data.clear_color.g, data.clear_color.b, data.clear_color.a);
+          glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
           glClear(data.clear_flags);
       }
 

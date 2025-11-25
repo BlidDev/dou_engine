@@ -4,13 +4,23 @@
 
 namespace engine {
 
-Entity Scene::create_entity() { return create_entity_with_uuid(UUID()); }
+    Scene::Scene(std::string name) {
+        this->name = name;
+        manager = nullptr;
+        registry = {};
+        uuids = {};
+        main_camera = 0;
+        file_path = "";
+        s_render_data = {};
+    }
 
-Entity Scene::create_entity_with_uuid(uint64_t uuid) {
-  Entity tmp(this, registry.create());
-  tmp.add_component<UUID>(uuid);
-  uuids.insert(std::make_pair(uuid, tmp.id()));
-  return tmp;
+    Entity Scene::create_entity() { return create_entity_with_uuid(UUID()); }
+
+    Entity Scene::create_entity_with_uuid(uint64_t uuid) {
+        Entity tmp(this, registry.create());
+        tmp.add_component<UUID>(uuid);
+        uuids.insert(std::make_pair(uuid, tmp.id()));
+        return tmp;
     }
 
     Entity Scene::uuid_to_entity(UUID uuid) {

@@ -1,16 +1,16 @@
 Scene: light
 Render Data:
-  Main Camera: 1720597900774215741
+  Main Camera: 0
   Ambient: [1, 1, 1]
   Ambient Strength: 0.1
-  Clear Color: [0, 0, 0, 1]
+  Clear Color: [0, 0, 0, 0]
 Entities:
-  - Entity: 4342171159340606005
+  - Entity: 14307788627755736414
     Tag:
       Tag: Unnamed Cube
     Transform:
       Position: [0, 0, 0]
-      Size: [17.8, 0.3, 9]
+      Size: [1, 1, 1]
       Rotation: [0, 0, 0]
     Model:
       Model Name: cube
@@ -18,23 +18,10 @@ Entities:
       Material:
         Shader: basic.glsl
         Filled: true
-        Ambient: [0.9815385, 0.4832189, 0.4832189]
+        Ambient: [1, 1, 1]
         Diffuse: [1, 1, 1]
         Specular: [1, 1, 1]
         Shininess: 32
         Texture: UNKNOWN
         Textured: false
         Immune: false
-  - Entity: 1720597900774215741
-    Tag:
-      Tag: Unnamed
-    Transform:
-      Position: [0, 2.2, 0]
-      Size: [1, 1, 1]
-      Rotation: [0, 0, 0]
-    Camera:
-      Target: [0, 0, 1]
-      Up: [0, 1, 0]
-      FovY: 70
-      Projection: 0
-      Max Distance: 30

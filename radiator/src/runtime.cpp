@@ -42,7 +42,6 @@ void run_rt_scene(EScene *editor) {
             current = rt_manager.get_current();
             rt_manager.switched = false;
             current->on_create();
-            update_render_data(&rt_manager, current);
         }
         current->on_update(dt);
         start = now;

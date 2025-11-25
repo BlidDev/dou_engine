@@ -60,7 +60,8 @@ size_t counter = 0;
 
 EditorState EScene::update_imgui(float dt) {
 
-    glClearColor(0.0f,0.0f,0.0f,1.0f);
+    const auto& clear_color = working_scene->s_render_data.clear_color;
+    glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     EditorState state = EditorState::EditorNormal;
 
@@ -270,7 +271,7 @@ void EScene::render_editorview(float dt) {
     glViewport(0,0, size.x, size.y);
     glBindFramebuffer(GL_FRAMEBUFFER, editorview.handler);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    opengl_renderer(manager->render_data,{size.x, size.y}, viewer, working_scene->registry, true);
+    opengl_renderer(manager->render_data,{size.x, size.y}, viewer, working_scene->registry, &working_scene->s_render_data,true);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     
     render_pickerview();
