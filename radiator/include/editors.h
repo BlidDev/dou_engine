@@ -12,6 +12,14 @@ struct Frambuffer {
     unsigned int rbo;
     unsigned int texture;
     ImVec2 last_scale;
+
+
+    void free() {
+        glDeleteTextures(1, &texture);
+        glDeleteRenderbuffers(1, &rbo);
+        DU_CORE_DEBUG_TRACE("Freed framebuffer {}", handler);
+        glDeleteFramebuffers(1, &handler);
+    }
 };
 
 struct ResourceLists {
@@ -23,6 +31,21 @@ struct ResourceLists {
 
    ResourceLists();
    void init(SceneManager* manager);
+
+   void refresh_textures(SceneManager* manager);
+};
+
+
+struct SceneSetting {
+    SceneSetting() { flag = false; ptr = nullptr; name_backup = {};}
+    operator bool() const {return flag && ptr;}
+    void on(Scene* ptr) { this->ptr = ptr;  flag = true; name_backup = ptr->name;} 
+    void off() { this->ptr = nullptr;  flag = false; name_backup = {};} 
+    void render_if_on();
+private:
+    Scene* ptr;
+    bool flag;
+    std::string name_backup;
 };
 
 
@@ -61,7 +84,7 @@ public:
     void render_resources();
     entt::entity entity_from_view(ImVec2 pos, ImVec2 size);
 
-    void render_psettings();
+    void render_prj_settings();
 
     void save_project();
     Scene* create_scene(const char* name);
@@ -75,9 +98,10 @@ public:
     static int key_query[GLFW_KEY_LAST - 32];
     std::string save_path;
 
-    bool show_project_settings;
     ResourceLists resource_lists;
 private:
+    ImFont* icon_font;
+
     bool debug_open;
     bool close;
     UUID selected;
@@ -89,6 +113,9 @@ private:
     Entity viewer;
 
     bool creating_scene;
+    bool editorview_looking;
+    bool show_project_settings;
+    SceneSetting show_scene_settings;
 };
 
 void open_working_file(SceneManager* manager, RTScene* working_scene, EScene* editor);

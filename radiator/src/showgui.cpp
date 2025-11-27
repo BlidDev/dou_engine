@@ -10,12 +10,12 @@
 #include <misc/cpp/imgui_stdlib.h>
 
 #include <tinyfiledialogs.h>
+#include <IconsMaterialDesign.h>
 
 extern ImGuiContext* GImGui;
 
 void EScene::init_imgui() {
-    if (GImGui != nullptr) return;
-    initialize_imgui(manager);
+    if (!GImGui) initialize_imgui(manager);
 }
 
 
@@ -46,6 +46,7 @@ void EScene::save_project() {
     if (data.scene_paths.empty()) {data.scene_paths.push_back(data.root_path);}
     for (const auto& [k, s] : manager->get_scenes()) {
         if (k == "EDITOREditor" || k == "EDITORGreeter") continue;
+        if (!s->file_path.empty() && s->uuids.empty()) continue; // exists but isn't loaded yet
         std::string path = s->file_path;
         if (path.empty())
             path = std::format("{}/{}/{}.scene", data.root_path.string(), data.scene_paths[0].string(), s->name);
@@ -53,7 +54,7 @@ void EScene::save_project() {
     }
     std::string prj_path = std::format("{}/{}.prj", data.root_path.string(), data.name).c_str();
 
-    write_project_file(prj_path.c_str(), data, manager->render_data.layers_atrb);
+    write_project_file(prj_path.c_str(), data, manager->render_data.layers_atrb.data());
 }
 
 size_t counter = 0;
@@ -73,6 +74,8 @@ EditorState EScene::update_imgui(float dt) {
     int _open[] = {GLFW_KEY_LEFT_CONTROL, GLFW_KEY_O};
     int _save[] = {GLFW_KEY_LEFT_CONTROL, GLFW_KEY_S};
     int _saveas[] = {GLFW_KEY_LEFT_CONTROL, GLFW_KEY_LEFT_SHIFT, GLFW_KEY_S};
+
+    if (editorview_looking) counter = 0;
 
     if (check_key_combo(_open, 2) && counter > 10){
         add_to_working_file(manager, working_scene, this);
@@ -94,7 +97,7 @@ EditorState EScene::update_imgui(float dt) {
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
 
-            if (ImGui::MenuItem("Save Project")) {
+            if (ImGui::MenuItem(ICON_MD_SAVE "Save Project")) {
                 save_project();
             }
             if (ImGui::MenuItem("Import From Scene", "Ctrl + O")) {
@@ -131,14 +134,19 @@ EditorState EScene::update_imgui(float dt) {
 
     bool has_selected = false;
     if (working_scene) {
+        render_editorview(dt);
+        if (editorview_looking) {
+            ImGui::GetIO().MousePos = ImVec2(-FLT_MAX, -FLT_MAX);
+        }
         render_resources();
         render_entities(&has_selected);
         render_overview(has_selected);
-
-        render_editorview(dt);
     }
     if (show_project_settings)
-        render_psettings();
+        render_prj_settings();
+
+    show_scene_settings.render_if_on();
+
     if (creating_scene)
         render_create_scene();
 
@@ -199,9 +207,11 @@ void EScene::render_entities(bool *has_selected) {
 
     for (const auto& [_, entity] : working_scene->uuids) {
         Entity tmp = {working_scene, entity};
-        if (tmp.is_child())// || tmp.has_component<EditorViewer>())
+        if (tmp.is_child())
             continue;
+        ImGui::PushID(tmp.uuid());
         render_entity(tmp, has_selected, true);
+        ImGui::PopID();
     }
     ImGui::End();
 }
@@ -245,18 +255,17 @@ void EScene::render_editorview(float dt) {
     ImVec2 size =ImGui::GetContentRegionAvail();
     ImVec2 pos = ImGui::GetCursorScreenPos();
 
-    static bool looking = false;
-    if ((ImGui::IsWindowHovered() || looking) && is_mouse_pressed(GLFW_MOUSE_BUTTON_RIGHT)) {
-
+    
+    if ((ImGui::IsWindowHovered() || editorview_looking) && is_mouse_pressed(GLFW_MOUSE_BUTTON_RIGHT)) {
         glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
         auto& lua = viewer.get_component<LuaActionComp>();
         lua.get_last().on_update(dt);
 
-        looking = true;
+        editorview_looking = true;
     }
     else {
-        looking = false;
+        editorview_looking = false;
         glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
         auto& lua = viewer.get_component<LuaActionComp>();
@@ -267,6 +276,7 @@ void EScene::render_editorview(float dt) {
         rescale_framebuffer(editorview, size.x, size.y);
         rescale_framebuffer(pickerview, size.x, size.y);
     }
+
 
     glViewport(0,0, size.x, size.y);
     glBindFramebuffer(GL_FRAMEBUFFER, editorview.handler);
@@ -288,7 +298,7 @@ void EScene::render_editorview(float dt) {
 
     if (ImGui::IsWindowHovered() && 
         ImGui::IsMouseReleased(ImGuiMouseButton_Left) && 
-        !looking) {
+        !editorview_looking) {
 
         ImVec2 mouse = ImGui::GetMousePos();
         ImVec2 item_min = ImGui::GetItemRectMin();
@@ -394,49 +404,91 @@ entt::entity EScene::entity_from_view(ImVec2 pos, ImVec2 size) {
     return entt::entity(picked);
 }
 
-void EScene::render_psettings() {
-    ImGui::Begin("Project Settings");
+void EScene::render_prj_settings() {
+    ImGui::Begin("Project Settings", nullptr,ImGuiWindowFlags_NoDocking);
+    ProjectData& data = manager->project_data;
 
-    if (ImGui::CollapsingHeader("Global Variables")) {
-        ImGui::Indent();
-
-        ImGui::Text("Main camera: "); ImGui::SameLine();
-        ImGui::SetCursorPosX(get_centered_pos("Main Camera: "));
-        UUID current = working_scene->main_camera;
-        std::string sample = "Not Set";
-        if (current) {
-            Entity tmp = working_scene->uuid_to_entity(current);
-            sample = make_entity_name(tmp);
-        }
-
-        auto view = working_scene->registry.view<CameraComp, TransformComp>();
-
-        if( ImGui::BeginCombo("##", sample.c_str()) ) {
-            for (const auto& e : view) {
-                Entity tmp = {working_scene, e};
-                bool is_selected = (current) ? e == working_scene->uuid_to_entt(current) : false;
-                if (ImGui::Selectable(make_entity_name(tmp).c_str(), is_selected)) {
-                    current = working_scene->entt_to_uuid(e);
-                }
-
-                if (is_selected)
-                    ImGui::SetItemDefaultFocus();
-            }
-            ImGui::EndCombo();
-        }
-
-        if (current)
-            working_scene->main_camera = current;
-
-
+    if (ImGui::TreeNodeEx("Globals", ImGuiTreeNodeFlags_DefaultOpen)) {
+        render_str_select("Startup Scene: ", data.startup_scene, resource_lists.scenes);
+        ImGui::TreePop();
     }
 
-    if (ImGui::CollapsingHeader("Layers")) {
+    if (ImGui::TreeNodeEx("Layers")) {
+        auto& layers = manager->render_data.layers_atrb;
+        auto size = ImGui::GetWindowSize();
+        float position = ImGui::GetCursorScreenPos().y;
+        ImGui::BeginChild("##LayersConfig",{ size.x * 0.95f, size.y * 0.6f}, ImGuiChildFlags_Borders, ImGuiWindowFlags_HorizontalScrollbar);
+            
+        int i = 0;
+        for(auto& layer : layers) {
+            ImGui::PushID(578 + i);
+            ImGui::BulletText("Layer Number%s%d", (i >= 10) ? " " : "  ",i);
+            ImGui::SameLine(0, size.x *0.05f);
+            //ImGui::SetCursorPosX(ImGui::GetWindowWidth() * 0.8f);
+            ImGui::Checkbox("Wireframe", &layer.wireframe);
+            ImGui::SameLine(0, size.x *0.04f);
+            ImGui::Checkbox("Depth Test", &layer.depth);
+            ImGui::SameLine(0, size.x *0.04f);
+            if (layer.is_framebuffer) {
+                std::string label = std::format("Delete FRAMEBUFFER: {}", i);
+                if (ImGui::Button(label.c_str())) {
+                    free_layer_framebuffer(manager,i);
+                    resource_lists.refresh_textures(manager);
+                }
+            }
+            else {
+                if (ImGui::Button("Generate Framebuffer")) {
+                    set_layer_to_framebuffer(manager,i);
+                    resource_lists.refresh_textures(manager);
+                }
+            }
+            ImGui::Separator();
+            i++;
+            ImGui::PopID();
+        }
 
+        ImGui::EndChild();
+        ImGui::TreePop();
     }
 ;
+
+    //ImGui::SetCursorPosY(ImGui::GetWindowHeight() * 0.9f);
+    if (ImGui::Button("Apply")) {
+        std::string prj_path = std::format("{}/{}.prj", data.root_path.string(), data.name).c_str();
+        write_project_file(prj_path.c_str(), data, manager->render_data.layers_atrb.data());
+        show_project_settings = false;
+    }
+    ImGui::SameLine(0, 10.0f);
     if (ImGui::Button("Close"))
         show_project_settings = false;
+    ImGui::End();
+}
+
+void SceneSetting::render_if_on() {
+    if (!(*this)) return;
+    ImGui::Begin("Scene Settings", nullptr, ImGuiWindowFlags_NoDocking);
+    //sameline_text("Name: ", &name_backup);
+    //ImGui::SameLine(0, 10.0f);
+    //if (ImGui::Button("Apply")) {
+    //    // TODO
+    //    name_backup = ptr->name;
+    //}
+    ImGui::Text("Name: %s", ptr->name.c_str());
+
+    if (ImGui::TreeNodeEx("Rendering", ImGuiTreeNodeFlags_DefaultOpen)) {
+        sameline_color("Clear Color: ", ptr->s_render_data.clear_color);
+        sameline_color("Ambient Light Color: ", ptr->s_render_data.ambient);
+        sameline_float("Ambient Light Strength: ", &ptr->s_render_data.ambient_strength, 0.0f, 1.0f);
+
+
+        uuid_select<TransformComp, CameraComp>("Main Camera: ", ptr, ptr->main_camera);
+        ImGui::TreePop();
+    }
+
+    ImGui::SetCursorPosY(ImGui::GetWindowHeight() * 0.9f);
+    if (ImGui::Button("Close"))
+        off();
+
     ImGui::End();
 }
 
@@ -466,6 +518,13 @@ void EScene::render_create_scene() {
                 sameline_checkbox("Make Current", &set_current);
         }
 
+        static bool set_startup = false;
+        if (!exists && !scene_name.empty() && manager->project_data.startup_scene != scene_name) {
+            ImGui::Dummy({0, 10.0f});
+            sameline_checkbox("Set As Startup", &set_startup);
+
+        }
+
         //ImGui::SetCursorPosY(ImGui::GetWindowHeight() * 0.9f);
         if (working_scene) {
             if(ImGui::Button("Cancel")) {
@@ -482,10 +541,13 @@ void EScene::render_create_scene() {
         if (!exists && !scene_name.empty()) {
             if(ImGui::Button("Create") || is_key_pressed(GLFW_KEY_ENTER)) {
                 Scene* tmp = create_scene(scene_name.c_str());
+                if(set_startup)
+                    manager->project_data.startup_scene = scene_name;
                 if (set_current)
                     working_scene = tmp;
                 set_current = true;
                 scene_name = "";
+
                 creating_scene = false;
                 resource_lists = ResourceLists();
                 resource_lists.init(manager);
@@ -502,16 +564,28 @@ void EScene::render_resources() {
 
     if (ImGui::TreeNodeEx("Scenes", ImGuiTreeNodeFlags_DefaultOpen)) {
         for (const auto& scene : lists.scenes) {
-            if (scene == "EDITOREditor" || scene == "EDITORGreeter") continue;
             ImGui::BulletText("%s", scene.c_str());
-            if (working_scene->name == scene) continue;
+            if (working_scene->name == scene) {
+                if (!show_scene_settings) {
+                    ImGui::SameLine(0, 5.0f);
+                    std::string title = std::format("{}##SceneSettings{}", ICON_MD_SETTINGS,scene);
+                    if(ImGui::Button(title.c_str())) {
+                        show_scene_settings.on(working_scene);
+                    }
+                }
+                continue;
+            }
+
             ImGui::SameLine(0, 15.0f);
             if (ImGui::Button("Set Current")) {
                 working_scene = manager->get_scene(scene.c_str());
+                show_scene_settings.off();
                 selected = 0;
                 if (!working_scene->file_path.empty() && working_scene->uuids.empty())
                     working_scene->add_from_file(working_scene->file_path.c_str());
             }
+
+
         }
         ImGui::TreePop();
     }

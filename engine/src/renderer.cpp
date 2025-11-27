@@ -62,6 +62,7 @@ namespace engine {
         wireframe = false;
         is_framebuffer = false;
         framebuffer = 0;
+        RBO = 0;
         framebuffer_texture = 0;
     }
 
@@ -72,6 +73,7 @@ namespace engine {
         bounded = 0;
         max_lights = 32;
         clear_flags = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT;
+        layers_atrb = {};
     }
 
     RenderData& RenderData::add(const char* name, size_t size) {
@@ -144,11 +146,11 @@ namespace engine {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture_color_buffer, 0);
         // create a renderbuffer object for depth and stencil attachment (we won't be sampling these)
-        unsigned int rbo;
-        glGenRenderbuffers(1, &rbo);
-        glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+
+        glGenRenderbuffers(1, &atrb.RBO);
+        glBindRenderbuffer(GL_RENDERBUFFER, atrb.RBO);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, manager->render_data.screen_w, manager->render_data.screen_h); // use a single renderbuffer object for both a depth AND stencil buffer.
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo); // now actually attach it
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, atrb.RBO); // now actually attach it
         // now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             DU_CORE_ERROR("Could not make frame buffer for layer {}", layer);
@@ -169,6 +171,25 @@ namespace engine {
         atrb.framebuffer_texture =  final;
         manager->texture_lib.insert(std::make_pair(name, final));
         
+    }
+
+    void free_layer_framebuffer(SceneManager* manager, size_t layer) {
+        DU_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Trying to free invalid layer [{}] framebuffer object");
+        LayerAtrb& atrb = manager->render_data.layers_atrb[layer];
+
+        glDeleteRenderbuffers(1, &atrb.RBO);
+        glDeleteBuffers(1, &atrb.framebuffer);
+
+        auto& lib = manager->texture_lib;
+        auto it = std::find_if(lib.begin(), lib.end(), [&atrb](const auto& kv){ return kv.second.texture == atrb.framebuffer_texture;});
+        DU_ASSERT(it == lib.end(), "Trying to delete FRAMEBUFFER{} from registered textures but it does not exist", atrb.framebuffer);
+
+        it->second.free();
+
+        atrb.framebuffer_texture = 0;
+        atrb.RBO = 0;
+        atrb.framebuffer = 0;
+        atrb.is_framebuffer = 0;
     }
 
 

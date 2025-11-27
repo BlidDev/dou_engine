@@ -1,5 +1,6 @@
 #include "greeter.h"
-#include "GLFW/glfw3.h"
+#include <GLFW/glfw3.h>
+#include <IconsMaterialDesign.h>
 #include "helper.h"
 #include <format>
 #include <tinyfiledialogs.h>

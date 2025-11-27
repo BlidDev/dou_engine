@@ -14,7 +14,7 @@ int engine::on_start(engine::SceneManager* manager) {
     engine::set_input_window(manager->main_window);
 
     std::string name;
-    read_project_file("res/projects/test.prj", manager, &name);
+    read_project_file("res/projects/test.prj", manager);
 
 
     manager->register_model("triangle", ModelBuilder().vertices(engine::P_TRIANGLE, 9));
@@ -32,6 +32,10 @@ int engine::on_start(engine::SceneManager* manager) {
 int engine::on_end(engine::SceneManager* manager) {
     glfwTerminate();
     return 0;
+}
+
+std::unique_ptr<Scene> engine::create_runtime_scene() {
+    std::make_unique<engine::DefaultRT>();
 }
 
 void register_actions() {

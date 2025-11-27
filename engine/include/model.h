@@ -16,6 +16,9 @@ namespace engine {
 
         bool textured();
         bool normals();
+
+        // Frees the VAO, VBO (and if exists, EBO) handlers from OpenGL memory, makes the object useless 
+        void free();
     };
 
     struct ModelBuilder {

@@ -6,7 +6,7 @@
 namespace engine {
 
     Texture::Texture() {
-        texture = -1;
+        texture = 0;
         path = "UNKNOWN";
         w = -1; h = -1; nrc = -1;
     }

@@ -73,10 +73,12 @@ namespace engine {
     void SceneManager::end() {
         if ("NONE" != current)
             get_current()->on_end();
+        for (auto& [_, s] : shader_lib) { s.free(); }
+        for (auto& [_, t] : texture_lib) { t.free(); }
+        for (auto& [_, m] : model_lib) { m.free(); }
     }
 
     SceneManager::~SceneManager() {
-        // automatically deletes every scene
     }
 
     namespace fs = std::filesystem;

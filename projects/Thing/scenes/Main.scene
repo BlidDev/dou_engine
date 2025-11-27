@@ -3,8 +3,28 @@ Render Data:
   Main Camera: 9703913328098630830
   Ambient: [1, 1, 1]
   Ambient Strength: 0.1
-  Clear Color: [1, 0, 1, 1]
+  Clear Color: [0.7723077, 1, 0.98528755, 1]
 Entities:
+  - Entity: 13874073629702658488
+    Tag:
+      Tag: Unnamed Cube
+    Transform:
+      Position: [-4.4, 0, 0]
+      Size: [1, 1, 1]
+      Rotation: [0, 0, 0]
+    Model:
+      Model Name: quad_tex
+      Layer: 1
+      Material:
+        Shader: textured.glsl
+        Filled: false
+        Ambient: [1, 1, 1]
+        Diffuse: [1, 1, 1]
+        Specular: [1, 1, 1]
+        Shininess: 32
+        Texture: proto.png
+        Textured: true
+        Immune: false
   - Entity: 9703913328098630830
     Tag:
       Tag: Player
@@ -28,10 +48,10 @@ Entities:
     Lua Actions:
       - Path: player.lua
         Fields:
-          this: [u, 9703913328098630830]
           jump: [i, 10]
-          init_speed: [i, 3]
+          this: [u, 9703913328098630830]
           sensi: [f, 0.1]
+          init_speed: [i, 3]
     SptLight:
       Color: [0.5261538, 0.5261538, 0.5261538]
       Direction: [0, -1, 0]
@@ -56,7 +76,7 @@ Entities:
         Ambient: [1, 1, 1]
         Diffuse: [1, 1, 1]
         Specular: [1, 1, 1]
-        Shininess: 10
+        Shininess: 0
         Texture: mmm.png
         Textured: true
         Immune: false

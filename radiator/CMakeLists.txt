@@ -28,11 +28,14 @@ target_include_directories(${NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/vendor/imgui
     ${CMAKE_SOURCE_DIR}/vendor/imgui/backends
     "${CMAKE_SOURCE_DIR}/${NAME}/vendor/tinyfiledialogs"
+    "${CMAKE_SOURCE_DIR}/${NAME}/vendor/google_md"
 )
 
 
 set(HEADER_FILES PRIVATE 
-    "${CMAKE_SOURCE_DIR}/engine/include/engine.h")
+    "${CMAKE_SOURCE_DIR}/engine/include/engine.h"
+    "${CMAKE_SOURCE_DIR}/${NAME}/vendor/google_md/IconsMaterialDesign.h"
+)
 
 find_package(OpenGL REQUIRED)
 

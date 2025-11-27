@@ -13,7 +13,10 @@ ResourceLists::ResourceLists() {
 
 void ResourceLists::init(SceneManager* manager) {
     scenes.reserve(manager->get_scenes().size()); 
-        for (const auto& [k,_] : manager->get_scenes()) {scenes.push_back(k);}
+        for (const auto& [k,_] : manager->get_scenes()) {
+            if (k == "EDITOREditor" || k == "EDITORGreeter") continue;
+            scenes.push_back(k);
+        }
 
     shaders.reserve(manager->shader_lib.size());  
         for (const auto& [k,_] : manager->shader_lib) {shaders.push_back(k);};
@@ -26,6 +29,15 @@ void ResourceLists::init(SceneManager* manager) {
 
     scripts.reserve(manager->script_lib.size());  
         for (const auto& [k,_] : manager->script_lib) {scripts.push_back(k);};
+}
+
+void ResourceLists::refresh_textures(SceneManager* manager) {
+    size_t num_textures = manager->texture_lib.size();
+    size_t capacity = textures.capacity();
+    if (capacity < num_textures) textures.reserve(num_textures - capacity);
+
+    textures.clear();
+        for (const auto& [k,_] : manager->texture_lib) {textures.push_back(k);};
 }
 
 
@@ -42,14 +54,16 @@ EScene::EScene() : Scene("Editor") {
     working_scene = nullptr;
     creating_scene = false;
     resource_lists = ResourceLists();
+    editorview_looking = false;
+    show_project_settings = {};
 }
 
 
 void EScene::make_viewer() {
     viewer = create_entity();
     viewer.add_component<EditorViewer>();
-    viewer.add_component<TransformComp>(TransformBuilder().position(glm::vec3{0.0f}));
-    viewer.add_component<CameraComp>(CameraBuilder().build());
+    viewer.add_component<TransformComp>(TransformBuilder().position(glm::vec3{0.0f, 2.0f, 0.0f}));
+    viewer.add_component<CameraComp>(CameraBuilder().target({0.0f, 1.0f, 1.0f}).build());
     auto& lua = viewer.add_component<LuaActionComp>(viewer.uuid()).add(this, "editorcam.lua");
     lua.get_last().on_init();
 }
@@ -85,8 +99,10 @@ void EScene::on_create() {
             if (n == "EDITOREditor" || n == "EDITORGreeter") continue;
             working_scene = s.get();
 
+
             if (working_scene->file_path.empty()) return;
             save_path = working_scene->file_path;
+            DU_WARN("Startup scene was not set, selecting {}", n);
             working_scene->add_from_file(working_scene->file_path.c_str()); return;
             manager->project_data.startup_scene = s->name;
         }
@@ -120,6 +136,8 @@ void EScene::on_update(float dt) {
 
 void EScene::on_end() {
     end_imgui();
+    editorview.free();
+    pickerview.free();
 }
 
 bool EScene::should_close() {

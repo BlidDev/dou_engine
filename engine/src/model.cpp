@@ -12,6 +12,21 @@ namespace engine {
         return ((vao_format & VAO::NORMAL) == VAO::NORMAL);
     }
 
+
+    void Model::free() {
+        glDeleteVertexArrays(1, &VAO);
+        if (nindices > 0) {
+            glDeleteBuffers(1, &EBO);
+        }
+        glDeleteBuffers(1, &VBO);
+
+
+        VAO = 0; VBO = 0; EBO = 0;
+        nindices = 0; nvertices = 0; 
+        DU_CORE_DEBUG_TRACE("Freed {}", name);
+        name = "UNKNOWN";
+    }
+
     unsigned int apply_format(int format) {
         unsigned int counter = 0, size = 0;
         bool basic = ((format & VAO::BASIC) == VAO::BASIC);

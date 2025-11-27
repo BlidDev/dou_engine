@@ -10,5 +10,6 @@
 #include "util.h"
 #include "model.h"
 #include "project.h"
+#include "default_rt.h"
 #include "entry_point.h"
 

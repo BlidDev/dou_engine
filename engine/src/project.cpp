@@ -68,7 +68,7 @@ namespace engine {
             TRY_NODE(layer, "Depth Test", bool, manager->get_layer_atrb(i)->depth);
             TRY_NODE(layer, "Wireframe Mode", bool, manager->get_layer_atrb(i)->wireframe);
             bool tmp = false;
-            TRY_NODE(layer, "Is Framebuffer", bool, tmp);
+            TRY_NODE(layer, "Is FrameBuffer", bool, tmp);
             if (tmp) set_layer_to_framebuffer(manager, i);
         }
     }
@@ -174,7 +174,6 @@ namespace engine {
     }
 
 
-
     void write_project_file(const char* path, ProjectData& data, LayerAtrb layers[], size_t nlayers) {
         namespace ym = YAML;
         std::ofstream file(path);
@@ -233,4 +232,5 @@ namespace engine {
         file<<out.c_str();
         file.close();
     }
+
 }

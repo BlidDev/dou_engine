@@ -28,7 +28,7 @@ namespace engine {
     const ProjectData& read_project_file(const char* path, SceneManager* manager, bool add_paths = true, bool set_current = false);
 
 
-    void write_project_file(const char* path, ProjectData& data, LayerAtrb layers[] = nullptr, size_t nlayers = MAX_RENDER_LAYERS);
+    void write_project_file(const char* path, ProjectData& data, LayerAtrb layes[] = nullptr, size_t nlayers = MAX_RENDER_LAYERS);
 
 
     extern std::unique_ptr<Scene> create_runtime_scene();

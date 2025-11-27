@@ -26,8 +26,9 @@ namespace engine {
         bool depth;
         bool wireframe;
         bool is_framebuffer;
-        unsigned int framebuffer;
-        unsigned int framebuffer_texture;
+        uint32_t framebuffer;
+        uint32_t RBO;
+        uint32_t framebuffer_texture;
         LayerAtrb();
     };
 
@@ -51,7 +52,7 @@ namespace engine {
     public:
         size_t screen_w;
         size_t screen_h;
-        LayerAtrb layers_atrb[MAX_RENDER_LAYERS];
+        std::array<LayerAtrb, MAX_RENDER_LAYERS> layers_atrb;
         int clear_flags;
     };
 
@@ -75,6 +76,7 @@ namespace engine {
     void set_layer_wireframe(RenderData& data, size_t layer, bool flag);
     void set_clear_flags(RenderData& data, int flags);
     void set_layer_to_framebuffer(SceneManager* manager, size_t layer);
+    void free_layer_framebuffer(SceneManager* manager, size_t layer);
 
 
     void make_default_ubos(SceneManager* manager);

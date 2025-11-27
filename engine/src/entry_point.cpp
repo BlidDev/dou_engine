@@ -37,11 +37,10 @@ int main() {
         start = now;
     }
 
-    current->on_end();
+    manager.end();
 
     on_end(&manager);
 
-    manager.end();
     
     return 0;
 }

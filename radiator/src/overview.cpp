@@ -47,7 +47,7 @@ static const std::unordered_map<std::string, CompMakerFn> StrCompFactory = {
 
     {
      "ModelComp", [](Entity& e, Scene* scene){ 
-            e.add_component<ModelComp>(scene->get_model("cube"), MaterialBuilder().set_shader(scene->get_shader("res/shaders/basic.glsl"))
+            e.add_component<ModelComp>(scene->get_model("cube"), MaterialBuilder().set_shader(scene->get_shader("basic.glsl"))
                                                                                   .set_color(glm::vec3(1.0f))); 
         }
 
@@ -114,7 +114,7 @@ void render_lib_select(const char* label,T& subject, std::string& own,
     ImGui::Text("%s ", label); ImGui::SameLine();
 
     std::vector<std::string>tmp = append;
-    int i = 0, current = 0;
+    int i = append.size(), current = 0;
     if (!own.empty()) {
         tmp.reserve(lib.size());
         for (const auto& [k,_] : lib) {tmp.push_back(k);if(own == k) {current = i;}  i++;}
@@ -314,19 +314,24 @@ void render_model(ModelComp& m, SceneManager* manager) {
 
     render_lib_select("Shader", m.material.shader, m.material.shader.path, manager->shader_lib);
     render_lib_select("Model", m.model, m.model.name, manager->model_lib);
-    render_lib_select("Texture", m.material.texture, m.material.texture.path, manager->texture_lib, 
-            [&m, &manager](std::string& chosen){
+
+    bool is_textured = (m.material.attributes & MODEL_TEXTURED) == MODEL_TEXTURED;
+    if(is_textured) {
+        render_lib_select("Texture", m.material.texture, m.material.texture.path, manager->texture_lib, 
+                [&m, &manager, &is_textured](std::string& chosen){
                 if (chosen == "UNKNOWN") {
                     m.material.texture = Texture();
                     m.material.attributes &= ~MODEL_TEXTURED;
                     m.material.attributes |= MODEL_FILLED;
+                    is_textured = false;
                     return;
                 }
 
                 m.material.texture = manager->texture_lib[chosen];
                 m.material.attributes |= MODEL_TEXTURED;
                 m.material.attributes &= ~MODEL_FILLED;
-            }, {"UNKOWN"});
+                }, {"UNKNOWN"});
+    }
 
 
     if (ImGui::TreeNode("Material Args")) {
@@ -336,11 +341,21 @@ void render_model(ModelComp& m, SceneManager* manager) {
         sameline_float("Shininess", &m.material.shininess);
 
         bool is_filled = (m.material.attributes & MODEL_FILLED) == MODEL_FILLED;
-        bool is_textured = (m.material.attributes & MODEL_TEXTURED) == MODEL_TEXTURED;
         bool is_immune = (m.material.attributes & MODEL_IMMUNE) == MODEL_IMMUNE;
 
-        ImGui::Checkbox("Filled", &is_filled);
-        ImGui::Checkbox("Textured", &is_textured);
+        if (is_filled && m.material.texture.path != "UNKNOWN") {
+            m.material.texture = Texture();
+            m.material.attributes &= ~MODEL_TEXTURED;
+            m.material.attributes |= MODEL_FILLED;
+            is_textured = false;
+        }
+
+        ImGui::Text("Current: %s ", (is_filled) ? "Filled" : "Textured");
+        ImGui::SameLine(0, 10.0f);
+        if (is_textured && !is_filled)
+            {if(ImGui::Button("Set Filled")){ is_filled = true; is_textured = false;}}
+        if (is_filled && !is_textured)
+        {if(ImGui::Button("Set Textured")){ is_textured = true; is_filled = false;}}
         ImGui::Checkbox("Immune", &is_immune);
 
         m.material.attributes = ((is_filled)   ? MODEL_FILLED   : 0) |

@@ -16,6 +16,13 @@ namespace engine {
         operator uint32_t() {
             return program;
         }
+
+        // Frees the shader program from OpenGL memory, makes the object useless
+        void free() {
+            glDeleteProgram(program);
+            DU_CORE_DEBUG_TRACE("Freed {}", path);
+            program = 0; path = "";
+        }
     };
     Shader complie_shader_file(const char* path);
 

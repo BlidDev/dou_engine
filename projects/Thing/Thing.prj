@@ -16,9 +16,9 @@ Layers:
   Layer 0:
     Depth Test: true
     Wireframe Mode: false
-    Is FrameBuffer: false
+    Is FrameBuffer: true
   Layer 1:
-    Depth Test: false
+    Depth Test: true
     Wireframe Mode: false
     Is FrameBuffer: false
   Layer 2:

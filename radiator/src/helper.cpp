@@ -4,6 +4,7 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <misc/cpp/imgui_stdlib.h>
+#include <IconsMaterialDesign.h>
 
 void initialize_imgui(SceneManager* manager) {
     IMGUI_CHECKVERSION();
@@ -17,9 +18,21 @@ void initialize_imgui(SceneManager* manager) {
     ImGui_ImplOpenGL3_Init("#version 330");
 
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-    io.Fonts->AddFontFromFileTTF("res/fonts/DejaVu.ttf", 16.0f);
+    io.FontDefault = io.Fonts->AddFontFromFileTTF("res/fonts/DejaVu.ttf", 16.0f);
     io.WantSetMousePos = true;
-    io.FontGlobalScale = 1.5f;
+
+    const auto video_mod = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    if (video_mod->height > 1080)
+        io.FontGlobalScale = 1.5f;
+
+    ImFontConfig icon_font_cfg;
+    icon_font_cfg.PixelSnapH = true;
+    icon_font_cfg.MergeMode = true;
+    static const ImWchar icons_ranges[] = { ICON_MIN_MD,ICON_MAX_16_MD, 0 };
+    ImGui::GetIO().Fonts->AddFontFromFileTTF("res/fonts/Google-MD-Regular.ttf", 16.0f, &icon_font_cfg, icons_ranges);
+
+    ImGui::GetIO().Fonts->Build();
+    
 }
 
 
@@ -76,6 +89,12 @@ void sameline_checkbox(const char* title, bool* v) {
     ImGui::Checkbox(std::format("##{}", title).c_str(), v);
 }
 
+void sameline_color(const char* title, glm::vec4& v) {
+    ImGui::Text("%s", title);
+    ImGui::SameLine(0.0f, 10.0f);
+    ImGui::ColorEdit4(std::format("##{}", title).c_str(), glm::value_ptr(v));
+}
+
 void sameline_color(const char* title, glm::vec3& v) {
     ImGui::Text("%s", title);
     ImGui::SameLine(0.0f, 10.0f);
@@ -111,7 +130,8 @@ void sameline_int(const char* title, int* v, int min, int max, int speed) {
 
 
 bool combo_guts(const char* label, const std::vector<std::string>& tmp,int& current, int safety) {
-    if (ImGui::BeginCombo(label, tmp[current].c_str())) {
+    std::string sample = (current == safety) ? "##" : tmp[current];
+    if (ImGui::BeginCombo(label, sample.c_str())) {
         for (int i = 0; i < tmp.size(); i++) {
             bool is_selected = (current == i);
             if (ImGui::Selectable(tmp[i].c_str(), is_selected)) {
@@ -132,6 +152,15 @@ bool combo_guts(const char* label, const std::vector<std::string>& tmp,int& curr
 
 
 
+
+void render_str_select(const char* label, std::string& subject, std::vector<std::string>&list) {
+    const auto& it = std::find(list.begin(), list.end(), subject);
+    int current = (subject.empty() || it == list.end()) ? -1 : std::distance(list.begin(), it);
+
+    if (combo_guts(label, list, current)) {
+        subject = list[current];
+    }
+}
 
 bool EScene::is_key(int k, int a) {
     return key_query[k - 32] == a;

@@ -43,10 +43,15 @@ namespace engine {
           .unbind();
 
       send_lights(registry, data);
+      
+      GLint parent_fb = 0;
 
       if(!external_clear) {
           glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
           glClear(data.clear_flags);
+      }
+      else {
+          glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &parent_fb);
       }
 
       for (int i = 0; i < MAX_RENDER_LAYERS; i++) {
@@ -81,7 +86,7 @@ namespace engine {
 
               bool filled = (obj.material.attributes & MODEL_FILLED) == MODEL_FILLED;
 
-              if (obj.model.normals() && !filled) { // probably lighted
+              if (obj.model.normals()) {
                   glm::mat4 normal = glm::transpose(glm::inverse(model));
                   set_shader_m3(obj.material.shader, "normal_mat", normal);
               }
@@ -103,7 +108,7 @@ namespace engine {
           }
 
           if (atrb.is_framebuffer) {
-              glBindFramebuffer(GL_FRAMEBUFFER, 0);
+              glBindFramebuffer(GL_FRAMEBUFFER, parent_fb);
               glClear(data.clear_flags);
           }
           glDisable(GL_DEPTH_TEST);
