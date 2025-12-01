@@ -67,9 +67,6 @@ namespace engine {
             if (!layer) continue;
             TRY_NODE(layer, "Depth Test", bool, manager->get_layer_atrb(i)->depth);
             TRY_NODE(layer, "Wireframe Mode", bool, manager->get_layer_atrb(i)->wireframe);
-            bool tmp = false;
-            TRY_NODE(layer, "Is FrameBuffer", bool, tmp);
-            if (tmp) set_layer_to_framebuffer(manager, i);
         }
     }
 
@@ -220,7 +217,6 @@ namespace engine {
                     out<<ym::Key<<name<<ym::BeginMap;
                         out<<ym::Key<<"Depth Test"<<ym::Value<<layer.depth;
                         out<<ym::Key<<"Wireframe Mode"<<ym::Value<<layer.wireframe;
-                        out<<ym::Key<<"Is FrameBuffer"<<ym::Value<<layer.is_framebuffer;
                     out<<ym::EndMap;
                 }
 

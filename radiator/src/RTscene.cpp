@@ -20,7 +20,8 @@ void RTScene::on_update(float dt) {
     if (aabb_check(*this, dt)) return;
     glm::vec2 view = manager->main_window.size();
 
-    opengl_renderer(manager->render_data, view, player, registry, &s_render_data);
+    draw_to_camera(manager->render_data, view, player, registry, &s_render_data);
+    present_camera(player, get_model("quad_tex"));
     glfwSwapBuffers(manager->main_window);
     glfwPollEvents();
 

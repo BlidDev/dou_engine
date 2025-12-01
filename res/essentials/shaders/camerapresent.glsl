@@ -13,6 +13,7 @@ uniform float ratio;
 
 out vec2 tex_coord;
 void main() {  
+
     vec4 pos = model * vec4(aPos,1.0);
     pos.x /= ratio;
 	gl_Position = pos;

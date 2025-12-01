@@ -82,23 +82,23 @@ namespace engine {
         return {program, std::filesystem::path(path).filename()};
     }
 
-    void set_shader_f(Shader shader, const char *name, float value) {
+    void set_shader_f(const Shader& shader, const char *name, const float& value) {
         glUniform1f(glGetUniformLocation(shader, name), value);
     }
 
-    void set_shader_v3(Shader shader, const char *name, glm::vec3 value) {
+    void set_shader_v3(const Shader& shader, const char *name, const glm::vec3& value) {
         glUniform3f(glGetUniformLocation(shader, name), value.x, value.y, value.z);
     }
 
-    void set_shader_v4(Shader shader, const char *name, glm::vec4 value) {
+    void set_shader_v4(const Shader& shader, const char *name, const glm::vec4& value) {
         glUniform4f(glGetUniformLocation(shader, name), value.x, value.y, value.z, value.w);
     }
 
-    void set_shader_m3(Shader shader, const char *name, glm::mat3 value) {
+    void set_shader_m3(const Shader& shader, const char *name, const glm::mat3& value) {
         glUniformMatrix3fv(glGetUniformLocation(shader, name), 1, GL_FALSE, &value[0][0]);
     }
 
-    void set_shader_m4(Shader shader, const char *name, glm::mat4 value) {
+    void set_shader_m4(const Shader& shader, const char *name, const glm::mat4& value) {
         glUniformMatrix4fv(glGetUniformLocation(shader, name), 1, GL_FALSE, &value[0][0]);
     }
 

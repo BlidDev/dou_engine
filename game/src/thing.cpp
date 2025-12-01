@@ -16,6 +16,7 @@ void ThingScene::on_create() {
 
     set_clear_flags(manager->render_data, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
     add_from_file("res/thing.scene");
 
     player = uuid_to_entity(main_camera);
@@ -34,7 +35,7 @@ void ThingScene::on_update(float dt) {
     if (aabb_check(*this, dt)) return;
     glm::vec2 view = manager->main_window.size();
 
-    opengl_renderer(manager->render_data,view, player, registry);
+    draw_to_camera(manager->render_data,view, player, registry);
     glfwSwapBuffers(manager->main_window);
     glfwPollEvents();
 }

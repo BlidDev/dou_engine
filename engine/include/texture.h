@@ -20,7 +20,7 @@ namespace engine {
         // Frees the texture ID from OpenGL memory, makes the object useless
         void free() {
             glDeleteTextures(1, &texture); 
-            DU_CORE_DEBUG_TRACE("Freed {} {}", texture,path);
+            DU_CORE_DEBUG_TRACE("Freed {}", path);
             texture = 0;
             path = "UNKNOWN";
             w = -1; h = -1; nrc = -1;

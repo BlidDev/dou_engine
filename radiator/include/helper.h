@@ -3,8 +3,6 @@
 
 void initialize_imgui(SceneManager* manager);
 
-void make_framebuffer(Frambuffer& fb, size_t w, size_t h);
-void rescale_framebuffer(Frambuffer& fb, size_t w, size_t h);
 
 
 

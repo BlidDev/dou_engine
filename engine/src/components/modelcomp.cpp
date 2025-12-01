@@ -5,7 +5,7 @@
 namespace engine {
     MaterialBuilder::MaterialBuilder() {
         material = Material {
-            .shader = {0, "UNKNOWN"},
+            .shader = {},
             .texture = Texture(),
             .ambient = {0.0f, 0.0f, 0.0f},
             .diffuse = {0.0f, 0.0f, 0.0f},

@@ -30,7 +30,7 @@ namespace engine {
 
         template <typename T, typename ...Args>
         Scene* register_scene(const char* name, Args&&... args) {
-            return register_scene(name, std::make_unique<Scene>(std::forward<Args>(args)...));
+            return register_scene(name, std::make_unique<T>(std::forward<Args>(args)...));
         }
 
 

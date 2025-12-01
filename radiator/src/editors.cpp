@@ -60,10 +60,14 @@ EScene::EScene() : Scene("Editor") {
 
 
 void EScene::make_viewer() {
+    const auto size = manager->main_window.size();
     viewer = create_entity();
     viewer.add_component<EditorViewer>();
     viewer.add_component<TransformComp>(TransformBuilder().position(glm::vec3{0.0f, 2.0f, 0.0f}));
-    viewer.add_component<CameraComp>(CameraBuilder().target({0.0f, 1.0f, 1.0f}).build());
+    viewer.add_component<CameraComp>(CameraBuilder().target({0.0f, 1.0f, 1.0f})
+                                                    .framebuffer_size(size.x, size.y)
+                                                    .present_shader(get_shader("camerapresent.glsl"))
+                                                    .build());
     auto& lua = viewer.add_component<LuaActionComp>(viewer.uuid()).add(this, "editorcam.lua");
     lua.get_last().on_init();
 }
@@ -76,7 +80,6 @@ void EScene::on_create() {
     make_default_ubos(manager);
 
 
-    make_framebuffer(editorview, 684, 698) ;
     make_framebuffer(pickerview, 684, 698) ;
 
     resource_lists.init(manager);
@@ -136,7 +139,6 @@ void EScene::on_update(float dt) {
 
 void EScene::on_end() {
     end_imgui();
-    editorview.free();
     pickerview.free();
 }
 

@@ -1,4 +1,5 @@
 #include "manager.h"
+#include "components/camera.h"
 
 namespace engine {
     SceneManager::SceneManager() : main_window() {
@@ -54,6 +55,10 @@ namespace engine {
 
     void SceneManager::end_scene(Scene* scene) {
         scene->on_end();
+        auto cameras = scene->registry.view<CameraComp>();
+        for (auto [e, c] : cameras.each())  {
+            c.framebuffer.free(true);
+        }
         scene->registry.clear();
         scene->uuids.clear();
     }
@@ -73,9 +78,11 @@ namespace engine {
     void SceneManager::end() {
         if ("NONE" != current)
             get_current()->on_end();
+
         for (auto& [_, s] : shader_lib) { s.free(); }
         for (auto& [_, t] : texture_lib) { t.free(); }
         for (auto& [_, m] : model_lib) { m.free(); }
+
     }
 
     SceneManager::~SceneManager() {

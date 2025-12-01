@@ -25,10 +25,6 @@ namespace engine {
     struct LayerAtrb {
         bool depth;
         bool wireframe;
-        bool is_framebuffer;
-        uint32_t framebuffer;
-        uint32_t RBO;
-        uint32_t framebuffer_texture;
         LayerAtrb();
     };
 
@@ -75,9 +71,6 @@ namespace engine {
     void set_layer_depth(RenderData& data, size_t layer, bool flag);
     void set_layer_wireframe(RenderData& data, size_t layer, bool flag);
     void set_clear_flags(RenderData& data, int flags);
-    void set_layer_to_framebuffer(SceneManager* manager, size_t layer);
-    void free_layer_framebuffer(SceneManager* manager, size_t layer);
-
 
     void make_default_ubos(SceneManager* manager);
 }

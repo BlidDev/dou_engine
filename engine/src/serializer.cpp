@@ -194,6 +194,15 @@ namespace engine {
                 out<<YAML::Key<<"FovY"<<YAML::Value<<c.fovy;
                 out<<YAML::Key<<"Projection"<<YAML::Value<<(int)c.projection;
                 out<<YAML::Key<<"Max Distance"<<YAML::Value<<c.max_distance;
+                glm::vec2 size = entity.scene_ptr()->manager->main_window.size();
+                if (size != c.framebuffer.last_scale) {
+                    out<<YAML::Key<<"Framebuffer"<<YAML::BeginMap;
+                        out<<YAML::Key<<"Width"<<YAML::Value<<c.framebuffer.last_scale.x;
+                        out<<YAML::Key<<"Height"<<YAML::Value<<c.framebuffer.last_scale.y;
+                    out<<YAML::EndMap;
+                }
+                out<<YAML::Key<<"Present Shader"<<YAML::Value<<c.present_shader.path;
+
             out<<YAML::EndMap;
         }
 
@@ -380,6 +389,18 @@ namespace engine {
             if (read_entity.has_component<TransformComp>()) {
                 c.last_pos = read_entity.get_component<TransformComp>().position;
             }
+
+            glm::vec2 fb_size = scene->manager->main_window.size();
+            auto framebuffer = camera["Framebuffer"];
+            if (framebuffer) {
+                fb_size.x = framebuffer["Width"].as<int>();
+                fb_size.y = framebuffer["Height"].as<int>();
+            }
+
+            make_framebuffer(c.framebuffer, fb_size.x, fb_size.y);
+
+            std::string present_shader =  camera["Present Shader"].as<std::string>();
+            c.present_shader = scene->get_shader(present_shader.c_str());
         }
 
         auto lua_actions = entity["Lua Actions"];

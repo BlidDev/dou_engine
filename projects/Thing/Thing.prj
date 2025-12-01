@@ -16,64 +16,48 @@ Layers:
   Layer 0:
     Depth Test: true
     Wireframe Mode: false
-    Is FrameBuffer: true
   Layer 1:
     Depth Test: true
     Wireframe Mode: false
-    Is FrameBuffer: false
   Layer 2:
     Depth Test: false
     Wireframe Mode: false
-    Is FrameBuffer: false
   Layer 3:
     Depth Test: false
     Wireframe Mode: false
-    Is FrameBuffer: false
   Layer 4:
     Depth Test: false
     Wireframe Mode: false
-    Is FrameBuffer: false
   Layer 5:
     Depth Test: false
     Wireframe Mode: false
-    Is FrameBuffer: false
   Layer 6:
     Depth Test: false
     Wireframe Mode: false
-    Is FrameBuffer: false
   Layer 7:
     Depth Test: false
     Wireframe Mode: false
-    Is FrameBuffer: false
   Layer 8:
     Depth Test: false
     Wireframe Mode: false
-    Is FrameBuffer: false
   Layer 9:
     Depth Test: false
     Wireframe Mode: false
-    Is FrameBuffer: false
   Layer 10:
     Depth Test: false
     Wireframe Mode: false
-    Is FrameBuffer: false
   Layer 11:
     Depth Test: false
     Wireframe Mode: false
-    Is FrameBuffer: false
   Layer 12:
     Depth Test: false
     Wireframe Mode: false
-    Is FrameBuffer: false
   Layer 13:
     Depth Test: false
     Wireframe Mode: false
-    Is FrameBuffer: false
   Layer 14:
     Depth Test: false
     Wireframe Mode: false
-    Is FrameBuffer: false
   Layer 15:
     Depth Test: false
     Wireframe Mode: false
-    Is FrameBuffer: false

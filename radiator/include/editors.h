@@ -7,20 +7,6 @@
 
 using namespace engine;
 
-struct Frambuffer {
-    unsigned int handler;
-    unsigned int rbo;
-    unsigned int texture;
-    ImVec2 last_scale;
-
-
-    void free() {
-        glDeleteTextures(1, &texture);
-        glDeleteRenderbuffers(1, &rbo);
-        DU_CORE_DEBUG_TRACE("Freed framebuffer {}", handler);
-        glDeleteFramebuffers(1, &handler);
-    }
-};
 
 struct ResourceLists {
    std::vector<std::string> scenes;
@@ -81,6 +67,7 @@ public:
 
     void render_editorview(float dt);
     void render_pickerview();
+    void render_hitboxes();
     void render_resources();
     entt::entity entity_from_view(ImVec2 pos, ImVec2 size);
 
@@ -105,8 +92,6 @@ private:
     bool debug_open;
     bool close;
     UUID selected;
-
-    Frambuffer editorview;
 
     Frambuffer pickerview;
     Shader picker_shader;

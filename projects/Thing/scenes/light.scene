@@ -72,6 +72,7 @@ Entities:
       FovY: 70
       Projection: 0
       Max Distance: 30
+      Present Shader: very_cool.glsl
     Lua Actions:
       - Path: player.lua
         Fields:

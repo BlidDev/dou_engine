@@ -12,9 +12,9 @@ namespace engine {
     void send_lights(entt::registry &registry, RenderData &data);
     void send_material(Material &material);
 
-    void opengl_renderer(RenderData &data, glm::vec2 view_size, Entity viewer,
-                         entt::registry &registry, 
-                         SceneRenderData* s_render_data, bool external_clear) {
+    void draw_to_camera(RenderData& data, glm::vec2 view_size, Entity& viewer,
+                         entt::registry& registry, 
+                         SceneRenderData* s_render_data, bool external_clear, uint32_t parent_fb) {
 
       auto p_trans = viewer.get_component<TransformComp>();
       auto p_camera = viewer.get_component<CameraComp>();
@@ -30,6 +30,22 @@ namespace engine {
       glm::vec3 ambient = (s_render_data) ? s_render_data->ambient : glm::vec3(1.0f);
       float ambient_strength = (s_render_data) ? s_render_data->ambient_strength : 0.1f;
 
+
+      if(!external_clear) {
+          glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
+          glClear(data.clear_flags);
+      }
+
+      if (p_camera.framebuffer.last_scale != view_size) {
+          rescale_framebuffer(p_camera.framebuffer, view_size.x, view_size.y);
+      }
+
+      glViewport(0,0, view_size.x, view_size.y);
+      glBindFramebuffer(GL_FRAMEBUFFER, p_camera.framebuffer);
+      glClear(data.clear_flags);
+
+
+
       data.bind("Matrices")
           .sub(0, sizeof(glm::mat4), glm::value_ptr(projection))
           .sub(sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(view))
@@ -43,28 +59,14 @@ namespace engine {
           .unbind();
 
       send_lights(registry, data);
-      
-      GLint parent_fb = 0;
 
-      if(!external_clear) {
-          glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
-          glClear(data.clear_flags);
-      }
-      else {
-          glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &parent_fb);
-      }
 
       for (int i = 0; i < MAX_RENDER_LAYERS; i++) {
           LayerAtrb atrb = data.layers_atrb[i];
 
-          if (atrb.is_framebuffer) {
-            glBindFramebuffer(GL_FRAMEBUFFER, atrb.framebuffer);
-            //glViewport(0,0, atrb.framebuffer_texture.w, atrb.framebuffer_texture.h);
-              glClear(data.clear_flags);
-          }
 
-          if (atrb.depth)
-              glEnable(GL_DEPTH_TEST);
+          if (!atrb.depth)
+              glDisable(GL_DEPTH_TEST);
 
 
           for (auto [_, pos, obj] : objects.each()) {
@@ -87,7 +89,7 @@ namespace engine {
               bool filled = (obj.material.attributes & MODEL_FILLED) == MODEL_FILLED;
 
               if (obj.model.normals()) {
-                  glm::mat4 normal = glm::transpose(glm::inverse(model));
+                  glm::mat3 normal = glm::transpose(glm::inverse(model));
                   set_shader_m3(obj.material.shader, "normal_mat", normal);
               }
 
@@ -98,23 +100,24 @@ namespace engine {
 
               if (atrb.wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
               glBindVertexArray(obj.model.VAO);
-              if (obj.model.nindices != 0) {
+
+
+              if (obj.model.nindices > 0) {
                   glDrawElements(GL_TRIANGLES, obj.model.nindices, GL_UNSIGNED_INT, 0);
-                  continue;
               }
-              glDrawArrays(GL_TRIANGLES, 0, obj.model.nvertices);
+              else {
+                  glDrawArrays(GL_TRIANGLES, 0, obj.model.nvertices);
+              }
 
               if (atrb.wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
           }
 
-          if (atrb.is_framebuffer) {
-              glBindFramebuffer(GL_FRAMEBUFFER, parent_fb);
-              glClear(data.clear_flags);
-          }
-          glDisable(GL_DEPTH_TEST);
+          if(!atrb.depth)
+              glEnable(GL_DEPTH_TEST);
       }
 
 
+      glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
     void send_lights(entt::registry &registry, RenderData &data) {
@@ -195,4 +198,49 @@ namespace engine {
       set_shader_v3(material.shader, "material.specular", material.specular);
       set_shader_f(material.shader, "material.shininess", material.shininess);
     }
-} // namespace engine
+
+
+
+
+    void present_camera(Entity& viewer, Model& model, uint32_t parent_fb) {
+        DU_ASSERT(!viewer.has_component<CameraComp>(), "Trying to present entity {} but it has no camera component", viewer.uuid());
+        CameraComp& camera = viewer.get_component<CameraComp>();
+        DU_ASSERT(!camera.framebuffer, "Trying to present entity {} but framebuffer is invalid", viewer.uuid());
+
+        Shader& shader = camera.present_shader;
+        DU_ASSERT(!shader, "Trying to present entity {} but shader is invalid", viewer.uuid());
+
+
+
+
+        glBindFramebuffer(GL_FRAMEBUFFER, parent_fb);
+
+        const glm::vec2 view_size = camera.framebuffer.last_scale;
+        glViewport(0,0, view_size.x, view_size.y);
+
+        glUseProgram(shader);
+
+        glm::mat4 model_mat = glm::scale(glm::mat4(1.0f), {4.0f, 2.0f, 0.0f});
+        set_shader_m4(shader, "model", model_mat);
+
+        set_shader_f(shader,"ratio", view_size.x / view_size.y);
+
+        glBindTexture(GL_TEXTURE_2D, camera.framebuffer.texture);
+
+
+        glBindVertexArray(model.VAO);
+
+
+        if (model.nindices > 0) {
+          glDrawElements(GL_TRIANGLES, model.nindices, GL_UNSIGNED_INT, 0);
+        }
+        else {
+          glDrawArrays(GL_TRIANGLES, 0, model.nvertices);
+        }
+
+        if (parent_fb != 0) {
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        }
+
+    }
+} 

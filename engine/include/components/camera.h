@@ -1,7 +1,43 @@
 #pragma once
+#include "shader.h"
 #include <espch.h>
 
 namespace engine {
+    
+    struct Frambuffer {
+        uint32_t handler;
+        uint32_t rbo;
+        uint32_t texture;
+        glm::vec2 last_scale;
+
+        Frambuffer() {
+            handler = 0; rbo = 0;
+            texture = 0;
+            last_scale = glm::vec2(0.0f);
+        }
+
+        operator uint32_t() const {
+            DU_ASSERT(handler == 0, "Trying to retreive invalid framework handler");
+            return handler;
+        }
+
+        operator bool() const {
+            return handler != 0 && rbo != 0 && texture != 0;
+        }
+
+
+        void free(bool delete_texture = false) {
+            if (delete_texture)
+                glDeleteTextures(1, &texture);
+            glDeleteRenderbuffers(1, &rbo);
+            DU_CORE_DEBUG_TRACE("Freed framebuffer {}", handler);
+            glDeleteFramebuffers(1, &handler);
+        }
+    };
+
+    void make_framebuffer(Frambuffer& fb, size_t w, size_t h);
+    void rescale_framebuffer(Frambuffer& fb, size_t w, size_t h);
+
     enum CameraProjection {
         Perspective,
         Orthographic
@@ -15,6 +51,8 @@ namespace engine {
         glm::vec3 last_pos;
         float max_distance;
 
+        Frambuffer framebuffer;
+        Shader present_shader;
         void log();
     };
 
@@ -31,6 +69,9 @@ namespace engine {
         CameraBuilder& fovy(float fovy);
         CameraBuilder& projection(CameraProjection projection);
         CameraBuilder& max_distance(float distance);
+        CameraBuilder& framebuffer_size(size_t w, size_t h);
+        CameraBuilder& present_shader(Shader& shader);
+
         CameraComp build();
     private:
         CameraComp camera;

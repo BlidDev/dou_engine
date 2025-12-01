@@ -35,7 +35,7 @@ int engine::on_end(engine::SceneManager* manager) {
 }
 
 std::unique_ptr<Scene> engine::create_runtime_scene() {
-    std::make_unique<engine::DefaultRT>();
+    return std::make_unique<DefaultRT>();
 }
 
 void register_actions() {

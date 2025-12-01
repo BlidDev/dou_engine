@@ -272,24 +272,24 @@ void EScene::render_editorview(float dt) {
         lua.bind_field("first", true);
     }
 
-    if (glm::vec2(size.x, size.y) != glm::vec2(editorview.last_scale.x, editorview.last_scale.y)) {
-        rescale_framebuffer(editorview, size.x, size.y);
+    glm::vec2 new_size(size.x, size.y);
+    if (pickerview.last_scale != new_size) {
         rescale_framebuffer(pickerview, size.x, size.y);
     }
 
+    auto& view_camera = viewer.get_component<CameraComp>();
 
-    glViewport(0,0, size.x, size.y);
-    glBindFramebuffer(GL_FRAMEBUFFER, editorview.handler);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    opengl_renderer(manager->render_data,{size.x, size.y}, viewer, working_scene->registry, &working_scene->s_render_data,true);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    draw_to_camera(manager->render_data,{size.x, size.y}, viewer, working_scene->registry, &working_scene->s_render_data,true, view_camera.framebuffer);
+    render_hitboxes();
     
     render_pickerview();
 
     ImGui::InvisibleButton("editor_viewport", size);
 
+
     ImGui::GetWindowDrawList()->AddImage(
-        (void*)(intptr_t)editorview.texture,
+        (void*)(intptr_t)view_camera.framebuffer.texture,
         pos,
         ImVec2(pos.x + size.x, pos.y + size.y),  
         ImVec2(0, 1),
@@ -373,6 +373,75 @@ void EScene::render_pickerview() {
         glDrawArrays(GL_TRIANGLES, 0, m.model.nvertices);
     }
 
+    auto hitboxes = working_scene->registry.view<TransformComp>(entt::exclude<ModelComp>);
+    const Model& cube = get_model("cube");
+    for (const auto& [e, t] : hitboxes.each()) {
+        int r = ((uint32_t)e & 0x000000FF) >>  0;
+        int g = ((uint32_t)e & 0x0000FF00) >>  8;
+        int b = ((uint32_t)e & 0x00FF0000) >> 16;
+        set_shader_v3(picker_shader, "id_color", {r/255.0f, g/255.0f, b/255.0f});
+        glm::mat4 model = t.get_model();
+        set_shader_m4(picker_shader, "model", model);
+
+        glBindVertexArray(cube.VAO);
+        if (cube.nindices != 0) {
+            glDrawElements(GL_TRIANGLES, cube.nindices, GL_UNSIGNED_INT, 0);
+            continue;
+        }
+        glDrawArrays(GL_TRIANGLES, 0, cube.nvertices);
+    }
+
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void EScene::render_hitboxes() {
+    auto& trans = viewer.get_component<TransformComp>();
+    auto& camera = viewer.get_component<CameraComp>();
+    glBindFramebuffer(GL_FRAMEBUFFER, camera.framebuffer);
+    glEnable(GL_DEPTH_TEST);
+    //glViewport(0,0, camera.framebuffer.last_scale.x, camera.framebuffer.last_scale.y);
+
+    auto hitboxes = working_scene->registry.view<TransformComp>(entt::exclude<ModelComp>);
+    const Model& cube = get_model("cube");
+    Shader& shader = get_shader("basic.glsl");
+
+    entt::entity selected_entt = (selected) ? working_scene->uuid_to_entt(selected) : entt::null;
+
+    glUseProgram(shader);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    for (const auto& [e, t] : hitboxes.each()) {
+        if (e == selected_entt) continue;
+        set_shader_v3(shader, "material.ambient", {0.5f,0.5f,0.5f});
+        glm::mat4 model = t.get_model();
+        set_shader_m4(shader, "model", model);
+
+        glBindVertexArray(cube.VAO);
+        if (cube.nindices != 0) {
+            glDrawElements(GL_TRIANGLES, cube.nindices, GL_UNSIGNED_INT, 0);
+            continue;
+        }
+        glDrawArrays(GL_TRIANGLES, 0, cube.nvertices);
+    }
+    
+    if(selected) {
+
+        Entity tmp = working_scene->uuid_to_entity(selected);
+        set_shader_v3(shader, "material.ambient", {0.0f,0.0f,0.0f});
+        if (!tmp.has_component<TransformComp>()) goto end;
+        glm::mat4 model = tmp.get_component<TransformComp>().get_model();
+        set_shader_m4(shader, "model", model);
+
+        glBindVertexArray(cube.VAO);
+        if (cube.nindices != 0) {
+            glDrawElements(GL_TRIANGLES, cube.nindices, GL_UNSIGNED_INT, 0);
+            goto end;
+        }
+        glDrawArrays(GL_TRIANGLES, 0, cube.nvertices);
+    }
+
+end:
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
@@ -428,20 +497,6 @@ void EScene::render_prj_settings() {
             ImGui::Checkbox("Wireframe", &layer.wireframe);
             ImGui::SameLine(0, size.x *0.04f);
             ImGui::Checkbox("Depth Test", &layer.depth);
-            ImGui::SameLine(0, size.x *0.04f);
-            if (layer.is_framebuffer) {
-                std::string label = std::format("Delete FRAMEBUFFER: {}", i);
-                if (ImGui::Button(label.c_str())) {
-                    free_layer_framebuffer(manager,i);
-                    resource_lists.refresh_textures(manager);
-                }
-            }
-            else {
-                if (ImGui::Button("Generate Framebuffer")) {
-                    set_layer_to_framebuffer(manager,i);
-                    resource_lists.refresh_textures(manager);
-                }
-            }
             ImGui::Separator();
             i++;
             ImGui::PopID();
