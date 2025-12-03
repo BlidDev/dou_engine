@@ -123,9 +123,9 @@ namespace engine {
         if (entity.has_component<TransformComp>()) {
             out<<YAML::Key<<"Transform"<<YAML::BeginMap;
             auto& transform = entity.get_component<TransformComp>();
-            out<<YAML::Key<<"Position"<<YAML::Value<<transform.position;
-            out<<YAML::Key<<"Size"<<YAML::Value<<transform.size;
-            out<<YAML::Key<<"Rotation"<<YAML::Value<<transform.rotation;
+            out<<YAML::Key<<"Position"<<YAML::Value<<transform.position();
+            out<<YAML::Key<<"Size"<<YAML::Value<<transform.size();
+            out<<YAML::Key<<"Rotation"<<YAML::Value<<transform.rotation();
             out<<YAML::EndMap;
         }
 
@@ -304,9 +304,9 @@ namespace engine {
         auto transform_comp = entity["Transform"];
         if (transform_comp) {
             TransformComp& tc = read_entity.add_component<TransformComp>();
-            tc.position = transform_comp["Position"].as<glm::vec3>();
-            tc.size = transform_comp["Size"].as<glm::vec3>();
-            tc.rotation = transform_comp["Rotation"].as<glm::vec3>();
+            tc.set_position(transform_comp["Position"].as<glm::vec3>());
+            tc.set_size(transform_comp["Size"].as<glm::vec3>());
+            tc.set_rotation(transform_comp["Rotation"].as<glm::vec3>());
         }
 
         auto model_comp = entity["Model"];
@@ -387,7 +387,7 @@ namespace engine {
             c.projection = (CameraProjection)camera["Projection"].as<int>();
             c.max_distance = camera["Max Distance"].as<float>();
             if (read_entity.has_component<TransformComp>()) {
-                c.last_pos = read_entity.get_component<TransformComp>().position;
+                c.last_pos = read_entity.get_component<TransformComp>().position();
             }
 
             glm::vec2 fb_size = scene->manager->main_window.size();

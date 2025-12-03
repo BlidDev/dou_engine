@@ -29,7 +29,7 @@ namespace engine {
             ph.velocity = cvel;
             ph.move_delta = move_amount;
             if (!ph.is_solid)
-                t.position += move_amount;
+                t.translate(move_amount);
         }
     }
 
@@ -65,7 +65,7 @@ namespace engine {
         auto physc = sub.get_component<PhysicsBodyComp>();
         auto view = scene.registry.view<UUID,TransformComp,PhysicsBodyComp>();
         for (auto [e, u, t, ph] : view.each()) {
-            AABBReturn intersects = aabb_3d_intersects(trans.position, glm::vec3(0.0f), trans.size, t.position, t.size);
+            AABBReturn intersects = aabb_3d_intersects(trans.position(), glm::vec3(0.0f), trans.size(), t.position(), t.size());
             if (!intersects) continue;
             if (e == subject || is_ancestor_of(scene,u, sub.uuid())) continue; // same family or same entity
 
@@ -81,7 +81,7 @@ namespace engine {
         for (const auto& child : children) {
             Entity tmp_child = scene.uuid_to_entity(child);
             if (tmp_child.has_component<TransformComp>())
-                tmp_child.get_component<TransformComp>().position += final_delta;
+                tmp_child.get_component<TransformComp>().translate(final_delta);
 
             if(check_callback_collision(scene, tmp_child.id())) return 1;
 
@@ -98,7 +98,7 @@ namespace engine {
             bool allowed_x = true, allowed_y = true, allowed_z = true;
             if (ph.dominance == Dominance::Owned) continue;
             for (auto [o, ot, oph] : objs.each()) {
-                AABBReturn intersects = aabb_3d_intersects(t.position, ph.move_delta, t.size, ot.position, ot.size);
+                AABBReturn intersects = aabb_3d_intersects(t.position(), ph.move_delta, t.size(), ot.position(), ot.size());
 
                 glm::vec3 res = intersects.to_glm();
                 if (!ph.is_static) 
@@ -120,7 +120,7 @@ namespace engine {
                                      (allowed_y) ? ph.move_delta.y : 0.0f,
                                      (allowed_z) ? ph.move_delta.z : 0.0f};
 
-            t.position += final_delta;
+            t.translate(final_delta);
             Entity subject = {&scene, e};
             if (!subject.is_parent()) continue;
             if (apply_on_children(scene, subject.get_children(), final_delta)) { return 1; }

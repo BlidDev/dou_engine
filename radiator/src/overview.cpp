@@ -189,9 +189,9 @@ void render_tag(TagComp &tag) {
 
 
 void render_transform(TransformComp& t) {
-    sameline_v3("Position", t.position);
-    sameline_v3("Rotation", t.rotation);
-    sameline_v3("Size    ", t.size);
+    sameline_v3("Position", t.position_ref());
+    sameline_v3("Rotation", t.rotation_ref());
+    sameline_v3("Size    ", t.size_ref());
     if (ImGui::Button("Reset Transform")) {
         t = TransformComp();
     }
@@ -202,7 +202,7 @@ void apply_delta_on_children(Entity& e, glm::vec3 delta) {
         Entity tmp = e.scene_ptr()->uuid_to_entity(child);
 
         if (!tmp.has_component<TransformComp>()) continue;
-        tmp.get_component<TransformComp>().position += delta;
+        tmp.get_component<TransformComp>().translate(delta);
 
         if (!tmp.is_parent()) continue;
         apply_delta_on_children(tmp, delta);
@@ -218,10 +218,10 @@ void try_transform(Entity& e){
         auto id=e.uuid()+typeid(TransformComp).hash_code();
         ImGui::PushID(id);
         auto& t = e.get_component<TransformComp>();
-        glm::vec3 last = t.position;
+        glm::vec3 last = t.position();
         render_transform(t);
-        if (t.position != last && e.is_parent()) {
-            apply_delta_on_children(e, t.position - last);
+        if (t.position() != last && e.is_parent()) {
+            apply_delta_on_children(e, t.position() - last);
         }
         cmp_other_options<TransformComp>(e);
         ImGui::Unindent();

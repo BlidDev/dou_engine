@@ -2,7 +2,8 @@
 #include "RTscene.h"
 #include "state.h"
 #include <epch.h>
-#include "imgui.h"
+#include <imgui.h>
+#include <ImGuizmo.h>
 
 
 using namespace engine;
@@ -69,6 +70,8 @@ public:
     void render_pickerview();
     void render_hitboxes();
     void render_resources();
+
+    void render_gizmo(ImVec2 pos, ImVec2 size);
     entt::entity entity_from_view(ImVec2 pos, ImVec2 size);
 
     void render_prj_settings();
@@ -101,6 +104,10 @@ private:
     bool editorview_looking;
     bool show_project_settings;
     SceneSetting show_scene_settings;
+
+
+    ImGuizmo::OPERATION guizmo_operation;
+    ImGuizmo::MODE guizmo_mode;
 };
 
 void open_working_file(SceneManager* manager, RTScene* working_scene, EScene* editor);

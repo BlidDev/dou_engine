@@ -31,6 +31,14 @@ namespace engine {
         tr["size"] = &TransformComp::size;
         tr["rotation"] = &TransformComp::rotation;
 
+        tr["set_position"] = &TransformComp::set_position;
+        tr["set_size"] =     &TransformComp::set_size;
+        tr["set_rotation"] = &TransformComp::set_rotation;
+
+        tr["translate"] = &TransformComp::translate;
+        tr["scale"] =     &TransformComp::scale;
+        tr["rotate"] = &TransformComp::rotate;
+
         auto ph = env.new_usertype<PhysicsBodyComp>("PhysicsBody",
                 sol::constructors<PhysicsBodyComp()>());
 

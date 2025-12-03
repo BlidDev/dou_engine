@@ -70,6 +70,7 @@ EditorState EScene::update_imgui(float dt) {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
+    ImGuizmo::BeginFrame();
 
     int _open[] = {GLFW_KEY_LEFT_CONTROL, GLFW_KEY_O};
     int _save[] = {GLFW_KEY_LEFT_CONTROL, GLFW_KEY_S};
@@ -271,7 +272,6 @@ void EScene::render_editorview(float dt) {
         auto& lua = viewer.get_component<LuaActionComp>();
         lua.bind_field("first", true);
     }
-
     glm::vec2 new_size(size.x, size.y);
     if (pickerview.last_scale != new_size) {
         rescale_framebuffer(pickerview, size.x, size.y);
@@ -285,19 +285,25 @@ void EScene::render_editorview(float dt) {
     
     render_pickerview();
 
-    ImGui::InvisibleButton("editor_viewport", size);
 
+    ImRect view_rect(pos, ImVec2(pos.x + size.x, pos.y + size.y));
 
+    ImGui::ItemAdd(view_rect, 0);
     ImGui::GetWindowDrawList()->AddImage(
         (void*)(intptr_t)view_camera.framebuffer.texture,
-        pos,
-        ImVec2(pos.x + size.x, pos.y + size.y),  
+        view_rect.Min, view_rect.Max,
         ImVec2(0, 1),
         ImVec2(1, 0)
     );
 
-    if (ImGui::IsWindowHovered() && 
+    ImGuizmo::SetDrawlist(ImGui::GetCurrentWindow()->DrawList);
+
+
+    render_gizmo(pos, size);
+
+    if (ImGui::IsMouseHoveringRect(view_rect.Min, view_rect.Max) && 
         ImGui::IsMouseReleased(ImGuiMouseButton_Left) && 
+        !ImGuizmo::IsUsing() &&
         !editorview_looking) {
 
         ImVec2 mouse = ImGui::GetMousePos();
@@ -337,6 +343,8 @@ void EScene::render_editorview(float dt) {
         }
         else { selected = 0; }
     }
+
+
 
     ImGui::End();
 }
@@ -677,3 +685,46 @@ void EScene::render_resources() {
     }
     ImGui::End();
 }
+
+
+void EScene::render_gizmo(ImVec2 pos, ImVec2 size) {
+
+    TransformComp& view_trans = viewer.get_component<TransformComp>();
+    CameraComp& view_cam = viewer.get_component<CameraComp>();
+
+    glm::mat4 projection = glm::perspective(glm::radians(view_cam.fovy), 
+                                            size.x / size.y,
+                                            0.1f, 100.0f);
+
+    update_camera_target(view_cam, view_trans.position());
+    glm::mat4 view = glm::lookAt(view_trans.position(), view_cam.target, view_cam.up);
+
+
+
+    ImGuizmo::SetOrthographic(false);
+    ImGuizmo::AllowAxisFlip(false);
+
+    ImGuizmo::SetDrawlist(ImGui::GetCurrentWindow()->DrawList);
+    ImGuizmo::SetRect(pos.x, pos.y, size.x, size.y);
+
+    ImGuizmo::DrawGrid(glm::value_ptr(view), glm::value_ptr(projection), glm::value_ptr(glm::mat4(1.0f)), 200.0f);
+
+    if (!selected) return;
+
+    Entity e_selected = working_scene->uuid_to_entity(selected);
+    if (!e_selected.has_component<TransformComp>()) return;
+
+    TransformComp& selected_trans = e_selected.get_component<TransformComp>();
+
+    glm::vec3 selected_pos = selected_trans.position();
+
+
+
+    glm::mat4 matrix = selected_trans.get_model();
+    glm::mat4 delta(1.0f);
+    ImGuizmo::Manipulate(glm::value_ptr(view), glm::value_ptr(projection), guizmo_operation, guizmo_mode,glm::value_ptr(matrix), glm::value_ptr(delta), nullptr);
+    if (ImGuizmo::IsUsing())
+        selected_trans.apply_mat(delta);
+
+}
+

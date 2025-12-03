@@ -14,7 +14,7 @@ initial_speed = 3
 function on_init()
     t  = get_transform(scene, this)
     cm = get_camera(scene, this)
-    update_camera_target(cm, t.position)
+    update_camera_target(cm, t:position())
 end
 
 function on_update(dt)
@@ -25,7 +25,7 @@ function on_update(dt)
     end
 
     velocity = vec3.new(0.0)
-    update_camera_target(cm, t.position);
+    update_camera_target(cm, t:position());
   
     if is_key_down(util.KeyboardKey.Q) then velocity.y =  -0.1 end
     if is_key_down(util.KeyboardKey.E) then velocity.y =   0.1 end
@@ -40,10 +40,10 @@ function on_update(dt)
 
     mouse_delta = get_mouse_delta() * -sensi
 
-    handle_mouse_delta(cm, t.position, mouse_delta, true)
+    handle_mouse_delta(cm, t:position(), mouse_delta, true)
 
-    local forward = get_flat_forward(cm.target, t.position)
-    local right   = get_right(cm.target, t.position, cm.up)
+    local forward = get_flat_forward(cm.target, t:position())
+    local right   = get_right(cm.target, t:position(), cm.up)
 
 
 
@@ -51,7 +51,7 @@ function on_update(dt)
     move.y = 0.0
     velocity = velocity +  move * speed * dt
 
-    t.position = t.position + velocity;
+    t:translate(velocity)
 end
 
 

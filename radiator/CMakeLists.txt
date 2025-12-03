@@ -4,14 +4,15 @@ file(GLOB radiator_SRC
     "src/*.cpp"
     )
 
-file(GLOB imgui_SRC
+file(GLOB editor_SRC
     "${CMAKE_SOURCE_DIR}/vendor/imgui/*.cpp"
+    "${CMAKE_SOURCE_DIR}/vendor/ImGuizmo/*.cpp"
     "${CMAKE_SOURCE_DIR}/vendor/imgui/backends/*.cpp"
     "${CMAKE_SOURCE_DIR}/vendor/imgui/misc/cpp/*.cpp"
     "${CMAKE_SOURCE_DIR}/${NAME}/vendor/tinyfiledialogs/tinyfiledialogs.cpp"
 )
 
-add_executable(${NAME} ${${NAME}_SRC} ${imgui_SRC})
+add_executable(${NAME} ${${NAME}_SRC} ${editor_SRC})
 
 set_target_properties(${NAME} 
     PROPERTIES
@@ -26,6 +27,7 @@ target_include_directories(${NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/vendor/glad/include/
     ${CMAKE_SOURCE_DIR}/vendor/glm
     ${CMAKE_SOURCE_DIR}/vendor/imgui
+    ${CMAKE_SOURCE_DIR}/vendor/ImGuizmo
     ${CMAKE_SOURCE_DIR}/vendor/imgui/backends
     "${CMAKE_SOURCE_DIR}/${NAME}/vendor/tinyfiledialogs"
     "${CMAKE_SOURCE_DIR}/${NAME}/vendor/google_md"

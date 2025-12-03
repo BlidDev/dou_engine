@@ -23,8 +23,8 @@ namespace engine {
       glm::mat4 projection = glm::perspective(
           glm::radians(p_camera.fovy), view_size.x / view_size.y, 0.1f, 100.0f);
 
-      update_camera_target(p_camera, p_trans.position);
-      glm::mat4 view = glm::lookAt(p_trans.position, p_camera.target, p_camera.up);
+      update_camera_target(p_camera, p_trans.position());
+      glm::mat4 view = glm::lookAt(p_trans.position(), p_camera.target, p_camera.up);
 
       glm::vec4 clear_color = (s_render_data) ? s_render_data->clear_color : glm::vec4(0.0f);
       glm::vec3 ambient = (s_render_data) ? s_render_data->ambient : glm::vec3(1.0f);
@@ -55,7 +55,7 @@ namespace engine {
           .sub(0, sizeof(glm::vec3), glm::value_ptr(ambient))
           .sub(sizeof(glm::vec3), sizeof(float), &ambient_strength)
           .sub(sizeof(glm::vec4), sizeof(glm::vec3),
-               glm::value_ptr(p_trans.position))
+               glm::value_ptr(p_trans.position_ref()))
           .unbind();
 
       send_lights(registry, data);
@@ -70,7 +70,7 @@ namespace engine {
 
 
           for (auto [_, pos, obj] : objects.each()) {
-              float distance = glm::distance(pos.position, p_trans.position);
+              float distance = glm::distance(pos.position(), p_trans.position());
               bool immune = (obj.material.attributes & MODEL_IMMUNE) == MODEL_IMMUNE;
 
               if((!immune && distance > p_camera.max_distance) || obj.layer != i) continue;
@@ -152,7 +152,7 @@ namespace engine {
             break;
           data.sub(counter * psize, sizeof(PntLightComp), &p)
               .sub(counter * psize + sizeof(PntLightComp), sizeof(glm::vec3),
-                   &t.position);
+                   &t.position_ref());
           counter++;
         }
         data.sub(max * psize, sizeof(int), &counter);
@@ -180,7 +180,7 @@ namespace engine {
           size_t base = counter * ssize;
 
           data.sub(base, light_size, &s)
-              .sub(base + light_size, sizeof(glm::vec3), &t.position);
+              .sub(base + light_size, sizeof(glm::vec3), &t.position_ref());
 
           s.cutoff = tmp_cutoff;
           s.outer_cutoff = tmp_outer_cutoff;

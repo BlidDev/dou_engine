@@ -56,6 +56,9 @@ EScene::EScene() : Scene("Editor") {
     resource_lists = ResourceLists();
     editorview_looking = false;
     show_project_settings = {};
+
+    guizmo_operation = ImGuizmo::OPERATION::TRANSLATE;
+    guizmo_mode = ImGuizmo::MODE::WORLD;
 }
 
 
