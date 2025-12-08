@@ -36,8 +36,9 @@ namespace engine {
     }
 
     glm::vec2 Window::size() {
-            glm::vec2 tmp = {(float)w, (float)h};
-            return tmp;
+        glfwGetWindowSize(window, &w, &h);
+        glm::vec2 tmp = {(float)w, (float)h};
+        return tmp;
     }
 
     void Window::maximize() {

@@ -192,7 +192,7 @@ namespace engine {
                 out<<YAML::Key<<"Target"<<YAML::Value<<c.target;
                 out<<YAML::Key<<"Up"<<YAML::Value<<c.up;
                 out<<YAML::Key<<"FovY"<<YAML::Value<<c.fovy;
-                out<<YAML::Key<<"Projection"<<YAML::Value<<(int)c.projection;
+                out<<YAML::Key<<"Projection"<<YAML::Value<<(int)c.projection_mode;
                 out<<YAML::Key<<"Max Distance"<<YAML::Value<<c.max_distance;
                 glm::vec2 size = entity.scene_ptr()->manager->main_window.size();
                 if (size != c.framebuffer.last_scale) {
@@ -384,7 +384,7 @@ namespace engine {
             c.target = camera["Target"].as<glm::vec3>();
             c.up = camera["Up"].as<glm::vec3>();
             c.fovy = camera["FovY"].as<float>();
-            c.projection = (CameraProjection)camera["Projection"].as<int>();
+            c.projection_mode = (CameraProjection)camera["Projection"].as<int>();
             c.max_distance = camera["Max Distance"].as<float>();
             if (read_entity.has_component<TransformComp>()) {
                 c.last_pos = read_entity.get_component<TransformComp>().position();

@@ -3,6 +3,7 @@
 #include "state.h"
 #include <epch.h>
 #include <imgui.h>
+#include <imgui_internal.h>
 #include <ImGuizmo.h>
 
 
@@ -37,55 +38,73 @@ private:
 
 
 struct EditorViewer {
-    EditorViewer() : thing(0) {}
 
-private:
-    int thing = 0;
+    enum State {
+        Natual,
+        UsingGizmo,
+        FPS,
+    };
+
+    EditorViewer() {
+        state = State::Natual;
+    }
+
+    State state;
 };
 
 class EScene : public Scene {
 public:
     EScene();
 
+    // Mandatory ======================================== 
     void on_create();
-
     void on_update(float dt);
-
     void on_end();
-
     bool should_close(); 
 
-    void make_viewer();
-
+    // Imgui Loop ======================================= 
     void init_imgui();
     EditorState update_imgui(float dt);
     void end_imgui();
+    
+    // Setup     ======================================== 
+    void make_viewer();
+    void setup_imguizmo(ImVec2 pos, ImVec2 size);
 
+
+
+    // Rendering ======================================== 
     void render_entity(Entity current, bool* has_selected, bool root = false);
     void render_entities(bool* has_selected);
-
+    void render_prj_settings();
     void render_overview(bool is_selected);
-
-    void render_editorview(float dt);
-    void render_pickerview();
-    void render_hitboxes();
     void render_resources();
 
+
+    // Editor View ====================================== 
+
+    void render_editorview(float dt);
+    void render_grid(ImVec2 pos, ImVec2 size);
     void render_gizmo(ImVec2 pos, ImVec2 size);
+    void render_hitboxes();
+    void render_pickerview();
     entt::entity entity_from_view(ImVec2 pos, ImVec2 size);
+    void pick_entity(ImRect view_rect);
 
-    void render_prj_settings();
 
+
+    // Save And Read ==================================== 
     void save_project();
     Scene* create_scene(const char* name);
     void render_create_scene();
 
-    bool is_key(int k, int a);
+
+
+    EditorViewer::State& get_editorviewer_state();
     
 
 public:
     Scene* working_scene;
-    static int key_query[GLFW_KEY_LAST - 32];
     std::string save_path;
 
     ResourceLists resource_lists;
@@ -96,9 +115,6 @@ private:
     bool close;
     UUID selected;
 
-    Frambuffer pickerview;
-    Shader picker_shader;
-    Entity viewer;
 
     bool creating_scene;
     bool editorview_looking;
@@ -106,8 +122,14 @@ private:
     SceneSetting show_scene_settings;
 
 
+    Frambuffer pickerview;
+    Shader picker_shader;
+    Entity viewer;
+
     ImGuizmo::OPERATION guizmo_operation;
     ImGuizmo::MODE guizmo_mode;
+    bool gizmo_snap;
+    bool gizmo_fine;
 };
 
 void open_working_file(SceneManager* manager, RTScene* working_scene, EScene* editor);

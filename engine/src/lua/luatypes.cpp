@@ -63,7 +63,7 @@ namespace engine {
         cmt["target"] = &CameraComp::target;
         cmt["up"] = &CameraComp::up;
         cmt["fovy"] = &CameraComp::fovy;
-        cmt["projection"] = &CameraComp::projection;
+        cmt["projection"] = &CameraComp::projection_mode;
 
         auto cm = env.new_usertype<CameraBuilder>("CameraBuilder",
                 sol::constructors<CameraBuilder()>());
@@ -71,7 +71,7 @@ namespace engine {
         cm["traget"] =     &CameraBuilder::target;
         cm["up"]     =     &CameraBuilder::up;
         cm["fovy"] =       &CameraBuilder::fovy;
-        cm["projection"] = &CameraBuilder::projection;
+        cm["projection"] = &CameraBuilder::projection_mode;
         cm["build"] =      &CameraBuilder::build;
 
         auto spt = env.new_usertype<SptLightComp>("SpotLight",

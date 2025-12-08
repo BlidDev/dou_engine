@@ -44,9 +44,6 @@ bool combo_guts(const char* label, const std::vector<std::string>& tmp,int& curr
 
 void render_str_select(const char* label, std::string& subject, std::vector<std::string>&list);
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
-
-
 bool check_key_combo(int keys[], int combo_len);
 
 std::string make_entity_name(Entity& entity);

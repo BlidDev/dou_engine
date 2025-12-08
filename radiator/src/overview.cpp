@@ -295,7 +295,7 @@ void render_camera(CameraComp& c) {
     sameline_float("FOV", &c.fovy);
 
 
-    render_combo("Camera Projection", &c.projection, camera_proj, IM_ARRAYSIZE(camera_proj));
+    render_combo("Camera Projection", &c.projection_mode, camera_proj, IM_ARRAYSIZE(camera_proj));
 
     if (ImGui::TreeNode("Advanced camera options")) {
            sameline_v3("Target", c.target);

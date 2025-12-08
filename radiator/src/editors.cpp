@@ -1,4 +1,5 @@
 #include "editors.h"
+#include "imgui.h"
 #include "project.h"
 #include "runtime.h"
 #include "helper.h"
@@ -41,13 +42,10 @@ void ResourceLists::refresh_textures(SceneManager* manager) {
 }
 
 
-int EScene::key_query[ GLFW_KEY_LAST - 32]= {};
 
 EScene::EScene() : Scene("Editor") { 
     save_path = "UNSET";
     close = false; 
-    for (int i = 0; i < GLFW_KEY_LAST - 32; i++)
-        key_query[i] = -1;
 
     selected = 0;
     show_project_settings = false;
@@ -59,6 +57,8 @@ EScene::EScene() : Scene("Editor") {
 
     guizmo_operation = ImGuizmo::OPERATION::TRANSLATE;
     guizmo_mode = ImGuizmo::MODE::WORLD;
+    gizmo_snap = false;
+    gizmo_fine = false;
 }
 
 
@@ -129,7 +129,7 @@ void EScene::on_update(float dt) {
         working_scene->add_from_file("res/scenes/editortest.scene");
         save_path = "res/scenes/editortest.scene";
     }
-    if (is_key_pressed(GLFW_KEY_ESCAPE)) {
+    if (is_key_pressed(GLFW_KEY_ESCAPE) && !ImGui::IsAnyItemActive()) {
         selected = 0;
     }
 
@@ -155,3 +155,8 @@ Scene* EScene::create_scene(const char* name) {
     tmp->name = name;
     return tmp;
 }
+
+EditorViewer::State& EScene::get_editorviewer_state() {
+    return viewer.get_component<EditorViewer>().state;
+}
+

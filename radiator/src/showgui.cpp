@@ -61,7 +61,8 @@ size_t counter = 0;
 
 EditorState EScene::update_imgui(float dt) {
 
-    const auto& clear_color = working_scene->s_render_data.clear_color;
+    bool is_working = working_scene;
+    const auto& clear_color = (is_working) ? working_scene->s_render_data.clear_color : glm::vec4{0.5f, 0.5f, 0.5f, 1.0f};
     glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     EditorState state = EditorState::EditorNormal;
@@ -76,7 +77,9 @@ EditorState EScene::update_imgui(float dt) {
     int _save[] = {GLFW_KEY_LEFT_CONTROL, GLFW_KEY_S};
     int _saveas[] = {GLFW_KEY_LEFT_CONTROL, GLFW_KEY_LEFT_SHIFT, GLFW_KEY_S};
 
-    if (editorview_looking) counter = 0;
+    if (!is_working) counter = 0;
+
+    if (get_editorviewer_state() != EditorViewer::State::Natual) counter = 0;
 
     if (check_key_combo(_open, 2) && counter > 10){
         add_to_working_file(manager, working_scene, this);
@@ -98,7 +101,7 @@ EditorState EScene::update_imgui(float dt) {
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
 
-            if (ImGui::MenuItem(ICON_MD_SAVE "Save Project")) {
+            if (ImGui::MenuItem("Save Project")) {
                 save_project();
             }
             if (ImGui::MenuItem("Import From Scene", "Ctrl + O")) {
@@ -121,6 +124,10 @@ EditorState EScene::update_imgui(float dt) {
         }
 
         ImGui::Spacing();
+        if (ImGui::Button(ICON_MD_SAVE "##SaveProject")) {
+            save_project();
+        }
+        ImGui::Spacing();
         if (ImGui::ArrowButton("Play", ImGuiDir::ImGuiDir_Right)) {
             state = EditorState::EditorPreview;
         }
@@ -129,6 +136,7 @@ EditorState EScene::update_imgui(float dt) {
 
         ImGui::EndMainMenuBar();
     }
+
 
     // Create a dockspace
     ImGui::DockSpaceOverViewport();
@@ -253,39 +261,24 @@ void EScene::render_entity(Entity current, bool *has_selected, bool root) {
 void EScene::render_editorview(float dt) {
 
     ImGui::Begin("Editor View");
+
     ImVec2 size =ImGui::GetContentRegionAvail();
     ImVec2 pos = ImGui::GetCursorScreenPos();
 
-    
-    if ((ImGui::IsWindowHovered() || editorview_looking) && is_mouse_pressed(GLFW_MOUSE_BUTTON_RIGHT)) {
-        glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    auto& view_camera = viewer.get_component<CameraComp>();
 
-        auto& lua = viewer.get_component<LuaActionComp>();
-        lua.get_last().on_update(dt);
+    setup_imguizmo(pos, size);
 
-        editorview_looking = true;
-    }
-    else {
-        editorview_looking = false;
-        glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
-        auto& lua = viewer.get_component<LuaActionComp>();
-        lua.bind_field("first", true);
-    }
     glm::vec2 new_size(size.x, size.y);
     if (pickerview.last_scale != new_size) {
         rescale_framebuffer(pickerview, size.x, size.y);
     }
 
-    auto& view_camera = viewer.get_component<CameraComp>();
-
-
     draw_to_camera(manager->render_data,{size.x, size.y}, viewer, working_scene->registry, &working_scene->s_render_data,true, view_camera.framebuffer);
     render_hitboxes();
-    
     render_pickerview();
-
-
+    
     ImRect view_rect(pos, ImVec2(pos.x + size.x, pos.y + size.y));
 
     ImGui::ItemAdd(view_rect, 0);
@@ -299,51 +292,94 @@ void EScene::render_editorview(float dt) {
     ImGuizmo::SetDrawlist(ImGui::GetCurrentWindow()->DrawList);
 
 
+    //render_grid(pos, size);
     render_gizmo(pos, size);
 
-    if (ImGui::IsMouseHoveringRect(view_rect.Min, view_rect.Max) && 
-        ImGui::IsMouseReleased(ImGuiMouseButton_Left) && 
-        !ImGuizmo::IsUsing() &&
-        !editorview_looking) {
+    auto& editor_viewer_state = get_editorviewer_state();
 
-        ImVec2 mouse = ImGui::GetMousePos();
-        ImVec2 item_min = ImGui::GetItemRectMin();
-        ImVec2 item_max = ImGui::GetItemRectMax();
+    switch (editor_viewer_state) {
+        // ====================================================================== 
+        case EditorViewer::State::Natual: {
 
-        ImVec2 local = ImVec2(mouse.x - item_min.x, mouse.y - item_min.y);
-        float w = item_max.x - item_min.x;
-        float h = item_max.y - item_min.y;
+            glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+            ImGui::GetIO().ConfigFlags &= ~ImGuiConfigFlags_NoMouse;
 
-        if (w <= 0.0f || h <= 0.0f) return;
+            auto& lua = viewer.get_component<LuaActionComp>();
+            lua.bind_field("first", true);
 
-        float u = local.x / w;
-        float v = local.y / h;
-        v = 1.0f - v;
+            if (ImGui::IsWindowHovered()  && is_mouse_pressed(GLFW_MOUSE_BUTTON_RIGHT)) { editor_viewer_state = EditorViewer::State::FPS;  break;}
+            if (ImGuizmo::IsUsing()) { editor_viewer_state = EditorViewer::State::UsingGizmo; break; }
 
 
 
-        ImGuiIO& io = ImGui::GetIO();
-        float fb_scale_x = io.DisplayFramebufferScale.x; 
-        float fb_scale_y = io.DisplayFramebufferScale.y;
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.7f, 0.7f));
 
-        int tex_w = size.x * fb_scale_x;
-        int tex_h = size.y * fb_scale_y;
+            glm::vec4 anticolor = glm::vec4(1.0f) - working_scene->s_render_data.clear_color;
+            anticolor *= 255.0f;
+            ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(anticolor.x, anticolor.y, anticolor.z, 255));
+            ImGui::PushStyleColor(ImGuiCol_CheckMark, IM_COL32(anticolor.x, anticolor.y, anticolor.z, 255));
+            ImGui::SetCursorPos({20.0f,10.0f});
 
-        int tex_x = (int)floorf(u * (float)tex_w);
-        int tex_y = (int)floorf(v * (float)tex_h);
+            bool radio = false;
 
-        tex_x = std::max(0, std::min(tex_x, tex_w - 1));
-        tex_y = std::max(0, std::min(tex_y, tex_h - 1));
+            if (ImGui::RadioButton( ICON_MD_CONTROL_CAMERA "", guizmo_operation == ImGuizmo::OPERATION::TRANSLATE) || is_key_clicked(GLFW_KEY_T))
+            {guizmo_operation = ImGuizmo::OPERATION::TRANSLATE; radio = true; }
+            ImGui::SameLine(0, 3.0f);
+            if (ImGui::RadioButton( ICON_MD_OPEN_IN_NEW "", guizmo_operation == ImGuizmo::OPERATION::SCALE)|| is_key_clicked(GLFW_KEY_S))
+            {guizmo_operation = ImGuizmo::OPERATION::SCALE; radio = true; }
+            ImGui::SameLine(0, 3.0f);
+            if (ImGui::RadioButton( ICON_MD_LOOP "", guizmo_operation == ImGuizmo::OPERATION::ROTATE)|| is_key_clicked(GLFW_KEY_R))
+            {guizmo_operation = ImGuizmo::OPERATION::ROTATE; radio = true; }
 
-        entt::entity picked = entity_from_view(ImVec2(tex_x, tex_y), size);
+            ImGui::SameLine(0.0, 7.5f);
+            ImGui::Text("|");
+            ImGui::SameLine(0.0, 7.5f);
+            if (ImGui::RadioButton( ICON_MD_PUBLIC "", guizmo_mode == ImGuizmo::MODE::WORLD))
+            {guizmo_mode = ImGuizmo::MODE::WORLD; radio = true; }
 
-        if (picked != entt::null){
-            Entity e{working_scene, picked};
-            selected = e.uuid();
-        }
-        else { selected = 0; }
+            ImGui::SameLine(0.0, 3.0f);
+            if (ImGui::RadioButton( ICON_MD_LOCATION_PIN "", guizmo_mode == ImGuizmo::MODE::LOCAL))
+            {guizmo_mode = ImGuizmo::MODE::LOCAL; radio = true; }
+            
+
+            gizmo_snap = is_key_pressed(GLFW_KEY_LEFT_CONTROL);
+            gizmo_fine = is_key_pressed(GLFW_KEY_LEFT_SHIFT);
+
+            ImGui::PopStyleVar(1);
+            ImGui::PopStyleColor(2);
+
+            if (ImGui::IsMouseHoveringRect(view_rect.Min, view_rect.Max) && ImGui::IsMouseReleased(ImGuiMouseButton_Left) && !radio)
+            {pick_entity(view_rect);}
+
+        }break;
+
+
+
+        // ====================================================================== 
+        case EditorViewer::State::UsingGizmo: {
+            if (!is_mouse_pressed(GLFW_MOUSE_BUTTON_LEFT)) {editor_viewer_state = EditorViewer::State::Natual; break;}
+            ImGui::GetIO().WantCaptureMouse = false;
+
+            gizmo_fine = is_key_pressed(GLFW_KEY_LEFT_SHIFT);
+            gizmo_snap = is_key_pressed(GLFW_KEY_LEFT_CONTROL);
+        }break;
+
+
+        // ====================================================================== 
+        case EditorViewer::State::FPS: {
+            if(!is_mouse_pressed(GLFW_MOUSE_BUTTON_RIGHT)) {editor_viewer_state = EditorViewer::State::Natual; break;}
+
+            ImGui::GetIO().WantCaptureMouse = true;
+            glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+            ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_NoMouse;
+            auto& lua = viewer.get_component<LuaActionComp>();
+            lua.get_last().on_update(dt);
+        }break;
+
+
+        // ====================================================================== 
+        default: DU_ASSERT(true, "Unknown editor_viewer_state {}", (int)editor_viewer_state);
     }
-
 
 
     ImGui::End();
@@ -359,7 +395,6 @@ void EScene::render_pickerview() {
     glClearColor(1.0f,1.0f,1.0f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    auto trans = viewer.get_component<TransformComp>();
     auto camera = viewer.get_component<CameraComp>();
     auto objects = working_scene->registry.view<TransformComp, ModelComp>();
 
@@ -403,11 +438,9 @@ void EScene::render_pickerview() {
 }
 
 void EScene::render_hitboxes() {
-    auto& trans = viewer.get_component<TransformComp>();
     auto& camera = viewer.get_component<CameraComp>();
     glBindFramebuffer(GL_FRAMEBUFFER, camera.framebuffer);
     glEnable(GL_DEPTH_TEST);
-    //glViewport(0,0, camera.framebuffer.last_scale.x, camera.framebuffer.last_scale.y);
 
     auto hitboxes = working_scene->registry.view<TransformComp>(entt::exclude<ModelComp>);
     const Model& cube = get_model("cube");
@@ -457,8 +490,8 @@ entt::entity EScene::entity_from_view(ImVec2 pos, ImVec2 size) {
 
     if (pos.x >= size.x || pos.y >= size.y || pos.x < 0 || pos.y < 0)
         return entt::null;
-    unsigned char pixel[4]; // RGBA
-                            //
+    unsigned char pixel[4]; 
+                            
     glGetTextureSubImage(
         pickerview.texture,
         0,        
@@ -469,7 +502,7 @@ entt::entity EScene::entity_from_view(ImVec2 pos, ImVec2 size) {
         sizeof(pixel),
         pixel
     );
-    // Convert the color back to an integer ID
+
     int picked = 
         pixel[0] + 
         pixel[1] * 256 +
@@ -479,6 +512,46 @@ entt::entity EScene::entity_from_view(ImVec2 pos, ImVec2 size) {
     }
 
     return entt::entity(picked);
+}
+
+void EScene::pick_entity(ImRect view_rect) {
+
+    ImVec2 size = view_rect.GetSize();
+    ImVec2 mouse = ImGui::GetMousePos();
+
+    ImVec2 local = ImVec2(mouse.x - view_rect.Min.x, mouse.y - view_rect.Min.y);
+    float w = size.x;
+    float h = size.y;
+
+    if (w <= 0.0f || h <= 0.0f) return;
+
+    float u = local.x / w;
+    float v = local.y / h;
+    v = 1.0f - v;
+
+
+
+    ImGuiIO& io = ImGui::GetIO();
+    float fb_scale_x = io.DisplayFramebufferScale.x; 
+    float fb_scale_y = io.DisplayFramebufferScale.y;
+
+    int tex_w = size.x * fb_scale_x;
+    int tex_h = size.y * fb_scale_y;
+
+    int tex_x = (int)floorf(u * (float)tex_w);
+    int tex_y = (int)floorf(v * (float)tex_h);
+
+    tex_x = std::max(0, std::min(tex_x, tex_w - 1));
+    tex_y = std::max(0, std::min(tex_y, tex_h - 1));
+
+    entt::entity picked = entity_from_view(ImVec2(tex_x, tex_y), size);
+
+    if (picked != entt::null){
+        Entity e{working_scene, picked};
+        selected = e.uuid();
+    }
+    else { selected = 0; }
+
 }
 
 void EScene::render_prj_settings() {
@@ -493,7 +566,6 @@ void EScene::render_prj_settings() {
     if (ImGui::TreeNodeEx("Layers")) {
         auto& layers = manager->render_data.layers_atrb;
         auto size = ImGui::GetWindowSize();
-        float position = ImGui::GetCursorScreenPos().y;
         ImGui::BeginChild("##LayersConfig",{ size.x * 0.95f, size.y * 0.6f}, ImGuiChildFlags_Borders, ImGuiWindowFlags_HorizontalScrollbar);
             
         int i = 0;
@@ -501,7 +573,6 @@ void EScene::render_prj_settings() {
             ImGui::PushID(578 + i);
             ImGui::BulletText("Layer Number%s%d", (i >= 10) ? " " : "  ",i);
             ImGui::SameLine(0, size.x *0.05f);
-            //ImGui::SetCursorPosX(ImGui::GetWindowWidth() * 0.8f);
             ImGui::Checkbox("Wireframe", &layer.wireframe);
             ImGui::SameLine(0, size.x *0.04f);
             ImGui::Checkbox("Depth Test", &layer.depth);
@@ -530,12 +601,6 @@ void EScene::render_prj_settings() {
 void SceneSetting::render_if_on() {
     if (!(*this)) return;
     ImGui::Begin("Scene Settings", nullptr, ImGuiWindowFlags_NoDocking);
-    //sameline_text("Name: ", &name_backup);
-    //ImGui::SameLine(0, 10.0f);
-    //if (ImGui::Button("Apply")) {
-    //    // TODO
-    //    name_backup = ptr->name;
-    //}
     ImGui::Text("Name: %s", ptr->name.c_str());
 
     if (ImGui::TreeNodeEx("Rendering", ImGuiTreeNodeFlags_DefaultOpen)) {
@@ -637,7 +702,7 @@ void EScene::render_resources() {
                     }
                 }
                 continue;
-            }
+            };
 
             ImGui::SameLine(0, 15.0f);
             if (ImGui::Button("Set Current")) {
@@ -686,45 +751,68 @@ void EScene::render_resources() {
     ImGui::End();
 }
 
+void EScene::setup_imguizmo(ImVec2 pos, ImVec2 size) {
+
+    ImGuizmo::SetOrthographic(false);
+    ImGuizmo::AllowAxisFlip(false);
+    ImGuizmo::SetDrawlist(ImGui::GetCurrentWindow()->DrawList);
+    ImGuizmo::SetRect(pos.x, pos.y, size.x, size.y);
+}
+
+void EScene::render_grid(ImVec2 pos, ImVec2 size) {
+    TransformComp& view_trans = viewer.get_component<TransformComp>();
+    CameraComp& view_cam = viewer.get_component<CameraComp>();
+    glm::mat4 projection = view_cam.get_projection({size.x, size.y});
+    glm::mat4 view = view_cam.get_view(view_trans.position());
+
+    glm::mat4 matrix(1.0f);
+
+    ImGuizmo::DrawGrid(glm::value_ptr(view), glm::value_ptr(projection), glm::value_ptr(matrix), 200.0f);
+}
 
 void EScene::render_gizmo(ImVec2 pos, ImVec2 size) {
+
+    if (!selected) return;
 
     TransformComp& view_trans = viewer.get_component<TransformComp>();
     CameraComp& view_cam = viewer.get_component<CameraComp>();
 
-    glm::mat4 projection = glm::perspective(glm::radians(view_cam.fovy), 
-                                            size.x / size.y,
-                                            0.1f, 100.0f);
-
-    update_camera_target(view_cam, view_trans.position());
-    glm::mat4 view = glm::lookAt(view_trans.position(), view_cam.target, view_cam.up);
-
-
-
-    ImGuizmo::SetOrthographic(false);
-    ImGuizmo::AllowAxisFlip(false);
-
-    ImGuizmo::SetDrawlist(ImGui::GetCurrentWindow()->DrawList);
-    ImGuizmo::SetRect(pos.x, pos.y, size.x, size.y);
-
-    ImGuizmo::DrawGrid(glm::value_ptr(view), glm::value_ptr(projection), glm::value_ptr(glm::mat4(1.0f)), 200.0f);
-
-    if (!selected) return;
+    glm::mat4 projection = view_cam.get_projection({size.x, size.y});
+    glm::mat4 view = view_cam.get_view(view_trans.position());
 
     Entity e_selected = working_scene->uuid_to_entity(selected);
     if (!e_selected.has_component<TransformComp>()) return;
 
     TransformComp& selected_trans = e_selected.get_component<TransformComp>();
 
-    glm::vec3 selected_pos = selected_trans.position();
-
-
 
     glm::mat4 matrix = selected_trans.get_model();
     glm::mat4 delta(1.0f);
-    ImGuizmo::Manipulate(glm::value_ptr(view), glm::value_ptr(projection), guizmo_operation, guizmo_mode,glm::value_ptr(matrix), glm::value_ptr(delta), nullptr);
+
+
+
+    float scale_snap[] = {0.5f, 0.5f, 0.5f};
+    float rotate_snap = 36.0f;
+
+    if(gizmo_fine) {
+        rotate_snap /= 4.0f;
+        for (int i = 0; i < 3; i++)
+            scale_snap[i] /= 4.0f;
+    }
+
+    float* snap_ptr = (guizmo_operation == ImGuizmo::OPERATION::ROTATE) ? &rotate_snap : scale_snap;
+
+
+    ImGuiIO& io = ImGui::GetIO();
+    bool ctrl_backup = io.KeyCtrl;
+    io.KeyCtrl = true;     
+
+
+    ImGuizmo::Manipulate(glm::value_ptr(view), glm::value_ptr(projection), guizmo_operation, guizmo_mode,glm::value_ptr(matrix), glm::value_ptr(delta), (gizmo_snap) ? snap_ptr : nullptr);
+
     if (ImGuizmo::IsUsing())
         selected_trans.apply_mat(delta);
 
+    io.KeyCtrl = ctrl_backup;
 }
 

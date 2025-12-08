@@ -26,7 +26,7 @@ namespace engine {
         }
     private:
         GLFWwindow* window;
-        unsigned int w,h;
+        int w,h;
         std::string title;
         FbCallBack fb_size_callback;
     };

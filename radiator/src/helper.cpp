@@ -28,6 +28,7 @@ void initialize_imgui(SceneManager* manager) {
     ImFontConfig icon_font_cfg;
     icon_font_cfg.PixelSnapH = true;
     icon_font_cfg.MergeMode = true;
+    icon_font_cfg.GlyphOffset.y = 5.0f;
     static const ImWchar icons_ranges[] = { ICON_MIN_MD,ICON_MAX_16_MD, 0 };
     ImGui::GetIO().Fonts->AddFontFromFileTTF("res/fonts/Google-MD-Regular.ttf", 16.0f, &icon_font_cfg, icons_ranges);
 
@@ -123,13 +124,6 @@ void render_str_select(const char* label, std::string& subject, std::vector<std:
     }
 }
 
-bool EScene::is_key(int k, int a) {
-    return key_query[k - 32] == a;
-}
-
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-    EScene::key_query[key-32] = action;
-}
 
 bool check_key_combo(int keys[], int combo_len) {
     for (int i = 0; i < combo_len; i++) {

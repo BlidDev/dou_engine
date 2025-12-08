@@ -20,11 +20,9 @@ namespace engine {
       auto p_camera = viewer.get_component<CameraComp>();
       auto objects = registry.view<TransformComp, ModelComp>();
 
-      glm::mat4 projection = glm::perspective(
-          glm::radians(p_camera.fovy), view_size.x / view_size.y, 0.1f, 100.0f);
+      glm::mat4 projection = p_camera.get_projection(view_size);
 
-      update_camera_target(p_camera, p_trans.position());
-      glm::mat4 view = glm::lookAt(p_trans.position(), p_camera.target, p_camera.up);
+      glm::mat4 view = p_camera.get_view(p_trans.position());
 
       glm::vec4 clear_color = (s_render_data) ? s_render_data->clear_color : glm::vec4(0.0f);
       glm::vec3 ambient = (s_render_data) ? s_render_data->ambient : glm::vec3(1.0f);

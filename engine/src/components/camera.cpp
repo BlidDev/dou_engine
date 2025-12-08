@@ -13,12 +13,12 @@ namespace engine {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, fb.texture, 0);
-        // create a renderbuffer object for depth and stencil attachment (we won't be sampling these)
+       
         glGenRenderbuffers(1, &fb.rbo);
         glBindRenderbuffer(GL_RENDERBUFFER, fb.rbo);
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, w, h); // use a single renderbuffer object for both a depth AND stencil buffer.
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, fb.rbo); // now actually attach it
-        // now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, w, h); 
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, fb.rbo); 
+        
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             DU_CORE_ERROR("Could not make frame buffer for editor view}");
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -42,6 +42,33 @@ namespace engine {
         fb.last_scale = {w,h};
     }
 
+    CameraComp::CameraComp() {
+        target = glm::vec3(0.0f, 0.0f, 1.0f);    // Camera looking at point
+        up = glm::vec3( 0.0f, 1.0f, 0.0f);        // Camera up vector (rotation towards target)
+        fovy = 90.0f;                              // Camera field-of-view Y
+        projection_mode = CameraProjection::Perspective;
+        last_pos = glm::vec3(0.0f, 0.0f, 0.0f );
+        max_distance = 30.0f;
+        framebuffer = {};
+        present_shader = {};
+    }
+
+    glm::mat4 CameraComp::get_projection(glm::vec2 view_size) {
+        switch (projection_mode) {
+            case CameraProjection::Perspective: 
+                return glm::perspective(glm::radians(fovy),
+                                        view_size.x / view_size.y,
+                                        0.1f, 100.0f);
+            case CameraProjection::Orthographic:
+                return glm::ortho(0.0f, view_size.x, 0.0f, view_size.y, 0.1f, 100.0f);
+            default: DU_ASSERT(true, "Unkown projection mode {}", (int)projection_mode);
+        }
+    }
+
+    glm::mat4 CameraComp::get_view(glm::vec3 view_pos) {
+        update_camera_target(*this, view_pos);
+        return glm::lookAt(view_pos, target, up);
+    }
 
     void update_camera_target(CameraComp& camera, glm::vec3 position) {
         glm::vec3 delta = position - camera.last_pos; 
@@ -49,25 +76,18 @@ namespace engine {
         camera.last_pos = position;
     }
 
+
+
     void CameraComp::log() {
         DU_CORE_INFO("Camera:");
         DU_CORE_INFO("\tUp: ({}, {}, {})", up.x, up.y, up.z);
         DU_CORE_INFO("\tTarget: ({}, {}, {})", target.x, target.y, target.z);
         DU_CORE_INFO("\tFovy: {}", fovy);
-        DU_CORE_INFO("\tProj: {}", (int)projection);
+        DU_CORE_INFO("\tProj: {}", (int)projection_mode);
     }
 
     CameraBuilder::CameraBuilder() {
-        camera = { 
-            .target = glm::vec3(0.0f, 0.0f, 1.0f),      // Camera looking at point
-            .up = glm::vec3( 0.0f, 1.0f, 0.0f),          // Camera up vector (rotation towards target)
-            .fovy = 90.0f,                                // Camera field-of-view Y
-            .projection = CameraProjection::Perspective,
-            .last_pos = glm::vec3(0.0f, 0.0f, 0.0f ),
-            .max_distance = 30.0f,
-            .framebuffer = {},
-            .present_shader = {}
-        };
+        camera = {};
     }
 
     CameraBuilder& CameraBuilder::target(glm::vec3 target) {
@@ -85,8 +105,8 @@ namespace engine {
         return *this;
     }
 
-    CameraBuilder& CameraBuilder::projection(CameraProjection projection) {
-        camera.projection = projection;
+    CameraBuilder& CameraBuilder::projection_mode(CameraProjection projection) {
+        camera.projection_mode = projection;
         return *this;
     }
 
@@ -124,5 +144,13 @@ namespace engine {
         glm::vec3 flat_forward = glm::vec3(cos(yaw), 0.0f, sin(yaw));
 
         return flat_forward;
+    }
+
+
+    void rescale_camera_to_window(CameraComp& camera, Window& window) {
+        glm::vec2 size = window.size();
+        if (camera.framebuffer.last_scale != size) {
+            rescale_framebuffer(camera.framebuffer, size.x, size.y);
+        }
     }
 }
