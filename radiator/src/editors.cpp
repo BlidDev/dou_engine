@@ -66,8 +66,8 @@ void EScene::make_viewer() {
     const auto size = manager->main_window.size();
     viewer = create_entity();
     viewer.add_component<EditorViewer>();
-    viewer.add_component<TransformComp>(TransformBuilder().position(glm::vec3{0.0f, 2.0f, 0.0f}));
-    viewer.add_component<CameraComp>(CameraBuilder().target({0.0f, 1.0f, 1.0f})
+    viewer.add_component<TransformComp>(TransformBuilder().position(glm::vec3{0.0f, 2.0f, 4.0f}));
+    viewer.add_component<CameraComp>(CameraBuilder().target({0.0f, 1.0f, -5.0f})
                                                     .framebuffer_size(size.x, size.y)
                                                     .present_shader(get_shader("camerapresent.glsl"))
                                                     .build());

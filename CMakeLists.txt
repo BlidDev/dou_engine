@@ -29,8 +29,17 @@ add_subdirectory("vendor/glfw")
 set(OUT_PATH "${CMAKE_SOURCE_DIR}/bin/${CMAKE_SYSTEM_NAME} - ${CMAKE_SYSTEM_PROCESSOR}/${CMAKE_BUILD_TYPE}")
 
 add_subdirectory(engine)
-add_subdirectory(game)
-add_subdirectory(radiator)
+
+
+option(EXAMPLE_GAME "Build an example game" OFF)
+if (EXAMPLE_GAME)
+    add_subdirectory(game)
+endif()
+
+option(EXAMPLE_EDITOR "Build a simple editor" OFF)
+if (EXAMPLE_EDITOR)
+    add_subdirectory(radiator)
+endif()
 
 
 
