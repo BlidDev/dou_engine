@@ -26,6 +26,8 @@ set(GLFW_BUILD_DOCS OFF CACHE BOOL "Disable GLFW docs")
 set(GLFW_STATIC TRUE CACHE BOOL "Set to build as static library")
 add_subdirectory("vendor/glfw")
 
+message("Current Working Dir: " ${CMAKE_CURRENT_SOURCE_DIR})
+
 set(OUT_PATH "${CMAKE_SOURCE_DIR}/bin/${CMAKE_SYSTEM_NAME} - ${CMAKE_SYSTEM_PROCESSOR}/${CMAKE_BUILD_TYPE}")
 
 add_subdirectory(engine)
@@ -34,11 +36,6 @@ add_subdirectory(engine)
 option(EXAMPLE_GAME "Build an example game" OFF)
 if (EXAMPLE_GAME)
     add_subdirectory(game)
-endif()
-
-option(EXAMPLE_EDITOR "Build a simple editor" OFF)
-if (EXAMPLE_EDITOR)
-    add_subdirectory(radiator)
 endif()
 
 

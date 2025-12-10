@@ -3,11 +3,17 @@
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec2 aTex;
 
+layout (std140) uniform Matrices{
+    mat4 projection;
+    mat4 view;
+};
+
 uniform mat4 model;
 uniform float ratio;
 
 out vec2 tex_coord;
 void main() {  
+
     vec4 pos = model * vec4(aPos,1.0);
     pos.x /= ratio;
 	gl_Position = pos;

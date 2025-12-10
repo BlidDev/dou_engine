@@ -1,0 +1,134 @@
+Scene: Main
+Render Data:
+  Main Camera: 9703913328098630830
+  Ambient: [1, 1, 1]
+  Ambient Strength: 0.1
+  Clear Color: [0.7723077, 1, 0.98528755, 1]
+Entities:
+  - Entity: 2240326152093192729
+    Tag:
+      Tag: f Cube
+    Transform:
+      Position: [3.7674787, 0, 0]
+      Size: [1, 1, 1]
+      Rotation: [0, -0, 0]
+    Model:
+      Model Name: cube
+      Layer: 0
+      Material:
+        Shader: basic.glsl
+        Filled: true
+        Ambient: [1, 1, 1]
+        Diffuse: [1, 1, 1]
+        Specular: [1, 1, 1]
+        Shininess: 32
+        Texture: UNKNOWN
+        Textured: false
+        Immune: false
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: false
+      Is Static: true
+      Move Delta: [0, 0, 0]
+      Intersect Callback: [trigger.lua, inter]
+    Lua Actions:
+      - Path: trigger.lua
+        Fields:
+          this: [u, 2240326152093192729]
+  - Entity: 11152776846094461390
+    Tag:
+      Tag: Light
+    Transform:
+      Position: [5.3, 4.6, 0]
+      Size: [1, 1, 1]
+      Rotation: [0, 0, 0]
+    DirLight:
+      Direction: [-0.2, -1, -0.3]
+      Ambient: 0.1
+      Color: [0.9692308, 0.89773935, 0.49505326]
+      Strength: 0.5
+  - Entity: 7287929405305775506
+    Tag:
+      Tag: Unnamed Cube
+    Transform:
+      Position: [0, 1, 0]
+      Size: [3, 0.5, 3]
+      Rotation: [0, 12.4, 0]
+    Model:
+      Model Name: cube_tl
+      Layer: 0
+      Material:
+        Shader: lightingt.glsl
+        Filled: false
+        Ambient: [1, 1, 1]
+        Diffuse: [1, 1, 1]
+        Specular: [1, 1, 1]
+        Shininess: 0
+        Texture: mmm.png
+        Textured: true
+        Immune: false
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+  - Entity: 9703913328098630830
+    Tag:
+      Tag: Player
+    Transform:
+      Position: [0, 3.3, 0]
+      Size: [1, 1, 1]
+      Rotation: [0, 0, 0]
+    PhysicsBody:
+      Gravity: 0.3
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+    Camera:
+      Target: [0, 0, 1]
+      Up: [0, 1, 0]
+      FovY: 70
+      Projection: 0
+      Max Distance: 30
+      Present Shader: camerapresent.glsl
+    Lua Actions:
+      - Path: player.lua
+        Fields:
+          init_speed: [i, 3]
+          jump: [i, 10]
+          this: [u, 9703913328098630830]
+          sensi: [f, 0.1]
+    SptLight:
+      Color: [0.5261538, 0.5261538, 0.5261538]
+      Direction: [0, -1, 0]
+      Constant: 1
+      Linear: 0.05
+      Quadratic: 0.021
+      Cut off: 9.1
+      Outer cut off: 24
+  - Entity: 13874073629702658488
+    Tag:
+      Tag: Unnamed Cube
+    Transform:
+      Position: [0, 0, 4.3695006]
+      Size: [1, 1, 1]
+      Rotation: [0, 90, 0]
+    Model:
+      Model Name: quad_tex
+      Layer: 1
+      Material:
+        Shader: textured.glsl
+        Filled: false
+        Ambient: [1, 1, 1]
+        Diffuse: [1, 1, 1]
+        Specular: [1, 1, 1]
+        Shininess: 32
+        Texture: proto.png
+        Textured: true
+        Immune: false
