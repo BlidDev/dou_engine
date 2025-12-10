@@ -1,30 +1,35 @@
-# Define the executable target
-file(GLOB game_SRC
+set(NAME game)
+
+file(GLOB ${NAME}_SRC
     "src/*.c"
     "src/*.cpp"
     )
-add_executable(game ${game_SRC})
 
+add_executable(${NAME} ${${NAME}_SRC})
 
-# Include directories for the game
-target_include_directories(game PRIVATE
-    ${CMAKE_SOURCE_DIR}/engine/include
-    ${CMAKE_SOURCE_DIR}/game/include
-    ${CMAKE_SOURCE_DIR}/vendor/spdlog/include
-    ${CMAKE_SOURCE_DIR}/vendor/entt
-    ${YAML_CPP_INCLUDE_DIRS}
-    ${RAYLIB_DIR}/src
+set_target_properties(${NAME} 
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${OUT_PATH}/${NAME}"
 )
 
 
-link_directories(game 
-    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libYAML_CPP.a
-    )
+target_include_directories(${NAME} PRIVATE
+    ${CMAKE_SOURCE_DIR}/engine/include
+    ${CMAKE_SOURCE_DIR}/${NAME}/include
+    ${CMAKE_SOURCE_DIR}/vendor/spdlog/include
+    ${CMAKE_SOURCE_DIR}/vendor/entt
+    ${CMAKE_SOURCE_DIR}/vendor/glfw/include
+    ${YAML_CPP_INCLUDE_DIRS}
+    ${CMAKE_SOURCE_DIR}/vendor/glad/include/
+    ${CMAKE_SOURCE_DIR}/vendor/glm
+)
+
 
 set(HEADER_FILES PRIVATE 
-    "${CMAKE_SOURCE_DIR}/engine/include/epch.h")
+    "${CMAKE_SOURCE_DIR}/engine/include/engine.h")
 
-target_precompile_headers(game PRIVATE ${HEADER_FILES})
+find_package(OpenGL REQUIRED)
 
-# Link the engine library to the game executable
-target_link_libraries(game PRIVATE engine raylib YAML_CPP)
+target_precompile_headers(${NAME} PRIVATE ${HEADER_FILES})
+
+target_link_libraries(${NAME} PRIVATE YAML_CPP glfw  OpenGL::GL engine)

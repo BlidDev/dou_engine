@@ -1,0 +1,11 @@
+@NAME
+triangle_tl
+
+@FORMAT
+POS TEX NOR
+
+
+@VERTICES
+ 0.0  0.5 0.0    0.5 1.0    0.0 0.0 1.0 // top   
+-0.5 -0.5 0.0    0.0 0.0    0.0 0.0 1.0 // left
+ 0.5 -0.5 0.0    1.0 0.0    0.0 0.0 1.0 // right 

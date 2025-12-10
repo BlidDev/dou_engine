@@ -1,7 +1,6 @@
 #pragma once
-#include "component.h"
-#include "log.h"
 
+#include "scene.h"
 namespace engine {
     template <typename T>
     T& get_uuid_component(Scene* owner, UUID uuid) {

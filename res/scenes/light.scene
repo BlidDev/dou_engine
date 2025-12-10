@@ -1,0 +1,95 @@
+Scene: light
+Render Data:
+  Main Camera: 13498557765369267930
+  Ambient: [1, 1, 1]
+  Ambient Strength: 0.1
+  Clear Color: [0.79626036, 0.9692308, 0.9676341, 1]
+Entities:
+  - Entity: 13498557765369267930
+    Tag:
+      Tag: P
+    Transform:
+      Position: [0, 4.1, -3.3]
+      Size: [1, 1, 1]
+      Rotation: [0, 0, 0]
+    PhysicsBody:
+      Gravity: 0.3
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+    Camera:
+      Target: [0, 4, 1]
+      Up: [0, 1, 0]
+      FovY: 70
+      Projection: 0
+      Max Distance: 30
+      Present Shader: very_cool.glsl
+    Lua Actions:
+      - Path: player.lua
+        Fields:
+          init_speed: [i, 3]
+          jump: [i, 10]
+          this: [u, 13498557765369267930]
+          sensi: [f, 0.1]
+    DirLight:
+      Direction: [-0.2, -1, 0.4]
+      Ambient: 0.3
+      Color: [0.97846156, 0.9578687, 0.6262154]
+      Strength: 0.7
+    SptLight:
+      Color: [1, 1, 1]
+      Direction: [0, -1, 0.5]
+      Constant: 1
+      Linear: 0.05
+      Quadratic: 0.021
+      Cut off: 12.5
+      Outer cut off: 17.5
+  - Entity: 11045568327542396770
+    Tag:
+      Tag: Unnamed Cube
+    Transform:
+      Position: [0, 0, 0]
+      Size: [11.5, 0.5, 7.7]
+      Rotation: [0, 0, 0]
+    Model:
+      Model Name: cube
+      Layer: 0
+      Material:
+        Shader: lighting.glsl
+        Filled: true
+        Ambient: [1, 0, 0]
+        Diffuse: [0.48615384, 0.48615384, 0.48615384]
+        Specular: [1, 0, 0]
+        Shininess: 32
+        Texture: UNKNOWN
+        Textured: false
+        Immune: false
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+  - Entity: 15116317443535047326
+    Tag:
+      Tag: W
+    Transform:
+      Position: [0, 1.5, 0]
+      Size: [1, 1, 1]
+      Rotation: [0, 0, 0]
+    Model:
+      Model Name: cube_tl
+      Layer: 0
+      Material:
+        Shader: lightingt.glsl
+        Filled: false
+        Ambient: [1, 1, 1]
+        Diffuse: [1, 1, 1]
+        Specular: [1, 1, 1]
+        Shininess: 32
+        Texture: proto.png
+        Textured: true
+        Immune: false

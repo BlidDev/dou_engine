@@ -1,12 +1,28 @@
 #include <espch.h>
-#include "components/primitive.h"
 #include "component.h"
 #include "entity.h"
+#include "manager.h"
 
 namespace YAML {
+    template<>
+    struct convert<engine::UUID> {
+        static Node encode(const engine::UUID& uuid) {
+            Node node;
+            node.push_back((uint32_t)uuid);
+            return node;
+        }
+
+        static bool decode(const Node& node, engine::UUID& uuid) {
+            if(!node.IsScalar())
+                return false;
+            uuid = node.as<uint64_t>();
+            return true;
+        }
+
+    };
     template <>
-    struct convert<Vector3> {
-        static Node encode(const Vector3& rhs) {
+    struct convert<glm::vec3> {
+        static Node encode(const glm::vec3& rhs) {
             Node node;
             node.push_back(rhs.x);
             node.push_back(rhs.y);
@@ -14,7 +30,7 @@ namespace YAML {
             return node;
         }
 
-        static bool decode(const Node& node, Vector3& rhs) {
+        static bool decode(const Node& node, glm::vec3& rhs) {
             if(!node.IsSequence() || node.size() != 3)
                 return false;
             rhs.x = node[0].as<float>();
@@ -43,23 +59,23 @@ namespace YAML {
     };
 
     template <>
-    struct convert<Color> {
-        static Node encode(const Color& rhs) {
+    struct convert<glm::vec4> {
+        static Node encode(const glm::vec4& rhs) {
             Node node;
-            node.push_back((int)rhs.r);
-            node.push_back((int)rhs.g);
-            node.push_back((int)rhs.b);
-            node.push_back((int)rhs.a);
+            node.push_back((float)rhs.r);
+            node.push_back((float)rhs.g);
+            node.push_back((float)rhs.b);
+            node.push_back((float)rhs.a);
             return node;
         }
 
-        static bool decode(const Node& node, Color& rhs) {
+        static bool decode(const Node& node, glm::vec4& rhs) {
             if(!node.IsSequence() || node.size() != 4)
                 return false;
-            rhs.r = (unsigned char)node[0].as<int>();
-            rhs.g = (unsigned char)node[1].as<int>();
-            rhs.b = (unsigned char)node[2].as<int>();
-            rhs.a = (unsigned char)node[3].as<int>();
+            rhs.r = (float)node[0].as<float>();
+            rhs.g = (float)node[1].as<float>();
+            rhs.b = (float)node[2].as<float>();
+            rhs.a = (float)node[3].as<float>();
             return true;
         }
     };
@@ -67,15 +83,23 @@ namespace YAML {
 
 namespace engine {
 
-    YAML::Emitter& operator<<(YAML::Emitter& out, const Vector3& v) {
+    template <typename T>
+    static void make_field_node(YAML::Emitter& out,T field, char ident) {
+        out<<YAML::Flow;
+        out<<YAML::BeginSeq<<ident<<field<<YAML::EndSeq;
+    }
+
+    #define EMMIT_FIELD(name,var, type, ident) if (var.is<type>())  {out<<YAML::Key<<name; make_field_node(out, var.as<type>(), ident);}
+
+    YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec3& v) {
         out<<YAML::Flow;
         out<<YAML::BeginSeq<<v.x<<v.y<<v.z<<YAML::EndSeq;
         return out;
     }
 
-    YAML::Emitter& operator<<(YAML::Emitter& out, const Color& c) {
+    YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec4& c) {
         out<<YAML::Flow;
-        out<<YAML::BeginSeq<<(int)c.r<<(int)c.g<<(int)c.b<<(int)c.a<<YAML::EndSeq;
+        out<<YAML::BeginSeq<<c.r<<c.g<<c.b<<c.a<<YAML::EndSeq;
         return out;
     }
 
@@ -83,18 +107,6 @@ namespace engine {
         out<<YAML::Flow;
         out<<YAML::BeginSeq<<l.path<<l.function<<YAML::EndSeq;
         return out;
-    }
-
-    static PrimitiveComp::Shape str_to_shape(const std::string str) {
-        if (str == "PLANE")
-            return PrimitiveComp::PLANE;
-        if (str == "CUBE")
-            return PrimitiveComp::CUBE;
-        if (str == "SPHERE")
-            return PrimitiveComp::SPHERE;
-
-        EG_ASSERT(true, "Trying to pasrse unkown shape [{}]", str);
-        return PrimitiveComp::PLANE;
     }
 
     static void write_entity_to_file(YAML::Emitter& out, Entity& entity) {
@@ -111,31 +123,37 @@ namespace engine {
         if (entity.has_component<TransformComp>()) {
             out<<YAML::Key<<"Transform"<<YAML::BeginMap;
             auto& transform = entity.get_component<TransformComp>();
-            out<<YAML::Key<<"Position"<<YAML::Value<<transform.position;
-            out<<YAML::Key<<"Size"<<YAML::Value<<transform.size;
+            out<<YAML::Key<<"Position"<<YAML::Value<<transform.position();
+            out<<YAML::Key<<"Size"<<YAML::Value<<transform.size();
+            out<<YAML::Key<<"Rotation"<<YAML::Value<<transform.rotation();
             out<<YAML::EndMap;
         }
 
-        if (entity.has_component<PrimitiveComp>()) {
-            out<<YAML::Key<<"Primitive"<<YAML::BeginMap;
-                auto& p = entity.get_component<PrimitiveComp>();
-                out<<YAML::Key<<"Color"<<YAML::Value<<p.color;
-                const char* shapes[] = {"PLANE","CUBE","SPHERE"};
-                out<<YAML::Key<<"Shape"<<YAML::Value<<shapes[(int)p.shape];
-                out<<YAML::Key<<"Attributes"<<YAML::BeginMap;
-                    out<<YAML::Key<<"Filled"<<YAML::Value<<((PRIMITVE_FILLED & p.attributes) == PRIMITVE_FILLED);
-                    out<<YAML::Key<<"Wireframe"<<YAML::Value<<((PRIMITVE_WIREFRAME & p.attributes) == PRIMITVE_WIREFRAME);
-                    out << YAML::Key << "Immune" << YAML::Value
-                        << ((PRIMITVE_IMMUNE & p.attributes) ==
-                            PRIMITVE_IMMUNE);
-                    out<<YAML::EndMap;
+        if (entity.has_component<ModelComp>()) {
+            out<<YAML::Key<<"Model"<<YAML::BeginMap;
+                auto& m = entity.get_component<ModelComp>();
+                out<<YAML::Key<<"Model Name"<<YAML::Value<<m.model.name;
+                out<<YAML::Key<<"Layer"<<YAML::Value<<m.layer;
+                out<<YAML::Key<<"Material"<<YAML::BeginMap;
+                    out<<YAML::Key<<"Shader"<<YAML::Value<<m.material.shader.path;
+                    out<<YAML::Key<<"Filled"<<YAML::Value<<((MODEL_FILLED & m.material.attributes) == MODEL_FILLED);
+                    out<<YAML::Key<<"Ambient"<<YAML::Value<<m.material.ambient;
+                    out<<YAML::Key<<"Diffuse"<<YAML::Value<<m.material.diffuse;
+                    out<<YAML::Key<<"Specular"<<YAML::Value<<m.material.specular;
+                    out<<YAML::Key<<"Shininess"<<YAML::Value<<m.material.shininess;
+                    out<<YAML::Key<<"Texture"<<YAML::Value<<m.material.texture.path;
+                    out<<YAML::Key<<"Textured"<<YAML::Value<<((MODEL_TEXTURED & m.material.attributes) == MODEL_TEXTURED);
+                    out<<YAML::Key<<"Immune"<<YAML::Value<<((MODEL_IMMUNE & m.material.attributes) == MODEL_IMMUNE);
+                out<<YAML::EndMap;
+
+
             out<<YAML::EndMap;
         }
 
         if (entity.has_component<ActionsComp>()) {
             out<<YAML::Key<<"Native Actions"<<YAML::BeginSeq;
                 ActionsComp& a = entity.get_component<ActionsComp>();
-                for (auto action : a.actions) {
+                for (auto& action : a.actions) {
                     out<<YAML::BeginMap;
                         out<<YAML::Key<<"Name"<<YAML::Value<<action->inner_name;
                         action->serialize(out);
@@ -144,14 +162,14 @@ namespace engine {
             out<<YAML::EndSeq;
         }
 
-        if (entity.has_component<TextComp>()) {
-            out<<YAML::Key<<"Text"<<YAML::BeginMap;
-                auto& text = entity.get_component<TextComp>();
-                out<<YAML::Key<<"Body"<<YAML::Value<<text.body;
-                out<<YAML::Key<<"Font Size"<<YAML::Value<<text.font_size;
-                out<<YAML::Key<<"Color"<<YAML::Value<<text.color;
-            out<<YAML::EndMap;
-        }
+        //if (entity.has_component<TextComp>()) {
+        //    out<<YAML::Key<<"Text"<<YAML::BeginMap;
+        //        auto& text = entity.get_component<TextComp>();
+        //        out<<YAML::Key<<"Body"<<YAML::Value<<text.body;
+        //        out<<YAML::Key<<"Font Size"<<YAML::Value<<text.font_size;
+        //        out<<YAML::Key<<"Color"<<YAML::Value<<text.color;
+        //    out<<YAML::EndMap;
+        //}
 
         if (entity.has_component<PhysicsBodyComp>()) {
             out<<YAML::Key<<"PhysicsBody"<<YAML::BeginMap;
@@ -168,30 +186,44 @@ namespace engine {
             out<<YAML::EndMap;
         }
 
-        if (entity.has_component<Camera>()) {
+        if (entity.has_component<CameraComp>()) {
             out<<YAML::Key<<"Camera"<<YAML::BeginMap;
-                auto& c = entity.get_component<Camera>();
-                out<<YAML::Key<<"Position"<<YAML::Value<<c.position;
+                auto& c = entity.get_component<CameraComp>();
                 out<<YAML::Key<<"Target"<<YAML::Value<<c.target;
                 out<<YAML::Key<<"Up"<<YAML::Value<<c.up;
                 out<<YAML::Key<<"FovY"<<YAML::Value<<c.fovy;
-                out<<YAML::Key<<"Projection"<<YAML::Value<<(int)c.projection;
+                out<<YAML::Key<<"Projection"<<YAML::Value<<(int)c.projection_mode;
+                out<<YAML::Key<<"Max Distance"<<YAML::Value<<c.max_distance;
+                glm::vec2 size = entity.scene_ptr()->manager->main_window.size();
+                if (size != c.framebuffer.last_scale) {
+                    out<<YAML::Key<<"Framebuffer"<<YAML::BeginMap;
+                        out<<YAML::Key<<"Width"<<YAML::Value<<c.framebuffer.last_scale.x;
+                        out<<YAML::Key<<"Height"<<YAML::Value<<c.framebuffer.last_scale.y;
+                    out<<YAML::EndMap;
+                }
+                out<<YAML::Key<<"Present Shader"<<YAML::Value<<c.present_shader.path;
+
             out<<YAML::EndMap;
         }
 
         if (entity.has_component<LuaActionComp>()) {
             auto& l = entity.get_component<LuaActionComp>();
             out<<YAML::Key<<"Lua Actions"<<YAML::BeginSeq;
-                for (auto scp : l.scripts) {
+                for (const auto& scp : l.scripts) {
                     out<<YAML::BeginMap;
                     out<<YAML::Key<<"Path"<<scp.path;
                     out<<YAML::Key<<"Fields"<<YAML::BeginMap;
-                        for (auto& [k,v] : scp.env) {
-                            if ( !k.is<std::string>() || v.is<sol::function>() || !v.is<UUID>())
+                        for (const auto& [k,v] : scp.env) {
+                            if ( !k.is<std::string>() || v.is<sol::function>())
                                 continue;
+                            
                             std::string str = k.as<std::string>();
-                            UUID uuid = v.as<UUID>();
-                            out<<YAML::Key<<str<<YAML::Value<<uuid.get_uuid();
+                                 EMMIT_FIELD(str, v, UUID, 'u')
+                            else EMMIT_FIELD(str, v, int,   'i')
+                            else EMMIT_FIELD(str, v, float, 'f')
+                            else EMMIT_FIELD(str, v, bool, 'b')
+                            // fucking hell
+
                         }
                     out<<YAML::EndMap;
                     out<<YAML::EndMap;
@@ -199,13 +231,71 @@ namespace engine {
             out<<YAML::EndSeq;
         }
 
+        if (entity.has_component<DirLightComp>()) {
+            auto& l = entity.get_component<DirLightComp>();
+            out<<YAML::Key<<"DirLight"<<YAML::BeginMap;
+                out<<YAML::Key<<"Direction"<<YAML::Value<<l.direction;
+                out<<YAML::Key<<"Ambient"<<YAML::Value<<l.ambient;
+                out<<YAML::Key<<"Color"<<YAML::Value<<l.color;
+                out<<YAML::Key<<"Strength"<<YAML::Value<<l.strength;
+            out<<YAML::EndMap;
+        }
+
+        if (entity.has_component<PntLightComp>()) {
+            auto& l = entity.get_component<PntLightComp>();
+            out<<YAML::Key<<"PntLight"<<YAML::BeginMap;
+                out<<YAML::Key<<"Color"<<YAML::Value<<l.color;
+                out<<YAML::Key<<"Constant"<<YAML::Value<<l.constant;
+                out<<YAML::Key<<"Linear"<<YAML::Value<<l.linear;
+                out<<YAML::Key<<"Quadratic"<<YAML::Value<<l.quadratic;
+            out<<YAML::EndMap;
+        }
+
+        if (entity.has_component<SptLightComp>()) {
+            auto& l = entity.get_component<SptLightComp>();
+            out<<YAML::Key<<"SptLight"<<YAML::BeginMap;
+                out<<YAML::Key<<"Color"<<YAML::Value<<l.color;
+                out<<YAML::Key<<"Direction"<<YAML::Value<<l.direction;
+                out<<YAML::Key<<"Constant"<<YAML::Value<<l.constant;
+                out<<YAML::Key<<"Linear"<<YAML::Value<<l.linear;
+                out<<YAML::Key<<"Quadratic"<<YAML::Value<<l.quadratic;
+                out<<YAML::Key<<"Cut off"<<YAML::Value<<l.cutoff;
+                out<<YAML::Key<<"Outer cut off"<<YAML::Value<<l.outer_cutoff;
+            out<<YAML::EndMap;
+        }
+
+        //if (entity.has_component<ParentComp>()) {
+        //    auto& p = entity.get_component<ParentComp>();
+        //    out<<YAML::Key<<"Parent"<<YAML::BeginMap;
+        //        out<<YAML::Key<<"Parent"<<YAML::Value<<p.parent.uuid();
+        //    out<<YAML::EndMap;
+        //}
+
+        if (entity.has_component<ParentComp>()) {
+            auto& p = entity.get_component<ParentComp>();
+            out<<YAML::Key<<"Parent"<<YAML::BeginMap;
+                out<<YAML::Key<<"Parent"<<YAML::Value<<p.parent.uuid();
+            out<<YAML::EndMap;
+        }
+
+        if (entity.has_component<ChildrenComp>()) {
+            auto& c = entity.get_component<ChildrenComp>();
+            out<<YAML::Key<<"Children"<<YAML::BeginSeq;
+            for (const auto& child : c.children) {
+                out<<YAML::Value<<child;
+            }
+            out<<YAML::EndSeq;
+        }
+
         out<<YAML::EndMap;
+
+
     }
 
-    static void read_entity_from_file(YAML::Node& entity, Scene* scene) {
+    static void read_entity_from_file(YAML::Node& entity, Scene* scene, std::filesystem::path root) {
         uint64_t uuid = entity["Entity"].as<uint64_t>(); 
 
-        Entity read_entity = scene->create_entity_with_uuid(uuid);
+        Entity read_entity = scene->uuid_to_entity(uuid);
 
         auto tag_comp = entity["Tag"];
         if (tag_comp)
@@ -214,48 +304,74 @@ namespace engine {
         auto transform_comp = entity["Transform"];
         if (transform_comp) {
             TransformComp& tc = read_entity.add_component<TransformComp>();
-            tc.position = transform_comp["Position"].as<Vector3>();
-            tc.size = transform_comp["Size"].as<Vector3>();
+            tc.set_position(transform_comp["Position"].as<glm::vec3>());
+            tc.set_size(transform_comp["Size"].as<glm::vec3>());
+            tc.set_rotation(transform_comp["Rotation"].as<glm::vec3>());
         }
 
-        auto primitive_comp = entity["Primitive"];
-        if (primitive_comp) {
-            PrimitiveComp& p = read_entity.add_component<PrimitiveComp>();
-            p.color = primitive_comp["Color"].as<Color>();
-            const std::string shape = primitive_comp["Shape"].as<std::string>();
-            p.shape = str_to_shape(shape);
-            auto attributes = primitive_comp["Attributes"];
-            p.attributes = 0;
-            p.attributes |= attributes["Filled"].as<bool>() ?    PRIMITVE_FILLED : 0;
-            p.attributes |= attributes["Wireframe"].as<bool>() ? PRIMITVE_WIREFRAME : 0;
-            p.attributes |= attributes["Immune"].as<bool>() ?    PRIMITVE_IMMUNE : 0;
+        auto model_comp = entity["Model"];
+        if (model_comp) {
+            ModelComp& m = read_entity.add_component<ModelComp>();
+            std::string model_name = model_comp["Model Name"].as<std::string>();
+            m.model = scene->get_model(model_name.c_str());
+            auto material = model_comp["Material"];
+            std::string shader_name = material["Shader"].as<std::string>();
+            m.material.shader = scene->get_shader(shader_name.c_str());
+            m.layer = model_comp["Layer"].as<size_t>();
+            DU_ASSERT(m.layer > MAX_RENDER_LAYERS, "Invalid layer number given: {}", m.layer);
+
+            std::string texture_path = material["Texture"].as<std::string>();
+            bool filled =   material["Filled"].as<bool>();
+            bool textured = material["Textured"].as<bool>();
+            bool immune = material["Immune"].as<bool>();
+            m.material.attributes |=  filled   ?  MODEL_FILLED : 0;
+            m.material.attributes |=  textured ?  MODEL_TEXTURED : 0;
+            m.material.attributes |=  immune   ?  MODEL_IMMUNE : 0;
+
+
+            if (textured)
+                m.material.texture = scene->get_texture(texture_path.c_str());
+            if (material["Color"]) {
+                glm::vec3 color = material["Color"].as<glm::vec3>();
+                m.material.ambient = color;
+                m.material.diffuse = color;
+                m.material.specular = {1.0f, 1.0f, 1.0f};
+                m.material.shininess = 32.0f;
+            }
+            else {
+                m.material.ambient = material["Ambient"].as<glm::vec3>();
+                m.material.diffuse = material["Diffuse"].as<glm::vec3>();
+                m.material.specular = material["Specular"].as<glm::vec3>();
+                m.material.shininess = material["Shininess"].as<float>();
+            }
+            //m.material.print();
         }
 
         auto actions_comp = entity["Native Actions"];
         if (actions_comp) {
             ActionsComp& ac = read_entity.add_component<ActionsComp>();
-            for (auto action : actions_comp) {
+            for (const auto& action : actions_comp) {
                 std::string action_name = action["Name"].as<std::string>();
                 UpdateComp* a = ac.add(action_name.c_str()).get_last();
                 a->dserialize(action);
             }
         }
-        auto text = entity["Text"];
-        if(text) {
-            TextComp& t = read_entity.add_component<TextComp>();
-            t.body = text["Body"].as<std::string>();
-            t.font_size = text["Font Size"].as<int>();
-            t.color = text["Color"].as<Color>();
-        }
+        //auto text = entity["Text"];
+        //if(text) {
+        //    TextComp& t = read_entity.add_component<TextComp>();
+        //    t.body = text["Body"].as<std::string>();
+        //    t.font_size = text["Font Size"].as<int>();
+        //    t.color = text["Color"].as<Color>();
+        //}
 
         auto physicbody = entity["PhysicsBody"];
         if(physicbody) {
             PhysicsBodyComp& ph = read_entity.add_component<PhysicsBodyComp>(); 
             ph.gravity = physicbody["Gravity"].as<float>();
-            ph.velocity = physicbody["Velocity"].as<Vector3>();
+            ph.velocity = physicbody["Velocity"].as<glm::vec3>();
             ph.is_solid = physicbody["Is Solid"].as<bool>();
             ph.is_static = physicbody["Is Static"].as<bool>();
-            ph.move_delta = physicbody["Move Delta"].as<Vector3>();
+            ph.move_delta = physicbody["Move Delta"].as<glm::vec3>();
             auto inter = physicbody["Intersect Callback"];
             if (inter) {
                 ph.lua_callback = inter.as<LuaCallback>();
@@ -264,42 +380,122 @@ namespace engine {
 
         auto camera = entity["Camera"];
         if(camera) {
-            Camera& c = read_entity.add_component<Camera>();
-            c.position = camera["Position"].as<Vector3>();
-            c.target = camera["Target"].as<Vector3>();
-            c.up = camera["Up"].as<Vector3>();
+            CameraComp& c = read_entity.add_component<CameraComp>();
+            c.target = camera["Target"].as<glm::vec3>();
+            c.up = camera["Up"].as<glm::vec3>();
             c.fovy = camera["FovY"].as<float>();
-            c.projection = camera["Projection"].as<int>();
+            c.projection_mode = (CameraProjection)camera["Projection"].as<int>();
+            c.max_distance = camera["Max Distance"].as<float>();
+            if (read_entity.has_component<TransformComp>()) {
+                c.last_pos = read_entity.get_component<TransformComp>().position();
+            }
+
+            glm::vec2 fb_size = scene->manager->main_window.size();
+            auto framebuffer = camera["Framebuffer"];
+            if (framebuffer) {
+                fb_size.x = framebuffer["Width"].as<int>();
+                fb_size.y = framebuffer["Height"].as<int>();
+            }
+
+            make_framebuffer(c.framebuffer, fb_size.x, fb_size.y);
+
+            std::string present_shader =  camera["Present Shader"].as<std::string>();
+            c.present_shader = scene->get_shader(present_shader.c_str());
         }
 
         auto lua_actions = entity["Lua Actions"];
         if (lua_actions) {
             auto& ls = read_entity.add_component<LuaActionComp>(LuaActionComp(UUID(uuid)));
-            for (auto m : lua_actions) {
+            for (const auto& m : lua_actions) {
                 std::string path = m["Path"].as<std::string>();
-                ls.add(scene,path);
+                ls.add(scene,(root / std::filesystem::path(path)));
 
-                for (auto f : m["Fields"]) {
+                for (const auto& f : m["Fields"]) {
                     std::string name = f.first.as<std::string>();
-                    uint64_t id = f.second.as<uint64_t>();
-                    ls.bind_field(name, UUID(id));
+                    DU_ASSERT(!f.second.IsSequence(), " {} - Invaild field decleration", name);
+                    char type_flag = f.second[0].as<char>();
+                    YAML::Node var = f.second[1];
+                    switch (type_flag) {
+                        case 'u': ls.bind_field(name, UUID(var.as<uint64_t>())); break;
+                        case 'i': ls.bind_field(name, var.as<int>()); break;
+                        case 'f': ls.bind_field(name, var.as<float>()); break;
+                        case 'b': ls.bind_field(name, var.as<bool>()); break;
+                        default: DU_ASSERT(true, "Invaild type flag \'{}\' in lua field {}",type_flag, name); break;
+                    }
+
                 }
             }
         }
+
+        auto dlight = entity["DirLight"];
+        if(dlight) {
+            auto& l = read_entity.add_component<DirLightComp>();
+            l.direction = dlight["Direction"].as<glm::vec3>();
+            l.ambient = dlight["Ambient"].as<float>();
+            l.color = dlight["Color"].as<glm::vec3>();
+            l.strength = dlight["Strength"].as<float>();
+        }
+
+        auto plight = entity["PntLight"];
+        if(plight) {
+            auto& l = read_entity.add_component<PntLightComp>();
+            l.color = plight["Color"].as<glm::vec3>();
+            l.constant = plight["Constant"].as<float>();
+            l.linear = plight["Linear"].as<float>();
+            l.quadratic = plight["Quadratic"].as<float>();
+        }
+
+        auto slight = entity["SptLight"];
+        if(slight) {
+            auto& l = read_entity.add_component<SptLightComp>();
+            l.color = slight["Color"].as<glm::vec3>();
+            l.direction = slight["Direction"].as<glm::vec3>();
+            l.constant = slight["Constant"].as<float>();
+            l.linear = slight["Linear"].as<float>();
+            l.quadratic = slight["Quadratic"].as<float>();
+
+            l.cutoff =       slight["Cut off"].as<float>();
+            l.outer_cutoff = slight["Outer cut off"].as<float>();
+        }
+
+
+        //auto parent = entity["Parent"];
+        //if (parent) {
+        //    UUID tmp = parent["Parent"].as<UUID>();
+        //    read_entity.make_child_of(tmp);
+        //}
+
+        auto children = entity["Children"];
+        if (children) {
+            for (const auto& child : children) {
+                UUID c = child.as<UUID>();
+                read_entity.add_child(c);
+            }
+        }
+
     }
 
     void SceneManager::write_scene_to_file(const char* path, Scene* scene) {
         std::ofstream file(path);
+        DU_ASSERT(!file.is_open(), "Could not open {}", path);
         YAML::Emitter out;
         out<<YAML::BeginMap;
         out<<YAML::Key<<"Scene"<<YAML::Value<<scene->name;
-        out<<YAML::Key<<"Main Camera"<<YAML::Value<<(uint64_t)scene->main_camera;
-        out<<YAML::Key<<"Entities"<<YAML::Value<<YAML::BeginSeq;
 
-        for (auto e : scene->registry.view<entt::entity>()) {
+        out<<YAML::Key<<"Render Data"<<YAML::BeginMap;
+            out<<YAML::Key<<"Main Camera"<<YAML::Value<<(uint64_t)scene->main_camera;
+            out<<YAML::Key<<"Ambient"<<YAML::Value<<scene->s_render_data.ambient;
+            out<<YAML::Key<<"Ambient Strength"<<YAML::Value<<scene->s_render_data.ambient_strength;
+            out<<YAML::Key<<"Clear Color"<<YAML::Value<<scene->s_render_data.clear_color;
+        out<<YAML::EndMap;
+
+        out<<YAML::Key<<"Entities"<<YAML::Value<<YAML::BeginSeq;
+        auto view = scene->registry.view<entt::entity>();
+        for (const auto& e : view) {
             Entity entity(scene, e);
             if (!entity)
-                return;
+                continue;
+            
             write_entity_to_file(out, entity);
         }
 
@@ -307,55 +503,60 @@ namespace engine {
         out<<YAML::EndMap;
         file<<out.c_str();
         file.close();
+        DU_CORE_DEBUG_TRACE("Written {}", path);
     }
 
-    Scene* SceneManager::scene_from_file(const char* path) {
-        std::ifstream stream(path);
-        std::stringstream str_stream;
-        str_stream<<stream.rdbuf();
-
-        YAML::Node data = YAML::Load(str_stream.str());
-
-        if (!data["Scene"])
-            return nullptr;
-
-        std::string scene_name = data["Scene"].as<std::string>();
-        Scene* scene = new Scene(scene_name);
-       
-        scene->main_camera = UUID(data["Main Camera"].as<uint64_t>());
-
-        auto entities = data["Entities"];
-
-        for (auto entity : entities) {
-            read_entity_from_file(entity, scene);
+    void detect_and_add_entities(YAML::Node& entities, Scene* scene) {
+        for (const auto& entity : entities) {
+            DU_ASSERT(!entity["Entity"], "No uuid given to entity");
+            uint64_t uuid = entity["Entity"].as<uint64_t>(); 
+            scene->create_entity_with_uuid(uuid);
         }
-
-
-        EG_CORE_INFO("Finished reading scene {}", scene_name.c_str());
-
-        return scene;
     }
 
-    void Scene::add_from_file(const char* path) {
+    void Scene::add_from_file(const char* path, std::filesystem::path root) {
         std::ifstream stream(path);
         std::stringstream str_stream;
         str_stream<<stream.rdbuf();
 
         YAML::Node data = YAML::Load(str_stream.str());
 
-        EG_ASSERT(!data["Scene"],"Cannot read {}, scene does not exist", path );
+        DU_ASSERT(!data["Scene"],"Cannot read {}, scene does not exist", path );
 
         std::string scene_name = data["Scene"].as<std::string>();
         name = scene_name;
-        main_camera = UUID(data["Main Camera"].as<uint64_t>());
 
+        DU_ASSERT(!data["Render Data"], "Section Render Data for scene {} not found", scene_name);
+
+        auto render_data = data["Render Data"];
+        main_camera = UUID(render_data["Main Camera"].as<uint64_t>());
+        s_render_data.clear_color = render_data["Clear Color"].as<glm::vec4>();
+        s_render_data.ambient = render_data["Ambient"].as<glm::vec3>();
+        s_render_data.ambient_strength = render_data["Ambient Strength"].as<float>();
+
+        DU_ASSERT(!data["Entities"], "Section Entities for scene {} not found", scene_name);
         auto entities = data["Entities"];
+        detect_and_add_entities(entities, this);
 
         for (auto entity : entities) {
-            read_entity_from_file(entity, this);
+            read_entity_from_file(entity, this, root);
         }
 
-        EG_CORE_INFO("Finished adding to scene {}", scene_name.c_str());
+        DU_CORE_INFO("Finished adding to scene {}", scene_name.c_str());
+    }
+
+
+    std::string extract_scene_name(const char* path) {
+        std::ifstream stream(path);
+        DU_ASSERT(stream.fail(), "Could not extract scene name from {}", path);
+        std::stringstream str_stream;
+        str_stream<<stream.rdbuf();
+
+        YAML::Node data = YAML::Load(str_stream.str());
+
+        DU_ASSERT(!data["Scene"],"Cannot extract from {}, scene name does not exist", path );
+
+        return data["Scene"].as<std::string>();
     }
 
 }

@@ -6,29 +6,27 @@ namespace engine {
         UpdateComp() { inner_name = "UNKNOWN"; }
         virtual void on_update(Scene* scene, Entity self, float dt) = 0;
         virtual UpdateComp* copy() = 0;
-        virtual void serialize(YAML::Emitter& out) {
-            out<<YAML::Key<<"Default"<<YAML::Value<<"Default";
-        }
-        virtual void dserialize(const YAML::Node& node) {
-            EG_ASSERT(inner_name == "UNKNOWN","Trying to dserialize unspecified action"); 
-        }
-        virtual ~UpdateComp() {}
+        virtual void serialize(YAML::Emitter& out);
+        virtual void dserialize(const YAML::Node& node);
+        virtual ~UpdateComp();
 
         std::string inner_name = "UNKNOWN";
     };
 
     struct ActionsComp {
+
+        using UpdatePtr = std::shared_ptr<UpdateComp>;
+
         ActionsComp();
-        ActionsComp (std::vector<UpdateComp*> actions) {this->actions = actions;}
+        ActionsComp (std::vector<UpdatePtr>& actions) {this->actions = std::move(actions);}
 
         ActionsComp& add(UpdateComp* comp, std::string name = "UNKNOWN");
         ActionsComp& add(const char* action);
         UpdateComp* get_last();
-        std::vector<UpdateComp*> actions;
+        std::vector<UpdatePtr> actions;
 
         static bool register_action(const std::string& name, UpdateComp* comp);
-        static void free_registered_actions();
     private:
-        static std::unordered_map<std::string, UpdateComp*>registered_actions;
+        static std::unordered_map<std::string, UpdatePtr>registered_actions;
     };
 }

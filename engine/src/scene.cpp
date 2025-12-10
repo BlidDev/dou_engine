@@ -1,14 +1,20 @@
-#include "component.h"
-#include "systems.h"
 #include "scene.h"
 #include "entity.h"
+#include "manager.h"
 
-namespace engine 
-{
+namespace engine {
 
-    Entity Scene::create_entity() {
-        return create_entity_with_uuid(UUID());
+    Scene::Scene(std::string name) {
+        this->name = name;
+        manager = nullptr;
+        registry = {};
+        uuids = {};
+        main_camera = 0;
+        file_path = "";
+        s_render_data = {};
     }
+
+    Entity Scene::create_entity() { return create_entity_with_uuid(UUID()); }
 
     Entity Scene::create_entity_with_uuid(uint64_t uuid) {
         Entity tmp(this, registry.create());
@@ -23,62 +29,55 @@ namespace engine
     }
 
     entt::entity Scene::uuid_to_entt(UUID uuid) {
-        EG_ASSERT(uuids.find(uuid) == uuids.end(), "ERROR: Unknown UUID {}", uuid.get_uuid());
-        return uuids[uuid];
+        const auto& it = uuids.find(uuid);
+        DU_ASSERT(it == uuids.end(), "ERROR: Unknown UUID {}", uuid.get_uuid());
+        return it->second;
     }
 
-    SceneManager::SceneManager() {
-        current = "NONE";
+    UUID Scene::entt_to_uuid(entt::entity id) {
+        DU_ASSERT(!registry.valid(id), "Trying to convert non existant id to uuid");
+        const auto it = std::find_if(uuids.begin(), uuids.end(), [&id](const auto& pair){return pair.second == id;});
+        DU_ASSERT(it == uuids.end(), "Could not convert id {} to uuid", (uint32_t)id);
+        return it->first;
     }
 
-    Scene* SceneManager::register_scene(const char* name, Scene* scene) {
-        EG_ASSERT(scenes.contains(name), "Scene {} already exists", name);
-        scene->manager = this;
-        scenes.insert(std::make_pair(name, scene));
-        return scene;
-    }
-
-    Scene* SceneManager::get_scene(const char* name) {
-        Scene* ptr = nullptr;
-        EG_ASSERT(scenes.find(name) == scenes.end(),"Scene {} does not exist", name);
-        ptr = scenes.at(name);
-        return ptr;
-    }
-
-
-    void SceneManager::set_current(const char* name) {
-        switched = true;
-        if (current != "NONE") {
-            Scene* old = get_current();
-            end_scene(old);
+    void Scene::remove_entity(UUID uuid) {
+        Entity e = uuid_to_entity(uuid);
+        if (e.is_child()) {
+            e.get_parent().remove_child(uuid);
         }
-        if(get_scene(name))
-            current = name;
+
+        uuids.erase(uuid);
+        registry.destroy(e.id());
     }
 
-
-    void SceneManager::end_scene(Scene* scene) {
-        scene->on_end();
-        end_actions(scene->registry);
-        scene->registry.clear();
-        scene->uuids.clear();
+    void Scene::register_shader(const char* name) {
+        manager->register_shader(name);
     }
 
-    Scene* SceneManager::get_current() {
-        Scene* ptr = nullptr;
-        EG_ASSERT(current == "NONE", "Current scene not set");
-        ptr = scenes.at(current);
-        return ptr;
+    Shader& Scene::get_shader(const char* name) {
+        const auto& it = manager->shader_lib.find(name);
+        DU_ASSERT(it == manager->shader_lib.end(), "Could not find registered shader [{}]", name);
+
+        return it->second;
+    }
+    Texture& Scene::get_texture(const char* name) {
+        const auto& it = manager->texture_lib.find(name);
+        DU_ASSERT(it == manager->texture_lib.end(), "Could not find registered texture [{}]", name);
+
+        return it->second;
+    }
+    Model& Scene::get_model(const char* name) {
+        const auto& it = manager->model_lib.find(name);
+        DU_ASSERT(it == manager->model_lib.end(), "Could not find registered model [{}]", name);
+
+        return it->second;
     }
 
-    void SceneManager::end() {
-        if ("NONE" != current)
-            get_current()->on_end();
-    }
+    std::string& Scene::get_script(const char* name) {
+        const auto& it = manager->script_lib.find(name);
+        DU_ASSERT(it == manager->script_lib.end(), "Could not find registered script [{}]", name);
 
-    SceneManager::~SceneManager() {
-        for (auto& scene : scenes) {
-            delete scene.second;
-        }
+        return it->second;
     }
-}
+} 
