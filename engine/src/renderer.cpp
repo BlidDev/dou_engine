@@ -55,6 +55,7 @@ namespace engine {
                 glUniformBlockBinding(shader.program, index, ubo.binding_point);
             }
         }
+        DU_CORE_DEBUG_TRACE("Bounded {} UBOs to {} shaders", data.ubos.size(), shaders.size());
     }
 
 
@@ -144,5 +145,6 @@ namespace engine {
         manager->render_data.add("PntLights", pnt_size * max + sizeof(int));
 
         engine::ubos_shaders_bind(manager->render_data, manager->shader_lib);
+        DU_CORE_DEBUG_TRACE("Created default UBOs");
     }
 }

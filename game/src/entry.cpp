@@ -11,10 +11,12 @@ int engine::on_start(engine::SceneManager* manager) {
     manager->main_window = Window("notray", 1280, 720);
     manager->render_data.screen_w = 1280;
     manager->render_data.screen_h = 720;
-    engine::set_input_window(manager->main_window);
 
-    std::string name;
-    read_project_file("res/projects/test.prj", manager);
+
+    set_input_window(manager->main_window);
+    set_clear_flags(manager->render_data, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    make_default_ubos(manager);
+
 
 
     manager->register_model("triangle", ModelBuilder().vertices(engine::P_TRIANGLE, 9));
@@ -22,20 +24,25 @@ int engine::on_start(engine::SceneManager* manager) {
     manager->register_model("cube_tex", ModelBuilder().vertices(engine::P_CUBE_TEXTURE, 180).textured());
 
 
+    read_project_file("res/projects/test.prj", manager);
+    ubos_shaders_bind(manager->render_data, manager->shader_lib);
+
     manager->register_scene<LightScene>("light");
     manager->register_scene<ThingScene>("thing");
+
+
+
     manager->set_current("thing");
     return 0;
 }
 
 
 int engine::on_end(engine::SceneManager* manager) {
-    glfwTerminate();
     return 0;
 }
 
-std::unique_ptr<Scene> engine::create_runtime_scene() {
-    return std::make_unique<DefaultRT>();
+std::unique_ptr<engine::Scene> engine::create_runtime_scene() {
+    return std::make_unique<engine::DefaultRT>();
 }
 
 void register_actions() {

@@ -28,10 +28,7 @@ namespace engine {
     ActionsComp& ActionsComp::add(const char* action) {
         const auto& it = registered_actions.find(std::string(action));
         DU_ASSERT(it == registered_actions.end(), "Trying to add unregistered action [{}]", action);
-        UpdateComp* tmp = it->second.get();
-        UpdateComp* update = tmp->copy();
-        update->inner_name = tmp->inner_name;
-        actions.push_back(UpdatePtr(update));
+        actions.push_back(it->second);
 
         return *this;
     }

@@ -100,7 +100,9 @@ namespace engine {
                 if(add_paths) p_data->texture_paths.push_back(tx_dir);
                 for (const auto & entry : fs::directory_iterator(actual)) {
                     fs::path tmp = entry.path();
-                    if (tmp.extension() != ".png" && tmp.extension() != "jpg") continue;
+                    std::array<const char*, 3> acceptables =  {".png", ".jpg", ".jpeg"};
+                    bool contains = std::find(acceptables.begin(), acceptables.end(), tmp.extension()) != acceptables.end();
+                    if (!contains) continue;
                     manager->register_texture((tx_dir / tmp.filename()).c_str());
                 }
             }

@@ -7,8 +7,6 @@ local speed =3
 jump = 10
 sensi = 0.1
 
-local affectedcounter = 0
-local affected = true
 
 other = nil
 othero = nil
@@ -22,15 +20,13 @@ function on_init()
 end
 
 
-local counter = 0;
 local flashlight = false
-
-
-local mousecounter = 0;
+local affected = true
 local captured = true
-
-local wirecounter = 100
 local wire = false
+
+
+
 
 local made_child = false
 
@@ -40,7 +36,7 @@ function on_update(dt)
     speed = init_speed
     update_camera_target(cm, t:position());
 
-    if is_key_down(util.KeyboardKey.LEFT_ALT) and affectedcounter > 10 then
+    if is_key_clicked(util.KeyboardKey.LEFT_ALT)then
         if affected then
             affected = false
             ph.gravity = 0.0
@@ -50,10 +46,10 @@ function on_update(dt)
             ph.gravity = 0.2
             log_info("On")
         end
-        affectedcounter = 0;
     end
   
     if affected then
+
         if is_key_down(util.KeyboardKey.SPACE) and ph.move_delta.y == 0.0 then ph.velocity.y =  ph.velocity.y + 10.0 end
     else
         ph.velocity.y = 0.0
@@ -88,9 +84,8 @@ function on_update(dt)
         ot:translate(vec3.new(0,0.5,0))
     end
 
-    if is_key_down(util.KeyboardKey.F) and counter >= 10 then
+    if is_key_clicked(util.KeyboardKey.F) then
         flashlight = not flashlight
-        counter = 0
     end
 
     local spot = get_spotlight(scene, this)
@@ -98,41 +93,17 @@ function on_update(dt)
     spot.direction = last_dir
     if flashlight then spot.color = vec3.new(0.97, 0.96, 0.51) else spot.color = vec3.new(0.0) end
 
-    if is_key_down(util.KeyboardKey.O) and wirecounter >= 10 then
+    if is_key_down(util.KeyboardKey.O) then
         set_layer_wireframe(scene, 0, wire)
         wire = not wire
-        wirecounter =0
     end
 
-    if is_key_down(util.KeyboardKey.G) and mousecounter >= 10 then
-        if captured == true then
-            set_input_mode(scene, util.InputSbj.CURSOR, util.InputMode.CURSOR_NORMAL)
-            captured = false
-        else
+    if is_key_clicked(util.KeyboardKey.G) then
+        mode = captured and util.InputMode.CURSOR_NORMAL or util.InputMode.CURSOR_DISABLED;
 
-            set_input_mode(scene, util.InputSbj.CURSOR, util.InputMode.CURSOR_DISABLED)
-            captured = true
-        end
+        set_input_mode(scene, util.InputSbj.CURSOR, mode)
+        captured = not captured
     end
-
-    if is_key_down(util.KeyboardKey.H) and not made_child then
-        make_child_of(scene, other, this)
-        make_child_of(scene, othero, this)
-        log_info("yooo")
-         made_child = true
-    end
-
-    if is_key_down(util.KeyboardKey.C) and made_child then
-        remove_children(scene, this)
-        log_info("oooy")
-        made_child = false
-    end
-
-
-    affectedcounter = affectedcounter + 1
-    counter = counter + 1
-    mousecounter = mousecounter + 1
-    wirecounter = wirecounter + 1
 
 end
 

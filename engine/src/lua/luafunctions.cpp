@@ -42,6 +42,8 @@ namespace engine {
       env.set_function("v3_normalize", [](glm::vec3 t){ return glm::normalize(t);});
 
       env.set_function("is_key_down", is_key_pressed);
+      env.set_function("is_key_released", is_key_released);
+      env.set_function("is_key_clicked", is_key_clicked);
       env.set_function("set_input_mode", set_input_mode);
 
 

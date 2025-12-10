@@ -2,7 +2,6 @@
 #pragma once
 #include <engine.h>
 
-using namespace engine;
 
 class ThingScene : public engine::Scene {
 public:
@@ -17,5 +16,5 @@ public:
     bool should_close(); 
 private:
     bool close;
-    Entity player;
+    engine::Entity player;
 };

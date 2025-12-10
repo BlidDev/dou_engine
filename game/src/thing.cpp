@@ -1,22 +1,15 @@
 #include "thing.h"
 #include "renderer.h"
 
+using namespace engine;
 
 ThingScene::ThingScene() : Scene("thing") {
     close = false;
 }
 
 void ThingScene::on_create() {
-    //glEnable(GL_BLEND);
-    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    //glfwSwapInterval(1);
-    set_input_window(manager->main_window);
+
     glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    make_default_ubos(manager);
-
-    set_clear_flags(manager->render_data, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
     add_from_file("res/thing.scene");
 
     player = uuid_to_entity(main_camera);
@@ -25,10 +18,7 @@ void ThingScene::on_create() {
 
 
 void ThingScene::on_update(float dt) {
-
-    if(is_key_pressed(GLFW_KEY_ESCAPE))
-        close = true;
-
+    close = is_key_pressed(GLFW_KEY_ESCAPE);
     actions(this,dt);
     lua_action_update(this, dt);
     physics(registry,dt);
@@ -40,6 +30,7 @@ void ThingScene::on_update(float dt) {
     present_camera(player, get_model("quad_tex"));
     glfwSwapBuffers(manager->main_window);
     glfwPollEvents();
+
 }
 
 

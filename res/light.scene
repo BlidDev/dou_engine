@@ -1,0 +1,74 @@
+Scene: light
+Render Data:
+  Main Camera: 1505045888714095814
+  Ambient: [1, 1, 1]
+  Ambient Strength: 0.1
+  Clear Color: [0, 0, 0, 0]
+Entities:
+  - Entity: 3555899310730669703
+    Transform:
+      Position: [0, -0.5, 0]
+      Size: [1000, 0, 1000]
+      Rotation: [0, 0, 0]
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+  - Entity: 1375452278144457525
+    Transform:
+      Position: [0, 1, 0]
+      Size: [1, 1, 1]
+      Rotation: [0, 0, 0]
+    Model:
+      Model Name: cube_tex
+      Layer: 0
+      Material:
+        Shader: textured.glsl
+        Filled: false
+        Ambient: [0, 0, 0]
+        Diffuse: [0, 0, 0]
+        Specular: [0, 0, 0]
+        Shininess: 0
+        Texture: proto.png
+        Textured: true
+        Immune: false
+    PhysicsBody:
+      Gravity: 0
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+  - Entity: 1505045888714095814
+    Transform:
+      Position: [0, 2, -2]
+      Size: [1, 1, 1]
+      Rotation: [0, 0, 0]
+    Native Actions:
+      - Name: SimpleAct
+        Default: Default
+    PhysicsBody:
+      Gravity: 0.2
+      Velocity: [0, 0, 0]
+      Accelaration: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+    Camera:
+      Target: [0, 0, 0]
+      Up: [0, 1, 0]
+      FovY: 45
+      Projection: 0
+      Max Distance: 30
+      Present Shader: camerapresent.glsl
+    SptLight:
+      Color: [1, 1, 1]
+      Direction: [0, -1, 0]
+      Constant: 1
+      Linear: 0.05
+      Quadratic: 0.021
+      Cut off: 12.5
+      Outer cut off: 17.5

@@ -1,11 +1,5 @@
 #pragma once
 
-// shaders
-// textures
-// current
-// models
-// layers
-
 #include "renderer.h"
 
 namespace engine {
