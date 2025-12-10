@@ -119,3 +119,6 @@ vendor/glad/*.vcxproj
 vendor/glad/*.vcxproj.filters
 
 compile_commands.json
+
+
+*.sh
