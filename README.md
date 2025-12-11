@@ -9,7 +9,7 @@ This is the core engine library, there's also [Whisk - a GUI based editor](https
 #### _Disclaimer_
 _DouEngine was created purely for learning/fun purpose and by **no means** was meant not recommend to be used as an actual engine for your games, have fun using it for anything else though!_
 
-[add cool screenshot idk]
+![Very cool example scene](screenshots/demo_scene.png)
 <br>
 
 ---
