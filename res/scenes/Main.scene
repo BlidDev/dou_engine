@@ -13,7 +13,7 @@ Entities:
       Size: [1, 1, 1]
       Rotation: [0, -0, 0]
     Model:
-      Model Name: cube
+      Mesh Name: cube
       Layer: 0
       Material:
         Shader: basic.glsl
@@ -57,7 +57,7 @@ Entities:
       Size: [3, 0.5, 3]
       Rotation: [0, 12.4, 0]
     Model:
-      Model Name: cube_tl
+      Mesh Name: cube_tl
       Layer: 0
       Material:
         Shader: lightingt.glsl
@@ -120,7 +120,7 @@ Entities:
       Size: [1, 1, 1]
       Rotation: [0, 90, 0]
     Model:
-      Model Name: quad_tex
+      Mesh Name: quad_tex
       Layer: 1
       Material:
         Shader: textured.glsl

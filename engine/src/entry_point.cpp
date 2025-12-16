@@ -1,4 +1,3 @@
-#include "components/luascript.h"
 #include "entry_point.h"
 #include "manager.h"
 
@@ -12,7 +11,6 @@ int main() {
     glfwInit();
 
     Log::init();
-    LuaManager::init();
 
     SceneManager manager;
     on_start(&manager);

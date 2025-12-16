@@ -19,9 +19,9 @@ int engine::on_start(engine::SceneManager* manager) {
 
 
 
-    manager->register_model("triangle", ModelBuilder().vertices(engine::P_TRIANGLE, 9));
-    manager->register_model("quad", ModelBuilder().vertices(engine::P_QUAD, 12).indices(engine::I_QUAD, 6));
-    manager->register_model("cube_tex", ModelBuilder().vertices(engine::P_CUBE_TEXTURE, 180).textured());
+    manager->register_mesh("triangle", MeshBuilder().vertices(engine::P_TRIANGLE, 9));
+    manager->register_mesh("quad", MeshBuilder().vertices(engine::P_QUAD, 12).indices(engine::I_QUAD, 6));
+    manager->register_mesh("cube_tex", MeshBuilder().vertices(engine::P_CUBE_TEXTURE, 180).textured());
 
 
     read_project_file("res/projects/test.prj", manager);

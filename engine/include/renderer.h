@@ -73,9 +73,10 @@ namespace engine {
     void set_clear_flags(RenderData& data, int flags);
 
     void make_default_ubos(SceneManager* manager);
+
+    void clear_buffers(glm::vec4 clear_color, int flags);
 }
 
-#include "formatting.h"
 
 template<>
 struct fmt::formatter<engine::UBO> : fmt::formatter<std::string>{

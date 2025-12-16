@@ -48,12 +48,12 @@ namespace engine {
 
     struct ModelComp {
         Material material;
-        Model model;
+        Mesh mesh;
         size_t layer;
 
         ModelComp();
 
-        ModelComp(Model model, Material material, size_t layer = 0);
+        ModelComp(Mesh mesh, Material material, size_t layer = 0);
         
     };
 }

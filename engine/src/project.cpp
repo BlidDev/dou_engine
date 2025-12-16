@@ -16,7 +16,7 @@ namespace engine {
         scene_paths = {};
         shader_paths = {};
         texture_paths = {};
-        model_paths = {};
+        mesh_paths = {};
         script_paths = {};
     }
 
@@ -108,20 +108,20 @@ namespace engine {
             }
         }
 
-        auto models = paths["Models"];
-        if (models) {
-            for (const auto& path : models) {
+        auto meshs = paths["Meshes"];
+        if (meshs) {
+            for (const auto& path : meshs) {
                 fs::path md_dir = path.as<std::string>();
                 fs::path actual = p_data->root_path / md_dir;
-                DU_ASSERT(!fs::is_directory(actual), "Trying to read models from {} no such directory", actual.string());
-                if(add_paths) p_data->model_paths.push_back(md_dir);
+                DU_ASSERT(!fs::is_directory(actual), "Trying to read meshs from {} no such directory", actual.string());
+                if(add_paths) p_data->mesh_paths.push_back(md_dir);
                 for (const auto & entry : fs::directory_iterator(actual)) {
                     if (entry.path().extension() != ".sff") continue;
-                    std::string model_name = "unnamed";
+                    std::string mesh_name = "unnamed";
 
-                    Model model = model_from_file(entry.path().c_str(), &model_name);
-                    DU_ASSERT(model_name == "unnamed", "Model {} wasn't given any name");
-                    manager->register_model(model_name.c_str(), model);
+                    Mesh mesh = mesh_from_file(entry.path().c_str(), &mesh_name);
+                    DU_ASSERT(mesh_name == "unnamed", "Model {} wasn't given any name");
+                    manager->register_mesh(mesh_name.c_str(), mesh);
                 }
 
             }
@@ -201,8 +201,8 @@ namespace engine {
                     for (const auto& p : data.texture_paths) { out<<ym::Key<<p.c_str(); }
                 out<<ym::EndSeq;
 
-                out<<ym::Key<<"Models"<<ym::BeginSeq;
-                    for (const auto& p : data.model_paths) { out<<ym::Key<<p.c_str(); }
+                out<<ym::Key<<"Meshes"<<ym::BeginSeq;
+                    for (const auto& p : data.mesh_paths) { out<<ym::Key<<p.c_str(); }
                 out<<ym::EndSeq;
 
                 out<<ym::Key<<"Scripts"<<ym::BeginSeq;

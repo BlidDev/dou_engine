@@ -45,6 +45,11 @@ namespace engine {
         glfwMaximizeWindow(window);
     }
 
+    void Window::swap_and_poll() {
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
+
     void init_glfw() {
 
         glfwInit();

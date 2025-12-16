@@ -132,7 +132,7 @@ namespace engine {
         if (entity.has_component<ModelComp>()) {
             out<<YAML::Key<<"Model"<<YAML::BeginMap;
                 auto& m = entity.get_component<ModelComp>();
-                out<<YAML::Key<<"Model Name"<<YAML::Value<<m.model.name;
+                out<<YAML::Key<<"Mesh Name"<<YAML::Value<<m.mesh.name;
                 out<<YAML::Key<<"Layer"<<YAML::Value<<m.layer;
                 out<<YAML::Key<<"Material"<<YAML::BeginMap;
                     out<<YAML::Key<<"Shader"<<YAML::Value<<m.material.shader.path;
@@ -312,8 +312,8 @@ namespace engine {
         auto model_comp = entity["Model"];
         if (model_comp) {
             ModelComp& m = read_entity.add_component<ModelComp>();
-            std::string model_name = model_comp["Model Name"].as<std::string>();
-            m.model = scene->get_model(model_name.c_str());
+            std::string model_name = model_comp["Mesh Name"].as<std::string>();
+            m.mesh = scene->get_mesh(model_name.c_str());
             auto material = model_comp["Material"];
             std::string shader_name = material["Shader"].as<std::string>();
             m.material.shader = scene->get_shader(shader_name.c_str());

@@ -23,7 +23,7 @@ Entities:
       Size: [1, 1, 1]
       Rotation: [0, 0, 0]
     Model:
-      Model Name: cube_tex
+      Mesh Name: cube_tex
       Layer: 0
       Material:
         Shader: textured.glsl

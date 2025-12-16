@@ -67,9 +67,9 @@ namespace engine {
 
         return it->second;
     }
-    Model& Scene::get_model(const char* name) {
-        const auto& it = manager->model_lib.find(name);
-        DU_ASSERT(it == manager->model_lib.end(), "Could not find registered model [{}]", name);
+    Mesh& Scene::get_mesh(const char* name) {
+        const auto& it = manager->mesh_lib.find(name);
+        DU_ASSERT(it == manager->mesh_lib.end(), "Could not find registered model [{}]", name);
 
         return it->second;
     }

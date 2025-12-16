@@ -147,4 +147,9 @@ namespace engine {
         engine::ubos_shaders_bind(manager->render_data, manager->shader_lib);
         DU_CORE_DEBUG_TRACE("Created default UBOs");
     }
+
+    void clear_buffers(glm::vec4 clear_color, int flags) {
+          glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
+          glClear(flags);
+    }
 }

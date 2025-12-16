@@ -13,7 +13,7 @@ namespace engine {
         std::vector<std::filesystem::path> scene_paths;
         std::vector<std::filesystem::path> shader_paths;
         std::vector<std::filesystem::path> texture_paths;
-        std::vector<std::filesystem::path> model_paths;
+        std::vector<std::filesystem::path> mesh_paths;
         std::vector<std::filesystem::path> script_paths;
 
         ProjectData(std::string name = "");

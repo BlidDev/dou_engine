@@ -9,7 +9,7 @@ namespace engine {
         TEXTURE = 0b0100,
         NORMAL  = 0b1000
     };
-    struct Model {
+    struct Mesh {
         unsigned int VAO = 0, VBO = 0, EBO = 0, nvertices, nindices;
         std::string name = "UNKNOWN";
         int vao_format;
@@ -21,15 +21,15 @@ namespace engine {
         void free();
     };
 
-    struct ModelBuilder {
-        ModelBuilder (std::string name = "UNKNOWN");
-        ModelBuilder& vertices(float vertices[], unsigned int size);
-        ModelBuilder& textured();
-        ModelBuilder& normals();
-        ModelBuilder& indices(unsigned int indices[], unsigned int size);
-        Model build();
+    struct MeshBuilder {
+        MeshBuilder (std::string name = "UNKNOWN");
+        MeshBuilder& vertices(float vertices[], unsigned int size);
+        MeshBuilder& textured();
+        MeshBuilder& normals();
+        MeshBuilder& indices(unsigned int indices[], unsigned int size);
+        Mesh build();
 
-        operator Model() {
+        operator Mesh() {
             return build();
         }
 
@@ -38,11 +38,11 @@ namespace engine {
         unsigned int* indices_p;
         int vao_format; 
 
-        Model model;
+        Mesh mesh;
 
     };
 
     unsigned int apply_format(int format);
 
-    Model model_from_file(const char* path, std::string* name = nullptr);
+    Mesh mesh_from_file(const char* path, std::string* name = nullptr);
 }

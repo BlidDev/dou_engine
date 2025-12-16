@@ -7,6 +7,8 @@ namespace engine {
          0.0f,  0.5f, 0.0f  // top   
     }; 
 
+    int P_TRIANGLE_S = 9;
+
     float P_CUBE[]  = {
         -0.5f, -0.5f, -0.5f,  
          0.5f, -0.5f, -0.5f,  
@@ -51,17 +53,23 @@ namespace engine {
         -0.5f,  0.5f, -0.5f,  
     };
 
-   float P_QUAD[] = {
+    int P_CUBE_S = 108;
+
+    float P_QUAD[] = {
          0.5f,  0.5f, 0.0f,  
          0.5f, -0.5f, 0.0f,  
         -0.5f, -0.5f, 0.0f,  
         -0.5f,  0.5f, 0.0f   
     };
 
+    int P_QUAD_S = 12;
+
     unsigned int I_QUAD[] = {
         0, 1, 3,    
         1, 2, 3     
     };
+
+    int I_QUAD_S = 6;
 
     float P_CUBE_TEXTURE[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
@@ -106,5 +114,7 @@ namespace engine {
         -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
     };
+
+    int P_CUBE_TEXTURE_S = 205;
 }
 

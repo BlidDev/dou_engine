@@ -30,8 +30,7 @@ namespace engine {
 
 
       if(!external_clear) {
-          glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
-          glClear(data.clear_flags);
+          clear_buffers(clear_color, data.clear_flags);
       }
 
       if (p_camera.framebuffer.last_scale != view_size) {
@@ -74,7 +73,7 @@ namespace engine {
               if((!immune && distance > p_camera.max_distance) || obj.layer != i) continue;
 
               DU_ASSERT(obj.material.attributes == 0, "Model [{}] has no attributes",
-                      obj.model.name);
+                      obj.mesh.name);
 
 
               glUseProgram(obj.material.shader);
@@ -84,9 +83,9 @@ namespace engine {
               glm::mat4 model = pos.get_model();
               set_shader_m4(obj.material.shader, "model", model);
 
-              bool filled = (obj.material.attributes & MODEL_FILLED) == MODEL_FILLED;
+              //bool filled = (obj.material.attributes & MODEL_FILLED) == MODEL_FILLED;
 
-              if (obj.model.normals()) {
+              if (obj.mesh.normals()) {
                   glm::mat3 normal = glm::transpose(glm::inverse(model));
                   set_shader_m3(obj.material.shader, "normal_mat", normal);
               }
@@ -97,14 +96,14 @@ namespace engine {
 
 
               if (atrb.wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-              glBindVertexArray(obj.model.VAO);
+              glBindVertexArray(obj.mesh.VAO);
 
 
-              if (obj.model.nindices > 0) {
-                  glDrawElements(GL_TRIANGLES, obj.model.nindices, GL_UNSIGNED_INT, 0);
+              if (obj.mesh.nindices > 0) {
+                  glDrawElements(GL_TRIANGLES, obj.mesh.nindices, GL_UNSIGNED_INT, 0);
               }
               else {
-                  glDrawArrays(GL_TRIANGLES, 0, obj.model.nvertices);
+                  glDrawArrays(GL_TRIANGLES, 0, obj.mesh.nvertices);
               }
 
               if (atrb.wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -200,7 +199,7 @@ namespace engine {
 
 
 
-    void present_camera(Entity& viewer, Model& model, uint32_t parent_fb) {
+    void present_camera(Entity& viewer, Mesh& moesh, uint32_t parent_fb) {
         DU_ASSERT(!viewer.has_component<CameraComp>(), "Trying to present entity {} but it has no camera component", viewer.uuid());
         CameraComp& camera = viewer.get_component<CameraComp>();
         DU_ASSERT(!camera.framebuffer, "Trying to present entity {} but framebuffer is invalid", viewer.uuid());
@@ -226,14 +225,14 @@ namespace engine {
         glBindTexture(GL_TEXTURE_2D, camera.framebuffer.texture);
 
 
-        glBindVertexArray(model.VAO);
+        glBindVertexArray(moesh.VAO);
 
 
-        if (model.nindices > 0) {
-          glDrawElements(GL_TRIANGLES, model.nindices, GL_UNSIGNED_INT, 0);
+        if (moesh.nindices > 0) {
+          glDrawElements(GL_TRIANGLES, moesh.nindices, GL_UNSIGNED_INT, 0);
         }
         else {
-          glDrawArrays(GL_TRIANGLES, 0, model.nvertices);
+          glDrawArrays(GL_TRIANGLES, 0, moesh.nvertices);
         }
 
         if (parent_fb != 0) {

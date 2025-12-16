@@ -24,6 +24,8 @@ namespace engine {
         explicit operator bool() {
             return window != nullptr;
         }
+
+        void swap_and_poll();
     private:
         GLFWwindow* window;
         int w,h;
@@ -35,6 +37,4 @@ namespace engine {
 
     void init_glfw();
     void set_context(Window* window);
-
-
 }

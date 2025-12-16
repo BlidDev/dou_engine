@@ -10,7 +10,7 @@ namespace engine {
 
         shader_lib = {};
         texture_lib = {};
-        model_lib = {};
+        mesh_lib = {};
         script_lib = {};
     }
 
@@ -81,7 +81,7 @@ namespace engine {
 
         for (auto& [_, s] : shader_lib) { s.free(); }
         for (auto& [_, t] : texture_lib) { t.free(); }
-        for (auto& [_, m] : model_lib) { m.free(); }
+        for (auto& [_, m] : mesh_lib) { m.free(); }
 
     }
 
@@ -118,11 +118,11 @@ namespace engine {
         DU_CORE_DEBUG_TRACE("Registered texture {}", name);
     }
 
-    void SceneManager::register_model(const char* name, Model model) {
-        DU_ASSERT(model_lib.contains(name), "Model [{}] already registered", name);
-        model.name = name;
-        model_lib.insert(std::make_pair(std::string(name), model));
-        DU_CORE_DEBUG_TRACE("Registered model {}", name);
+    void SceneManager::register_mesh(const char* name, Mesh mesh) {
+        DU_ASSERT(mesh_lib.contains(name), "Mesh [{}] already registered", name);
+        mesh.name = name;
+        mesh_lib.insert(std::make_pair(std::string(name), mesh));
+        DU_CORE_DEBUG_TRACE("Registered mesh {}", name);
     }
 
     void SceneManager::register_script(const char* path) {

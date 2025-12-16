@@ -26,7 +26,6 @@ struct Material {
 };
 
 
-uniform vec3 color;
 uniform Material material;
 
 void main() {

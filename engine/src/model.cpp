@@ -4,16 +4,16 @@
 namespace engine {
 
 
-    bool Model::textured() {
+    bool Mesh::textured() {
         return ((vao_format & VAO::TEXTURE) == VAO::TEXTURE);
     }
 
-    bool Model::normals() {
+    bool Mesh::normals() {
         return ((vao_format & VAO::NORMAL) == VAO::NORMAL);
     }
 
 
-    void Model::free() {
+    void Mesh::free() {
         glDeleteVertexArrays(1, &VAO);
         if (nindices > 0) {
             glDeleteBuffers(1, &EBO);
@@ -59,64 +59,64 @@ namespace engine {
 
     }
     
-    ModelBuilder::ModelBuilder (std::string name) {
-        model.name = name;
+    MeshBuilder::MeshBuilder (std::string name) {
+        mesh.name = name;
         vertices_p = nullptr;
         indices_p  = nullptr;
-        model.nvertices = 0;
-        model.nindices = 0;
+        mesh.nvertices = 0;
+        mesh.nindices = 0;
         vao_format = VAO::NONE;
 
     }
 
-    ModelBuilder& ModelBuilder::vertices(float vertices[], unsigned int size) {
+    MeshBuilder& MeshBuilder::vertices(float vertices[], unsigned int size) {
         vertices_p = vertices;
-        model.nvertices = size;
+        mesh.nvertices = size;
         vao_format |= VAO::BASIC;
         return *this;
     }
 
-    ModelBuilder& ModelBuilder::textured() {
+    MeshBuilder& MeshBuilder::textured() {
         vao_format |= VAO::TEXTURE;
 
         return *this;
     }
 
-    ModelBuilder& ModelBuilder::normals() {
+    MeshBuilder& MeshBuilder::normals() {
         vao_format |= VAO::NORMAL;
         return *this;
     }
 
-    ModelBuilder& ModelBuilder::indices(unsigned int indices[], unsigned int size) {
+    MeshBuilder& MeshBuilder::indices(unsigned int indices[], unsigned int size) {
         indices_p = indices;
-        model.nindices = size;
+        mesh.nindices = size;
         vao_format |= VAO::INDICES;
         return *this;
     }
 
-    Model ModelBuilder::build() {
-        glGenVertexArrays(1, &model.VAO);
-        glGenBuffers(1, &model.VBO);
+    Mesh MeshBuilder::build() {
+        glGenVertexArrays(1, &mesh.VAO);
+        glGenBuffers(1, &mesh.VBO);
         if (indices_p)
-            glGenBuffers(1, &model.EBO);
-        DU_ASSERT(!vertices_p,"Null vertices gave to model [{}]", model.name);
+            glGenBuffers(1, &mesh.EBO);
+        DU_ASSERT(!vertices_p,"Null vertices gave to mesh [{}]", mesh.name);
         
-        glBindVertexArray(model.VAO);
-        glBindBuffer(GL_ARRAY_BUFFER, model.VBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * model.nvertices, vertices_p, GL_STATIC_DRAW);
+        glBindVertexArray(mesh.VAO);
+        glBindBuffer(GL_ARRAY_BUFFER, mesh.VBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh.nvertices, vertices_p, GL_STATIC_DRAW);
 
         if (indices_p) {
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, model.EBO);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * model.nindices, indices_p, GL_STATIC_DRAW);
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.EBO);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * mesh.nindices, indices_p, GL_STATIC_DRAW);
         }
 
 
         apply_format(vao_format);
-        model.vao_format = vao_format;
+        mesh.vao_format = vao_format;
 
         glBindVertexArray(0);
-        //DU_INFO("vao: {} vbo: {} ebo: {} nv: {} ni: {}", model.VAO, model.VBO, model.EBO, model.nvertices, model.nindices);
-        return model;
+        //DU_INFO("vao: {} vbo: {} ebo: {} nv: {} ni: {}", mesh.VAO, mesh.VBO, mesh.EBO, mesh.nvertices, mesh.nindices);
+        return mesh;
     }
 
     enum ReadIndex {
@@ -124,8 +124,8 @@ namespace engine {
         Name, Format, Vertices, Indices
     };
 
-    Model model_from_file(const char* path, std::string* name) {
-        ModelBuilder model_builder;
+    Mesh mesh_from_file(const char* path, std::string* name) {
+        MeshBuilder mesh_builder;
         ReadIndex index = None;
 
         std::string tmp_name = "unnamed";
@@ -157,8 +157,8 @@ namespace engine {
                 std::string format_word = "";
                 while (iss>>format_word) {
                     if (format_word == "POS") {continue;}
-                    else if (format_word == "TEX") {model_builder.textured(); continue;}
-                    else if (format_word == "NOR") {model_builder.normals(); continue;}
+                    else if (format_word == "TEX") {mesh_builder.textured(); continue;}
+                    else if (format_word == "NOR") {mesh_builder.normals(); continue;}
                     DU_CORE_ERROR("Unkown format word give [{}]", format_word);
                 }
             }
@@ -182,16 +182,16 @@ namespace engine {
         }
         file.close();
 
-        DU_ASSERT(vertices.empty(), "No positions given to model [{}]", path);
-        model_builder.vertices(&vertices[0], vertices.size());
+        DU_ASSERT(vertices.empty(), "No positions given to mesh [{}]", path);
+        mesh_builder.vertices(&vertices[0], vertices.size());
 
         if (!indices.empty()) {
-            model_builder.indices(&indices[0], indices.size());
+            mesh_builder.indices(&indices[0], indices.size());
         }
 
         if (name) *name = tmp_name;
 
-        return model_builder.build();
+        return mesh_builder.build();
     }
 
 
