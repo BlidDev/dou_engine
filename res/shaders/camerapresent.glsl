@@ -3,11 +3,6 @@
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec2 aTex;
 
-layout (std140) uniform Matrices{
-    mat4 projection;
-    mat4 view;
-};
-
 uniform mat4 model;
 uniform float ratio;
 

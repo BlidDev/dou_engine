@@ -14,7 +14,7 @@ namespace engine {
 
     void draw_to_camera(RenderData& data, glm::vec2 view_size, Entity& viewer,
                          entt::registry& registry, 
-                         SceneRenderData* s_render_data, bool external_clear, uint32_t parent_fb) {
+                         SceneRenderData* s_render_data, bool external_clear) {
 
       auto p_trans = viewer.get_component<TransformComp>();
       auto p_camera = viewer.get_component<CameraComp>();
