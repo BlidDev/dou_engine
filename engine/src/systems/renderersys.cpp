@@ -199,7 +199,7 @@ namespace engine {
 
 
 
-    void present_camera(Entity& viewer, Mesh& moesh, uint32_t parent_fb) {
+    void present_camera(Entity& viewer, Mesh& mesh) {
         DU_ASSERT(!viewer.has_component<CameraComp>(), "Trying to present entity {} but it has no camera component", viewer.uuid());
         CameraComp& camera = viewer.get_component<CameraComp>();
         DU_ASSERT(!camera.framebuffer, "Trying to present entity {} but framebuffer is invalid", viewer.uuid());
@@ -207,10 +207,6 @@ namespace engine {
         Shader& shader = camera.present_shader;
         DU_ASSERT(!shader, "Trying to present entity {} but shader is invalid", viewer.uuid());
 
-
-
-
-        glBindFramebuffer(GL_FRAMEBUFFER, parent_fb);
 
         const glm::vec2 view_size = camera.framebuffer.last_scale;
         glViewport(0,0, view_size.x, view_size.y);
@@ -225,18 +221,14 @@ namespace engine {
         glBindTexture(GL_TEXTURE_2D, camera.framebuffer.texture);
 
 
-        glBindVertexArray(moesh.VAO);
+        glBindVertexArray(mesh.VAO);
 
 
-        if (moesh.nindices > 0) {
-          glDrawElements(GL_TRIANGLES, moesh.nindices, GL_UNSIGNED_INT, 0);
+        if (mesh.nindices > 0) {
+          glDrawElements(GL_TRIANGLES, mesh.nindices, GL_UNSIGNED_INT, 0);
         }
         else {
-          glDrawArrays(GL_TRIANGLES, 0, moesh.nvertices);
-        }
-
-        if (parent_fb != 0) {
-            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+          glDrawArrays(GL_TRIANGLES, 0, mesh.nvertices);
         }
 
     }

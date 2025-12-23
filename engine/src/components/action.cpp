@@ -1,7 +1,12 @@
 #include "components/action.h"
 #include "egassert.h"
+#include "entity.h"
 
 namespace engine {
+
+    void UpdateComp::on_init(Scene* scene, Entity self) {}
+    void UpdateComp::on_end(Scene* scene, Entity self) {}
+
 
     void UpdateComp::serialize(YAML::Emitter& out) {
         out<<YAML::Key<<"Default"<<YAML::Value<<"Default";

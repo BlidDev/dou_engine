@@ -5,6 +5,7 @@
 
 using namespace engine;
 
+static int FRAME_CAP = 0;
 
 int main() {
 
@@ -18,6 +19,7 @@ int main() {
     Scene* current = manager.get_current();
 
     double start = glfwGetTime();
+
     while (!current->should_close())
     {
         double now = glfwGetTime();
@@ -31,8 +33,12 @@ int main() {
             manager.switched = false;
             current->on_create();
         }
-        current->on_update(dt);
-        start = now;
+
+        double desired = (FRAME_CAP == 0) ? (0.0) : (1.0 / (float)FRAME_CAP);
+        if (dt > desired) {
+            current->on_update(dt);
+            start = now;
+        }
     }
 
     manager.end();
@@ -41,4 +47,10 @@ int main() {
 
     
     return 0;
+}
+
+
+void engine::set_frame_cap(int frame_cap) {
+    DU_ASSERT(frame_cap < 0, "Invalid frame cap ({}) given", frame_cap);
+    FRAME_CAP = frame_cap;
 }

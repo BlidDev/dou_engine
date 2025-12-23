@@ -77,6 +77,7 @@ namespace engine {
             this->mesh = mesh;
             this->material = material;
             this->layer = layer;
+            DU_INFO("layer {}", layer);
             DU_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Invalid layer number [{}]", layer);
         }
     

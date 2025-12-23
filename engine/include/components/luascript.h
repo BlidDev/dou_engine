@@ -6,7 +6,7 @@
 namespace engine {
 
     struct LuaManager {
-        static void init();
+        static void init(const char* util_path = nullptr);
         static sol::state state;
     };
 

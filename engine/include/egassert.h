@@ -3,7 +3,7 @@
 
 #define DU_ASSERT(condition, ...) \
     do { \
-        if ((condition)) { \
+        if (condition) { \
             DU_CORE_CRITICAL(__VA_ARGS__); \
             std::abort(); \
         } \

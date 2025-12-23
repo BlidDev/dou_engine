@@ -4,8 +4,9 @@
 namespace engine {
     struct UpdateComp {
         UpdateComp() { inner_name = "UNKNOWN"; }
+        virtual void on_init(Scene* scene, Entity self);
         virtual void on_update(Scene* scene, Entity self, float dt) = 0;
-        virtual UpdateComp* copy() = 0;
+        virtual void on_end(Scene* scene, Entity self);
         virtual void serialize(YAML::Emitter& out);
         virtual void dserialize(const YAML::Node& node);
         virtual ~UpdateComp();

@@ -127,7 +127,7 @@ namespace engine {
 
     CameraComp CameraBuilder::build() {
         DU_ASSERT(!camera.framebuffer, "framebuffer_size not called before building CameraComp");
-        DU_ASSERT(!camera.present_shader, "present_shader not called before building CameraComp or CameraBuilder given is ivalid");
+        DU_ASSERT(!camera.present_shader, "present_shader not called before building CameraComp or CameraBuilder given is invalid");
         return camera;
     }
 
