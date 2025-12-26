@@ -44,7 +44,7 @@ namespace engine {
 
         ph["gravity"] = &PhysicsBodyComp::gravity;
         ph["velocity"] = &PhysicsBodyComp::velocity;
-        ph["acceleration"] = &PhysicsBodyComp::acceleration;
+        ph["mass"] = &PhysicsBodyComp::mass;
         ph["is_solid"] = &PhysicsBodyComp::is_solid;
         ph["is_static"] = &PhysicsBodyComp::is_static;
         ph["move_delta"] = &PhysicsBodyComp::move_delta;
@@ -54,7 +54,7 @@ namespace engine {
 
         phb["gravity"] =      &PhysicsBodyBuilder::gravity;
         phb["velocity"] =     &PhysicsBodyBuilder::velocity;
-        phb["acceleration"] = &PhysicsBodyBuilder::acceleration;
+        phb["mass"] = &PhysicsBodyBuilder::mass;
         phb["is_solid"] =     &PhysicsBodyBuilder::is_solid;
         phb["is_static"] =    &PhysicsBodyBuilder::is_static;
         phb["build"] =        &PhysicsBodyBuilder::build;

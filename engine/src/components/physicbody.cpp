@@ -8,7 +8,7 @@ namespace engine {
     PhysicsBodyComp::PhysicsBodyComp() {
         gravity = 0.0f;
         velocity = {0.0f,0.0f,0.0f};
-        acceleration = {0.0f,0.0f,0.0f};
+        mass = 10.0f;
         is_solid = true;
         is_static = false;
         move_delta = {0.0f,0.0f,0.0f};
@@ -16,13 +16,12 @@ namespace engine {
         dominance = Dominance::Dominant;
     }
 
-    PhysicsBodyComp::PhysicsBodyComp(float gravity, glm::vec3 velocity, glm::vec3 acceleration, bool is_solid, bool is_static) {
+    PhysicsBodyComp::PhysicsBodyComp(float gravity, float mass, glm::vec3 velocity, bool is_solid, bool is_static) {
         this->gravity     =  gravity     ;
         this->velocity    =  velocity    ;
-        this->acceleration=  acceleration;
         this->is_solid    =  is_solid    ;
         this->is_static   =  is_static   ;
-        this->acceleration = {0.0f, 0.0f, 0.0f};
+        this->mass        =  mass;
         this->intersects_callback = nullptr;
     }
 
@@ -34,8 +33,8 @@ namespace engine {
         physicbody.velocity = velocity;
         return *this;
     }
-    PhysicsBodyBuilder& PhysicsBodyBuilder::acceleration(glm::vec3 acceleration) {
-        physicbody.acceleration = acceleration;
+    PhysicsBodyBuilder& PhysicsBodyBuilder::mass(float mass) {
+        physicbody.mass = mass;
         return *this;
     }
     PhysicsBodyBuilder& PhysicsBodyBuilder::is_solid(bool is_solid) {

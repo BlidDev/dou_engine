@@ -1,159 +1,200 @@
 #include "systems/physicsys.h"
+#include "components/physicbody.h"
+#include "components/transform.h"
 #include "components/tag.h"
 #include "entity.h"
 #include "util.h"
-#include "components/transform.h"
-#include "components/physicbody.h"
-#include "components/luascript.h"
-#include "formatting.h"
-
 
 namespace engine {
 
-    glm::vec3 calculate_drag(glm::vec3& vel, float gravity, float mul);
-    void apply_drag(glm::vec3& vel, glm::vec3& drag);
-    bool does_intersect_on_axis(float a, float b, float a_m, float b_m);
+    static void velocity_damp(glm::vec3& velocity, float gravity, float mass, float slipperiness, float dt);
 
-    void physics(entt::registry& registry, float dt) {
-        auto objs = registry.view<TransformComp,PhysicsBodyComp>();
-        for (auto [e, t, ph] : objs.each()) {
-            glm::vec3 cvel = ph.velocity;
-            glm::vec3 drag = calculate_drag(ph.velocity, ph.gravity, 0.4f);
+    static glm::vec3 adjust_vel_to_inter(AABBReturn& inter, glm::vec3 velocity);
 
-            apply_drag(cvel, drag);
-            cvel.y -= ph.gravity;
-            
 
-            glm::vec3 move_amount = cvel* dt;
-
-            ph.velocity = cvel;
-            ph.move_delta = move_amount;
-            if (!ph.is_solid)
-                t.translate(move_amount);
+#define PUSH_LIMIT 64
+    struct PushChain {
+        std::array<entt::entity, PUSH_LIMIT> chain;
+        int index;
+        PushChain() {
+            chain.fill(entt::null);
+            index = 0;
         }
+        void push(entt::entity value) {
+            DU_ASSERT(full(), "Push limited reached");
+            chain[index++] = value;
+        }
+        bool contians(entt::entity value) {
+            return std::find(chain.begin(), chain.end(), value) != chain.end();
+        }
+        bool full() {
+            return !(chain[PUSH_LIMIT -1] == entt::null);
+        }
+        int size() {
+            return index;
+        }
+    };
+    static glm::vec3 get_final_velocity(glm::vec3 initial_vel, entt::entity self, TransformComp& self_transform, entt::registry& registry, PushChain& chain, float dt);
+
+
+
+    struct UUIDEnttBind {entt::entity id; UUID uuid;};
+    static int handle_callback(Scene& scene, PhysicsBodyComp& ph, UUIDEnttBind self, UUIDEnttBind other);
+    static int run_callback_check(Scene& scene, entt::entity self, TransformComp& self_t, PhysicsBodyComp& self_ph);
+
+
+    int physics(Scene *scene, float dt) {
+
+        auto view = scene->registry.view<TransformComp, PhysicsBodyComp>();
+
+        for (auto [e, t, p] : view.each()) {
+            if (p.dominance == Dominance::Owned) continue; // will get handled by the parent
+            glm::vec3& velocity = p.velocity;
+
+            PushChain chain;
+            bool should_gravity = get_final_velocity(glm::vec3{0.0f, velocity.y - p.gravity, 0.0f}, e, t, scene->registry, chain, dt).y != 0.0f;
+            if((should_gravity || !p.is_solid) && velocity.y >= -40.0f)
+                velocity.y -= p.gravity;
+            velocity_damp(velocity, p.gravity, p.mass, 2.0f, dt);
+
+            if (!p.is_solid) { // not solid, we don't need to check anything
+                t.translate(velocity * dt);
+                p.move_delta = velocity * dt;
+
+                if(p.intersects_callback || p.lua_callback) {
+                    if(run_callback_check(*scene, e, t, p))
+                        return 1;
+                }
+                continue;
+            }
+
+            chain = {};
+            glm::vec3 final_vel = get_final_velocity(velocity, e, t, scene->registry, chain, dt);
+            t.translate(final_vel * dt);
+            p.velocity = final_vel;
+            p.move_delta = final_vel * dt;
+        }
+
+        return 0;
     }
 
-    int handle_callback(Scene& scene, PhysicsBodyComp& ph, entt::entity e, entt::entity o) {
+    static glm::vec3 get_final_velocity(glm::vec3 initial_vel, entt::entity self, TransformComp& self_transform, entt::registry& registry, PushChain& chain, float dt) {
+        if (chain.full()) return glm::vec3(0.0f);
+        auto view = registry.view<TransformComp, PhysicsBodyComp>();
+        glm::vec3 velocity = initial_vel;
+        for (auto [e,t,p] : view.each()) {
+            if (p.dominance == Dominance::Owned || !p.is_solid || 
+                e == self || chain.contians(e) ||
+                velocity == glm::vec3(0.0f)) continue; 
+
+            std::string name = "";
+            if(registry.any_of<TagComp>(self))
+                name = registry.get<TagComp>(self).tag;
+            AABBReturn inter = aabb_3d_intersects(
+                    self_transform.position(),
+                    velocity * dt,
+                    self_transform.size(),
+                    t.position(),
+                    t.size());
+
+            if (!inter) continue; // we didn't collide
+            if (p.is_static) { // it's static so we can't push it
+                velocity = adjust_vel_to_inter(inter, velocity);
+                continue;
+            }
+
+            TransformComp tmp = t;
+            glm::vec3 original_pos = t.position();
+
+            float weight = (p.gravity == 0.0f) ? p.mass : p.gravity * p.mass;
+            float resistance = weight * dt;
+
+            float speed = glm::length(velocity);
+            float new_speed = glm::max(0.0f, speed - resistance);
+            glm::vec3 tmp_vel = velocity * (new_speed / speed);
+
+            glm::vec3 returned(0.0f);
+            tmp.position_ref() = original_pos + glm::vec3{tmp_vel.x, 0.0f, 0.0f} * dt;
+            chain.push(self);
+            returned.x = get_final_velocity(tmp_vel, e, tmp, registry, chain, dt).x;
+
+            tmp.position_ref() = original_pos + glm::vec3{0.0f, tmp_vel.y, 0.0f} * dt;
+            returned.y = get_final_velocity(tmp_vel, e, tmp, registry, chain, dt).y;
+
+            tmp.position_ref() = original_pos + glm::vec3{0.0f, 0.0f, tmp_vel.z} * dt;
+            returned.z = get_final_velocity(tmp_vel, e, tmp, registry, chain, dt).z;
+
+            velocity = returned;
+            p.velocity += returned;
+            t.translate(p.velocity * dt);
+
+        }
+
+       return velocity;
+    }
+
+    static int run_callback_check(Scene& scene, entt::entity self, TransformComp& self_t, PhysicsBodyComp& self_ph) {
+        auto view = scene.registry.view<UUID, TransformComp, PhysicsBodyComp>();
+        UUID self_uuid = view.get<UUID>(self);
+        for (auto [other, uuid, t, p] : view.each()) {
+            if (other == self) continue;
+            if (get_entities_relation(scene, self_uuid, uuid) != 0) continue; // related
+            if (!does_aabb_intersects(self_t.position(), self_t.size(), t.position(), t.size())) continue; // no collision
+
+            if(handle_callback(scene, self_ph, {self, self_uuid}, {other, uuid}))
+                return 1;
+        }
+
+        return 0;
+    }
+
+    static int handle_callback(Scene& scene, PhysicsBodyComp& ph, UUIDEnttBind self, UUIDEnttBind other) {
         if(ph.intersects_callback != nullptr) {
-            return ph.intersects_callback(scene, e, o);
+            return ph.intersects_callback(scene, self.id, other.id);
         }
         else if (ph.lua_callback) {
-            DU_ASSERT(!scene.registry.any_of<LuaActionComp>(e), 
+            DU_ASSERT(!scene.registry.any_of<LuaActionComp>(self.id), 
                     "LuaCallback is set to ({}, {}) but entity does not have any scripts attached", ph.lua_callback.path, ph.lua_callback.function);
-            LuaActionComp& lua_a = scene.registry.get<LuaActionComp>(e);
-            UUID& eu = scene.registry.get<UUID>(e);
-            UUID& ou = scene.registry.get<UUID>(o);
-            return lua_a.call_at(ph.lua_callback, eu, ou);
+            LuaActionComp& lua_a = scene.registry.get<LuaActionComp>(self.id);
+            return lua_a.call_at(ph.lua_callback, self.uuid, other.uuid);
         }
 
 
         return 0;
     }
 
-    void apply_aabb_on_scalars(glm::vec3* s, glm::vec3* s2, AABBReturn& inter, bool* x, bool* y, bool* z) {
-        glm::vec3 res = inter.to_glm();
-        if (*x) { s->x *= res.x; s2->x *= res.x; *x = res.x;}
-        if (*y) { s->y *= res.y; s2->y *= res.y; *y = res.y;}
-        if (*z) { s->z *= res.z; s2->z *= res.z; *z = res.z;}
-    }
+    static void velocity_damp(glm::vec3& velocity, float gravity, float mass, float slipperiness, float dt) {
 
+        bool grounded = std::abs(velocity.y) < 0.01f && gravity != 0.0f;
+        
+        constexpr float GROUND_DAMPING = 12.0f;
+        constexpr float AIR_DAMPING = 5.5f;
 
-    int check_callback_collision(Scene& scene, entt::entity subject) {
-        Entity sub = {&scene, subject};
-        if (!sub.has_component<TransformComp>() || !sub.has_component<PhysicsBodyComp>()) return 0;
-        auto trans = sub.get_component<TransformComp>();
-        auto physc = sub.get_component<PhysicsBodyComp>();
-        auto view = scene.registry.view<UUID,TransformComp,PhysicsBodyComp>();
-        for (auto [e, u, t, ph] : view.each()) {
-            AABBReturn intersects = aabb_3d_intersects(trans.position(), glm::vec3(0.0f), trans.size(), t.position(), t.size());
-            if (!intersects) continue;
-            if (e == subject || is_ancestor_of(scene,u, sub.uuid())) continue; // same family or same entity
+        float damping = grounded ? GROUND_DAMPING : AIR_DAMPING;
 
-
-            if (handle_callback(scene, physc, subject, e)) {
-                return 1;
-            }
-        }
-        return 0;
-    }
-
-    int apply_on_children(Scene& scene, std::vector<UUID>& children, glm::vec3 final_delta) {
-        for (const auto& child : children) {
-            Entity tmp_child = scene.uuid_to_entity(child);
-            if (tmp_child.has_component<TransformComp>())
-                tmp_child.get_component<TransformComp>().translate(final_delta);
-
-            if(check_callback_collision(scene, tmp_child.id())) return 1;
-
-            if (!tmp_child.is_parent()) continue;
-            apply_on_children(scene, tmp_child.get_children(), final_delta);
+        if (grounded) {
+            float slip = 1.0f - slipperiness;
+            damping *= slip * slip;
         }
 
-        return 0;
-    }
+        glm::vec2 horiz = {velocity.x, velocity.z};
+        float decay = std::exp(-damping * dt);
+        horiz *= decay;
 
-    int aabb_check(Scene& scene, float dt) {
-        auto objs = scene.registry.view<TransformComp,PhysicsBodyComp>();
-        for (auto [e, t, ph] : objs.each()) {
-            bool allowed_x = true, allowed_y = true, allowed_z = true;
-            if (ph.dominance == Dominance::Owned) continue;
-            for (auto [o, ot, oph] : objs.each()) {
-                AABBReturn intersects = aabb_3d_intersects(t.position(), ph.move_delta, t.size(), ot.position(), ot.size());
+        velocity.x = horiz.x;
+        velocity.z = horiz.y;
 
-                glm::vec3 res = intersects.to_glm();
-                if (!ph.is_static) 
-                    DU_INFO("res: {}", res);
-                if (e == o || !intersects) continue;
-                if (ph.is_solid && oph.is_solid) {
-                    apply_aabb_on_scalars(&ph.move_delta, &ph.velocity, intersects, &allowed_x, &allowed_y, &allowed_z);
-                }
-
-                if(ph.intersects_callback || ph.lua_callback) {
-                    if (handle_callback(scene,ph,e,o)) {
-                        return 1;
-                    }
-                }
-                    
-
-            }
-            glm::vec3 final_delta = {(allowed_x) ? ph.move_delta.x : 0.0f,
-                                     (allowed_y) ? ph.move_delta.y : 0.0f,
-                                     (allowed_z) ? ph.move_delta.z : 0.0f};
-
-            t.translate(final_delta);
-            Entity subject = {&scene, e};
-            if (!subject.is_parent()) continue;
-            if (apply_on_children(scene, subject.get_children(), final_delta)) { return 1; }
+        if (!grounded) {
+            velocity.y *= std::exp(-AIR_DAMPING * 0.2 * dt);
         }
 
-        return 0;
     }
 
-    glm::vec3 calculate_drag(glm::vec3& vel, float gravity, float mul) {
-        glm::vec3 res = vel * -1.0f;
-        res.y = 0.0f;
-        res.x *= mul;
-        res.z *= mul;
-        return res;
-    }
-
-    void apply_drag(glm::vec3& vel, glm::vec3& drag) {
-        if (std::abs(vel.x) > std::abs(drag.x))
-            vel.x += drag.x;
-        else
-            vel.x = 0.0f;
-
-        if (std::abs(vel.z) > std::abs(drag.z))
-            vel.z += drag.z;
-        else
-            vel.z = 0.0f;
-
-    }
-
-    bool does_intersect_on_axis(float a, float b, float a_s, float b_s) {
-
-        bool res =  a <= b + b_s &&
-                    a + a_s >= b;
-        return res;
+    static glm::vec3 adjust_vel_to_inter(AABBReturn& inter, glm::vec3 velocity) {
+        return {
+            (inter.x) ? 0.0f : velocity.x,
+            (inter.y) ? 0.0f : velocity.y,
+            (inter.z) ? 0.0f : velocity.z
+        };
     }
 }

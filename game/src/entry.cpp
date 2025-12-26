@@ -6,7 +6,7 @@
 void register_actions();
 
 int engine::on_start(engine::SceneManager* manager) {
-
+    LuaManager::init("res/util.lua");
     register_actions();
     manager->main_window = Window("notray", 1280, 720);
     manager->render_data.screen_w = 1280;

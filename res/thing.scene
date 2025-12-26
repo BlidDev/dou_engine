@@ -28,7 +28,7 @@ Entities:
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
-      Accelaration: [0, 0, 0]
+      Mass: 10.0
       Is Solid: false
       Is Static: true
       Move Delta: [0, 0, 0]
@@ -37,6 +37,94 @@ Entities:
       - Path: trigger.lua
         Fields:
           this: [u, 2240326152093192729]
+
+  - Entity: 2240326152093191729
+    Tag:
+      Tag: push
+    Transform:
+      Position: [-0.5, 1.6, -0.5]
+      Size: [0.2,0.2,0.2]
+      Rotation: [0, -0, 0]
+    Model:
+      Mesh Name: cube_tl
+      Layer: 0
+      Material:
+        Shader: lighting.glsl
+        Filled: true
+        Ambient: [1, 0.2, 1]
+        Diffuse: [1, 0.2, 1]
+        Specular: [1, 1, 1]
+        Shininess: 32
+        Texture: grass.jpeg
+        Textured: false
+        Immune: false
+    PhysicsBody:
+      Gravity: 0.15
+      Velocity: [0, 0, 0]
+      Mass: 350.10
+      Is Solid: true
+      Is Static: false
+      Move Delta: [0, 0, 0]
+
+  - Entity: 2984326152093191729
+    Tag:
+      Tag: push2
+    Transform:
+      Position: [0.7, 1.7, 1]
+      Size: [1,0.2,1]
+      Rotation: [0, -0, 0]
+    Model:
+      Mesh Name: cube_tl
+      Layer: 0
+      Material:
+        Shader: lighting.glsl
+        Filled: true
+        Ambient: [0.2, 0.4, 0.6]
+        Diffuse: [0.2, 0.4, 0.6]
+        Specular: [1, 1, 1]
+        Shininess: 32
+        Texture: grass.jpeg
+        Textured: false
+        Immune: false
+    PhysicsBody:
+      Gravity: 0.0
+      Velocity: [0, 0, 0]
+      Mass: 0.8
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+    Lua Actions:
+      - Path: cube.lua
+
+ #- Entity: 2984326152093197290
+ #  Tag:
+ #    Tag: push3
+ #  Transform:
+ #    Position: [0.28, 1.5, 1]
+ #    Size: [0.4,0.2,0.4]
+ #    Rotation: [0, -0, 0]
+ #  Model:
+ #    Mesh Name: cube_tl
+ #    Layer: 0
+ #    Material:
+ #      Shader: lighting.glsl
+ #      Filled: true
+ #      Ambient: [0.2, 0.4, 0.6]
+ #      Diffuse: [0.6, 0.4, 0.6]
+ #      Specular: [1, 1, 1]
+ #      Shininess: 32
+ #      Texture: grass.jpeg
+ #      Textured: false
+ #      Immune: false
+ #  PhysicsBody:
+ #    Gravity: 0.0
+ #    Velocity: [0, 0, -3.4]
+ #    Mass: 50.0
+ #    Is Solid: true
+ #    Is Static: false
+ #    Move Delta: [0, 0, 0]
+
+
   - Entity: 11152776846094461390
     Tag:
       Tag: Light
@@ -45,17 +133,17 @@ Entities:
       Size: [1, 1, 1]
       Rotation: [0, 0, 0]
     DirLight:
-      Direction: [-0.2, -1, -0.3]
-      Ambient: 0.1
+      Direction: [-0.4, -1, -0.3]
+      Ambient: 0.4
       Color: [0.9692308, 0.89773935, 0.49505326]
       Strength: 0.5
   - Entity: 7287929405305775506
     Tag:
-      Tag: Unnamed Cube
+      Tag: Floor
     Transform:
       Position: [0, 1, 0]
-      Size: [3, 0.5, 3]
-      Rotation: [0, 12.4, 0]
+      Size: [9, 0.5, 3]
+      Rotation: [0, 0, 0]
     Model:
       Mesh Name: cube_tl
       Layer: 0
@@ -65,14 +153,14 @@ Entities:
         Ambient: [1, 1, 1]
         Diffuse: [1, 1, 1]
         Specular: [1, 1, 1]
-        Shininess: 32
+        Shininess: 0
         Texture: grass.jpeg
         Textured: true
         Immune: false
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
-      Accelaration: [0, 0, 0]
+      Mass: 10.0
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
@@ -80,18 +168,18 @@ Entities:
     Tag:
       Tag: Player
     Transform:
-      Position: [0, 3.3, 0]
-      Size: [1, 1, 1]
+      Position: [0, 5.3, 0]
+      Size: [0.1, 1, 0.1]
       Rotation: [0, 0, 0]
     PhysicsBody:
-      Gravity: 0.3
+      Gravity: 0.15
       Velocity: [0, 0, 0]
-      Accelaration: [0, 0, 0]
+      Mass: 10.0
       Is Solid: true
-      Is Static: true
+      Is Static: false
       Move Delta: [0, 0, 0]
     Camera:
-      Target: [0, 1, 1]
+      Target: [3.6, 1.5, 0]
       Up: [0, 1, 0]
       FovY: 70
       Projection: 0
@@ -100,14 +188,14 @@ Entities:
     Lua Actions:
       - Path: player.lua
         Fields:
-          init_speed: [i, 3]
+          init_speed: [f, 40]
           jump: [i, 10]
           this: [u, 9703913328098630830]
           sensi: [f, 0.1]
     SptLight:
       Color: [0.5261538, 0.5261538, 0.5261538]
       Direction: [0, -1, 0]
-      Constant: 1
+      Constant: 3
       Linear: 0.05
       Quadratic: 0.021
       Cut off: 9.1

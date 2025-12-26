@@ -175,8 +175,8 @@ namespace engine {
             out<<YAML::Key<<"PhysicsBody"<<YAML::BeginMap;
                 auto& ph = entity.get_component<PhysicsBodyComp>();
                 out<<YAML::Key<<"Gravity"<<YAML::Value<<ph.gravity;
+                out<<YAML::Key<<"Mass"<<YAML::Value<<ph.mass;
                 out<<YAML::Key<<"Velocity"<<YAML::Value<<ph.velocity;
-                out<<YAML::Key<<"Accelaration"<<YAML::Value<<ph.acceleration;
                 out<<YAML::Key<<"Is Solid"<<YAML::Value<<ph.is_solid;
                 out<<YAML::Key<<"Is Static"<<YAML::Value<<ph.is_static;
                 out<<YAML::Key<<"Move Delta"<<YAML::Value<<ph.move_delta;
@@ -368,6 +368,7 @@ namespace engine {
         if(physicbody) {
             PhysicsBodyComp& ph = read_entity.add_component<PhysicsBodyComp>(); 
             ph.gravity = physicbody["Gravity"].as<float>();
+            ph.mass = physicbody["Mass"].as<float>();
             ph.velocity = physicbody["Velocity"].as<glm::vec3>();
             ph.is_solid = physicbody["Is Solid"].as<bool>();
             ph.is_static = physicbody["Is Static"].as<bool>();
@@ -390,6 +391,9 @@ namespace engine {
                 c.last_pos = read_entity.get_component<TransformComp>().position();
             }
 
+            if (read_entity.has_component<TransformComp>()) {
+                update_camera_target(c, read_entity.get_component<TransformComp>().position());
+            }
             glm::vec2 fb_size = scene->manager->main_window.size();
             auto framebuffer = camera["Framebuffer"];
             if (framebuffer) {

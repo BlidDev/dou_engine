@@ -1,23 +1,23 @@
 Scene: light
 Render Data:
-  Main Camera: 1505045888714095814
+  Main Camera: 127483283105708074
   Ambient: [1, 1, 1]
   Ambient Strength: 0.1
   Clear Color: [0, 0, 0, 0]
 Entities:
-  - Entity: 3555899310730669703
+  - Entity: 5038808843304500438
     Transform:
       Position: [0, -0.5, 0]
       Size: [1000, 0, 1000]
       Rotation: [0, 0, 0]
     PhysicsBody:
       Gravity: 0
+      Mass: 10
       Velocity: [0, 0, 0]
-      Accelaration: [0, 0, 0]
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 1375452278144457525
+  - Entity: 15492497780038818594
     Transform:
       Position: [0, 1, 0]
       Size: [1, 1, 1]
@@ -37,12 +37,12 @@ Entities:
         Immune: false
     PhysicsBody:
       Gravity: 0
+      Mass: 10
       Velocity: [0, 0, 0]
-      Accelaration: [0, 0, 0]
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 1505045888714095814
+  - Entity: 127483283105708074
     Transform:
       Position: [0, 2, -2]
       Size: [1, 1, 1]
@@ -52,8 +52,8 @@ Entities:
         Default: Default
     PhysicsBody:
       Gravity: 0.2
+      Mass: 10
       Velocity: [0, 0, 0]
-      Accelaration: [0, 0, 0]
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]

@@ -157,13 +157,16 @@ namespace engine {
         return {(float)(!x),(float)(!y),(float)(!z)};
     }
 
-    bool aabb_test_axis(glm::vec3 a, glm::vec3 a_s, glm::vec3 b, glm::vec3 b_s) {
+    static bool aabb_test_axis(glm::vec3 a, glm::vec3 a_s, glm::vec3 b, glm::vec3 b_s) {
         return 
            std::abs(a.x - b.x) * 2 < (a_s.x + b_s.x) &&
            std::abs(a.y - b.y) * 2 < (a_s.y + b_s.y) &&
            std::abs(a.z - b.z) * 2 < (a_s.z + b_s.z);
     }
 
+    bool does_aabb_intersects(glm::vec3 a, glm::vec3 a_s, glm::vec3 b, glm::vec3 b_s) {
+        return aabb_test_axis(a,a_s, b, b_s);
+    }
 
     AABBReturn aabb_3d_intersects(glm::vec3 a, glm::vec3 d, glm::vec3 a_s, glm::vec3 b, glm::vec3 b_s) {
         glm::vec3 tmp =  { a.x + d.x, a.y, a.z};

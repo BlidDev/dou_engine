@@ -23,3 +23,11 @@ struct fmt::formatter<glm::vec4> : fmt::formatter<std::string>{
         return fmt::formatter<std::string>::format(std::format("({}, {}, {}, {})", v.x, v.y, v.z, v.w), ctx);
     }
 };
+
+template<>
+struct fmt::formatter<entt::entity> : fmt::formatter<std::string>{
+
+    auto format(const entt::entity& v, format_context& ctx) const {
+        return fmt::formatter<std::string>::format(std::format("{}",(uint32_t)v), ctx);
+    }
+};

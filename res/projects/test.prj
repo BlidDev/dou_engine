@@ -6,8 +6,8 @@ Paths:
     - shaders
   Textures:
     - textures
-  Models:
-    - models
+  Meshes:
+    - meshes
   Scripts:
     - scripts
 Layers:
@@ -16,7 +16,7 @@ Layers:
     Wireframe Mode: false
   Layer 1:
     Depth Test: true
-    Wireframe Mode: false
+    Wireframe Mode: true
   Layer 2:
     Depth Test: false
     Wireframe Mode: false

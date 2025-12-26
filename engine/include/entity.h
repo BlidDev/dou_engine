@@ -90,6 +90,16 @@ namespace engine {
 
 
     bool is_ancestor_of(Scene& scene, UUID ancestor, UUID subject);
+    /**
+     * get_entities_relation - Checks if the given entities are a part of the same hierarachy tree
+     *
+     ** Returns 1 if a is an ancestor of b
+     *
+     ** Returns -1 if b is an ancestor of a
+     *
+     ** Returns 0 if the entities are not related
+     */
+    int get_entities_relation(Scene& scene, UUID a, UUID b);
 }
 
 

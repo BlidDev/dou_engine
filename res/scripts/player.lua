@@ -2,8 +2,8 @@ local ph
 local t
 local cm
 
-init_speed = 3
-local speed =3
+init_speed = 0.00
+local speed = 0.00
 jump = 10
 sensi = 0.1
 
@@ -53,8 +53,8 @@ function on_update(dt)
         if is_key_down(util.KeyboardKey.SPACE) and ph.move_delta.y == 0.0 then ph.velocity.y =  ph.velocity.y + 10.0 end
     else
         ph.velocity.y = 0.0
-        if is_key_down(util.KeyboardKey.Q) then ph.velocity.y =   -10.0 end
-        if is_key_down(util.KeyboardKey.E) then ph.velocity.y =   10.0 end
+        if is_key_down(util.KeyboardKey.E) then ph.velocity.y =   (speed * 30) * dt end
+        if is_key_down(util.KeyboardKey.Q) then ph.velocity.y =  -(speed * 30) * dt end
     end
 
 
@@ -77,7 +77,8 @@ function on_update(dt)
 
     local move = (forward * f) + (right * r)
     move.y = 0.0
-    ph.velocity = ph.velocity +  move * speed
+    ph.velocity = ph.velocity +  move * speed * dt
+    --log_info("{} {} {}", cm.target.x, cm.target.y, cm.target.z)
 
     if is_key_down(util.KeyboardKey.T) then 
         ot = get_transform(scene, other)
@@ -104,6 +105,7 @@ function on_update(dt)
         set_input_mode(scene, util.InputSbj.CURSOR, mode)
         captured = not captured
     end
+
 
 end
 

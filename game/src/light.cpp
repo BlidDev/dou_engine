@@ -30,7 +30,7 @@ void LightScene::on_create() {
     cube.add_component<TransformComp>(
       engine::TransformBuilder().position({0.0f, 1.0f, 0.0f}));
     cube.add_component<ModelComp>(
-      get_model("cube_tex"),
+      get_mesh("cube_tex"),
       MaterialBuilder()
           .set_texture(get_texture("proto.png"))
           .set_shader(get_shader("textured.glsl")));
@@ -46,24 +46,25 @@ void LightScene::on_create() {
     player.add_component<SptLightComp>();
 
     manager->write_scene_to_file("res/light.scene", this);
+    actions_init(this);
 }
 void LightScene::on_update(float dt) {
     close = is_key_pressed(GLFW_KEY_ESCAPE);
 
 
-    actions(this, dt);
-    physics(registry, dt);
-    if (aabb_check(*this, dt)) return;
+    actions_update(this, dt);
+    if(physics(this, dt)) return;
     glm::vec2 view = manager->main_window.size();
 
     rescale_camera_to_window(player.get_component<CameraComp>(), manager->main_window);
     draw_to_camera(manager->render_data, view, player, registry, &s_render_data);
-    present_camera(player, get_model("quad_tex"));
+    present_camera(player, get_mesh("quad_tex"));
     glfwSwapBuffers(manager->main_window);
     glfwPollEvents();
 }
 
 void LightScene::on_end() { 
+    actions_end(this);
     DU_TRACE("light end called"); 
 }
 

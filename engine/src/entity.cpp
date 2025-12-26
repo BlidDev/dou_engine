@@ -115,4 +115,11 @@ namespace engine {
         }
         return false;
     }
+
+    int get_entities_relation(Scene& scene, UUID a, UUID b) {
+        bool is_a = is_ancestor_of(scene, a, b);
+        bool is_b = is_ancestor_of(scene, b, a);
+
+        return is_a - is_b;
+    }
 }

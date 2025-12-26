@@ -129,8 +129,11 @@ void main() {
     calc_spts(view_dir);
 
     vec3 result = (ambient + diffuse + specular);
+    vec2 tex = tex_coord;
+    tex.xy *=3;
+    tex.x *=3;
 
-    frag_color = vec4(result, 1.0) * texture(texture_sample, tex_coord);
+    frag_color = vec4(result, 1.0) * texture(texture_sample, tex);
 }
 
 void calc_dirs(vec3 view_dir) {
@@ -223,7 +226,7 @@ void calc_spts(vec3 view_dir) {
         float distance    = length(l.position.xyz - world_pos);
         float attenuation = 1.0 / (l.constant + l.linear * distance + l.quadratic * (distance * distance));    
 
-        //ambient  += tmp_ambient * attenuation; 
+        ambient  += tmp_ambient * attenuation; 
         diffuse  += tmp_diffuse * attenuation;
         specular += tmp_specular * attenuation;  
         
