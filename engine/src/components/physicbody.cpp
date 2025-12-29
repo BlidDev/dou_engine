@@ -16,12 +16,13 @@ namespace engine {
         dominance = Dominance::Dominant;
     }
 
-    PhysicsBodyComp::PhysicsBodyComp(float gravity, float mass, glm::vec3 velocity, bool is_solid, bool is_static) {
-        this->gravity     =  gravity     ;
-        this->velocity    =  velocity    ;
-        this->is_solid    =  is_solid    ;
-        this->is_static   =  is_static   ;
-        this->mass        =  mass;
+    PhysicsBodyComp::PhysicsBodyComp(float gravity, float mass, glm::vec3 velocity, bool slipperiness, bool is_solid, bool is_static) {
+        this->gravity      =  gravity     ;
+        this->velocity     =  velocity    ;
+        this->is_solid     =  is_solid    ;
+        this->is_static    =  is_static   ;
+        this->mass         =  mass;
+        this->slipperiness = slipperiness;
         this->intersects_callback = nullptr;
     }
 
@@ -35,6 +36,10 @@ namespace engine {
     }
     PhysicsBodyBuilder& PhysicsBodyBuilder::mass(float mass) {
         physicbody.mass = mass;
+        return *this;
+    }
+    PhysicsBodyBuilder& PhysicsBodyBuilder::slipperiness(float slipperiness) {
+        physicbody.slipperiness = slipperiness;
         return *this;
     }
     PhysicsBodyBuilder& PhysicsBodyBuilder::is_solid(bool is_solid) {
@@ -63,14 +68,14 @@ namespace engine {
     }
 
 
-    void make_owned(Entity entity) {
+    void make_physically_owned(Entity entity) {
         if (entity.has_component<PhysicsBodyComp>()) {
             entity.get_component<PhysicsBodyComp>().dominance = Dominance::Owned;
         }
 
         if (!entity.is_parent()) return;
         for (const auto& child : entity.get_children()) {
-            make_owned(entity.scene_ptr()->uuid_to_entity(child));
+            make_physically_owned(entity.scene_ptr()->uuid_to_entity(child));
         }
 
     }
@@ -80,7 +85,7 @@ namespace engine {
         entity.get_component<PhysicsBodyComp>().dominance = Dominance::Dominant;
         if (!entity.is_parent()) return;
         for (const auto& child : entity.get_children()) {
-            make_owned(entity.scene_ptr()->uuid_to_entity(child));
+            make_physically_owned(entity.scene_ptr()->uuid_to_entity(child));
         }
     }
 

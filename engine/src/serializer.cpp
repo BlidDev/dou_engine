@@ -176,6 +176,7 @@ namespace engine {
                 auto& ph = entity.get_component<PhysicsBodyComp>();
                 out<<YAML::Key<<"Gravity"<<YAML::Value<<ph.gravity;
                 out<<YAML::Key<<"Mass"<<YAML::Value<<ph.mass;
+                out<<YAML::Key<<"Slipperiness"<<YAML::Value<<ph.slipperiness;
                 out<<YAML::Key<<"Velocity"<<YAML::Value<<ph.velocity;
                 out<<YAML::Key<<"Is Solid"<<YAML::Value<<ph.is_solid;
                 out<<YAML::Key<<"Is Static"<<YAML::Value<<ph.is_static;
@@ -369,6 +370,7 @@ namespace engine {
             PhysicsBodyComp& ph = read_entity.add_component<PhysicsBodyComp>(); 
             ph.gravity = physicbody["Gravity"].as<float>();
             ph.mass = physicbody["Mass"].as<float>();
+            ph.slipperiness = physicbody["Slipperiness"].as<float>();
             ph.velocity = physicbody["Velocity"].as<glm::vec3>();
             ph.is_solid = physicbody["Is Solid"].as<bool>();
             ph.is_static = physicbody["Is Static"].as<bool>();
@@ -466,14 +468,16 @@ namespace engine {
         //auto parent = entity["Parent"];
         //if (parent) {
         //    UUID tmp = parent["Parent"].as<UUID>();
-        //    read_entity.make_child_of(tmp);
+        //    if (!scene->uuid_to_entity(tmp).is_parent())
+        //        read_entity.make_child_of(tmp);
         //}
 
         auto children = entity["Children"];
         if (children) {
             for (const auto& child : children) {
                 UUID c = child.as<UUID>();
-                read_entity.add_child(c);
+                if (get_entities_relation(*scene, uuid, c) == 0)
+                    read_entity.add_child(c);
             }
         }
 

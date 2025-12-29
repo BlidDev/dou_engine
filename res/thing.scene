@@ -13,8 +13,8 @@ Entities:
       Size: [1, 1, 1]
       Rotation: [0, -0, 0]
     Model:
-      Mesh Name: cube
       Layer: 0
+      Mesh Name: cube
       Material:
         Shader: basic.glsl
         Filled: true
@@ -27,6 +27,7 @@ Entities:
         Immune: false
     PhysicsBody:
       Gravity: 0
+      Slipperiness: 0.2
       Velocity: [0, 0, 0]
       Mass: 10.0
       Is Solid: false
@@ -59,12 +60,46 @@ Entities:
         Textured: false
         Immune: false
     PhysicsBody:
-      Gravity: 0.15
+      Gravity: 0.0
       Velocity: [0, 0, 0]
-      Mass: 350.10
+      Mass: 0.0001
+      Slipperiness: 0.2
       Is Solid: true
       Is Static: false
       Move Delta: [0, 0, 0]
+
+
+  - Entity: 9240326152093191729
+    Tag:
+      Tag: push3
+    Transform:
+      Position: [0.7, 3.8, 0.7]
+      Size: [0.2,0.2,0.2]
+      Rotation: [0, -0, 0]
+    Model:
+      Mesh Name: cube_tl
+      Layer: 0
+      Material:
+        Shader: lighting.glsl
+        Filled: true
+        Ambient: [1, 1.2, 1]
+        Diffuse: [1, 0.2, 1]
+        Specular: [1, 1, 1]
+        Shininess: 32
+        Texture: grass.jpeg
+        Textured: false
+        Immune: false
+    PhysicsBody:
+      Gravity: 0.1
+      Velocity: [0, 0, 0]
+      Mass: 0.1
+      Slipperiness: 0.2
+      Is Solid: true
+      Is Static: false
+      Move Delta: [0, 0, 0]
+    Lua Actions:
+      - Path: report.lua
+
 
   - Entity: 2984326152093191729
     Tag:
@@ -90,41 +125,12 @@ Entities:
       Gravity: 0.0
       Velocity: [0, 0, 0]
       Mass: 0.8
+      Slipperiness: 0.2
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
     Lua Actions:
       - Path: cube.lua
-
- #- Entity: 2984326152093197290
- #  Tag:
- #    Tag: push3
- #  Transform:
- #    Position: [0.28, 1.5, 1]
- #    Size: [0.4,0.2,0.4]
- #    Rotation: [0, -0, 0]
- #  Model:
- #    Mesh Name: cube_tl
- #    Layer: 0
- #    Material:
- #      Shader: lighting.glsl
- #      Filled: true
- #      Ambient: [0.2, 0.4, 0.6]
- #      Diffuse: [0.6, 0.4, 0.6]
- #      Specular: [1, 1, 1]
- #      Shininess: 32
- #      Texture: grass.jpeg
- #      Textured: false
- #      Immune: false
- #  PhysicsBody:
- #    Gravity: 0.0
- #    Velocity: [0, 0, -3.4]
- #    Mass: 50.0
- #    Is Solid: true
- #    Is Static: false
- #    Move Delta: [0, 0, 0]
-
-
   - Entity: 11152776846094461390
     Tag:
       Tag: Light
@@ -161,6 +167,7 @@ Entities:
       Gravity: 0
       Velocity: [0, 0, 0]
       Mass: 10.0
+      Slipperiness: 0.2
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
@@ -172,9 +179,10 @@ Entities:
       Size: [0.1, 1, 0.1]
       Rotation: [0, 0, 0]
     PhysicsBody:
-      Gravity: 0.15
+      Gravity: 9.8
       Velocity: [0, 0, 0]
       Mass: 10.0
+      Slipperiness: 0.025
       Is Solid: true
       Is Static: false
       Move Delta: [0, 0, 0]
@@ -188,8 +196,8 @@ Entities:
     Lua Actions:
       - Path: player.lua
         Fields:
-          init_speed: [f, 40]
-          jump: [i, 10]
+          init_speed: [f, 10]
+          jump: [i, 3]
           this: [u, 9703913328098630830]
           sensi: [f, 0.1]
     SptLight:
@@ -200,6 +208,8 @@ Entities:
       Quadratic: 0.021
       Cut off: 9.1
       Outer cut off: 24
+
+
   - Entity: 13874073629702658488
     Tag:
       Tag: Unnamed Cube

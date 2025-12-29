@@ -51,6 +51,8 @@ namespace engine {
                 tmp_child.get_parent() = *this;
             }
             tmp_child.add_component<ParentComp>(*this);
+            if (has_component<PhysicsBodyComp>())
+                make_physically_owned(tmp_child);
             return;
         }
 

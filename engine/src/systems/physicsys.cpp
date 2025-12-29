@@ -4,19 +4,25 @@
 #include "components/tag.h"
 #include "entity.h"
 #include "util.h"
+#include "formatting.h"
 
 namespace engine {
+    #define MIN_SPEED 0.001f
 
-    static void velocity_damp(glm::vec3& velocity, float gravity, float mass, float slipperiness, float dt);
+    enum class Axis {X = 0,Y,Z};
+    static void velocity_damp(glm::vec3& velocity, float gravity, float slipperiness, float dt);
+    static glm::vec3 adjust_vel_to_inter(AABBReturn& inter, const glm::vec3& velocity);
 
-    static glm::vec3 adjust_vel_to_inter(AABBReturn& inter, glm::vec3 velocity);
 
-
-#define PUSH_LIMIT 64
+    #define PUSH_LIMIT 64
     struct PushChain {
         std::array<entt::entity, PUSH_LIMIT> chain;
         int index;
         PushChain() {
+            chain.fill(entt::null);
+            index = 0;
+        }
+        void clear() {
             chain.fill(entt::null);
             index = 0;
         }
@@ -34,8 +40,9 @@ namespace engine {
             return index;
         }
     };
-    static glm::vec3 get_final_velocity(glm::vec3 initial_vel, entt::entity self, TransformComp& self_transform, entt::registry& registry, PushChain& chain, float dt);
 
+    static void apply_translation_on_children(Scene& scene, UUID current, glm::vec3 move_delta, float dt, bool translate = true, bool absolute = true);
+    static float get_final_axis_vel(Scene& scene, float initial_vel, Axis axis, entt::entity self, TransformComp& self_transform, float self_mass, PushChain& chain, float dt);
 
 
     struct UUIDEnttBind {entt::entity id; UUID uuid;};
@@ -45,21 +52,31 @@ namespace engine {
 
     int physics(Scene *scene, float dt) {
 
-        auto view = scene->registry.view<TransformComp, PhysicsBodyComp>();
+        auto view = scene->registry.view<UUID,TransformComp, PhysicsBodyComp>();
 
-        for (auto [e, t, p] : view.each()) {
-            if (p.dominance == Dominance::Owned) continue; // will get handled by the parent
+        for (auto [e, u, t, p] : view.each()) {
+            if (p.dominance == Dominance::Owned) {
+                if(p.intersects_callback || p.lua_callback) {
+                    if(run_callback_check(*scene, e, t, p))
+                        return 1;
+                }
+                continue;
+            }
+
             glm::vec3& velocity = p.velocity;
 
             PushChain chain;
-            bool should_gravity = get_final_velocity(glm::vec3{0.0f, velocity.y - p.gravity, 0.0f}, e, t, scene->registry, chain, dt).y != 0.0f;
-            if((should_gravity || !p.is_solid) && velocity.y >= -40.0f)
-                velocity.y -= p.gravity;
-            velocity_damp(velocity, p.gravity, p.mass, 2.0f, dt);
+            float final = get_final_axis_vel(*scene, velocity.y - 0.5f, Axis::Y, e, t, p.mass, chain, dt);
+            bool grounded = final == 0.0f;
+            if((!grounded || !p.is_solid) && velocity.y >= -40.0f && p.gravity != 0.0f) 
+                velocity.y -= p.gravity * dt;
+
+            velocity_damp(velocity, p.gravity, p.slipperiness, dt);
 
             if (!p.is_solid) { // not solid, we don't need to check anything
                 t.translate(velocity * dt);
                 p.move_delta = velocity * dt;
+                apply_translation_on_children(*scene, u, velocity, dt, false);
 
                 if(p.intersects_callback || p.lua_callback) {
                     if(run_callback_check(*scene, e, t, p))
@@ -68,70 +85,104 @@ namespace engine {
                 continue;
             }
 
-            chain = {};
-            glm::vec3 final_vel = get_final_velocity(velocity, e, t, scene->registry, chain, dt);
-            t.translate(final_vel * dt);
-            p.velocity = final_vel;
-            p.move_delta = final_vel * dt;
+            chain.clear();
+            velocity.x = get_final_axis_vel(*scene, velocity.x, Axis::X, e, t, p.mass, chain, dt);
+            chain.clear();
+            velocity.y = get_final_axis_vel(*scene, velocity.y, Axis::Y, e, t, p.mass, chain, dt);
+            chain.clear();
+            velocity.z = get_final_axis_vel(*scene, velocity.z, Axis::Z, e, t, p.mass, chain, dt);
+
+            t.translate(velocity * dt);
+            p.move_delta = velocity * dt;
+            apply_translation_on_children(*scene, u, velocity, dt, true);
         }
 
         return 0;
     }
 
-    static glm::vec3 get_final_velocity(glm::vec3 initial_vel, entt::entity self, TransformComp& self_transform, entt::registry& registry, PushChain& chain, float dt) {
-        if (chain.full()) return glm::vec3(0.0f);
-        auto view = registry.view<TransformComp, PhysicsBodyComp>();
-        glm::vec3 velocity = initial_vel;
-        for (auto [e,t,p] : view.each()) {
-            if (p.dominance == Dominance::Owned || !p.is_solid || 
-                e == self || chain.contians(e) ||
-                velocity == glm::vec3(0.0f)) continue; 
+    int fixed_physics(Scene *scene, size_t target_fps, float dt) {
+        static float accumulated = 0.0f;
+        accumulated += dt;
+        float target_dt = 1.0f / target_fps;
 
-            std::string name = "";
-            if(registry.any_of<TagComp>(self))
-                name = registry.get<TagComp>(self).tag;
+        int result = 0;
+
+        if (accumulated >= target_dt) {
+            result =  physics(scene, target_dt);
+            accumulated -= target_dt;
+        }
+        return result;
+    }
+
+
+
+
+    static float get_final_axis_vel(Scene& scene, float initial_vel, Axis axis, entt::entity self, TransformComp& self_transform, float self_mass, PushChain& chain, float dt) {
+        float vel = initial_vel;
+        if (std::abs(vel) <= MIN_SPEED) return 0.0f; 
+
+        auto view = scene.registry.view<UUID,TransformComp, PhysicsBodyComp>();
+        
+        for (auto [e,u,t,p] : view.each()) {
+            if (p.dominance == Dominance::Owned || !p.is_solid || 
+                e == self || chain.contians(e)) continue;  
+
+            glm::vec3 delta(0.0f);
+            delta[(int)axis] = vel * dt;
+
             AABBReturn inter = aabb_3d_intersects(
                     self_transform.position(),
-                    velocity * dt,
+                    delta,
                     self_transform.size(),
                     t.position(),
                     t.size());
 
-            if (!inter) continue; // we didn't collide
-            if (p.is_static) { // it's static so we can't push it
-                velocity = adjust_vel_to_inter(inter, velocity);
+            if (!inter)
+                continue;
+
+            if (p.is_static) {
+                delta = adjust_vel_to_inter(inter, delta);
+                vel = delta[(int)axis];
+                apply_translation_on_children(scene, scene.registry.get<UUID>(self), delta, dt);
                 continue;
             }
 
-            TransformComp tmp = t;
-            glm::vec3 original_pos = t.position();
+            float scale = 1.0f;
+            float whole = self_mass + (p.mass / scale);
+            float tmp_vel = vel * (self_mass / whole);
 
-            float weight = (p.gravity == 0.0f) ? p.mass : p.gravity * p.mass;
-            float resistance = weight * dt;
 
-            float speed = glm::length(velocity);
-            float new_speed = glm::max(0.0f, speed - resistance);
-            glm::vec3 tmp_vel = velocity * (new_speed / speed);
-
-            glm::vec3 returned(0.0f);
-            tmp.position_ref() = original_pos + glm::vec3{tmp_vel.x, 0.0f, 0.0f} * dt;
             chain.push(self);
-            returned.x = get_final_velocity(tmp_vel, e, tmp, registry, chain, dt).x;
+            float returned = get_final_axis_vel(scene, tmp_vel, axis, e, t, p.mass, chain, dt);
 
-            tmp.position_ref() = original_pos + glm::vec3{0.0f, tmp_vel.y, 0.0f} * dt;
-            returned.y = get_final_velocity(tmp_vel, e, tmp, registry, chain, dt).y;
-
-            tmp.position_ref() = original_pos + glm::vec3{0.0f, 0.0f, tmp_vel.z} * dt;
-            returned.z = get_final_velocity(tmp_vel, e, tmp, registry, chain, dt).z;
-
-            velocity = returned;
-            p.velocity += returned;
-            t.translate(p.velocity * dt);
-
+            vel = returned;
+         
+            p.velocity[(int)axis] += returned * dt;
+            glm::vec3 thing(0.0f); thing[(int)axis] = vel;
+            t.translate(thing * dt);
         }
 
-       return velocity;
+        return vel;
     }
+
+    static void apply_translation_on_children(Scene& scene, UUID current, glm::vec3 move_delta, float dt, bool translate, bool absolute) {
+        Entity tmp = scene.uuid_to_entity(current);
+        if (!tmp.is_parent()) return; 
+
+        for (const auto& child_uuid : tmp.get_children()) {
+            Entity child = scene.uuid_to_entity(child_uuid);
+            if (child.has_component<TransformComp>() && translate)
+                child.get_component<TransformComp>().translate(move_delta * dt);
+            
+            if (child.has_component<PhysicsBodyComp>()) {
+                auto& velocity = child.get_component<PhysicsBodyComp>().velocity;
+                velocity = ((!absolute) ? velocity : glm::vec3(0.0f)) + move_delta;
+            }
+
+            apply_translation_on_children(scene, child_uuid, move_delta, dt);
+        }
+    }
+
 
     static int run_callback_check(Scene& scene, entt::entity self, TransformComp& self_t, PhysicsBodyComp& self_ph) {
         auto view = scene.registry.view<UUID, TransformComp, PhysicsBodyComp>();
@@ -163,34 +214,27 @@ namespace engine {
         return 0;
     }
 
-    static void velocity_damp(glm::vec3& velocity, float gravity, float mass, float slipperiness, float dt) {
-
-        bool grounded = std::abs(velocity.y) < 0.01f && gravity != 0.0f;
-        
-        constexpr float GROUND_DAMPING = 12.0f;
-        constexpr float AIR_DAMPING = 5.5f;
-
-        float damping = grounded ? GROUND_DAMPING : AIR_DAMPING;
-
-        if (grounded) {
-            float slip = 1.0f - slipperiness;
-            damping *= slip * slip;
-        }
+    static void velocity_damp(glm::vec3& velocity, float gravity, float slipperiness, float dt) {
+        if (velocity == glm::vec3(0.0f)) return;
+        bool grounded = std::abs(velocity.y) <= MIN_SPEED && gravity != 0.0f;
 
         glm::vec2 horiz = {velocity.x, velocity.z};
-        float decay = std::exp(-damping * dt);
+        float damp = slipperiness * (!grounded ? 2.0f : 1.0f);
+        float decay = std::pow(std::clamp(damp,0.0f, 1.0f), dt);
         horiz *= decay;
 
-        velocity.x = horiz.x;
-        velocity.z = horiz.y;
+        velocity.x = (std::abs(horiz.x) > MIN_SPEED) ? horiz.x : 0.0f;
+        velocity.z = (std::abs(horiz.y) > MIN_SPEED) ? horiz.y : 0.0f;
 
+        constexpr float AIR_DAMPING = 0.2f;
         if (!grounded) {
-            velocity.y *= std::exp(-AIR_DAMPING * 0.2 * dt);
+            float y_decay = std::exp(AIR_DAMPING * 0.2 * dt);
+            velocity.y *= (std::abs(y_decay) > MIN_SPEED) ? y_decay : 0.0f;
         }
 
     }
 
-    static glm::vec3 adjust_vel_to_inter(AABBReturn& inter, glm::vec3 velocity) {
+    static glm::vec3 adjust_vel_to_inter(AABBReturn& inter, const glm::vec3& velocity) {
         return {
             (inter.x) ? 0.0f : velocity.x,
             (inter.y) ? 0.0f : velocity.y,

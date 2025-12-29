@@ -7,6 +7,7 @@
 #include "models.h"
 #include "systems.h"
 #include "log.h"
+#include "formatting.h"
 #include "util.h"
 #include "model.h"
 #include "project.h"

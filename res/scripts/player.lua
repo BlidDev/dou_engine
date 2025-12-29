@@ -2,10 +2,10 @@ local ph
 local t
 local cm
 
-init_speed = 0.00
+init_speed = nil
 local speed = 0.00
-jump = 10
-sensi = 0.1
+jump = nil
+sensi = nul
 
 
 other = nil
@@ -26,13 +26,22 @@ local captured = true
 local wire = false
 
 
+function print_fps(dt) 
+    local fps = 1/dt
+    if fps >= 120 then
+        log_info("fps: {}", fps)
+    elseif fps >= 60 then
+        log_warn("fps: {}", fps)
+    else 
+        log_error("fps: {}", fps)
+    end
+end
 
 
 local made_child = false
 
 function on_update(dt)
-    local fps = 1/dt
-    --log_info("fps: {}", fps)
+    --print_fps(dt)
     speed = init_speed
     update_camera_target(cm, t:position());
 
@@ -43,14 +52,14 @@ function on_update(dt)
             log_info("Off")
         else
             affected = true
-            ph.gravity = 0.2
+            ph.gravity = 9.8
             log_info("On")
         end
     end
   
     if affected then
 
-        if is_key_down(util.KeyboardKey.SPACE) and ph.move_delta.y == 0.0 then ph.velocity.y =  ph.velocity.y + 10.0 end
+        if is_key_down(util.KeyboardKey.SPACE) and ph.move_delta.y == 0.0 then ph.velocity.y =  ph.velocity.y + jump end
     else
         ph.velocity.y = 0.0
         if is_key_down(util.KeyboardKey.E) then ph.velocity.y =   (speed * 30) * dt end

@@ -19,11 +19,11 @@ void ThingScene::on_create() {
     auto& model =  push.get_component<ModelComp>();
     auto& phy =  push.get_component<PhysicsBodyComp>();
 
-    for (int x = 1; x < 6; x++) {
-        for (int y = 1; y < 2; y++) { 
+    for (int x = 1; x < 4; x++) {
+        for (int y = 1; y < 4; y++) { 
             Entity tmp = create_entity();
             auto& t = tmp.add_component<TransformComp>(trans);
-            t.translate({x * t.size().x * 3.3f, 0.0f, y * t.size().z * 1.1});
+            t.translate({x * t.size().x * 4.3f, 0.0f, y * t.size().z * 1.1});
             tmp.add_component<ModelComp>(model);
             tmp.add_component<PhysicsBodyComp>(phy);
         }
@@ -37,7 +37,8 @@ void ThingScene::on_update(float dt) {
     close = is_key_pressed(GLFW_KEY_ESCAPE);
     actions_update(this,dt);
     lua_action_update(this, dt);
-    if (physics(this, dt)) return;
+    if (fixed_physics(this, 50, dt)) return;
+    //DU_WARN("velocity {}", player.get_component<PhysicsBodyComp>().velocity);
     glm::vec2 view = manager->main_window.size();
 
     rescale_camera_to_window(player.get_component<CameraComp>(), manager->main_window);

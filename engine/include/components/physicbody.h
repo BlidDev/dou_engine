@@ -14,11 +14,12 @@ namespace engine {
         float gravity;
         glm::vec3 velocity;
         float mass;
+        float slipperiness;
         bool is_solid;
         bool is_static;
         glm::vec3 move_delta;
         PhysicsBodyComp();
-        PhysicsBodyComp(float gravity, float mass, glm::vec3 velocity, bool is_solid, bool is_static);
+        PhysicsBodyComp(float gravity, float mass, glm::vec3 velocity, bool slipperiness, bool is_solid, bool is_static);
 
         int (*intersects_callback)(Scene&, entt::entity, entt::entity) = nullptr;
         LuaCallback lua_callback;
@@ -34,6 +35,7 @@ namespace engine {
         PhysicsBodyBuilder& gravity(float gravity);
         PhysicsBodyBuilder& velocity(glm::vec3 velocity);
         PhysicsBodyBuilder& mass(float mass);
+        PhysicsBodyBuilder& slipperiness(float slipperiness);
         PhysicsBodyBuilder& is_solid(bool is_solid);
         PhysicsBodyBuilder& is_static(bool is_static);
 
@@ -52,7 +54,7 @@ namespace engine {
     };
 
 
-    void make_owned(Entity entity);
+    void make_physically_owned(Entity entity);
     void make_physically_dominant(Entity entity);
     void physically_disown_children(Entity entity);
 
