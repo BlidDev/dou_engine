@@ -66,7 +66,7 @@ namespace engine {
             glm::vec3& velocity = p.velocity;
 
             PushChain chain;
-            float final = get_final_axis_vel(*scene, velocity.y - 0.5f, Axis::Y, e, t, p.mass, chain, dt);
+            float final = get_final_axis_vel(*scene, velocity.y - p.gravity, Axis::Y, e, t, p.mass, chain, dt);
             bool grounded = final == 0.0f;
             if((!grounded || !p.is_solid) && velocity.y >= -40.0f && p.gravity != 0.0f) 
                 velocity.y -= p.gravity * dt;

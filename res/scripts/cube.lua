@@ -9,11 +9,11 @@ function on_init()
 end
 
 function on_update(dt)
-    speed = 0.5
+    speed = 70.0 * dt
     --t.rotation.y = math.sin(get_time() +  id) * 50
     --t.rotation.z = math.sin(get_time() +  id) * 50
-    ph.velocity.y =  math.sin(get_time() + speed) * speed
-    ph.velocity.x =  math.cos(get_time() + speed) * speed
+    ph.velocity.y =  math.sin(get_time()) * speed
+    ph.velocity.x =  math.cos(get_time()) * speed
 end
 
 

@@ -59,7 +59,7 @@ function on_update(dt)
   
     if affected then
 
-        if is_key_down(util.KeyboardKey.SPACE) and ph.move_delta.y == 0.0 then ph.velocity.y =  ph.velocity.y + jump end
+        if is_key_down(util.KeyboardKey.SPACE) and ph.move_delta.y == 0.0 then ph.velocity.y =  jump end
     else
         ph.velocity.y = 0.0
         if is_key_down(util.KeyboardKey.E) then ph.velocity.y =   (speed * 30) * dt end

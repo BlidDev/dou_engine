@@ -60,10 +60,10 @@ Entities:
         Textured: false
         Immune: false
     PhysicsBody:
-      Gravity: 0.0
+      Gravity: 0.049
       Velocity: [0, 0, 0]
       Mass: 0.0001
-      Slipperiness: 0.2
+      Slipperiness: 0.4
       Is Solid: true
       Is Static: false
       Move Delta: [0, 0, 0]
@@ -90,7 +90,7 @@ Entities:
         Textured: false
         Immune: false
     PhysicsBody:
-      Gravity: 0.1
+      Gravity: 0.2
       Velocity: [0, 0, 0]
       Mass: 0.1
       Slipperiness: 0.2
@@ -181,7 +181,7 @@ Entities:
     PhysicsBody:
       Gravity: 9.8
       Velocity: [0, 0, 0]
-      Mass: 10.0
+      Mass: 0.001
       Slipperiness: 0.025
       Is Solid: true
       Is Static: false
@@ -197,7 +197,7 @@ Entities:
       - Path: player.lua
         Fields:
           init_speed: [f, 10]
-          jump: [i, 3]
+          jump: [i, 6]
           this: [u, 9703913328098630830]
           sensi: [f, 0.1]
     SptLight:
