@@ -3,7 +3,6 @@
 #include "mesh.h"
 #include "shader.h"
 #include "texture.h"
-#include "renderer.h"
 
 namespace engine {
 
@@ -54,6 +53,5 @@ namespace engine {
         ModelComp();
 
         ModelComp(Mesh mesh, Material material, size_t layer = 0);
-        
     };
 }
