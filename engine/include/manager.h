@@ -1,5 +1,5 @@
 #pragma once
-#include "model.h"
+#include "mesh.h"
 #include "project.h"
 #include "renderer.h"
 #include "scene.h"

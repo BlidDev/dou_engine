@@ -76,6 +76,10 @@ namespace engine {
         v_rotation = glm::degrees(glm::eulerAngles(rot));
     }
 
+    TransformBuilder::TransformBuilder() {
+        transform = TransformComp();
+    }
+
     TransformBuilder& TransformBuilder::position(glm::vec3 position) {
         transform.set_position(position);
         return *this;
@@ -90,4 +94,22 @@ namespace engine {
         return *this;
     }
 
+
+    #define OPERATION(operation, axis, vector) \
+    void TransformComp::operation##_##axis(const float delta) { \
+        v_##vector.axis += delta; \
+        rawed = true; \
+	} 
+
+    OPERATION(translate, x, position);
+    OPERATION(translate, y, position);
+    OPERATION(translate, z, position);
+
+    OPERATION(scale, x, size);
+    OPERATION(scale, y, size);
+    OPERATION(scale, z, size);
+
+    OPERATION(rotate, y, rotation);
+    OPERATION(rotate, x, rotation);
+    OPERATION(rotate, z, rotation);
 }

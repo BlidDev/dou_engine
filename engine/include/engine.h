@@ -9,7 +9,7 @@
 #include "log.h"
 #include "formatting.h"
 #include "util.h"
-#include "model.h"
+#include "mesh.h"
 #include "project.h"
 #include "default_rt.h"
 #include "entry_point.h"

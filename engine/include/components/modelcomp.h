@@ -1,6 +1,6 @@
 #pragma once
 #include <espch.h>
-#include "model.h"
+#include "mesh.h"
 #include "shader.h"
 #include "texture.h"
 #include "renderer.h"
@@ -30,7 +30,7 @@ namespace engine {
         MaterialBuilder& set_ambient(glm::vec3 ambient);
         MaterialBuilder& set_diffuse(glm::vec3 diffuse);
         MaterialBuilder& set_specular(glm::vec3 specular);
-        MaterialBuilder& set_shiniess(float shininess);
+        MaterialBuilder& set_shininess(float shininess);
 
         MaterialBuilder& set_attributes(int attributes);
         MaterialBuilder& set_shader(Shader shader);

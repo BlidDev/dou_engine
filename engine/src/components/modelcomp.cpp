@@ -43,7 +43,7 @@ namespace engine {
         return *this;
     }
 
-    MaterialBuilder& MaterialBuilder::set_shiniess(float shininess) {
+    MaterialBuilder& MaterialBuilder::set_shininess(float shininess) {
         material.shininess = shininess;
         return *this;
     }

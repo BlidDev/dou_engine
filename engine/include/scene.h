@@ -1,6 +1,6 @@
 #pragma once
 #include "components/uuid.h"
-#include "model.h"
+#include "mesh.h"
 #include <espch.h>
 #include "renderer.h"
 #include "shader.h"
@@ -36,6 +36,14 @@ namespace engine {
             entt::entity entity = it->second;
             DU_ASSERT(!registry.any_of<T>(entity), "Trying to get non existant uuid component {} from entity {}", typeid(T).name(), uuid.get_uuid());
             return registry.get<T>(entity);
+        }
+
+        template <typename T>
+        bool has_uuid_component(UUID uuid) {
+            const auto& it = uuids.find(uuid);
+            DU_ASSERT(it == uuids.end(), "Unknown UUID {}", uuid.get_uuid());
+            entt::entity entity = it->second;
+            return registry.any_of<T>(entity);
         }
 
         void register_shader(const char* path);

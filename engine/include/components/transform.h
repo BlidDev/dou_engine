@@ -1,6 +1,10 @@
 #pragma once
 #include <espch.h>
 
+#define TRANSFORM_PER_AXIS(operation) \
+    void operation##_x(float delta); \
+    void operation##_y(float delta); \
+    void operation##_z(float delta); 
 
 namespace engine {
 
@@ -28,10 +32,14 @@ namespace engine {
         void set_size(const glm::vec3& size) { v_size = size; rawed = true; }
         void set_rotation(const glm::vec3& rotation) { v_rotation = rotation; rawed = true; }
 
-        void translate(const glm::vec3& v);
-        void scale(const glm::vec3& v);
-        // 3 Euler angles to add to the current angle
-        void rotate(const glm::vec3& v);
+        void translate(const glm::vec3& delta);
+        TRANSFORM_PER_AXIS(translate); // makes translate_x, translate_y and translate_z
+
+        void scale(const glm::vec3& delta);
+        TRANSFORM_PER_AXIS(scale); // makes scale_x, scale_y and scale_z
+
+        void rotate(const glm::vec3& delta);
+        TRANSFORM_PER_AXIS(rotate); // makes rotate_x, rotate_y and rotate_z
 
         glm::mat4  get_model();
         void       set_model(const glm::mat4& value);
@@ -55,6 +63,7 @@ namespace engine {
     };
 
     struct TransformBuilder {
+        TransformBuilder();
         TransformBuilder& position(glm::vec3 position);
         TransformBuilder& size(glm::vec3 size);
         TransformBuilder& rotation(glm::vec3 rotation);

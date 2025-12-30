@@ -1,4 +1,4 @@
-#include "model.h"
+#include "mesh.h"
 #include "util.h"
 
 namespace engine {
