@@ -3,6 +3,7 @@
 #include "luawrapper.h"
 #include "util.h"
 #include "component.h"
+#include "components/camera.h"
 
 namespace engine {
 
@@ -28,15 +29,12 @@ namespace engine {
       env.set_function("get_script", get_uuid_component<LuaActionComp>);
       env.set_function("get_spotlight", get_uuid_component<SptLightComp>);
 
-      // env.set_function("color_from_hsv", ColorFromHSV);
-      // env.set_function("get_fps", GetFPS);
       env.set_function("get_time", glfwGetTime);
       env.set_function("get_mouse_delta", get_mouse_delta);
       env.set_function("handle_mouse_delta", handle_mouse_delta);
-      env.set_function("get_forward", get_forward);
-      env.set_function("get_right", get_right);
-      env.set_function("update_camera_target", update_camera_target);
-      env.set_function("get_flat_forward", get_flat_forward);
+      env.set_function("get_camera_forward", get_camera_forward);
+      env.set_function("get_camera_right", get_camera_right);
+      env.set_function("get_camera_flat_forward", get_camera_flat_forward);
       env.set_function("get_camera_dir", get_camera_dir);
 
       env.set_function("v3_normalize", [](glm::vec3 t){ return glm::normalize(t);});

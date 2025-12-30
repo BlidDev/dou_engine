@@ -190,7 +190,8 @@ namespace engine {
         if (entity.has_component<CameraComp>()) {
             out<<YAML::Key<<"Camera"<<YAML::BeginMap;
                 auto& c = entity.get_component<CameraComp>();
-                out<<YAML::Key<<"Target"<<YAML::Value<<c.target;
+                out<<YAML::Key<<"Pitch"<<YAML::Value<<c.pitch();
+                out<<YAML::Key<<"Yaw"<<YAML::Value<<c.yaw();
                 out<<YAML::Key<<"Up"<<YAML::Value<<c.up;
                 out<<YAML::Key<<"FovY"<<YAML::Value<<c.fovy;
                 out<<YAML::Key<<"Projection"<<YAML::Value<<(int)c.projection_mode;
@@ -384,18 +385,12 @@ namespace engine {
         auto camera = entity["Camera"];
         if(camera) {
             CameraComp& c = read_entity.add_component<CameraComp>();
-            c.target = camera["Target"].as<glm::vec3>();
             c.up = camera["Up"].as<glm::vec3>();
+            c.set_pitch(camera["Pitch"].as<float>());
+            c.set_yaw(camera["Yaw"].as<float>());
             c.fovy = camera["FovY"].as<float>();
             c.projection_mode = (CameraProjection)camera["Projection"].as<int>();
             c.max_distance = camera["Max Distance"].as<float>();
-            if (read_entity.has_component<TransformComp>()) {
-                c.last_pos = read_entity.get_component<TransformComp>().position();
-            }
-
-            if (read_entity.has_component<TransformComp>()) {
-                update_camera_target(c, read_entity.get_component<TransformComp>().position());
-            }
             glm::vec2 fb_size = scene->manager->main_window.size();
             auto framebuffer = camera["Framebuffer"];
             if (framebuffer) {

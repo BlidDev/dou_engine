@@ -60,9 +60,9 @@ Entities:
         Textured: false
         Immune: false
     PhysicsBody:
-      Gravity: 0.049
       Velocity: [0, 0, 0]
-      Mass: 0.0001
+      Gravity: 0
+      Mass: 0.1
       Slipperiness: 0.4
       Is Solid: true
       Is Static: false
@@ -124,7 +124,7 @@ Entities:
     PhysicsBody:
       Gravity: 0.0
       Velocity: [0, 0, 0]
-      Mass: 0.8
+      Mass: 1000.0
       Slipperiness: 0.2
       Is Solid: true
       Is Static: true
@@ -181,13 +181,14 @@ Entities:
     PhysicsBody:
       Gravity: 9.8
       Velocity: [0, 0, 0]
-      Mass: 0.001
+      Mass: 10.1
       Slipperiness: 0.025
       Is Solid: true
       Is Static: false
       Move Delta: [0, 0, 0]
     Camera:
-      Target: [3.6, 1.5, 0]
+      Pitch: -45.0
+      Yaw: 0.0
       Up: [0, 1, 0]
       FovY: 70
       Projection: 0
@@ -199,7 +200,7 @@ Entities:
           init_speed: [f, 10]
           jump: [i, 6]
           this: [u, 9703913328098630830]
-          sensi: [f, 0.1]
+          sensi: [f, 12.0]
     SptLight:
       Color: [0.5261538, 0.5261538, 0.5261538]
       Direction: [0, -1, 0]

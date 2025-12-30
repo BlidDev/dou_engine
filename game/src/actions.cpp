@@ -8,8 +8,6 @@ void SimpleAct::on_update(engine::Scene* scene, engine::Entity self, float dt) {
     engine::CameraComp& cam = self.get_component<engine::CameraComp>();
 
 
-    if(mouse)
-        engine::update_camera_target(cam, trs.position());
     float speed = 0.5f;
     float f = (float)(engine::is_key_pressed(GLFW_KEY_W) - engine::is_key_pressed(GLFW_KEY_S));
     float r = (float)(engine::is_key_pressed(GLFW_KEY_D) - engine::is_key_pressed(GLFW_KEY_A));
@@ -41,14 +39,13 @@ void SimpleAct::on_update(engine::Scene* scene, engine::Entity self, float dt) {
 
     speed = (engine::is_key_pressed(GLFW_KEY_LEFT_SHIFT)) ? speed * 3.0f : speed;
 
-    auto pos = trs.position();
-    glm::vec3 forward = engine::get_flat_forward(cam.target, pos) * 3.0f;
-    glm::vec3 right   = engine::get_right(cam.target, pos, cam.up) * 3.0f;
+    glm::vec3 forward = engine::get_camera_flat_forward(cam);
+    glm::vec3 right   = engine::get_camera_right(cam);
 
     glm::vec2 mouse_delta = engine::get_mouse_delta() * -0.05f;
 
     if (mouse)
-        engine::handle_mouse_delta(&cam, pos, mouse_delta, true);
+        engine::handle_mouse_delta(cam, mouse_delta, true);
 
     glm::vec3 move = (forward * f) + (right * r);
     move.y = 0.0f;

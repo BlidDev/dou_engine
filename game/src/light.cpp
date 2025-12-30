@@ -10,14 +10,13 @@ void LightScene::on_create() {
     main_camera = player.uuid();
 
     auto size = manager->main_window.size();
-    auto &t = player.add_component<TransformComp>(
+    player.add_component<TransformComp>(
       engine::TransformBuilder().position({0.0f, 2.0f, -2.0f}));
 
-    auto &c = player.add_component<CameraComp>(
-      CameraBuilder().fovy(45.0f).target({0.0, 0.0, 0.0})
+    player.add_component<CameraComp>(
+      CameraBuilder().fovy(45.0f).pitch(0.0f).yaw(0.0f)
       .present_shader(get_shader("camerapresent.glsl"))
       .framebuffer_size(size.x, size.y).build());
-    c.last_pos = t.position();
 
     player.add_component<PhysicsBodyComp>(
       PhysicsBodyBuilder().is_solid(true).is_static(true).gravity(0.2f));

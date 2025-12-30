@@ -1,4 +1,6 @@
 #include "components/camera.h"
+#include "formatting.h"
+#include "util.h"
 
 namespace engine {
 
@@ -43,11 +45,11 @@ namespace engine {
     }
 
     CameraComp::CameraComp() {
-        target = glm::vec3(0.0f, 0.0f, 1.0f);    // Camera looking at point
-        up = glm::vec3( 0.0f, 1.0f, 0.0f);        // Camera up vector (rotation towards target)
-        fovy = 90.0f;                              // Camera field-of-view Y
+        up = glm::vec3( 0.0f, 1.0f, 0.0f);       
+        fovy = 90.0f;                            
         projection_mode = CameraProjection::Perspective;
-        last_pos = glm::vec3(0.0f, 0.0f, 0.0f );
+        f_pitch = 0.0f;
+        f_yaw = 0.0f;
         max_distance = 30.0f;
         framebuffer = {};
         present_shader = {};
@@ -65,23 +67,26 @@ namespace engine {
         }
     }
 
+
+    float CameraComp::set_pitch(float pitch, float max) {
+        f_pitch = wrap_angle(pitch, max -  360.0f, max);
+        return f_pitch;
+	}
+
+    float CameraComp::set_yaw(float yaw, float max) {
+        f_yaw = wrap_angle(yaw, max -  360.0f, max);
+        return f_yaw;
+	}
+
+
     glm::mat4 CameraComp::get_view(glm::vec3 view_pos) {
-        update_camera_target(*this, view_pos);
-        return glm::lookAt(view_pos, target, up);
+        return glm::lookAt(view_pos, get_camera_target(*this, view_pos), up);
     }
-
-    void update_camera_target(CameraComp& camera, glm::vec3 position) {
-        glm::vec3 delta = position - camera.last_pos; 
-        camera.target += delta; 
-        camera.last_pos = position;
-    }
-
-
 
     void CameraComp::log() {
         DU_CORE_INFO("Camera:");
-        DU_CORE_INFO("\tUp: ({}, {}, {})", up.x, up.y, up.z);
-        DU_CORE_INFO("\tTarget: ({}, {}, {})", target.x, target.y, target.z);
+        DU_CORE_INFO("\tUp: {}", up);
+        DU_CORE_INFO("\tOrientation: ({}, {})", f_yaw, f_pitch);
         DU_CORE_INFO("\tFovy: {}", fovy);
         DU_CORE_INFO("\tProj: {}", (int)projection_mode);
     }
@@ -90,8 +95,13 @@ namespace engine {
         camera = {};
     }
 
-    CameraBuilder& CameraBuilder::target(glm::vec3 target) {
-        camera.target = target;
+    CameraBuilder& CameraBuilder::pitch(float pitch) {
+        camera.set_pitch(pitch);
+        return *this;
+    }
+
+    CameraBuilder& CameraBuilder::yaw(float yaw) {
+        camera.set_yaw(yaw);
         return *this;
     }
 
@@ -131,26 +141,60 @@ namespace engine {
         return camera;
     }
 
+    glm::vec3 get_camera_dir(const CameraComp& camera) {
+        float pitch = glm::radians(camera.pitch());
+        float yaw =   glm::radians(camera.yaw());
 
-    glm::vec3 get_camera_dir(glm::vec3& target, glm::vec3& position) {
-        glm::vec3 dir = glm::normalize(target - position);
-        return dir;
+        return {
+            cos(yaw)*cos(pitch),
+            sin(pitch),
+            sin(yaw)*cos(pitch)
+        };
     }
 
-    glm::vec3 get_flat_forward(glm::vec3& target, glm::vec3& position) {
-        glm::vec3 dir = glm::normalize(target - position);
-        float yaw = atan2(dir.z, dir.x);
-
-        glm::vec3 flat_forward = glm::vec3(cos(yaw), 0.0f, sin(yaw));
-
-        return flat_forward;
+    glm::vec3 get_camera_target(const CameraComp& camera, const glm::vec3& position) {
+        return get_camera_dir(camera) + position;
     }
 
+
+    glm::vec3 get_camera_forward(const CameraComp& camera) {
+        return get_camera_dir(camera);
+    }
+
+    glm::vec3 get_camera_right(const CameraComp& camera) {
+        glm::vec3 forward = get_camera_dir(camera);
+        glm::vec3 tmp_up = glm::normalize(camera.up);
+
+        return glm::normalize(glm::cross(forward, tmp_up));
+    }
+
+    glm::vec3 get_camera_flat_forward(const CameraComp& camera) {
+        glm::vec3 flat_forward = get_camera_dir(camera);
+        flat_forward.y = 0.0f;
+        return glm::normalize(flat_forward);
+    }
 
     void rescale_camera_to_window(CameraComp& camera, Window& window) {
         glm::vec2 size = window.size();
         if (camera.framebuffer.last_scale != size) {
             rescale_framebuffer(camera.framebuffer, size.x, size.y);
         }
+    }
+
+    void camera_pitch(CameraComp& camera, float delta, bool lock) {
+        float desired = camera.pitch() + delta;
+        if (lock)
+            desired = std::clamp(desired, -89.9f, 89.9f);
+        camera.set_pitch(desired);
+	}
+
+    void camera_yaw(CameraComp& camera, float delta) {
+        camera.set_yaw(camera.yaw() + delta);
+	}
+
+
+    void handle_mouse_delta(CameraComp& camera, glm::vec2 delta, bool lock) { 
+        camera_yaw(camera, delta.x);
+        camera_pitch(camera, -delta.y, lock);
     }
 }

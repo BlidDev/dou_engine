@@ -147,8 +147,11 @@ namespace engine {
                 continue;
             }
 
-            float scale = 1.0f;
-            float whole = self_mass + (p.mass / scale);
+            float scale = 10.0f;
+            float gravity_term = glm::max(p.gravity, 0.0f) / scale;
+            float resistance = p.mass * (1.0f + gravity_term);
+
+            float whole = self_mass + resistance;
             float tmp_vel = vel * (self_mass / whole);
 
 
@@ -158,8 +161,9 @@ namespace engine {
             vel = returned;
          
             p.velocity[(int)axis] += returned * dt;
-            glm::vec3 thing(0.0f); thing[(int)axis] = vel;
-            t.translate(thing * dt);
+            glm::vec3 push_delta(0.0f); 
+            push_delta[(int)axis] = vel;
+            t.translate(push_delta * dt);
         }
 
         return vel;

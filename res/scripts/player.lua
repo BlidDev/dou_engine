@@ -15,7 +15,6 @@ function on_init()
     ph = get_physicbody(scene, this)
     t  = get_transform(scene, this)
     cm = get_camera(scene, this)
-    update_camera_target(cm, t:position())
     set_input_mode(scene, util.InputSbj.CURSOR, util.InputMode.CURSOR_DISABLED)
 end
 
@@ -43,7 +42,6 @@ local made_child = false
 function on_update(dt)
     --print_fps(dt)
     speed = init_speed
-    update_camera_target(cm, t:position());
 
     if is_key_clicked(util.KeyboardKey.LEFT_ALT)then
         if affected then
@@ -75,19 +73,18 @@ function on_update(dt)
     speed = is_key_down(util.KeyboardKey.LEFT_SHIFT) and speed * 3 or speed
 
 
-    local mouse_delta = get_mouse_delta() * -0.1
+    local mouse_delta = get_mouse_delta() * -dt * sensi
 
-    local last_dir = get_camera_dir(cm.target, t:position())
+    local last_dir = get_camera_dir(cm)
 
-    if captured then handle_mouse_delta(cm, t:position(), mouse_delta, true) end
+    if captured then handle_mouse_delta(cm, mouse_delta, true) end
 
-    local forward = get_flat_forward(cm.target, t:position())
-    local right   = get_right(cm.target, t:position(), cm.up)
+    local forward = get_camera_flat_forward(cm)
+    local right   = get_camera_right(cm)
 
     local move = (forward * f) + (right * r)
     move.y = 0.0
     ph.velocity = ph.velocity +  move * speed * dt
-    --log_info("{} {} {}", cm.target.x, cm.target.y, cm.target.z)
 
     if is_key_down(util.KeyboardKey.T) then 
         ot = get_transform(scene, other)
@@ -99,7 +96,7 @@ function on_update(dt)
     end
 
     local spot = get_spotlight(scene, this)
-    tmp = get_camera_dir(cm.target, t:position())
+    tmp = get_camera_dir(cm)
     spot.direction = last_dir
     if flashlight then spot.color = vec3.new(0.97, 0.96, 0.51) else spot.color = vec3.new(0.0) end
 

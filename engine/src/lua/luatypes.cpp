@@ -62,7 +62,10 @@ namespace engine {
         phb["build"] =        &PhysicsBodyBuilder::build;
 
         auto cmt = env.new_usertype<CameraComp>("Camera");
-        cmt["target"] = &CameraComp::target;
+        cmt["pitch"] = &CameraComp::pitch;
+        cmt["yaw"] = &CameraComp::yaw;
+        cmt["set_pitch"] = &CameraComp::set_pitch;
+        cmt["set_yaw"] = &CameraComp::set_yaw;
         cmt["up"] = &CameraComp::up;
         cmt["fovy"] = &CameraComp::fovy;
         cmt["projection"] = &CameraComp::projection_mode;
@@ -70,7 +73,8 @@ namespace engine {
         auto cm = env.new_usertype<CameraBuilder>("CameraBuilder",
                 sol::constructors<CameraBuilder()>());
 
-        cm["traget"] =     &CameraBuilder::target;
+        cm["pitch"] =     &CameraBuilder::pitch;
+        cm["yaw"] =       &CameraBuilder::yaw;
         cm["up"]     =     &CameraBuilder::up;
         cm["fovy"] =       &CameraBuilder::fovy;
         cm["projection"] = &CameraBuilder::projection_mode;
