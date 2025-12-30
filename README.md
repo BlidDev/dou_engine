@@ -39,22 +39,6 @@ _DouEngine was created purely for learning/fun purpose and by **no means** was m
 <br>
 
 
-## Known bugs/ incomplete features
-- #### Physics:
-    - Rotations are purely for show, they don't take affect in the collision checking, AABB means the collider is fixed to the object's size with no rotation.
-    - The IsStatic flag for PhysicsBody doesn't do anything (YET!) so leave it on ```true``` in order to avoid unexpected behaviour.
-    - 2 Solid moving objects colliding can cause unexpected results.
-    - **As you can probably can tell from the previous bugs the AABB system isn't quite finished; It's on top priority but is really basic in this version.**
-
-- #### Rendering
-    - While the lighting system does work **shadows are not implemented yet** unfortunately, meaning enclosed areas are still affected by outside lights for example.
-
-- #### Other
-    - The Lua support is pretty rich but sometimes a C++ function will miss a Lua binding, so let me know if you encounter a missing function!
-
-<br>
-<hr style="border:2px solid darkgray">
-<br>
 
 ## Building From Source
 
@@ -77,11 +61,9 @@ The engine files can be found in the `bin` directory along with the compiled exa
 
 <br>
 <hr style="border:2px solid darkgray">
-<br>
 
 ## Making Your First Project
 Check out the [First Project](engine/include/engine.h) wiki page in order to create and run you first project in Dou!
-
 
 <br>
 <hr style="border:2px solid darkgray">
@@ -90,6 +72,22 @@ Check out the [First Project](engine/include/engine.h) wiki page in order to cre
 ## Documentation 
 You can find everything over on the [Dou wiki](engine/include/epch.h). If you encounter something that's not documented let me know and I'll add a wiki page as soon a possible.
 
+<hr style="border:2px solid darkgray">
+<br>
+
+## Known bugs/ incomplete features
+- #### Physics:
+    - Rotations are purely for show, they don't take affect in the collision checking, AABB means the collider is fixed to the object's size with no rotation.
+    - While the physics engine does support non static object being pushed it can rarely cause unexpected behavior like unwanted velocity increase.
+    - Setting an object's `mass`/`velocity`/`gravity` too high or too low can cause unexpected behavior.
+
+    - **As you can probably can tell from the previous bugs the AABB system isn't quite finished; It's on top priority but is really basic in this version.**
+
+- #### Rendering
+    - While the lighting system does work **shadows are not implemented yet** unfortunately, meaning enclosed areas are still affected by outside lights for example.
+
+- #### Other
+    - The Lua support is pretty rich but sometimes a C++ function will miss a Lua binding, so let me know if you encounter a missing function!
 
 
 <br>
