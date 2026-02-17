@@ -7,9 +7,7 @@ namespace YAML {
     template<>
     struct convert<engine::UUID> {
         static Node encode(const engine::UUID& uuid) {
-            Node node;
-            node.push_back((uint32_t)uuid);
-            return node;
+            return Node((uint64_t)uuid);
         }
 
         static bool decode(const Node& node, engine::UUID& uuid) {
@@ -19,6 +17,23 @@ namespace YAML {
             return true;
         }
 
+    };
+    template <>
+    struct convert<glm::vec2> {
+        static Node encode(const glm::vec2& rhs) {
+            Node node;
+            node.push_back(rhs.x);
+            node.push_back(rhs.y);
+            return node;
+        }
+
+        static bool decode(const Node& node, glm::vec2& rhs) {
+            if(!node.IsSequence() || node.size() != 2)
+                return false;
+            rhs.x = node[0].as<float>();
+            rhs.y = node[1].as<float>();
+            return true;
+        }
     };
     template <>
     struct convert<glm::vec3> {
@@ -84,9 +99,9 @@ namespace YAML {
 namespace engine {
 
     template <typename T>
-    static void make_field_node(YAML::Emitter& out,T field, char ident) {
+    static void make_field_node(YAML::Emitter& out,T field, std::string ident) {
         out<<YAML::Flow;
-        out<<YAML::BeginSeq<<ident<<field<<YAML::EndSeq;
+        out<<YAML::BeginSeq<<ident<<YAML::Node(field)<<YAML::EndSeq;
     }
 
     #define EMMIT_FIELD(name,var, type, ident) if (var.is<type>())  {out<<YAML::Key<<name; make_field_node(out, var.as<type>(), ident);}
@@ -194,7 +209,8 @@ namespace engine {
                 out<<YAML::Key<<"Yaw"<<YAML::Value<<c.yaw();
                 out<<YAML::Key<<"Up"<<YAML::Value<<c.up;
                 out<<YAML::Key<<"FovY"<<YAML::Value<<c.fovy;
-                out<<YAML::Key<<"Projection"<<YAML::Value<<(int)c.projection_mode;
+                const char* names[] = {"Perspective", "Orthographic"};
+                out<<YAML::Key<<"Projection"<<YAML::Value<<names[(int)c.projection_mode];
                 out<<YAML::Key<<"Max Distance"<<YAML::Value<<c.max_distance;
                 glm::vec2 size = entity.scene_ptr()->manager->main_window.size();
                 if (size != c.framebuffer.last_scale) {
@@ -220,12 +236,14 @@ namespace engine {
                                 continue;
                             
                             std::string str = k.as<std::string>();
-                                 EMMIT_FIELD(str, v, UUID, 'u')
-                            else EMMIT_FIELD(str, v, int,   'i')
-                            else EMMIT_FIELD(str, v, float, 'f')
-                            else EMMIT_FIELD(str, v, bool, 'b')
+                            EMMIT_FIELD(str, v, UUID, "u")
+                            else EMMIT_FIELD(str, v, int,   "i")
+                            else EMMIT_FIELD(str, v, float, "f")
+                            else EMMIT_FIELD(str, v, bool, "b")
+                            else EMMIT_FIELD(str, v, glm::vec2, "v2")
+                            else EMMIT_FIELD(str, v, glm::vec3, "v3")
+                            else EMMIT_FIELD(str, v, glm::vec4, "v4")
                             // fucking hell
-
                         }
                     out<<YAML::EndMap;
                     out<<YAML::EndMap;
@@ -389,7 +407,17 @@ namespace engine {
             c.set_pitch(camera["Pitch"].as<float>());
             c.set_yaw(camera["Yaw"].as<float>());
             c.fovy = camera["FovY"].as<float>();
-            c.projection_mode = (CameraProjection)camera["Projection"].as<int>();
+
+            std::string identifier = camera["Projection"].as<std::string>();
+            const char* names[] = {"Perspective", "Orthographic", "0", "1"};
+            int tmp = -1;
+            for (int i = 0; i < 4; i++) {
+                if (identifier == names[i])
+                    tmp = i % 2;
+            }
+            DU_ASSERT(tmp == -1, "Unkown CameraProjection identifier {}", identifier);
+            c.projection_mode = (CameraProjection)tmp;
+
             c.max_distance = camera["Max Distance"].as<float>();
             glm::vec2 fb_size = scene->manager->main_window.size();
             auto framebuffer = camera["Framebuffer"];
@@ -414,16 +442,25 @@ namespace engine {
                 for (const auto& f : m["Fields"]) {
                     std::string name = f.first.as<std::string>();
                     DU_ASSERT(!f.second.IsSequence(), " {} - Invaild field decleration", name);
-                    char type_flag = f.second[0].as<char>();
+                    std::string type_flag = f.second[0].as<std::string>();
                     YAML::Node var = f.second[1];
-                    switch (type_flag) {
-                        case 'u': ls.bind_field(name, UUID(var.as<uint64_t>())); break;
-                        case 'i': ls.bind_field(name, var.as<int>()); break;
-                        case 'f': ls.bind_field(name, var.as<float>()); break;
-                        case 'b': ls.bind_field(name, var.as<bool>()); break;
-                        default: DU_ASSERT(true, "Invaild type flag \'{}\' in lua field {}",type_flag, name); break;
-                    }
 
+                    using FnPtr = void(*)(LuaActionComp&, std::string& ,YAML::Node&);
+                    static std::unordered_map<std::string, FnPtr> atlas;
+
+#define ATLAS_ENTRY(entry, type) atlas[entry] = [](LuaActionComp& l, std::string& name, YAML::Node& node) {l.bind_field(name, node.as<type>());};
+                    ATLAS_ENTRY("u", UUID);
+                    ATLAS_ENTRY("i", int);
+                    ATLAS_ENTRY("f", float);
+                    ATLAS_ENTRY("b", bool);
+                    ATLAS_ENTRY("v2", glm::vec2);
+                    ATLAS_ENTRY("v3", glm::vec3);
+                    ATLAS_ENTRY("v4", glm::vec4);
+#undef ATLAS_ENTRY
+                    const auto& operation = atlas.find(type_flag);
+
+                    DU_ASSERT(operation == atlas.end(), "Invaild type flag \'{}\' in lua field {}",type_flag, name); 
+                    operation->second(ls, name, var);
                 }
             }
         }

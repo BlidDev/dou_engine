@@ -64,6 +64,15 @@ namespace engine {
 
     int P_QUAD_S = 12;
 
+    float P_QUAD_TEX[] = {
+         0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+         0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+        -0.5f,  0.5f, 0.0f, 0.0f, 1.0f
+    };
+
+    int P_QUAD_TEX_S = 20;
+
     unsigned int I_QUAD[] = {
         0, 1, 3,    
         1, 2, 3     

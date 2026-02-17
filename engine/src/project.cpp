@@ -120,7 +120,7 @@ namespace engine {
                     std::string mesh_name = "unnamed";
 
                     Mesh mesh = mesh_from_file(entry.path().c_str(), &mesh_name);
-                    DU_ASSERT(mesh_name == "unnamed", "Model {} wasn't given any name");
+                    DU_ASSERT(mesh_name == "unnamed", "Mesh {} wasn't given any name");
                     manager->register_mesh(mesh_name.c_str(), mesh);
                 }
 

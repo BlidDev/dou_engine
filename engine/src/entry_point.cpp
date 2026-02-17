@@ -1,5 +1,6 @@
 #include "entry_point.h"
 #include "manager.h"
+#include "models.h"
 
 #define SOL_ALL_SAFETIES_ON 1
 
@@ -9,18 +10,24 @@ static int FRAME_CAP = 0;
 
 int main() {
 
-    glfwInit();
+    init_glfw();
 
     Log::init();
 
     SceneManager manager;
     on_start(&manager);
 
+    if (manager.main_window) {
+        manager.register_mesh("DefaultDisplayQuad", 
+                MeshBuilder().vertices(P_QUAD_TEX, P_QUAD_TEX_S).textured()
+                .indices(I_QUAD, I_QUAD_S));
+    }
+
     Scene* current = manager.get_current();
 
     double start = glfwGetTime();
 
-    while (!current->should_close())
+    while (!current->should_close() && !manager.should_close())
     {
         double now = glfwGetTime();
         double dt = now - start;

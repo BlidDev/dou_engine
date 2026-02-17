@@ -13,6 +13,7 @@ namespace engine {
     static void log_info(std::string format, sol::variadic_args args);
     static void log_warn(std::string format, sol::variadic_args args);
     static void log_error(std::string format, sol::variadic_args args);
+    static void log_critical(std::string format, sol::variadic_args args);
 
     static void make_child_of(Scene* owner, UUID child, UUID parent);
     static void remove_child(Scene* owner, UUID parent, UUID child);
@@ -30,7 +31,7 @@ namespace engine {
       env.set_function("get_transform", get_uuid_component<TransformComp>);
       env.set_function("get_modelcomp", get_uuid_component<ModelComp>);
       env.set_function("get_action", get_uuid_component<ActionsComp>);
-      env.set_function("get_physicbody", get_uuid_component<PhysicsBodyComp>);
+      env.set_function("get_physicsbody", get_uuid_component<PhysicsBodyComp>);
       env.set_function("get_camera", get_uuid_component<CameraComp>);
       env.set_function("get_script", get_uuid_component<LuaActionComp>);
       env.set_function("get_dirlight", get_uuid_component<DirLightComp>);
@@ -78,6 +79,7 @@ namespace engine {
       env.set_function("log_info", log_info);
       env.set_function("log_warn", log_warn);
       env.set_function("log_error", log_error);
+      env.set_function("log_critical", log_critical);
 
       env.set_function("make_child_of", make_child_of);
       env.set_function("remove_children", remove_children);
@@ -133,6 +135,10 @@ namespace engine {
 
     static void log_error(std::string format, sol::variadic_args args) {
       DU_ERROR(variadic_args_to_str(format, args));
+    }
+
+    static void log_critical(std::string format, sol::variadic_args args) {
+      DU_CRITICAL(variadic_args_to_str(format, args));
     }
 
 

@@ -11,6 +11,7 @@ namespace engine {
         mass = 10.0f;
         is_solid = true;
         is_static = false;
+        slipperiness = 0.01f;
         move_delta = {0.0f,0.0f,0.0f};
         intersects_callback = nullptr;
         dominance = Dominance::Dominant;
@@ -51,14 +52,14 @@ namespace engine {
         return *this;
     }
 
-    PhysicsBodyBuilder& PhysicsBodyBuilder::intersects_callback(int (*intersects_callback)(Scene&, entt::entity, entt::entity)) {
+    PhysicsBodyBuilder& PhysicsBodyBuilder::intersects_callback(NativeCallback intersects_callback) {
         physicbody.intersects_callback = intersects_callback;
         return *this;
     }
 
     PhysicsBodyBuilder& PhysicsBodyBuilder::bind_intersects_callback(std::string path, std::string function) {
         DU_ASSERT(path.empty(), "Path given to bind_intersects_callback is empty");
-        ENTT_ASSERT(function.empty(), "Function given to bind_intersects_callback is empty");
+        DU_ASSERT(function.empty(), "Function given to bind_intersects_callback is empty");
         physicbody.lua_callback = {path, function};
         return *this;
     }

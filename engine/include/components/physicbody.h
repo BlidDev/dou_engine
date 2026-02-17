@@ -10,6 +10,8 @@ namespace engine {
         Dominant
     };
 
+    using NativeCallback = int (*)(Scene&, Entity, Entity);
+
     struct PhysicsBodyComp {
         float gravity;
         glm::vec3 velocity;
@@ -21,7 +23,7 @@ namespace engine {
         PhysicsBodyComp();
         PhysicsBodyComp(float gravity, float mass, glm::vec3 velocity, bool slipperiness, bool is_solid, bool is_static);
 
-        int (*intersects_callback)(Scene&, entt::entity, entt::entity) = nullptr;
+        NativeCallback intersects_callback= nullptr;
         LuaCallback lua_callback;
 
         Dominance dominance;
@@ -39,7 +41,17 @@ namespace engine {
         PhysicsBodyBuilder& is_solid(bool is_solid);
         PhysicsBodyBuilder& is_static(bool is_static);
 
-        PhysicsBodyBuilder& intersects_callback(int (*intersects_callback)(Scene&, entt::entity, entt::entity));
+        /** 
+         * Native intersection callback 
+         * @intersects_callback: int fn(Scene&, Entity self, Entity other) function pointer
+         */ 
+        PhysicsBodyBuilder& intersects_callback(NativeCallback intersects_callback);
+
+        /** 
+         * Lua intersection callback
+         * @path: Path of an ALREADY registered and attached script
+         * @name: callback function name (int fn(UUID self, UUID other) expected)
+         */ 
         PhysicsBodyBuilder& bind_intersects_callback(std::string path, std::string function);
 
         PhysicsBodyComp build();

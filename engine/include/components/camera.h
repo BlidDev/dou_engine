@@ -40,7 +40,7 @@ namespace engine {
     void rescale_framebuffer(Frambuffer& fb, size_t w, size_t h);
 
     enum CameraProjection {
-        Perspective,
+        Perspective = 0,
         Orthographic
     };
 

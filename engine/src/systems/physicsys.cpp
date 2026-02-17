@@ -205,7 +205,9 @@ namespace engine {
 
     static int handle_callback(Scene& scene, PhysicsBodyComp& ph, UUIDEnttBind self, UUIDEnttBind other) {
         if(ph.intersects_callback != nullptr) {
-            return ph.intersects_callback(scene, self.id, other.id);
+            Entity self_e(&scene, self.id);
+            Entity other_e(&scene, other.id);
+            return ph.intersects_callback(scene, self_e, other_e);
         }
         else if (ph.lua_callback) {
             DU_ASSERT(!scene.registry.any_of<LuaActionComp>(self.id), 

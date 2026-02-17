@@ -7,6 +7,9 @@ namespace engine {
     extern float P_QUAD[];
     extern int P_QUAD_S;
 
+    extern float P_QUAD_TEX[];
+    extern int P_QUAD_TEX_S;
+
     extern unsigned int I_QUAD[];
     extern int I_QUAD_S;
     

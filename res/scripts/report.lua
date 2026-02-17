@@ -4,7 +4,7 @@ local t
 
 function on_init()
     t  = get_transform(scene, this)
-    ph = get_physicbody(scene, this)
+    ph = get_physicsbody(scene, this)
 end
 
 function on_update(dt)

@@ -16,6 +16,8 @@ namespace engine {
 
         auto manager = env.new_usertype<SceneManager>("SceneManager");
         manager["set_current"] = &SceneManager::set_current;
+        manager["set_should_close"] = &SceneManager::set_should_close;
+        manager["should_close"] = &SceneManager::should_close;
         auto scene = env.new_usertype<Scene>("Scene");
         scene["uuid_to_entt"] = &Scene::uuid_to_entt;
         scene["manager"] = &Scene::manager;

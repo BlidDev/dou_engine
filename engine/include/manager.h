@@ -58,6 +58,13 @@ namespace engine {
         Scene* get_current();
         ~SceneManager();
 
+        constexpr bool should_close() {
+            return b_should_close;
+        }
+        constexpr void set_should_close(bool should_close) {
+            b_should_close = should_close;
+        }
+
     public:
         std::string current;
         bool switched;
@@ -73,6 +80,7 @@ namespace engine {
         ProjectData project_data;
     private:
         SceneLib scenes;
+        bool b_should_close;
     };
 
     std::string extract_scene_name(const char* path);

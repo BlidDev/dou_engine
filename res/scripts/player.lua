@@ -12,7 +12,7 @@ other = nil
 othero = nil
 
 function on_init()
-    ph = get_physicbody(scene, this)
+    ph = get_physicsbody(scene, this)
     t  = get_transform(scene, this)
     cm = get_camera(scene, this)
     set_input_mode(scene, util.InputSbj.CURSOR, util.InputMode.CURSOR_DISABLED)
