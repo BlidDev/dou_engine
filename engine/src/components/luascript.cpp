@@ -7,7 +7,7 @@ namespace engine {
 
 
     void LuaManager::init(const char* util_path) {
-        state.open_libraries(sol::lib::string, sol::lib::base, sol::lib::coroutine, sol::lib::io, sol::lib::math);
+        state.open_libraries(sol::lib::string, sol::lib::base, sol::lib::coroutine, sol::lib::io, sol::lib::math, sol::lib::package);
         expose_env(state);
         if (!util_path) return;
         state.require_file("util", util_path);

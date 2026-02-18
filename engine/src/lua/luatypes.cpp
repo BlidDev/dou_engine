@@ -42,13 +42,13 @@ namespace engine {
         auto ph = env.new_usertype<PhysicsBodyComp>("PhysicsBody",
                 sol::constructors<PhysicsBodyComp()>());
 
-        ph["gravity"] = &PhysicsBodyComp::gravity;
-        ph["velocity"] = &PhysicsBodyComp::velocity;
+        ph["gravity"]      = &PhysicsBodyComp::gravity;
+        ph["velocity"]     = &PhysicsBodyComp::velocity;
         ph["slipperiness"] = &PhysicsBodyComp::slipperiness;
-        ph["mass"] = &PhysicsBodyComp::mass;
-        ph["is_solid"] = &PhysicsBodyComp::is_solid;
-        ph["is_static"] = &PhysicsBodyComp::is_static;
-        ph["move_delta"] = &PhysicsBodyComp::move_delta;
+        ph["mass"]         = &PhysicsBodyComp::mass;
+        ph["is_solid"]     = &PhysicsBodyComp::is_solid;
+        ph["is_static"]    = &PhysicsBodyComp::is_static;
+        ph["move_delta"]   = &PhysicsBodyComp::move_delta;
 
         auto phb = env.new_usertype<PhysicsBodyBuilder>("PhysicsBodyBuilder",
                 sol::constructors<PhysicsBodyBuilder()>());
@@ -56,10 +56,15 @@ namespace engine {
         phb["gravity"] =      &PhysicsBodyBuilder::gravity;
         phb["velocity"] =     &PhysicsBodyBuilder::velocity;
         phb["mass"] =         &PhysicsBodyBuilder::mass;
-        phb["slipperiness"] =         &PhysicsBodyBuilder::slipperiness;
+        phb["slipperiness"] = &PhysicsBodyBuilder::slipperiness;
         phb["is_solid"] =     &PhysicsBodyBuilder::is_solid;
         phb["is_static"] =    &PhysicsBodyBuilder::is_static;
         phb["build"] =        &PhysicsBodyBuilder::build;
+
+        env.new_enum("CameraProjection",
+            "Perspective", CameraProjection::Perspective,
+            "Orthographic", CameraProjection::Orthographic
+        );
 
         auto cmt = env.new_usertype<CameraComp>("Camera");
         cmt["pitch"] = &CameraComp::pitch;
@@ -68,6 +73,7 @@ namespace engine {
         cmt["set_yaw"] = &CameraComp::set_yaw;
         cmt["up"] = &CameraComp::up;
         cmt["fovy"] = &CameraComp::fovy;
+        cmt["max_distance"] = &CameraComp::max_distance;
         cmt["projection"] = &CameraComp::projection_mode;
 
         auto cm = env.new_usertype<CameraBuilder>("CameraBuilder",
@@ -131,14 +137,14 @@ namespace engine {
         auto tr = env.new_usertype<TransformComp>("Transform",
                 sol::constructors<TransformComp(glm::vec3,glm::vec3)>());
         tr["position"] = &TransformComp::position;
-        tr["size"] = &TransformComp::size;
+        tr["size"] =     &TransformComp::size;
         tr["rotation"] = &TransformComp::rotation;
 
         tr["set_position"] = &TransformComp::set_position;
         tr["set_size"] =     &TransformComp::set_size;
         tr["set_rotation"] = &TransformComp::set_rotation;
 
-        tr["translate"] = &TransformComp::translate;
+        tr["translate"] =   &TransformComp::translate;
         tr["translate_x"] = &TransformComp::translate_x;
         tr["translate_y"] = &TransformComp::translate_y;
         tr["translate_z"] = &TransformComp::translate_z;
@@ -177,20 +183,20 @@ namespace engine {
         tx["path"]    = &Texture::path;
         tx["w"]       = &Texture::w;
         tx["h"]       = &Texture::h;
-        tx["nrc"]       = &Texture::nrc;
+        tx["nrc"]     = &Texture::nrc;
 
         auto msh = env.new_usertype<Mesh>( "Mesh", 
                 sol::constructors<>());
 
-        msh["VAO"] = &Mesh::VAO;
-        msh["VBO"] = &Mesh::VBO;
-        msh["EBO"] = &Mesh::EBO;
-        msh["nvertices"] = &Mesh::nvertices;
-        msh["nindices"] = &Mesh::nindices;
-        msh["name"] = &Mesh::name;
+        msh["VAO"]        = &Mesh::VAO;
+        msh["VBO"]        = &Mesh::VBO;
+        msh["EBO"]        = &Mesh::EBO;
+        msh["nvertices"]  = &Mesh::nvertices;
+        msh["nindices"]   = &Mesh::nindices;
+        msh["name"]       = &Mesh::name;
         msh["vao_format"] = &Mesh::vao_format;
-        msh["textured"] = &Mesh::textured;
-        msh["normals"] = &Mesh::normals;
+        msh["textured"]   = &Mesh::textured;
+        msh["normals"]    = &Mesh::normals;
     }
 
     static void bind_material(sol::state& env) {
@@ -200,8 +206,8 @@ namespace engine {
 
         mt["shader"]     = &Material::shader;
         mt["texture"]    = &Material::texture;
-        mt["ambient"]    = &Material::shader;
-        mt["diffuse"]    = &Material::shader;
+        mt["ambient"]    = &Material::ambient;
+        mt["diffuse"]    = &Material::diffuse;
         mt["specular"]   = &Material::specular;
         mt["shininess"]  = &Material::shininess;
         mt["attributes"] = &Material::attributes;
@@ -212,8 +218,8 @@ namespace engine {
 
         mtb["set_shader"]     = &MaterialBuilder::set_shader;
         mtb["set_texture"]    = &MaterialBuilder::set_texture;
-        mtb["set_ambient"]    = &MaterialBuilder::set_shader;
-        mtb["set_diffuse"]    = &MaterialBuilder::set_shader;
+        mtb["set_ambient"]    = &MaterialBuilder::set_ambient;
+        mtb["set_diffuse"]    = &MaterialBuilder::set_diffuse;
         mtb["set_specular"]   = &MaterialBuilder::set_specular;
         mtb["set_shininess"]  = &MaterialBuilder::set_shininess;
         mtb["set_attributes"] = &MaterialBuilder::set_attributes;
@@ -226,19 +232,18 @@ namespace engine {
                                   ModelComp(Mesh, Material, size_t)>());
 
         mdl["material"] = &ModelComp::material;
-        mdl["mesh"] = &ModelComp::material;
-        mdl["layer"] = &ModelComp::material;
+        mdl["mesh"] = &ModelComp::mesh;
+        mdl["layer"] = &ModelComp::layer;
     }
 
     static void bind_hierarchy(sol::state& env) {
         auto prt = env.new_usertype<ParentComp>( "Parent", 
-                sol::constructors<ParentComp(),
-                                  ParentComp(Entity)>());
+                sol::constructors<>());
         prt["parent"] = &ParentComp::parent;
 
 
         auto chd = env.new_usertype<ChildrenComp>( "Children", 
-                sol::constructors<ChildrenComp()>());
+                sol::constructors<>());
 
         chd["children"] = &ChildrenComp::children;
     }

@@ -15,7 +15,7 @@ namespace engine {
     }
 
     void Material::print() {
-        DU_CORE_INFO("Material: {} {} {}",
+        DU_CORE_INFO("Material-> path:{} shader:{} attrb:{}",
                 shader.path, shader.program, attributes);
     }
 
