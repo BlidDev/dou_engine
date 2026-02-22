@@ -13,6 +13,7 @@ int engine::on_start(engine::SceneManager* manager) {
 
     // Initial setup
     set_clear_flags(manager->render_data, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    set_layer_depth(manager->render_data, 0, true);
 
     // Mesh setup
     manager->register_mesh("triangle",engine::MeshBuilder()
