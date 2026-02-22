@@ -11,7 +11,7 @@ namespace engine {
         w = -1; h = -1; nrc = -1;
     }
 
-    Texture load_texture_from_file(const char* path) {
+    Texture load_texture_from_file(const char* path, bool flip) {
         uint32_t texture;
         int w, h, nrc;
 
@@ -25,10 +25,10 @@ namespace engine {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 
+        stbi_set_flip_vertically_on_load(flip);
         unsigned char *data = stbi_load(path, &w, &h, &nrc, STBI_rgb_alpha);
 
         DU_ASSERT(!data, "Could not load texture [{}]", path);
-        stbi_set_flip_vertically_on_load(true);
 
         auto format = GL_RGBA;
         glTexImage2D(GL_TEXTURE_2D, 0, format, w, h, 0, format, GL_UNSIGNED_BYTE, data);

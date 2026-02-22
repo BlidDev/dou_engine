@@ -101,13 +101,13 @@ namespace engine {
         DU_CORE_DEBUG_TRACE("Registered shader {}", fs_path.filename().string());
     }
 
-    void SceneManager::register_texture(const char* path) {
+    void SceneManager::register_texture(const char* path, bool flip) {
         fs::path fs_path = fs::path(path);
         if (!fs_path.is_absolute()) fs_path = root_path() / fs_path;
 
 
         DU_ASSERT(texture_lib.contains(fs_path.filename()), "Texture [{}] already registered", path);
-        texture_lib.insert(std::make_pair(fs_path.filename().string(), load_texture_from_file(fs_path.c_str())));
+        texture_lib.insert(std::make_pair(fs_path.filename().string(), load_texture_from_file(fs_path.c_str(), flip)));
         DU_CORE_DEBUG_TRACE("Registered texture {}", fs_path.filename().string());
     }
 

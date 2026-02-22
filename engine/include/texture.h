@@ -27,6 +27,6 @@ namespace engine {
         }
     };
 
-    Texture load_texture_from_file(const char* path);
+    Texture load_texture_from_file(const char* path, bool flip = false);
 
 }
