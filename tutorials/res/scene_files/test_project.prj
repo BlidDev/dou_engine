@@ -1,0 +1,17 @@
+Project Name: TestProject
+Startup Scene: Test
+Paths:
+ Scenes:
+   - res
+ Shaders:
+   - res
+ Textures:
+   - res
+ Meshes:
+   - res
+ Scripts:
+   - res
+Layers:
+  Layer 0:
+    Depth Test: true
+    Wireframe Mode: false
