@@ -29,47 +29,48 @@ namespace engine {
         return get_component<ChildrenComp>().children;
     }
 
+    static void remove_previous_parent(Entity& child, Entity& new_parent) {
+        if (!child.is_child()) {
+            child.add_component<ParentComp>(new_parent);
+            return;
+        }
+        Entity& old_parent = child.get_parent();
+        UUID new_parent_uuid = new_parent.uuid();
+
+        DU_ASSERT(old_parent.uuid() == new_parent_uuid, "Trying to make {} a child of {} twice", child.uuid(), new_parent_uuid);
+        DU_CORE_DEBUG_TRACE("Entity {} already has a parent {}, changing ownership", child.uuid(), old_parent.uuid());
+
+        auto& op_children = old_parent.get_children();
+
+        op_children.erase(std::remove(op_children.begin(), op_children.end(), child), op_children.end());
+
+        old_parent = new_parent;
+    }
+
     void Entity::make_child_of(UUID parent) {
         DU_ASSERT(parent == uuid(), "Trying to set {} a parent of itself");
-        if(is_child()) {
-            Entity& tmp = get_parent();
-            DU_ASSERT(tmp.uuid() == parent, "Trying to make {} a child of {} twice", uuid(), parent);
-            tmp.remove_child(uuid());
-            tmp = Entity::null();
-        }
+
         Entity tmp = scene->uuid_to_entity(parent);
+
         tmp.add_child(uuid());
     }
 
     void Entity::add_child(UUID child) {
-        if (!is_parent()) {
-            DU_ASSERT(child == uuid(), "Trying to make {} a parent of itself", child);
-            add_component<ChildrenComp>().children.push_back(child);
-            Entity tmp_child = scene->uuid_to_entity(child);
-            if (tmp_child.has_component<ParentComp>()) {
-                DU_ASSERT(tmp_child.get_parent(), "Entity {} already has a parent {}", tmp_child.uuid(), tmp_child.get_parent().uuid());
-                tmp_child.get_parent() = *this;
-            }
-            tmp_child.add_component<ParentComp>(*this);
-            if (has_component<PhysicsBodyComp>())
-                make_physically_owned(tmp_child);
-            return;
-        }
-
-        auto& children = get_component<ChildrenComp>().children;
-        DU_ASSERT(std::find(children.begin(), children.end(), child) != children.end(), "add_child(): Entity {} is already a child of {}", child, uuid());
-        children.push_back(child);
+        DU_ASSERT(child == uuid(), "Trying to make {} a parent of itself", child);
+        if (!is_parent())
+            add_component<ChildrenComp>();
 
         Entity tmp_child = scene->uuid_to_entity(child);
-        if (tmp_child.has_component<ParentComp>()) {
-            DU_ASSERT(tmp_child.get_parent(), "Entity {} already has a parent {}", tmp_child.uuid(), tmp_child.get_parent().uuid());
-            tmp_child.get_parent() = *this;
+        remove_previous_parent(tmp_child, *this);
+
+        auto& children = get_children();
+        children.push_back(child);
+
+        switch (get_tree_dominance(*this)) {
+            case Dominance::Owned: make_physically_dominant(tmp_child); break;
+            case Dominance::Dominant: make_physically_owned(tmp_child); break;
         }
-        tmp_child.add_component<ParentComp>(*this);
 
-        if (!has_component<PhysicsBodyComp>()) return;
-
-        make_physically_dominant(*this);
     }
 
     void Entity::add_children(const std::vector<UUID>& children) {
@@ -81,7 +82,6 @@ namespace engine {
 
     void Entity::remove_children() {
         const auto& children = get_children();
-        //physically_disown_children(*this);
         for (const auto& child : children) {
             remove_child(child);
         }
@@ -94,8 +94,7 @@ namespace engine {
         DU_ASSERT(std::find(children.begin(), children.end(), child) == children.end(), "remove_child(): Entity {} is not a child of {}", child, uuid());
         Entity child_e = scene->uuid_to_entity(child);
 
-        if (child_e.has_component<PhysicsBodyComp>())
-            make_physically_dominant(child_e);
+        physically_disown_child(child_e);
 
         child_e.remove_parent();
         children.erase(std::remove(children.begin(), children.end(), child), children.end());

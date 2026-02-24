@@ -1,7 +1,6 @@
 // src/main.cpp
 
 #include <engine.h>
-#include "fps_ctrl.h"
 #include "test_scene.h"
 
 

@@ -526,6 +526,9 @@ PhysicsBody = {}
 function PhysicsBody:new() end
 
 
+---@return boolean
+function PhysicsBody:is_dominant() end
+
 ---@class PhysicsBodyBuilder
 PhysicsBodyBuilder = {}
 

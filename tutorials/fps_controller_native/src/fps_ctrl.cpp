@@ -11,9 +11,6 @@ void FPSController::on_update(engine::Scene* scene, engine::Entity self, float d
     auto& trans = self.get_component<engine::TransformComp>();
     auto& cam = self.get_component<engine::CameraComp>();
 
-    // refresh camera target
-    engine::update_camera_target(cam, trans.position());
-
 
     // get input
     float f = (float)(engine::is_key_pressed(GLFW_KEY_W) - engine::is_key_pressed(GLFW_KEY_S));
@@ -24,11 +21,10 @@ void FPSController::on_update(engine::Scene* scene, engine::Entity self, float d
     glm::vec2 mouse_delta = engine::get_mouse_delta() * sensi * -dt;
 
     // handle input
-    auto pos = trans.position();
-    engine::handle_mouse_delta(&cam, pos, mouse_delta, true);
+    engine::handle_mouse_delta(cam, mouse_delta, true);
 
-    glm::vec3 forward = engine::get_flat_forward(cam.target, pos);
-    glm::vec3 right   = engine::get_right(cam.target, pos, cam.up);
+    glm::vec3 forward = engine::get_camera_flat_forward(cam);
+    glm::vec3 right   = engine::get_camera_right(cam);
 
     float speed = 3.0f;
     glm::vec3 move = (f * forward) + (r * right) + (u * cam.up);

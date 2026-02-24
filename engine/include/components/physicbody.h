@@ -23,6 +23,8 @@ namespace engine {
         PhysicsBodyComp();
         PhysicsBodyComp(float gravity, float mass, glm::vec3 velocity, bool slipperiness, bool is_solid, bool is_static);
 
+        bool is_dominant();
+
         NativeCallback intersects_callback= nullptr;
         LuaCallback lua_callback;
 
@@ -68,7 +70,9 @@ namespace engine {
 
     void make_physically_owned(Entity entity);
     void make_physically_dominant(Entity entity);
-    void physically_disown_children(Entity entity);
+    void physically_disown_child(Entity child);
+
+    Dominance get_tree_dominance(Entity& entity);
 
 }
 

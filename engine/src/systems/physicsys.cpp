@@ -76,7 +76,7 @@ namespace engine {
             if (!p.is_solid) { // not solid, we don't need to check anything
                 t.translate(velocity * dt);
                 p.move_delta = velocity * dt;
-                apply_translation_on_children(*scene, u, velocity, dt, false);
+                apply_translation_on_children(*scene, u, velocity, dt, true);
 
                 if(p.intersects_callback || p.lua_callback) {
                     if(run_callback_check(*scene, e, t, p))
@@ -180,7 +180,7 @@ namespace engine {
             
             if (child.has_component<PhysicsBodyComp>()) {
                 auto& velocity = child.get_component<PhysicsBodyComp>().velocity;
-                velocity = ((!absolute) ? velocity : glm::vec3(0.0f)) + move_delta;
+                velocity =  velocity * (float)(!absolute) + move_delta;
             }
 
             apply_translation_on_children(scene, child_uuid, move_delta, dt);

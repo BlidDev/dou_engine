@@ -313,9 +313,9 @@ namespace engine {
     }
 
     static void read_entity_from_file(YAML::Node& entity, Scene* scene, std::filesystem::path root) {
+        DU_ASSERT(!entity["Entity"], "No uuid given to entity");
         uint64_t uuid = entity["Entity"].as<uint64_t>(); 
-
-        Entity read_entity = scene->uuid_to_entity(uuid);
+        Entity read_entity = scene->create_entity_with_uuid(uuid);
 
         auto tag_comp = entity["Tag"];
         if (tag_comp)
@@ -504,14 +504,6 @@ namespace engine {
         //        read_entity.make_child_of(tmp);
         //}
 
-        auto children = entity["Children"];
-        if (children) {
-            for (const auto& child : children) {
-                UUID c = child.as<UUID>();
-                if (get_entities_relation(*scene, uuid, c) == 0)
-                    read_entity.add_child(c);
-            }
-        }
 
     }
 
@@ -546,11 +538,21 @@ namespace engine {
         DU_CORE_DEBUG_TRACE("Written {}", path);
     }
 
-    void detect_and_add_entities(YAML::Node& entities, Scene* scene) {
-        for (const auto& entity : entities) {
-            DU_ASSERT(!entity["Entity"], "No uuid given to entity");
+    static void apply_hierarchy(YAML::Node& entites, Scene* scene) {
+
+        for (const auto& entity : entites) {
             uint64_t uuid = entity["Entity"].as<uint64_t>(); 
-            scene->create_entity_with_uuid(uuid);
+            Entity read_entity = scene->uuid_to_entity(uuid);
+
+            auto children = entity["Children"];
+            if (children) {
+                for (const auto& child : children) {
+                    UUID c = child.as<UUID>();
+                    if (get_entities_relation(*scene, uuid, c) == 0)
+                        read_entity.add_child(c);
+                }
+            }
+
         }
     }
 
@@ -576,11 +578,12 @@ namespace engine {
 
         DU_ASSERT(!data["Entities"], "Section Entities for scene {} not found", scene_name);
         auto entities = data["Entities"];
-        detect_and_add_entities(entities, this);
 
         for (auto entity : entities) {
             read_entity_from_file(entity, this, root);
         }
+
+        apply_hierarchy(entities, this);
 
         DU_CORE_INFO("Finished adding to scene {}", scene_name.c_str());
     }

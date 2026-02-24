@@ -25,6 +25,11 @@ namespace engine {
         set_layer_wireframe(owner->manager->render_data, layer, flag);
     }
 
+    template<typename A, typename B>
+    static float distance_wrapper(A& a, B& b) {
+        return glm::distance(a,b);
+    }
+
     void expose_env_functions(sol::state &env) {
       env.set_function("get_uuid", get_uuid_component<UUID>);
       env.set_function("get_tag", get_uuid_component<TagComp>);
@@ -89,6 +94,10 @@ namespace engine {
 
       env.set_function("set_layer_wireframe", wrapper_set_wireframe);
 
+
+      env.set_function("v2_distance", distance_wrapper<glm::vec2, glm::vec2>);
+      env.set_function("v3_distance", distance_wrapper<glm::vec3, glm::vec3>);
+      env.set_function("v4_distance", distance_wrapper<glm::vec4, glm::vec4>);
     }
 
     template<typename T>

@@ -19,10 +19,12 @@ int engine::on_start(engine::SceneManager* manager) {
                            .vertices(engine::P_TRIANGLE, engine::P_TRIANGLE_S)
                            ); // Not moved to .sff for the sake of the tutorial 
 
-    read_project_file("res/test_project.prj", manager, true, true);
+    read_project_file("res/test_project.prj", manager);
     make_default_ubos(manager);
 
 
+    manager->register_scene<TestScene>("Test");
+    manager->set_current("Test");
     engine::LuaManager::init("res/util.lua");
     return 0;
 }

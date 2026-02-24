@@ -49,6 +49,7 @@ namespace engine {
         ph["is_solid"]     = &PhysicsBodyComp::is_solid;
         ph["is_static"]    = &PhysicsBodyComp::is_static;
         ph["move_delta"]   = &PhysicsBodyComp::move_delta;
+        ph["is_dominant"]  = &PhysicsBodyComp::is_dominant;
 
         auto phb = env.new_usertype<PhysicsBodyBuilder>("PhysicsBodyBuilder",
                 sol::constructors<PhysicsBodyBuilder()>());

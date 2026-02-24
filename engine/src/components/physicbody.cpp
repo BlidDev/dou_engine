@@ -27,6 +27,10 @@ namespace engine {
         this->intersects_callback = nullptr;
     }
 
+    bool PhysicsBodyComp::is_dominant() {
+        return dominance == Dominance::Dominant;
+    }
+
     PhysicsBodyBuilder& PhysicsBodyBuilder::gravity(float gravity) {
         physicbody.gravity = gravity;
         return *this;
@@ -70,9 +74,8 @@ namespace engine {
 
 
     void make_physically_owned(Entity entity) {
-        if (entity.has_component<PhysicsBodyComp>()) {
+        if (entity.has_component<PhysicsBodyComp>()) 
             entity.get_component<PhysicsBodyComp>().dominance = Dominance::Owned;
-        }
 
         if (!entity.is_parent()) return;
         for (const auto& child : entity.get_children()) {
@@ -82,25 +85,37 @@ namespace engine {
     }
 
     void make_physically_dominant(Entity entity) {
-        DU_ASSERT(!entity.has_component<PhysicsBodyComp>(), "Entity {} is trying to be dominant but has no physics body", entity.uuid());
-        entity.get_component<PhysicsBodyComp>().dominance = Dominance::Dominant;
+        if(entity.has_component<PhysicsBodyComp>())
+            entity.get_component<PhysicsBodyComp>().dominance = Dominance::Dominant;
         if (!entity.is_parent()) return;
         for (const auto& child : entity.get_children()) {
             make_physically_owned(entity.scene_ptr()->uuid_to_entity(child));
         }
     }
 
-
-    void physically_disown_children(Entity entity) {
-        for (const auto& child : entity.get_children()) {
-            Entity tmp = entity.scene_ptr()->uuid_to_entity(child);
-            if (!tmp.has_component<PhysicsBodyComp>()) {
-                if (!tmp.is_parent()) continue;
-                physically_disown_children(tmp);
-                continue;
-            }
-            tmp.get_component<PhysicsBodyComp>().dominance = Dominance::Dominant;
-
+    void physically_disown_child(Entity child) {
+        if (child.has_component<PhysicsBodyComp>()) {
+            make_physically_dominant(child);
+            return;
         }
+        if (!child.is_parent()) return;
+
+        for (const auto& grandson: child.get_children()) {
+            Entity grandson_e = child.scene_ptr()->uuid_to_entity(grandson);
+            physically_disown_child(grandson_e);
+        }
+    }
+
+    Dominance get_tree_dominance(Entity& entity) {
+        if (entity.has_component<PhysicsBodyComp>()) {
+            const auto& ph = entity.get_component<PhysicsBodyComp>();
+            if (ph.dominance == Dominance::Dominant)
+                return Dominance::Dominant;
+        }
+        if (entity.is_child()) {
+            return get_tree_dominance(entity.get_parent());
+        }
+
+        return Dominance::Owned;
     }
 }
