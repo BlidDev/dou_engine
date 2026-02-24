@@ -7,6 +7,7 @@ namespace engine {
         material = Material {
             .shader = {},
             .texture = Texture(),
+            .tex_repeat = {1.0f, 1.0f},
             .ambient = {0.0f, 0.0f, 0.0f},
             .diffuse = {0.0f, 0.0f, 0.0f},
             .specular = {0.0f, 0.0f, 0.0f},
@@ -63,6 +64,12 @@ namespace engine {
         material.attributes |= MODEL_TEXTURED;
         return *this;
     }
+
+    MaterialBuilder& MaterialBuilder::set_tex_repeat(glm::vec2 repeat) {
+        material.tex_repeat = repeat;
+        return *this;
+    }
+
     Material MaterialBuilder::build() {
         return this->material;
     }

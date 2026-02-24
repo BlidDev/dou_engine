@@ -54,6 +54,7 @@ Entities:
         Specular: [1, 1, 1]
         Shininess: 32
         Texture: UNKNOWN
+        Texture Repeats: [1.0, 1.0]
         Textured: false
         Immune: false
     PhysicsBody:
@@ -86,6 +87,7 @@ Entities:
         Specular: [1, 1, 1]
         Shininess: 32
         Texture: UNKNOWN
+        Texture Repeats: [1.0, 1.0]
         Textured: false
         Immune: false
     PhysicsBody:
@@ -113,6 +115,7 @@ Entities:
         Specular: [1, 1, 1]
         Shininess: 32
         Texture: UNKNOWN
+        Texture Repeats: [1.0, 1.0]
         Textured: false
         Immune: false
     PhysicsBody:
@@ -139,5 +142,6 @@ Entities:
         Specular: [1, 1, 1]
         Shininess: 32
         Texture: UNKNOWN
+        Texture Repeats: [1.0, 1.0]
         Textured: false
         Immune: false

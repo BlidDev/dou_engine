@@ -190,10 +190,11 @@ namespace engine {
     }
 
     void send_material(Material &material) {
+      set_shader_v2(material.shader, "material.tex_repeat", material.tex_repeat);
       set_shader_v3(material.shader, "material.ambient", material.ambient);
       set_shader_v3(material.shader, "material.diffuse", material.diffuse);
       set_shader_v3(material.shader, "material.specular", material.specular);
-      set_shader_f(material.shader, "material.shininess", material.shininess);
+      set_shader_f (material.shader, "material.shininess", material.shininess);
     }
 
 

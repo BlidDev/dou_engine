@@ -35,6 +35,7 @@ namespace YAML {
             return true;
         }
     };
+
     template <>
     struct convert<glm::vec3> {
         static Node encode(const glm::vec3& rhs) {
@@ -106,6 +107,12 @@ namespace engine {
 
     #define EMMIT_FIELD(name,var, type, ident) if (var.is<type>())  {out<<YAML::Key<<name; make_field_node(out, var.as<type>(), ident);}
 
+    YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec2& v) {
+        out<<YAML::Flow;
+        out<<YAML::BeginSeq<<v.x<<v.y<<YAML::EndSeq;
+        return out;
+    }
+
     YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec3& v) {
         out<<YAML::Flow;
         out<<YAML::BeginSeq<<v.x<<v.y<<v.z<<YAML::EndSeq;
@@ -158,6 +165,7 @@ namespace engine {
                     out<<YAML::Key<<"Shininess"<<YAML::Value<<m.material.shininess;
                     out<<YAML::Key<<"Texture"<<YAML::Value<<m.material.texture.path;
                     out<<YAML::Key<<"Textured"<<YAML::Value<<((MODEL_TEXTURED & m.material.attributes) == MODEL_TEXTURED);
+                    out<<YAML::Key<<"Texture Repeats"<<YAML::Value<<m.material.tex_repeat;
                     out<<YAML::Key<<"Immune"<<YAML::Value<<((MODEL_IMMUNE & m.material.attributes) == MODEL_IMMUNE);
                 out<<YAML::EndMap;
 
@@ -348,6 +356,11 @@ namespace engine {
             m.material.attributes |=  textured ?  MODEL_TEXTURED : 0;
             m.material.attributes |=  immune   ?  MODEL_IMMUNE : 0;
 
+            auto tex_repeat = material["Texture Repeats"];
+
+            m.material.tex_repeat = (tex_repeat) ? 
+                                tex_repeat.as<glm::vec2>() : 
+                                glm::vec2(1.0f);
 
             if (textured)
                 m.material.texture = scene->get_texture(texture_path.c_str());

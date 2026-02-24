@@ -20,6 +20,7 @@ void TestScene::on_create() {
 
     triangle.add_component<engine::ModelComp>(get_mesh("quad_tex"), engine::MaterialBuilder()
                                               .set_texture(get_texture("fella.png")) // no need to use real path
+                                              .set_tex_repeat({2.0f, 3.0f})
                                               .set_shader(get_shader("textured.glsl"))
                                               );
     player = create_entity();

@@ -13,6 +13,7 @@ namespace engine {
     struct Material {
         Shader shader;
         Texture texture;
+        glm::vec2 tex_repeat;
         glm::vec3 ambient;
         glm::vec3 diffuse;
         glm::vec3 specular;
@@ -34,6 +35,7 @@ namespace engine {
         MaterialBuilder& set_attributes(int attributes);
         MaterialBuilder& set_shader(Shader shader);
         MaterialBuilder& set_texture(Texture texture);
+        MaterialBuilder& set_tex_repeat(glm::vec2 repeat);
         Material build();
 
         operator Material() {

@@ -217,13 +217,14 @@ namespace engine {
         auto mtb = env.new_usertype<MaterialBuilder>( "MaterialBuilder", 
                 sol::constructors<MaterialBuilder()>());
 
-        mtb["set_shader"]     = &MaterialBuilder::set_shader;
-        mtb["set_texture"]    = &MaterialBuilder::set_texture;
-        mtb["set_ambient"]    = &MaterialBuilder::set_ambient;
-        mtb["set_diffuse"]    = &MaterialBuilder::set_diffuse;
-        mtb["set_specular"]   = &MaterialBuilder::set_specular;
-        mtb["set_shininess"]  = &MaterialBuilder::set_shininess;
-        mtb["set_attributes"] = &MaterialBuilder::set_attributes;
+        mtb["set_shader"]         = &MaterialBuilder::set_shader;
+        mtb["set_texture"]        = &MaterialBuilder::set_texture;
+        mtb["set_tex_repeate"]    = &MaterialBuilder::set_tex_repeat;
+        mtb["set_ambient"]        = &MaterialBuilder::set_ambient;
+        mtb["set_diffuse"]        = &MaterialBuilder::set_diffuse;
+        mtb["set_specular"]       = &MaterialBuilder::set_specular;
+        mtb["set_shininess"]      = &MaterialBuilder::set_shininess;
+        mtb["set_attributes"]     = &MaterialBuilder::set_attributes;
         mtb["build"] = &MaterialBuilder::build;
     }
 

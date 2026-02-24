@@ -24,8 +24,13 @@ out vec4 frag_color;
 
 in vec2 tex_coord;
 
+struct Material {
+    vec2 tex_repeat;
+};
+
 uniform sampler2D texture_sample;
+uniform Material material;
 
 void main() {
-    frag_color = texture(texture_sample, tex_coord);
+    frag_color = texture(texture_sample, tex_coord * material.tex_repeat);
 }
