@@ -211,7 +211,7 @@ namespace engine {
         mt["diffuse"]    = &Material::diffuse;
         mt["specular"]   = &Material::specular;
         mt["shininess"]  = &Material::shininess;
-        mt["attributes"] = &Material::attributes;
+        mt["is_textured"] = &Material::is_textured;
         mt["print"]      = &Material::print;
 
         auto mtb = env.new_usertype<MaterialBuilder>( "MaterialBuilder", 
@@ -224,7 +224,6 @@ namespace engine {
         mtb["set_diffuse"]        = &MaterialBuilder::set_diffuse;
         mtb["set_specular"]       = &MaterialBuilder::set_specular;
         mtb["set_shininess"]      = &MaterialBuilder::set_shininess;
-        mtb["set_attributes"]     = &MaterialBuilder::set_attributes;
         mtb["build"] = &MaterialBuilder::build;
     }
 
@@ -236,6 +235,7 @@ namespace engine {
         mdl["material"] = &ModelComp::material;
         mdl["mesh"] = &ModelComp::mesh;
         mdl["layer"] = &ModelComp::layer;
+        mdl["is_immune"] = &ModelComp::is_immune;
     }
 
     static void bind_hierarchy(sol::state& env) {

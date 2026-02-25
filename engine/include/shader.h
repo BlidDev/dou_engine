@@ -44,7 +44,10 @@ namespace engine {
         }
     };
     Shader complie_shader_file(const char* path);
+    Shader complie_shader_code(const ShaderReturn& source);
 
+    void set_shader_b(const Shader& shader, const char* name,  const bool& value);
+    void set_shader_i(const Shader& shader, const char* name,  const int& value);
     void set_shader_f(const Shader& shader, const char* name,  const float& value);
     void set_shader_v2(const Shader& shader, const char* name, const glm::vec2& value);
     void set_shader_v3(const Shader& shader, const char* name, const glm::vec3& value);

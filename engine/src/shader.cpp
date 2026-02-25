@@ -31,6 +31,18 @@ namespace engine {
 
     Shader complie_shader_file(const char* path) {
         ShaderReturn source = parse_shader_file(path);
+        DU_DEBUG_TRACE("Compiling shader {}...", path);
+        Shader tmp = complie_shader_code(source);
+
+        if (tmp.program == 0) {
+            DU_CORE_ERROR("{}", tmp.path);
+            return {0, "ERROR"};
+        }
+
+        return {tmp.program, std::filesystem::path(path).filename()};
+    }
+
+    Shader complie_shader_code(const ShaderReturn& source) {
         const char* v = source.vertex_code.c_str();
         const char* f = source.fragment_code.c_str();
 
@@ -43,8 +55,7 @@ namespace engine {
         glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
         if (!success) {
             glGetShaderInfoLog(vertex, 512, NULL, v_log);
-            DU_CORE_ERROR("Could not compile vertex shader [{}]: {}", path, v_log);
-            return {0, "ERROR"};
+            return {0, fmt::format("Could not compile vertex shader: {}", v_log)};
         }
 
         unsigned int frag = glCreateShader(GL_FRAGMENT_SHADER);
@@ -55,8 +66,7 @@ namespace engine {
         glGetShaderiv(frag, GL_COMPILE_STATUS, &success);
         if (!success) {
             glGetShaderInfoLog(frag, 512, NULL, f_log);
-            DU_CORE_ERROR("Could not compile fragment shader [{}]: {}", path, f_log);
-            return {0, "ERROR"};
+            return {0, fmt::format("Could not compile fragment shader: {}", f_log)};
 ;
         }
 
@@ -72,14 +82,20 @@ namespace engine {
         glGetShaderiv(frag, GL_COMPILE_STATUS, &success);
         if (!success) {
             glGetShaderInfoLog(frag, 512, NULL, p_log);
-            DU_CORE_ERROR("Could not link shader [{}]: {}", path, p_log);
-            return {0, "ERROR"};
+            return {0, fmt::format("Could not link shader: {}", p_log)};
         }
         glDeleteShader(vertex);
         glDeleteShader(frag);
 
 
-        return {program, std::filesystem::path(path).filename()};
+        return {program, "SUCCESS"};
+    }
+    void set_shader_b(const Shader& shader, const char* name,  const bool& value) {
+        glUniform1i(glGetUniformLocation(shader, name), value);
+    }
+
+    void set_shader_i(const Shader& shader, const char* name,  const int& value) {
+        glUniform1i(glGetUniformLocation(shader, name), value);
     }
 
     void set_shader_f(const Shader& shader, const char *name, const float& value) {

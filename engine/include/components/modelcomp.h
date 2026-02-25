@@ -6,9 +6,8 @@
 
 namespace engine {
 
-#define MODEL_FILLED      0b0001
-#define MODEL_TEXTURED    0b0010
-#define MODEL_IMMUNE      0b0100
+#define MODEL_TEXTURED    0b0001
+#define MODEL_IMMUNE      0b0010
 
     struct Material {
         Shader shader;
@@ -18,7 +17,7 @@ namespace engine {
         glm::vec3 diffuse;
         glm::vec3 specular;
         float shininess;
-        int attributes;
+        bool is_textured;
 
         void print();
     };
@@ -32,7 +31,6 @@ namespace engine {
         MaterialBuilder& set_specular(glm::vec3 specular);
         MaterialBuilder& set_shininess(float shininess);
 
-        MaterialBuilder& set_attributes(int attributes);
         MaterialBuilder& set_shader(Shader shader);
         MaterialBuilder& set_texture(Texture texture);
         MaterialBuilder& set_tex_repeat(glm::vec2 repeat);
@@ -51,9 +49,10 @@ namespace engine {
         Material material;
         Mesh mesh;
         size_t layer;
+        bool is_immune;
 
         ModelComp();
 
-        ModelComp(Mesh mesh, Material material, size_t layer = 0);
+        ModelComp(Mesh mesh, Material material, size_t layer = 0, bool is_immune = false);
     };
 }

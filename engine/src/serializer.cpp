@@ -156,17 +156,16 @@ namespace engine {
                 auto& m = entity.get_component<ModelComp>();
                 out<<YAML::Key<<"Mesh Name"<<YAML::Value<<m.mesh.name;
                 out<<YAML::Key<<"Layer"<<YAML::Value<<m.layer;
+                out<<YAML::Key<<"Immune"<<YAML::Value<<m.is_immune;
                 out<<YAML::Key<<"Material"<<YAML::BeginMap;
                     out<<YAML::Key<<"Shader"<<YAML::Value<<m.material.shader.path;
-                    out<<YAML::Key<<"Filled"<<YAML::Value<<((MODEL_FILLED & m.material.attributes) == MODEL_FILLED);
                     out<<YAML::Key<<"Ambient"<<YAML::Value<<m.material.ambient;
                     out<<YAML::Key<<"Diffuse"<<YAML::Value<<m.material.diffuse;
                     out<<YAML::Key<<"Specular"<<YAML::Value<<m.material.specular;
                     out<<YAML::Key<<"Shininess"<<YAML::Value<<m.material.shininess;
                     out<<YAML::Key<<"Texture"<<YAML::Value<<m.material.texture.path;
-                    out<<YAML::Key<<"Textured"<<YAML::Value<<((MODEL_TEXTURED & m.material.attributes) == MODEL_TEXTURED);
+                    out<<YAML::Key<<"Is Textured"<<YAML::Value<<m.material.is_textured;
                     out<<YAML::Key<<"Texture Repeats"<<YAML::Value<<m.material.tex_repeat;
-                    out<<YAML::Key<<"Immune"<<YAML::Value<<((MODEL_IMMUNE & m.material.attributes) == MODEL_IMMUNE);
                 out<<YAML::EndMap;
 
 
@@ -346,15 +345,11 @@ namespace engine {
             std::string shader_name = material["Shader"].as<std::string>();
             m.material.shader = scene->get_shader(shader_name.c_str());
             m.layer = model_comp["Layer"].as<size_t>();
+            m.is_immune = model_comp["Immune"].as<bool>();
             DU_ASSERT(m.layer > MAX_RENDER_LAYERS, "Invalid layer number given: {}", m.layer);
 
             std::string texture_path = material["Texture"].as<std::string>();
-            bool filled =   material["Filled"].as<bool>();
-            bool textured = material["Textured"].as<bool>();
-            bool immune = material["Immune"].as<bool>();
-            m.material.attributes |=  filled   ?  MODEL_FILLED : 0;
-            m.material.attributes |=  textured ?  MODEL_TEXTURED : 0;
-            m.material.attributes |=  immune   ?  MODEL_IMMUNE : 0;
+            m.material.is_textured = material["Is Textured"].as<bool>();
 
             auto tex_repeat = material["Texture Repeats"];
 
@@ -362,7 +357,7 @@ namespace engine {
                                 tex_repeat.as<glm::vec2>() : 
                                 glm::vec2(1.0f);
 
-            if (textured)
+            if (m.material.is_textured)
                 m.material.texture = scene->get_texture(texture_path.c_str());
             if (material["Color"]) {
                 glm::vec3 color = material["Color"].as<glm::vec3>();
@@ -598,7 +593,7 @@ namespace engine {
 
         apply_hierarchy(entities, this);
 
-        DU_CORE_INFO("Finished adding to scene {}", scene_name.c_str());
+        DU_DEBUG_TRACE("Finished adding to scene {}", scene_name.c_str());
     }
 
 

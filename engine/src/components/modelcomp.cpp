@@ -11,13 +11,13 @@ namespace engine {
             .ambient = {0.0f, 0.0f, 0.0f},
             .diffuse = {0.0f, 0.0f, 0.0f},
             .specular = {0.0f, 0.0f, 0.0f},
-            .attributes = 0b0000
+            .is_textured = false
         };
     }
 
     void Material::print() {
-        DU_CORE_INFO("Material-> path:{} shader:{} attrb:{}",
-                shader.path, shader.program, attributes);
+        DU_CORE_INFO("Material-> path:{} shader:{} is_textured:{}",
+                shader.path, shader.program, is_textured);
     }
 
     MaterialBuilder& MaterialBuilder::set_color(glm::vec3 color) {
@@ -25,7 +25,7 @@ namespace engine {
         material.diffuse = color; 
         material.specular = {1.0f, 1.0f, 1.0f}; 
         material.shininess = 32.0f;
-        material.attributes |= MODEL_FILLED;
+        material.is_textured = false;
         return *this;
     }
 
@@ -49,11 +49,6 @@ namespace engine {
         return *this;
     }
 
-
-    MaterialBuilder& MaterialBuilder::set_attributes(int attributes) {
-        material.attributes = attributes;
-        return *this;
-    }
     MaterialBuilder& MaterialBuilder::set_shader(Shader shader) {
         material.shader = shader;
         return *this;
@@ -61,7 +56,7 @@ namespace engine {
 
     MaterialBuilder& MaterialBuilder::set_texture(Texture texture) {
         material.texture = texture;
-        material.attributes |= MODEL_TEXTURED;
+        material.is_textured = true;
         return *this;
     }
 
@@ -80,10 +75,11 @@ namespace engine {
         layer = 0;
     }
 
-        ModelComp::ModelComp(Mesh mesh, Material material, size_t layer) {
+        ModelComp::ModelComp(Mesh mesh, Material material, size_t layer, bool is_immune) {
             this->mesh = mesh;
             this->material = material;
             this->layer = layer;
+            this->is_immune = is_immune;
             DU_ASSERT(layer >= MAX_RENDER_LAYERS || layer < 0, "Invalid layer number [{}]", layer);
         }
     

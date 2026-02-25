@@ -101,6 +101,13 @@ namespace engine {
         DU_CORE_DEBUG_TRACE("Registered shader {}", fs_path.filename().string());
     }
 
+    void SceneManager::register_shader(const char* name, const Shader& shader) {
+        DU_ASSERT(shader_lib.contains(name), "Shader [{}] already registered", name);
+
+        shader_lib.insert(std::make_pair(name, shader));
+        DU_CORE_DEBUG_TRACE("Registered shader {}", name);
+    }
+
     void SceneManager::register_texture(const char* path, bool flip) {
         fs::path fs_path = fs::path(path);
         if (!fs_path.is_absolute()) fs_path = root_path() / fs_path;

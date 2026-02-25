@@ -46,17 +46,16 @@ Entities:
     Model:
       Mesh Name: cube
       Layer: 0
+      Immune: false
       Material:
         Shader: basic.glsl
-        Filled: true
         Ambient: [0.2, 0.2, 0.2]
         Diffuse: [0.2, 0.2, 0.2]
         Specular: [1, 1, 1]
         Shininess: 32
         Texture: UNKNOWN
         Texture Repeats: [1.0, 1.0]
-        Textured: false
-        Immune: false
+        Is Textured: false
     PhysicsBody:
       Gravity: 0
       Mass: 10
@@ -79,17 +78,16 @@ Entities:
     Model:
       Mesh Name: cube
       Layer: 0
+      Immune: false
       Material:
         Shader: basic.glsl
-        Filled: true
         Ambient: [0.4, 0.7, 0.9]
         Diffuse: [0.4, 0.7, 0.9]
         Specular: [1, 1, 1]
         Shininess: 32
         Texture: UNKNOWN
         Texture Repeats: [1.0, 1.0]
-        Textured: false
-        Immune: false
+        Is Textured: false
     PhysicsBody:
       Gravity: 5
       Mass: 10
@@ -107,17 +105,16 @@ Entities:
     Model:
       Mesh Name: cube
       Layer: 0
+      Immune: false
       Material:
         Shader: basic.glsl
-        Filled: true
         Ambient: [0.6, 0.7, 0.6]
         Diffuse: [0.6, 0.7, 0.6]
         Specular: [1, 1, 1]
         Shininess: 32
         Texture: UNKNOWN
         Texture Repeats: [1.0, 1.0]
-        Textured: false
-        Immune: false
+        Is Textured: false
     PhysicsBody:
       Gravity: 0
       Mass: 10
@@ -134,14 +131,13 @@ Entities:
     Model:
       Mesh Name: triangle
       Layer: 0
+      Immune: false
       Material:
         Shader: basic.glsl
-        Filled: true
         Ambient: [1, 0, 1]
         Diffuse: [1, 0, 1]
         Specular: [1, 1, 1]
         Shininess: 32
         Texture: UNKNOWN
         Texture Repeats: [1.0, 1.0]
-        Textured: false
-        Immune: false
+        Is Textured: false

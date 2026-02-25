@@ -1,6 +1,7 @@
 #include "renderer.h"
 #include "manager.h"
 #include "texture.h"
+#include "SHADERS.h"
 
 #include "components/light.h"
 
@@ -128,6 +129,22 @@ namespace engine {
 
     void set_clear_flags(RenderData& data, int flags) {
         data.clear_flags = flags;
+    }
+
+    void register_default_lighting_shaders(SceneManager* manager) {
+        ShaderReturn source = {
+            .vertex_code = std::string(DEF_LIGHTING_SHADER_V),
+            .fragment_code = std::string(DEF_LIGHTING_SHADER_F),
+        };
+
+        Shader tmp = complie_shader_code(source);
+
+        if (tmp.program == 0) {
+            DU_CORE_ERROR("{}", tmp.path); 
+        }
+        tmp.path = "DefaultLightingShader";
+
+        manager->register_shader("DefaultLightingShader", tmp);
     }
 
     void make_default_ubos(SceneManager* manager) {

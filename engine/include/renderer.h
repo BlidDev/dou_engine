@@ -72,6 +72,7 @@ namespace engine {
     void set_layer_wireframe(RenderData& data, size_t layer, bool flag);
     void set_clear_flags(RenderData& data, int flags);
 
+    void register_default_lighting_shaders(SceneManager* manager);
     void make_default_ubos(SceneManager* manager);
 
     void clear_buffers(glm::vec4 clear_color, int flags);

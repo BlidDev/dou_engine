@@ -68,13 +68,8 @@ namespace engine {
 
           for (auto [_, pos, obj] : objects.each()) {
               float distance = glm::distance(pos.position(), p_trans.position());
-              bool immune = (obj.material.attributes & MODEL_IMMUNE) == MODEL_IMMUNE;
 
-              if((!immune && distance > p_camera.max_distance) || obj.layer != i) continue;
-
-              DU_ASSERT(obj.material.attributes == 0, "Model [{}] has no attributes",
-                      obj.mesh.name);
-
+              if((!obj.is_immune && distance > p_camera.max_distance) || obj.layer != i) continue;
 
               glUseProgram(obj.material.shader);
 
@@ -91,7 +86,7 @@ namespace engine {
               }
 
 
-              if ((obj.material.attributes & MODEL_TEXTURED) == MODEL_TEXTURED)
+              if (obj.material.is_textured)
                   glBindTexture(GL_TEXTURE_2D, obj.material.texture);
 
 
@@ -190,6 +185,7 @@ namespace engine {
     }
 
     void send_material(Material &material) {
+      set_shader_b(material.shader, "material.is_textured", material.is_textured);
       set_shader_v2(material.shader, "material.tex_repeat", material.tex_repeat);
       set_shader_v3(material.shader, "material.ambient", material.ambient);
       set_shader_v3(material.shader, "material.diffuse", material.diffuse);
