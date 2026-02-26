@@ -15,8 +15,8 @@ int engine::on_start(engine::SceneManager* manager) {
     set_layer_depth(manager->render_data, 0, true);
 
     // Shader setup
-    manager->register_shader("res/basic.glsl");
-    manager->register_shader("res/camera_present.glsl");
+    manager->register_shader("res/shaders/basic.glsl");
+    manager->register_shader("res/shaders/camera_present.glsl");
     make_default_ubos(manager);
 
 
@@ -24,12 +24,12 @@ int engine::on_start(engine::SceneManager* manager) {
     manager->register_mesh("triangle",engine::MeshBuilder()
                            .vertices(engine::P_TRIANGLE, engine::P_TRIANGLE_S)
                            );
-    manager->register_mesh("quad_tex", mesh_from_file("res/quad_tex.sff"));
-    manager->register_mesh("cube", mesh_from_file("res/cube.sff"));
+    manager->register_mesh("quad_tex", mesh_from_file("res/meshes/quad_tex.sff"));
+    manager->register_mesh("cube", mesh_from_file("res/meshes/cube.sff"));
 
     // Script setup
-    manager->register_script("res/fps_controller.lua"); 
-    manager->register_script("res/trigger.lua"); 
+    manager->register_script("res/scripts/fps_controller.lua"); 
+    manager->register_script("res/scripts/trigger.lua"); 
 
     manager->register_scene<TestScene>("Test");
     manager->set_current("Test");

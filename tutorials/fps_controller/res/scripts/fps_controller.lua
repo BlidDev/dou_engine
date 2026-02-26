@@ -1,4 +1,4 @@
--- res/fps_controller.lua
+-- res/scripts/fps_controller.lua
   
 local phys
 local cam

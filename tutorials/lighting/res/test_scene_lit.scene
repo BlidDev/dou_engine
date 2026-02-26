@@ -1,0 +1,219 @@
+Scene: Test
+Render Data:
+  Main Camera: 9598429304587937462
+  Ambient: [1, 1, 1]
+  Ambient Strength: 0.2
+  Clear Color: [0.5, 0.5, 0.5, 1]
+Entities:
+  - Entity: 9598429304587937462
+    Tag:
+      Tag: Player
+    Transform:
+      Position: [0, 0, -1]
+      Size: [0.1, 1, 0.1]
+      Rotation: [0, 0, 0]
+    PhysicsBody:
+      Gravity: 9.8
+      Mass: 20
+      Slipperiness: 0.01
+      Velocity: [0, 0, 0]
+      Is Solid: true
+      Is Static: false
+      Move Delta: [0, 0, 0]
+    Camera:
+      Pitch: 0
+      Yaw: 90
+      Up: [0, 1, 0]
+      FovY: 90
+      Projection: Perspective
+      Max Distance: 30
+      Present Shader: camera_present.glsl
+    Lua Actions:
+      - Path: fps_controller.lua
+        Fields:
+          this: [u, 9598429304587937462]
+          Other: [u, 2106886870767928452] 
+          Pickup_distance: [f, 1.0]       
+    SptLight:
+      Color: [0.5261538, 0.5261538, 0.5261538]
+      Direction: [0, -1, 0]
+      Constant: 1
+      Linear: 0.05
+      Quadratic: 0.021
+      Cut off: 9.1
+      Outer cut off: 24
+
+  - Entity: 2106886870767928452
+    Tag:
+      Tag: Lantern
+    Transform:
+      Position: [-1, -1.0, 2]
+      Size: [0.15, 0.3, 0.15]
+      Rotation: [0, 0, 0]
+    Model:
+      Mesh Name: cube
+      Layer: 0
+      Immune: false
+      Material:
+        Shader: DefaultLightingShader
+        Ambient: [1, 0.84, 0.42]
+        Diffuse: [1, 0.84, 0.42]
+        Specular: [1, 1, 1]
+        Shininess: 10
+        Texture: UNKNOWN
+        Texture Repeats: [1.0, 1.0]
+        Is Textured: false
+    PhysicsBody:
+      Gravity: 9.8
+      Mass: 10
+      Slipperiness: 0.01
+      Velocity: [0, 0, 0]
+      Is Solid: true
+      Is Static: false
+      Move Delta: [0, 0, 0]
+    PntLight:
+      Color: [1, 0.58, 0.26]
+      Constant: 1
+      Linear: 0.9
+      Quadratic: 2.8
+
+  - Entity: 2106886870769928452
+    Transform:
+      Position: [-1, 0, 3]
+      Size: [0.35, 0.35, 0.35]
+      Rotation: [0, 0, 0]
+    Model:
+      Mesh Name: cube
+      Layer: 0
+      Immune: false
+      Material:
+        Shader: DefaultLightingShader
+        Ambient: [0.2, 0.2, 0.2]
+        Diffuse: [0.2, 0.2, 0.2]
+        Specular: [1, 1, 1]
+        Shininess: 10
+        Texture: UNKNOWN
+        Texture Repeats: [1.0, 1.0]
+        Is Textured: false
+    PhysicsBody:
+      Gravity: 0
+      Mass: 10
+      Slipperiness: 0.01
+      Velocity: [0, 0, 0]
+      Is Solid: false
+      Is Static: false
+      Move Delta: [0, 0, 0]
+      Intersect Callback: [trigger.lua, inter]
+    Lua Actions:
+      - Path: trigger.lua
+        Fields:
+          this: [u, 2106886870769928452]
+  - Entity: 1411203356397518234
+    Tag:
+      Tag: Pickup2
+    Transform:
+      Position: [1, 1, 0]
+      Size: [0.5, 0.5, 0.5]
+      Rotation: [0, 0, 0]
+    Model:
+      Mesh Name: cube
+      Layer: 0
+      Immune: false
+      Material:
+        Shader: DefaultLightingShader
+        Ambient: [1,0,1]
+        Diffuse: [1,0,1]
+        Specular: [1, 1, 1]
+        Shininess: 0
+        Texture: brick.png
+        Texture Repeats: [1.0, 1.0]
+        Is Textured: true
+    PhysicsBody:
+      Gravity: 5
+      Mass: 10
+      Slipperiness: 0.01
+      Velocity: [0, 0, 0]
+      Is Solid: true
+      Is Static: false
+      Move Delta: [0, 0, 0]
+
+  - Entity: 1411203356397518233
+    Tag:
+      Tag: Pickup
+    Transform:
+      Position: [-1, 1, 0]
+      Size: [0.5, 0.5, 0.5]
+      Rotation: [0, 0, 0]
+    Model:
+      Mesh Name: cube
+      Layer: 0
+      Immune: false
+      Material:
+        Shader: DefaultLightingShader
+        Ambient: [1,1,1]
+        Diffuse: [1,1,1]
+        Specular: [1, 1, 1]
+        Shininess: 0
+        Texture: brick.png
+        Texture Repeats: [1.0, 1.0]
+        Is Textured: true
+    PhysicsBody:
+      Gravity: 5
+      Mass: 10
+      Slipperiness: 0.01
+      Velocity: [0, 0, 0]
+      Is Solid: true
+      Is Static: false
+      Move Delta: [0, 0, 0]
+
+  - Entity: 1191791167518592633
+    Tag:
+      Tag: Floor
+    Transform:
+      Position: [0, -1.5, 0]
+      Size: [6.5, 0.5, 6.5]
+      Rotation: [0, 0, 0]
+    Model:
+      Mesh Name: cube
+      Layer: 0
+      Immune: false
+      Material:
+        Shader: DefaultLightingShader
+        Ambient: [1,1,1]
+        Diffuse: [1,1,1]
+        Specular: [0.3, 0.3, 0.3]
+        Shininess: 10
+        Texture: grass.png
+        Texture Repeats: [3.0, 3.0]
+        Is Textured: true
+    PhysicsBody:
+      Gravity: 0
+      Mass: 10
+      Slipperiness: 0.01
+      Velocity: [0, 0, 0]
+      Is Solid: true
+      Is Static: true
+      Move Delta: [0, 0, 0]
+  - Entity: 475607211173597973
+    Transform:
+      Position: [0, 0, 0]
+      Size: [1, 1.5, 1]
+      Rotation: [0, 0, 0]
+    Model:
+      Mesh Name: triangle
+      Layer: 0
+      Immune: false
+      Material:
+        Shader: basic.glsl
+        Ambient: [1, 0, 1]
+        Diffuse: [1, 0, 1]
+        Specular: [1, 1, 1]
+        Shininess: 10
+        Texture: UNKNOWN
+        Texture Repeats: [1.0, 1.0]
+        Is Textured: false
+    DirLight:
+      Direction: [-0.4, -1, -0.3]
+      Ambient: 0.0
+      Color: [0.9692308, 0.89773935, 0.49505326]
+      Strength: 0.7

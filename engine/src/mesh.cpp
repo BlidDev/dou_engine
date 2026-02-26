@@ -138,7 +138,7 @@ namespace engine {
 
         std::string line = "";
         while (std::getline(file, line)) {
-            if (line.empty()) { continue; }
+            if (line.empty() || line.starts_with('#')) { continue; }
             else if (line == "@NAME") {
                 index = ReadIndex::Name; continue;
             } else if (line == "@VERTICES") {

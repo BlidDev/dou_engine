@@ -1,7 +1,6 @@
 // src/main.cpp
 
 #include <engine.h>
-#include "fps_ctrl.h"
 #include "test_scene.h"
 
 
@@ -15,23 +14,19 @@ int engine::on_start(engine::SceneManager* manager) {
     set_clear_flags(manager->render_data, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     set_layer_depth(manager->render_data, 0, true);
 
-    // Shader setup
-    manager->register_shader("res/scripts/basic.glsl");
-    manager->register_shader("res/scripts/camera_present.glsl");
-    make_default_ubos(manager);
-
-
     // Mesh setup
     manager->register_mesh("triangle",engine::MeshBuilder()
                            .vertices(engine::P_TRIANGLE, engine::P_TRIANGLE_S)
-                           );
-    manager->register_mesh("quad_tex", mesh_from_file("res/meshes/quad_tex.sff"));
+                           ); // Not moved to .sff for the sake of the tutorial 
 
-    // Action setup
-    engine::ActionsComp::register_action("FPSController", new FPSController);
+    read_project_file("res/test_project.prj", manager);
+    register_default_lighting_shaders(manager);
+    make_default_ubos(manager);
+
 
     manager->register_scene<TestScene>("Test");
     manager->set_current("Test");
+    engine::LuaManager::init("res/util.lua");
     return 0;
 }
 

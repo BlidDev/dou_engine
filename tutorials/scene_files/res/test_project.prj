@@ -1,16 +1,15 @@
 Project Name: TestProject
 Startup Scene: Test
+Root Path: res
 Paths:
- Scenes:
-   - res
  Shaders:
-   - res
+   - shaders
  Textures:
-   - res
+   - textures
  Meshes:
-   - res
+   - meshes
  Scripts:
-   - res
+   - scripts
 Layers:
   Layer 0:
     Depth Test: true

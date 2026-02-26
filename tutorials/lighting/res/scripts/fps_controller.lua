@@ -1,10 +1,12 @@
--- res/fps_controller.
+-- res/scripts/fps_controller.
 
 local phys
 local trans
 local cam
+local spt
 
 local captured = true -- Mouse cursor captured flag
+local light = false -- Is flashlight on
 local picked = false  -- Is cube picked up flag
 
 Other = nil
@@ -14,6 +16,7 @@ function on_init()
     phys = get_physicsbody(scene, this)
     cam = get_camera(scene, this)
     trans = get_transform(scene, this)
+    if has_spotlight(scene, this) then spt = get_spotlight(scene, this) end
 
     -- capture mouse
     if captured then set_input_mode(scene, util.InputSbj.CURSOR, util.InputMode.CURSOR_DISABLED) end
@@ -49,12 +52,22 @@ function on_update(dt)
         captured = not captured
     end
 
+    if is_key_clicked(util.KeyboardKey.R) then
+        light = not light
+    end
+
+    local last_dir = get_camera_dir(cam)
 
     -- handle input
     if captured then handle_mouse_delta(cam, mouse_delta, true) end
 
     local forward = get_camera_flat_forward(cam)
     local right   = get_camera_right(cam)
+
+    if spt ~= nil then
+        spt.direction = last_dir
+        spt.color = light and vec3:new(0.5261538, 0.5261538, 0.5261538) or vec3:new(0,0,0)
+    end
 
     local move = (forward * f) + (right * r) 
     local speed = 10.0

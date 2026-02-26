@@ -9,10 +9,14 @@ layout (std140) uniform Matrices{
 };
 
 uniform mat4 model;
+uniform float ratio;
 
 out vec2 tex_coord;
-void main() {
-	gl_Position = projection *  view * model * vec4(aPos, 1.0f);
+void main() {  
+
+    vec4 pos = model * vec4(aPos,1.0);
+    pos.x /= ratio;
+	gl_Position = pos;
     tex_coord = aTex;
 }
 
@@ -24,13 +28,8 @@ out vec4 frag_color;
 
 in vec2 tex_coord;
 
-struct Material {
-    vec2 tex_repeat;
-};
-
 uniform sampler2D texture_sample;
-uniform Material material;
 
 void main() {
-    frag_color = texture(texture_sample, tex_coord * material.tex_repeat);
+    frag_color = texture(texture_sample, tex_coord);
 }
