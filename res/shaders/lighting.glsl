@@ -1,6 +1,7 @@
 @VERTEX
 #version 330 core
 layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec2 aTex;
 layout (location = 2) in vec3 aNor;
 
 layout (std140) uniform Matrices{
@@ -14,10 +15,12 @@ uniform mat3 normal_mat;
 
 out vec3 normal;
 out vec3 world_pos;
+out vec2 tex_coord;
 
 void main() {
     normal = normal_mat * aNor;
     world_pos = vec3(model * vec4(aPos, 1.0));
+    tex_coord = aTex;
 
     gl_Position = projection *  view * model * vec4(aPos, 1.0);
 }
@@ -29,6 +32,7 @@ void main() {
 
 #version 330 core
 out vec4 frag_color;
+
 
 const int MAX_LIGHTS = 32;
 
@@ -86,6 +90,8 @@ struct Material {
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
+    vec2 tex_repeat;
+    bool is_textured;
     float shininess;
 };
 
@@ -100,6 +106,7 @@ layout (std140) uniform Lighting{
 
 in vec3 normal;
 in vec3 world_pos;
+in vec2 tex_coord;
 
 uniform sampler2D texture_sample;
 uniform Material material;
@@ -129,6 +136,9 @@ void main() {
     vec3 result = (ambient + diffuse + specular);
 
     frag_color = vec4(result, 1.0);
+    if(material.is_textured)
+        frag_color *= texture(texture_sample, tex_coord * material.tex_repeat);
+
 }
 
 void calc_dirs(vec3 view_dir) {

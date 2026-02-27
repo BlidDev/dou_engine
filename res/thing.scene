@@ -46,7 +46,7 @@ Entities:
       Size: [0.2,0.2,0.2]
       Rotation: [0, -0, 0]
     Model:
-      Mesh Name: cube_tl
+      Mesh Name: cube
       Layer: 0
       Immune: false
       Material:
@@ -55,7 +55,7 @@ Entities:
         Diffuse: [1, 0.2, 1]
         Specular: [1, 1, 1]
         Shininess: 32
-        Texture: grass.jpeg
+        Texture: UNKNOWN
         Is Textured: false
     PhysicsBody:
       Velocity: [0, 0, 0]
@@ -75,7 +75,7 @@ Entities:
       Size: [0.2,0.2,0.2]
       Rotation: [0, -0, 0]
     Model:
-      Mesh Name: cube_tl
+      Mesh Name: cube
       Layer: 0
       Immune: false
       Material:
@@ -84,7 +84,7 @@ Entities:
         Diffuse: [1, 0.2, 1]
         Specular: [1, 1, 1]
         Shininess: 32
-        Texture: grass.jpeg
+        Texture: UNKNOWN
         Is Textured: false
     PhysicsBody:
       Gravity: 0.2
@@ -106,7 +106,7 @@ Entities:
       Size: [1,0.2,1]
       Rotation: [0, -0, 0]
     Model:
-      Mesh Name: cube_tl
+      Mesh Name: cube
       Layer: 0
       Immune: false
       Material:
@@ -115,7 +115,7 @@ Entities:
         Diffuse: [0.2, 0.4, 0.6]
         Specular: [1, 1, 1]
         Shininess: 32
-        Texture: grass.jpeg
+        Texture: UNKNOWN
         Is Textured: false
     PhysicsBody:
       Gravity: 0.0
@@ -147,16 +147,17 @@ Entities:
       Size: [9, 0.5, 3]
       Rotation: [0, 0, 0]
     Model:
-      Mesh Name: cube_tl
+      Mesh Name: cube
       Layer: 0
       Immune: false
       Material:
-        Shader: lightingt.glsl
+        Shader: lighting.glsl
         Ambient: [1, 1, 1]
         Diffuse: [1, 1, 1]
         Specular: [1, 1, 1]
         Shininess: 0
         Texture: grass.jpeg
+        Texture Repeats: [9, 3]
         Is Textured: true
     PhysicsBody:
       Gravity: 0
@@ -210,7 +211,7 @@ Entities:
     Tag:
       Tag: Unnamed Cube
     Transform:
-      Position: [0, 0, 4.3695006]
+      Position: [1, 2, 0]
       Size: [1, 1, 1]
       Rotation: [0, 90, 0]
     Model:
@@ -218,7 +219,7 @@ Entities:
       Layer: 1
       Immune: false
       Material:
-        Shader: textured.glsl
+        Shader: basic.glsl
         Ambient: [1, 1, 1]
         Diffuse: [1, 1, 1]
         Specular: [1, 1, 1]

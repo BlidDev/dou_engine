@@ -93,6 +93,11 @@ namespace engine {
 
         auto textures = paths["Textures"];
         if (textures) {
+            auto flip_node = node["Flip Textures On Load"];
+            bool flip = false;
+            if (flip_node)
+                flip = flip_node.as<bool>();
+
             for (const auto& path : textures) {
                 fs::path tx_dir = path.as<std::string>();
                 fs::path actual = p_data->root_path / tx_dir;
@@ -103,7 +108,7 @@ namespace engine {
                     std::array<const char*, 3> acceptables =  {".png", ".jpg", ".jpeg"};
                     bool contains = std::find(acceptables.begin(), acceptables.end(), tmp.extension()) != acceptables.end();
                     if (!contains) continue;
-                    manager->register_texture((tx_dir / tmp.filename()).c_str());
+                    manager->register_texture((tx_dir / tmp.filename()).c_str(), flip);
                 }
             }
         }

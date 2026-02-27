@@ -1,6 +1,6 @@
 Project Name: Test
 Root Path: res
-Startup Scene: Main
+Flip Textures On Load: true
 Paths:
   Shaders:
     - shaders
