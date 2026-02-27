@@ -15,7 +15,7 @@ function on_init()
     ph = get_physicsbody(scene, this)
     t  = get_transform(scene, this)
     cm = get_camera(scene, this)
-    set_input_mode(scene, util.InputSbj.CURSOR, util.InputMode.CURSOR_DISABLED)
+    --set_input_mode(scene, util.InputSbj.CURSOR, util.InputMode.CURSOR_DISABLED)
 end
 
 
@@ -25,22 +25,8 @@ local captured = true
 local wire = false
 
 
-function print_fps(dt) 
-    local fps = 1/dt
-    if fps >= 120 then
-        log_info("fps: {}", fps)
-    elseif fps >= 60 then
-        log_warn("fps: {}", fps)
-    else 
-        log_error("fps: {}", fps)
-    end
-end
-
-
-local made_child = false
 
 function on_update(dt)
-    --print_fps(dt)
     speed = init_speed
 
     if is_key_clicked(util.KeyboardKey.LEFT_ALT)then
@@ -54,7 +40,7 @@ function on_update(dt)
             log_info("On")
         end
     end
-  
+
     if affected then
 
         if is_key_down(util.KeyboardKey.SPACE) and ph.move_delta.y == 0.0 then ph.velocity.y =  jump end
@@ -86,17 +72,11 @@ function on_update(dt)
     move.y = 0.0
     ph.velocity = ph.velocity +  move * speed * dt
 
-    if is_key_down(util.KeyboardKey.T) then 
-        ot = get_transform(scene, other)
-        ot:translate(vec3.new(0,0.5,0))
-    end
-
     if is_key_clicked(util.KeyboardKey.F) then
         flashlight = not flashlight
     end
 
     local spot = get_spotlight(scene, this)
-    tmp = get_camera_dir(cm)
     spot.direction = last_dir
     if flashlight then spot.color = vec3.new(0.97, 0.96, 0.51) else spot.color = vec3.new(0.0) end
 
@@ -106,7 +86,7 @@ function on_update(dt)
     end
 
     if is_key_clicked(util.KeyboardKey.G) then
-        mode = captured and util.InputMode.CURSOR_NORMAL or util.InputMode.CURSOR_DISABLED;
+        local mode = captured and util.InputMode.CURSOR_NORMAL or util.InputMode.CURSOR_DISABLED;
 
         set_input_mode(scene, util.InputSbj.CURSOR, mode)
         captured = not captured

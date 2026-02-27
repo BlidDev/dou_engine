@@ -15,16 +15,15 @@ Entities:
     Model:
       Layer: 0
       Mesh Name: cube
+      Immune: false
       Material:
         Shader: basic.glsl
-        Filled: true
         Ambient: [1, 1, 1]
         Diffuse: [1, 1, 1]
         Specular: [1, 1, 1]
         Shininess: 32
         Texture: UNKNOWN
-        Textured: false
-        Immune: false
+        Is Textured: false
     PhysicsBody:
       Gravity: 0
       Slipperiness: 0.2
@@ -49,16 +48,15 @@ Entities:
     Model:
       Mesh Name: cube_tl
       Layer: 0
+      Immune: false
       Material:
         Shader: lighting.glsl
-        Filled: true
         Ambient: [1, 0.2, 1]
         Diffuse: [1, 0.2, 1]
         Specular: [1, 1, 1]
         Shininess: 32
         Texture: grass.jpeg
-        Textured: false
-        Immune: false
+        Is Textured: false
     PhysicsBody:
       Velocity: [0, 0, 0]
       Gravity: 0
@@ -79,16 +77,15 @@ Entities:
     Model:
       Mesh Name: cube_tl
       Layer: 0
+      Immune: false
       Material:
         Shader: lighting.glsl
-        Filled: true
         Ambient: [1, 1.2, 1]
         Diffuse: [1, 0.2, 1]
         Specular: [1, 1, 1]
         Shininess: 32
         Texture: grass.jpeg
-        Textured: false
-        Immune: false
+        Is Textured: false
     PhysicsBody:
       Gravity: 0.2
       Velocity: [0, 0, 0]
@@ -111,16 +108,15 @@ Entities:
     Model:
       Mesh Name: cube_tl
       Layer: 0
+      Immune: false
       Material:
         Shader: lighting.glsl
-        Filled: true
         Ambient: [0.2, 0.4, 0.6]
         Diffuse: [0.2, 0.4, 0.6]
         Specular: [1, 1, 1]
         Shininess: 32
         Texture: grass.jpeg
-        Textured: false
-        Immune: false
+        Is Textured: false
     PhysicsBody:
       Gravity: 0.0
       Velocity: [0, 0, 0]
@@ -153,16 +149,15 @@ Entities:
     Model:
       Mesh Name: cube_tl
       Layer: 0
+      Immune: false
       Material:
         Shader: lightingt.glsl
-        Filled: false
         Ambient: [1, 1, 1]
         Diffuse: [1, 1, 1]
         Specular: [1, 1, 1]
         Shininess: 0
         Texture: grass.jpeg
-        Textured: true
-        Immune: false
+        Is Textured: true
     PhysicsBody:
       Gravity: 0
       Velocity: [0, 0, 0]
@@ -221,13 +216,12 @@ Entities:
     Model:
       Mesh Name: triangle_tl
       Layer: 1
+      Immune: false
       Material:
         Shader: textured.glsl
-        Filled: false
         Ambient: [1, 1, 1]
         Diffuse: [1, 1, 1]
         Specular: [1, 1, 1]
         Shininess: 32
         Texture: proto.png
-        Textured: true
-        Immune: false
+        Is Textured: true

@@ -31,6 +31,9 @@ namespace engine {
         UUID self;
         std::string inital_error;
     private:
+        sol::protected_function l_on_init;
+        sol::protected_function l_on_update;
+        sol::protected_function l_on_end;
     };
 
     struct LuaActionComp {

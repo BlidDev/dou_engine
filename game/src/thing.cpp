@@ -9,7 +9,7 @@ ThingScene::ThingScene() : Scene("thing") {
 
 void ThingScene::on_create() {
 
-    glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    //glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     add_from_file("res/thing.scene");
 
     player = uuid_to_entity(main_camera);
@@ -34,19 +34,19 @@ void ThingScene::on_create() {
 
 
 void ThingScene::on_update(float dt) {
-    close = is_key_pressed(GLFW_KEY_ESCAPE);
-    actions_update(this,dt);
-    lua_action_update(this, dt);
-    if (fixed_physics(this, 50, dt)) return;
-    //DU_WARN("velocity {}", player.get_component<PhysicsBodyComp>().velocity);
-    glm::vec2 view = manager->main_window.size();
+    close = engine::is_key_pressed(GLFW_KEY_ESCAPE);
 
-    rescale_camera_to_window(player.get_component<CameraComp>(), manager->main_window);
-    draw_to_camera(manager->render_data, view, player, registry, &s_render_data);
-    present_camera(player, get_mesh("quad_tex"));
-    glfwSwapBuffers(manager->main_window);
-    glfwPollEvents();
 
+    engine::lua_action_update(this, dt);
+    engine::fixed_physics(this, 50, dt);
+
+    glm::vec2 view_size = manager->main_window.size();
+
+    engine::rescale_camera_to_window(player.get_component<engine::CameraComp>(), manager->main_window);
+    engine::draw_to_camera(manager->render_data, view_size, player, registry, &s_render_data);
+    engine::present_camera(player, get_mesh("DefaultDisplayQuad"));
+
+    manager->main_window.swap_and_poll();
 }
 
 

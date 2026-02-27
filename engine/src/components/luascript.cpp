@@ -27,17 +27,10 @@ namespace engine {
         env["util"] = state["util"];
         env["this"] = self;
         env["scene"] = scene;
-    }
 
-    void LuaUpdate::on_init() {
-        sol::protected_function init = env["on_init"];
-        if (!init) // does not exist
-            return;
-        auto result = init();
-        if (!result.valid()) {
-            sol::error e = result;
-            DU_ERROR("{} {}", inital_error,e.what());
-        }
+        l_on_init = env["on_init"];
+        l_on_update = env["on_update"];
+        l_on_end = env["on_end"];
     }
 
     LuaUpdate::LuaUpdate() {
@@ -45,13 +38,25 @@ namespace engine {
         path = "";
         self = 0;
         inital_error = "";
+
+        l_on_init = {};
+        l_on_update = {};    
+        l_on_end = {};
+    }
+
+    void LuaUpdate::on_init() {
+        if (!l_on_init) return; // Doesn't exist
+        auto result = l_on_init();
+        if (!result.valid()) {
+            sol::error e = result;
+            DU_ERROR("{} {}", inital_error,e.what());
+        }
     }
 
     void LuaUpdate::on_update(float dt) {
-        sol::protected_function update = env["on_update"];
-        if (!update) // does not exist
-            return;
-        auto result = update(dt);
+        if (!l_on_update) return; // Doesn't exist
+        auto result = l_on_update(dt);
+
         if (!result.valid()) {
             sol::error e = result;
             DU_ERROR("{} {}", inital_error,e.what());
@@ -59,10 +64,9 @@ namespace engine {
     }
 
     void LuaUpdate::on_end() {
-        sol::protected_function end = env["on_end"];
-        if (!end) // does not exist
-            return;
-        auto result = end();
+        if (!l_on_end) return; // Doesn't exist
+        auto result = l_on_end();
+
         if (!result.valid()) {
             sol::error e = result;
             DU_ERROR("{} {}", inital_error,e.what());

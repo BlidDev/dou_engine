@@ -295,13 +295,13 @@ function has_script(scene, entity) end
 --- @return boolean
 function has_dirlight(scene, entity) end
 
---- Returns true if the entity has a PointLight component
+--- Returns true if the entity has a PntLight component
 --- @param scene Scene The parent scene
 --- @param entity UUID Entity to check
 --- @return boolean
 function has_pointlight(scene, entity) end
 
---- Returns true if the entity has a SpotLight component
+--- Returns true if the entity has a SptLight component
 --- @param scene Scene The parent scene
 --- @param entity UUID Entity to check
 --- @return boolean
@@ -390,14 +390,14 @@ function get_dirlight(scene, entity) end
 ---Note: Ensure the entity has this component before calling.
 ---@param scene Scene The parent scene
 ---@param entity UUID The entity to retrieve the component from
----@return PointLight
+---@return PntLight
 function get_pointlight(scene, entity) end
 
----Returns the Spotlight component.
+---Returns the Sptlight component.
 ---Note: Ensure the entity has this component before calling.
 ---@param scene Scene The parent scene
 ---@param entity UUID The entity to retrieve the component from
----@return SpotLight
+---@return SptLight
 function get_spotlight(scene, entity) end
 
 ---Returns a list of all child entities attached to this entity.
@@ -606,8 +606,6 @@ function Camera:log() end
 
 ---@class Action
 ---@class Script
----@class PointLight
----@class SpotLight
 
 --#region DirLight
 ---@class DirLight

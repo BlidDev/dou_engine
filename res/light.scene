@@ -1,11 +1,11 @@
 Scene: light
 Render Data:
-  Main Camera: 127483283105708074
+  Main Camera: 14382726490743136718
   Ambient: [1, 1, 1]
   Ambient Strength: 0.1
   Clear Color: [0, 0, 0, 0]
 Entities:
-  - Entity: 5038808843304500438
+  - Entity: 3415190178200163820
     Transform:
       Position: [0, -0.5, 0]
       Size: [1000, 0, 1000]
@@ -13,11 +13,12 @@ Entities:
     PhysicsBody:
       Gravity: 0
       Mass: 10
+      Slipperiness: 0.01
       Velocity: [0, 0, 0]
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 15492497780038818594
+  - Entity: 8608569500696304170
     Transform:
       Position: [0, 1, 0]
       Size: [1, 1, 1]
@@ -25,24 +26,25 @@ Entities:
     Model:
       Mesh Name: cube_tex
       Layer: 0
+      Immune: false
       Material:
         Shader: textured.glsl
-        Filled: false
         Ambient: [0, 0, 0]
         Diffuse: [0, 0, 0]
         Specular: [0, 0, 0]
         Shininess: 0
         Texture: proto.png
-        Textured: true
-        Immune: false
+        Is Textured: true
+        Texture Repeats: [1, 1]
     PhysicsBody:
       Gravity: 0
       Mass: 10
+      Slipperiness: 0.01
       Velocity: [0, 0, 0]
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 127483283105708074
+  - Entity: 14382726490743136718
     Transform:
       Position: [0, 2, -2]
       Size: [1, 1, 1]
@@ -53,15 +55,17 @@ Entities:
     PhysicsBody:
       Gravity: 0.2
       Mass: 10
+      Slipperiness: 0.01
       Velocity: [0, 0, 0]
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
     Camera:
-      Target: [0, 0, 0]
+      Pitch: 0
+      Yaw: 0
       Up: [0, 1, 0]
       FovY: 45
-      Projection: 0
+      Projection: Perspective
       Max Distance: 30
       Present Shader: camerapresent.glsl
     SptLight:
