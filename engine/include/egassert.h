@@ -9,3 +9,5 @@
         } \
     } while (0)
 
+#define DU_THROW_ASSERT(message, ...) \
+    DU_ASSERT(true, message, __VA_ARGS__)

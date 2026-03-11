@@ -184,15 +184,6 @@ namespace engine {
             out<<YAML::EndSeq;
         }
 
-        //if (entity.has_component<TextComp>()) {
-        //    out<<YAML::Key<<"Text"<<YAML::BeginMap;
-        //        auto& text = entity.get_component<TextComp>();
-        //        out<<YAML::Key<<"Body"<<YAML::Value<<text.body;
-        //        out<<YAML::Key<<"Font Size"<<YAML::Value<<text.font_size;
-        //        out<<YAML::Key<<"Color"<<YAML::Value<<text.color;
-        //    out<<YAML::EndMap;
-        //}
-
         if (entity.has_component<PhysicsBodyComp>()) {
             out<<YAML::Key<<"PhysicsBody"<<YAML::BeginMap;
                 auto& ph = entity.get_component<PhysicsBodyComp>();
@@ -291,13 +282,6 @@ namespace engine {
             out<<YAML::EndMap;
         }
 
-        //if (entity.has_component<ParentComp>()) {
-        //    auto& p = entity.get_component<ParentComp>();
-        //    out<<YAML::Key<<"Parent"<<YAML::BeginMap;
-        //        out<<YAML::Key<<"Parent"<<YAML::Value<<p.parent.uuid();
-        //    out<<YAML::EndMap;
-        //}
-
         if (entity.has_component<ParentComp>()) {
             auto& p = entity.get_component<ParentComp>();
             out<<YAML::Key<<"Parent"<<YAML::BeginMap;
@@ -319,37 +303,47 @@ namespace engine {
 
     }
 
+    template <typename T>
+    static T safe_read(const YAML::Node& node,const char* name) {
+        const auto& tmp = node[name];
+        DU_ASSERT(!tmp, "Trying to read node {} for type {} construction but it doesn't exist", name, typeid(T).name());
+
+        try { return tmp.as<T>(); }
+        catch (const YAML::Exception& e){
+            DU_THROW_ASSERT("Trying to read node {} but the input is invalid: {}", name,e.what());
+        }   
+    }
     static void read_entity_from_file(YAML::Node& entity, Scene* scene, std::filesystem::path root) {
         DU_ASSERT(!entity["Entity"], "No uuid given to entity");
-        uint64_t uuid = entity["Entity"].as<uint64_t>(); 
+        uint64_t uuid = safe_read<uint64_t>(entity, "Entity");
         Entity read_entity = scene->create_entity_with_uuid(uuid);
 
         auto tag_comp = entity["Tag"];
         if (tag_comp)
-            read_entity.add_component<TagComp>(tag_comp["Tag"].as<std::string>());
+            read_entity.add_component<TagComp>(safe_read<std::string>(tag_comp, "Tag"));
 
         auto transform_comp = entity["Transform"];
         if (transform_comp) {
             TransformComp& tc = read_entity.add_component<TransformComp>();
-            tc.set_position(transform_comp["Position"].as<glm::vec3>());
-            tc.set_size(transform_comp["Size"].as<glm::vec3>());
-            tc.set_rotation(transform_comp["Rotation"].as<glm::vec3>());
+            tc.set_position(safe_read<glm::vec3>(transform_comp,"Position"));
+            tc.set_size(safe_read<glm::vec3>(transform_comp,"Size"));
+            tc.set_rotation(safe_read<glm::vec3>(transform_comp,"Rotation"));
         }
 
         auto model_comp = entity["Model"];
         if (model_comp) {
             ModelComp& m = read_entity.add_component<ModelComp>();
-            std::string model_name = model_comp["Mesh Name"].as<std::string>();
+            std::string model_name = safe_read<std::string>(model_comp,"Mesh Name");
             m.mesh = scene->get_mesh(model_name.c_str());
             auto material = model_comp["Material"];
-            std::string shader_name = material["Shader"].as<std::string>();
+            std::string shader_name = safe_read<std::string>(material,"Shader");
             m.material.shader = scene->get_shader(shader_name.c_str());
-            m.layer = model_comp["Layer"].as<size_t>();
-            m.is_immune = model_comp["Immune"].as<bool>();
+            m.layer = safe_read<size_t>(model_comp,"Layer");
+            m.is_immune = safe_read<bool>(model_comp,"Immune");
             DU_ASSERT(m.layer > MAX_RENDER_LAYERS, "Invalid layer number given: {}", m.layer);
 
-            std::string texture_path = material["Texture"].as<std::string>();
-            m.material.is_textured = material["Is Textured"].as<bool>();
+            std::string texture_path = safe_read<std::string>(material,"Texture");
+            m.material.is_textured = safe_read<bool>(material,"Is Textured");
 
             auto tex_repeat = material["Texture Repeats"];
 
@@ -360,17 +354,17 @@ namespace engine {
             if (m.material.is_textured)
                 m.material.texture = scene->get_texture(texture_path.c_str());
             if (material["Color"]) {
-                glm::vec3 color = material["Color"].as<glm::vec3>();
+                glm::vec3 color = safe_read<glm::vec3>(material,"Color");
                 m.material.ambient = color;
                 m.material.diffuse = color;
                 m.material.specular = {1.0f, 1.0f, 1.0f};
                 m.material.shininess = 32.0f;
             }
             else {
-                m.material.ambient = material["Ambient"].as<glm::vec3>();
-                m.material.diffuse = material["Diffuse"].as<glm::vec3>();
-                m.material.specular = material["Specular"].as<glm::vec3>();
-                m.material.shininess = material["Shininess"].as<float>();
+                m.material.ambient   = safe_read<glm::vec3>(material,"Ambient");
+                m.material.diffuse   = safe_read<glm::vec3>(material,"Diffuse");
+                m.material.specular  = safe_read<glm::vec3>(material,"Specular");
+                m.material.shininess = safe_read<float>(material,"Shininess");
             }
             //m.material.print();
         }
@@ -379,29 +373,22 @@ namespace engine {
         if (actions_comp) {
             ActionsComp& ac = read_entity.add_component<ActionsComp>();
             for (const auto& action : actions_comp) {
-                std::string action_name = action["Name"].as<std::string>();
+                std::string action_name = safe_read<std::string>(action,"Name");
                 UpdateComp* a = ac.add(action_name.c_str()).get_last();
                 a->dserialize(action);
             }
         }
-        //auto text = entity["Text"];
-        //if(text) {
-        //    TextComp& t = read_entity.add_component<TextComp>();
-        //    t.body = text["Body"].as<std::string>();
-        //    t.font_size = text["Font Size"].as<int>();
-        //    t.color = text["Color"].as<Color>();
-        //}
 
         auto physicbody = entity["PhysicsBody"];
         if(physicbody) {
             PhysicsBodyComp& ph = read_entity.add_component<PhysicsBodyComp>(); 
-            ph.gravity = physicbody["Gravity"].as<float>();
-            ph.mass = physicbody["Mass"].as<float>();
-            ph.slipperiness = physicbody["Slipperiness"].as<float>();
-            ph.velocity = physicbody["Velocity"].as<glm::vec3>();
-            ph.is_solid = physicbody["Is Solid"].as<bool>();
-            ph.is_static = physicbody["Is Static"].as<bool>();
-            ph.move_delta = physicbody["Move Delta"].as<glm::vec3>();
+            ph.gravity = safe_read<float>(physicbody,"Gravity");
+            ph.mass = safe_read<float>(physicbody,"Mass");
+            ph.slipperiness = safe_read<float>(physicbody,"Slipperiness");
+            ph.velocity = safe_read<glm::vec3>(physicbody,"Velocity");
+            ph.is_solid = safe_read<bool>(physicbody,"Is Solid");
+            ph.is_static = safe_read<bool>(physicbody,"Is Static");
+            ph.move_delta = safe_read<glm::vec3>(physicbody,"Move Delta");
             auto inter = physicbody["Intersect Callback"];
             if (inter) {
                 ph.lua_callback = inter.as<LuaCallback>();
@@ -411,12 +398,12 @@ namespace engine {
         auto camera = entity["Camera"];
         if(camera) {
             CameraComp& c = read_entity.add_component<CameraComp>();
-            c.up = camera["Up"].as<glm::vec3>();
-            c.set_pitch(camera["Pitch"].as<float>());
-            c.set_yaw(camera["Yaw"].as<float>());
-            c.fovy = camera["FovY"].as<float>();
+            c.up = safe_read<glm::vec3>(camera,"Up");
+            c.set_pitch(safe_read<float>(camera,"Pitch"));
+            c.set_yaw  (safe_read<float>(camera,"Yaw"));
+            c.fovy = safe_read<float>(camera,"FovY");
 
-            std::string identifier = camera["Projection"].as<std::string>();
+            std::string identifier = safe_read<std::string>(camera,"Projection");
             const char* names[] = {"Perspective", "Orthographic", "0", "1"};
             int tmp = -1;
             for (int i = 0; i < 4; i++) {
@@ -426,17 +413,17 @@ namespace engine {
             DU_ASSERT(tmp == -1, "Unkown CameraProjection identifier {}", identifier);
             c.projection_mode = (CameraProjection)tmp;
 
-            c.max_distance = camera["Max Distance"].as<float>();
+            c.max_distance = safe_read<float>(camera,"Max Distance");
             glm::vec2 fb_size = scene->manager->main_window.size();
             auto framebuffer = camera["Framebuffer"];
             if (framebuffer) {
-                fb_size.x = framebuffer["Width"].as<int>();
-                fb_size.y = framebuffer["Height"].as<int>();
+                fb_size.x = safe_read<int>(framebuffer,"Width");
+                fb_size.y = safe_read<int>(framebuffer,"Height");
             }
 
             make_framebuffer(c.framebuffer, fb_size.x, fb_size.y);
 
-            std::string present_shader =  camera["Present Shader"].as<std::string>();
+            std::string present_shader =  safe_read<std::string>(camera,"Present Shader");
             c.present_shader = scene->get_shader(present_shader.c_str());
         }
 
@@ -444,7 +431,7 @@ namespace engine {
         if (lua_actions) {
             auto& ls = read_entity.add_component<LuaActionComp>(LuaActionComp(UUID(uuid)));
             for (const auto& m : lua_actions) {
-                std::string path = m["Path"].as<std::string>();
+                std::string path = safe_read<std::string>(m,"Path");
                 ls.add(scene,(root / std::filesystem::path(path)));
 
                 for (const auto& f : m["Fields"]) {
@@ -476,32 +463,32 @@ namespace engine {
         auto dlight = entity["DirLight"];
         if(dlight) {
             auto& l = read_entity.add_component<DirLightComp>();
-            l.direction = dlight["Direction"].as<glm::vec3>();
-            l.ambient = dlight["Ambient"].as<float>();
-            l.color = dlight["Color"].as<glm::vec3>();
-            l.strength = dlight["Strength"].as<float>();
+            l.direction = safe_read<glm::vec3>(dlight,"Direction");
+            l.ambient = safe_read<float>(dlight,"Ambient");
+            l.color = safe_read<glm::vec3>(dlight,"Color");
+            l.strength = safe_read<float>(dlight,"Strength");
         }
 
         auto plight = entity["PntLight"];
         if(plight) {
             auto& l = read_entity.add_component<PntLightComp>();
-            l.color = plight["Color"].as<glm::vec3>();
-            l.constant = plight["Constant"].as<float>();
-            l.linear = plight["Linear"].as<float>();
-            l.quadratic = plight["Quadratic"].as<float>();
+            l.color = safe_read<glm::vec3>(plight,"Color");
+            l.constant = safe_read<float>(plight,"Constant");
+            l.linear = safe_read<float>(plight,"Linear");
+            l.quadratic = safe_read<float>(plight,"Quadratic");
         }
 
         auto slight = entity["SptLight"];
         if(slight) {
             auto& l = read_entity.add_component<SptLightComp>();
-            l.color = slight["Color"].as<glm::vec3>();
-            l.direction = slight["Direction"].as<glm::vec3>();
-            l.constant = slight["Constant"].as<float>();
-            l.linear = slight["Linear"].as<float>();
-            l.quadratic = slight["Quadratic"].as<float>();
+            l.color = safe_read<glm::vec3>(slight,"Color");
+            l.direction = safe_read<glm::vec3>(slight,"Direction");
+            l.constant = safe_read<float>(slight,"Constant");
+            l.linear = safe_read<float>(slight,"Linear");
+            l.quadratic = safe_read<float>(slight,"Quadratic");
 
-            l.cutoff =       slight["Cut off"].as<float>();
-            l.outer_cutoff = slight["Outer cut off"].as<float>();
+            l.cutoff =       safe_read<float>(slight,"Cut off");
+            l.outer_cutoff = safe_read<float>(slight,"Outer cut off");
         }
 
 
@@ -549,7 +536,7 @@ namespace engine {
     static void apply_hierarchy(YAML::Node& entites, Scene* scene) {
 
         for (const auto& entity : entites) {
-            uint64_t uuid = entity["Entity"].as<uint64_t>(); 
+            uint64_t uuid = safe_read<uint64_t>(entity,"Entity");
             Entity read_entity = scene->uuid_to_entity(uuid);
 
             auto children = entity["Children"];
@@ -573,22 +560,27 @@ namespace engine {
 
         DU_ASSERT(!data["Scene"],"Cannot read {}, scene does not exist", path );
 
-        std::string scene_name = data["Scene"].as<std::string>();
+        std::string scene_name = safe_read<std::string>(data,"Scene");
         name = scene_name;
 
         DU_ASSERT(!data["Render Data"], "Section Render Data for scene {} not found", scene_name);
 
         auto render_data = data["Render Data"];
-        main_camera = UUID(render_data["Main Camera"].as<uint64_t>());
-        s_render_data.clear_color = render_data["Clear Color"].as<glm::vec4>();
-        s_render_data.ambient = render_data["Ambient"].as<glm::vec3>();
-        s_render_data.ambient_strength = render_data["Ambient Strength"].as<float>();
+        main_camera = UUID(safe_read<uint64_t>(render_data,"Main Camera"));
+        s_render_data.clear_color = safe_read<glm::vec4>(render_data,"Clear Color");
+        s_render_data.ambient = safe_read<glm::vec3>(render_data,"Ambient");
+        s_render_data.ambient_strength = safe_read<float>(render_data,"Ambient Strength");
 
         DU_ASSERT(!data["Entities"], "Section Entities for scene {} not found", scene_name);
         auto entities = data["Entities"];
 
         for (auto entity : entities) {
-            read_entity_from_file(entity, this, root);
+            try {
+                read_entity_from_file(entity, this, root);
+            } catch (YAML::Exception e) {
+                DU_ASSERT(true, "{}", e.what(), e.mark.line);
+            }
+            
         }
 
         apply_hierarchy(entities, this);
@@ -607,7 +599,7 @@ namespace engine {
 
         DU_ASSERT(!data["Scene"],"Cannot extract from {}, scene name does not exist", path );
 
-        return data["Scene"].as<std::string>();
+        return safe_read<std::string>(data,"Scene");
     }
 
 }
