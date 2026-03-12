@@ -41,7 +41,7 @@ namespace engine {
         }
     };
 
-    static void apply_translation_on_children(Scene& scene, UUID current, glm::vec3 move_delta, float dt, bool translate = true, bool absolute = true);
+    static void apply_move_delta_on_children(Scene& scene, UUID current, glm::vec3 move_delta, float dt, bool translate = true, bool absolute = true);
     static float get_final_axis_vel(Scene& scene, float initial_vel, Axis axis, entt::entity self, TransformComp& self_transform, float self_mass, PushChain& chain, float dt);
 
 
@@ -76,7 +76,7 @@ namespace engine {
             if (!p.is_solid) { // not solid, we don't need to check anything
                 t.translate(velocity * dt);
                 p.move_delta = velocity * dt;
-                apply_translation_on_children(*scene, u, velocity, dt, true);
+                apply_move_delta_on_children(*scene, u, velocity, dt, true);
 
                 if(p.intersects_callback || p.lua_callback) {
                     if(run_callback_check(*scene, e, t, p))
@@ -94,7 +94,7 @@ namespace engine {
 
             t.translate(velocity * dt);
             p.move_delta = velocity * dt;
-            apply_translation_on_children(*scene, u, velocity, dt, true);
+            apply_move_delta_on_children(*scene, u, velocity, dt, true);
         }
 
         return 0;
@@ -143,7 +143,7 @@ namespace engine {
             if (p.is_static) {
                 delta = adjust_vel_to_inter(inter, delta);
                 vel = delta[(int)axis];
-                apply_translation_on_children(scene, scene.registry.get<UUID>(self), delta, dt);
+                apply_move_delta_on_children(scene, scene.registry.get<UUID>(self), delta, dt);
                 continue;
             }
 
@@ -169,7 +169,7 @@ namespace engine {
         return vel;
     }
 
-    static void apply_translation_on_children(Scene& scene, UUID current, glm::vec3 move_delta, float dt, bool translate, bool absolute) {
+    static void apply_move_delta_on_children(Scene& scene, UUID current, glm::vec3 move_delta, float dt, bool translate, bool absolute) {
         Entity tmp = scene.uuid_to_entity(current);
         if (!tmp.is_parent()) return; 
 
@@ -183,7 +183,7 @@ namespace engine {
                 velocity =  velocity * (float)(!absolute) + move_delta;
             }
 
-            apply_translation_on_children(scene, child_uuid, move_delta, dt);
+            apply_move_delta_on_children(scene, child_uuid, move_delta, dt);
         }
     }
 

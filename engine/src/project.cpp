@@ -18,6 +18,7 @@ namespace engine {
         texture_paths = {};
         mesh_paths = {};
         script_paths = {};
+        flip_textures_on_load = true;
     }
 
     static void read_layers(YAML::Node& node, SceneManager* manager);
@@ -94,9 +95,7 @@ namespace engine {
         auto textures = paths["Textures"];
         if (textures) {
             auto flip_node = node["Flip Textures On Load"];
-            bool flip = false;
-            if (flip_node)
-                flip = flip_node.as<bool>();
+            p_data->flip_textures_on_load = (flip_node) ? flip_node.as<bool>() : true;
 
             for (const auto& path : textures) {
                 fs::path tx_dir = path.as<std::string>();
@@ -108,7 +107,7 @@ namespace engine {
                     std::array<const char*, 3> acceptables =  {".png", ".jpg", ".jpeg"};
                     bool contains = std::find(acceptables.begin(), acceptables.end(), tmp.extension()) != acceptables.end();
                     if (!contains) continue;
-                    manager->register_texture((tx_dir / tmp.filename()).c_str(), flip);
+                    manager->register_texture((tx_dir / tmp.filename()).c_str(), p_data->flip_textures_on_load);
                 }
             }
         }
@@ -192,6 +191,8 @@ namespace engine {
             
             if(!data.startup_scene.empty())
                 out<<ym::Key<<"Startup Scene"<<ym::Value<<data.startup_scene;
+            
+            out<<ym::Key<<"Flip Textures On Load"<<ym::Value<<data.flip_textures_on_load;
             
             out<<ym::Key<<"Paths"<<ym::BeginMap;
                 out<<ym::Key<<"Scenes"<<ym::BeginSeq;

@@ -15,6 +15,7 @@ namespace engine {
         std::vector<std::filesystem::path> texture_paths;
         std::vector<std::filesystem::path> mesh_paths;
         std::vector<std::filesystem::path> script_paths;
+        bool flip_textures_on_load;
 
         ProjectData(std::string name = "");
     };
