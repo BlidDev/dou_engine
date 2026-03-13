@@ -12,7 +12,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 if(MSVC)
-  add_compile_options(/W4 /permissive-)
+  add_compile_options(/permissive-)
   set(CMAKE_CXX_FLAGS_DEBUG "/Zi /Od")
   set(CMAKE_CXX_FLAGS_RELEASE "/O2 /DNDEBUG")
 
