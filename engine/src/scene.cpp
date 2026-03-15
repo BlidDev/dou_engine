@@ -52,7 +52,7 @@ namespace engine {
     }
 
     void Scene::register_shader(const std::filesystem::path& path) {
-        manager->register_shader(name);
+        manager->register_shader(path);
     }
 
     Shader& Scene::get_shader(const char* name) {

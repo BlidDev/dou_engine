@@ -114,7 +114,7 @@ namespace engine {
 
 
         DU_ASSERT(texture_lib.contains(filename), "Texture [{}] already registered", path.c_str());
-        texture_lib.insert(std::make_pair(full_path, load_texture_from_file(full_path, flip)));
+        texture_lib.insert(std::make_pair(filename, load_texture_from_file(full_path, flip)));
         DU_CORE_DEBUG_TRACE("Registered texture {}", filename);
     }
 

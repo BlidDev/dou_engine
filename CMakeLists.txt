@@ -31,7 +31,7 @@ add_subdirectory("vendor/glfw")
 
 add_subdirectory(engine)
 
-option(EXAMPLE_GAME "Build an example game" ON)
+option(EXAMPLE_GAME "Build an example game" OFF)
 if (EXAMPLE_GAME)
     add_subdirectory(game)
 endif()
