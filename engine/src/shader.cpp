@@ -1,16 +1,27 @@
 #include "shader.h"
+#include "log.h"
 
 namespace engine {
+
+    void Shader::free() {
+        glDeleteProgram(program);
+        DU_CORE_DEBUG_TRACE("Freed {}", path);
+        program = 0; path = "";
+    }
+
+
+
     enum ReadIndex {
         None = -1,
         Vertex, Fragment
     };
-    ShaderReturn parse_shader_file(const char* path) {
+
+    ShaderReturn parse_shader_file(const std::filesystem::path& path) {
         ReadIndex index = None;
         std::stringstream streams[2];
 
         std::ifstream file(path);
-        DU_ASSERT(file.fail(), "Could not open file [{}]", path);
+        DU_ASSERT(file.fail(), "Could not open file [{}]", path.c_str());
 
         std::string line = "";
         while (std::getline(file, line)) {
@@ -29,9 +40,10 @@ namespace engine {
         return ShaderReturn {v,f};
     }
 
-    Shader complie_shader_file(const char* path) {
+    Shader complie_shader_file(const std::filesystem::path& path) {
+        const auto& cpath = path.c_str();
         ShaderReturn source = parse_shader_file(path);
-        DU_DEBUG_TRACE("Compiling shader {}...", path);
+        DU_DEBUG_TRACE("Compiling shader {}...", cpath);
         Shader tmp = complie_shader_code(source);
 
         if (tmp.program == 0) {
@@ -39,7 +51,7 @@ namespace engine {
             return {0, "ERROR"};
         }
 
-        return {tmp.program, std::filesystem::path(path).filename()};
+        return {tmp.program, path.filename().string()};
     }
 
     Shader complie_shader_code(const ShaderReturn& source) {

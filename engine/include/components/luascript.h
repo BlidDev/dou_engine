@@ -49,7 +49,7 @@ namespace engine {
        LuaActionComp& add(Scene* scene, std::string path);
        LuaActionComp& add(LuaUpdate update);
 
-       void remove(std::string path);
+       void remove(const std::string_view path);
        bool find(const char* path);
 
        template<typename T>

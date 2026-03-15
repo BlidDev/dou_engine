@@ -73,7 +73,7 @@ namespace engine {
         }
     }
 
-    void LuaActionComp::remove(std::string path) {
+    void LuaActionComp::remove(const std::string_view path) {
         const auto& it = std::find_if(scripts.begin(), scripts.end(), [&path] (const auto& s){ return s.path == path; });
 
         DU_ASSERT(it == scripts.end(), "Trying to remove non registered script {}", path);

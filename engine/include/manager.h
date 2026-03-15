@@ -42,12 +42,12 @@ namespace engine {
 
         void write_scene_to_file(const char* path, Scene* scene);
 
-        void register_shader(const char* path);
+        void register_shader(const std::filesystem::path& path);
         void register_shader(const char* name, const Shader& shader);
-        void register_texture(const char* path, bool flip = false);
+        void register_texture(const std::filesystem::path& path, bool flip = false);
         void register_texture(std::string name, Texture texture);
         void register_mesh(const char* name, Mesh mesh);
-        void register_script(const char* path);
+        void register_script(const std::filesystem::path& path);
 
         LayerAtrb* get_layer_atrb(size_t layer);
 

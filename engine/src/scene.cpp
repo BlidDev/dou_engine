@@ -51,7 +51,7 @@ namespace engine {
         registry.destroy(e.id());
     }
 
-    void Scene::register_shader(const char* name) {
+    void Scene::register_shader(const std::filesystem::path& path) {
         manager->register_shader(name);
     }
 

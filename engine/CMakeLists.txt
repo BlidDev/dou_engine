@@ -39,8 +39,8 @@ endif()
 target_link_libraries(${NAME} 
     PUBLIC 
         glfw 
-        glad 
-        yaml-cpp 
+        GLAD 
+        YAML_CPP 
         OpenGL::GL
     PRIVATE 
         ${LUA_LIB}

@@ -1,5 +1,6 @@
 #pragma once
-#include <espch.h>
+#include <glm/glm.hpp>
+#include <filesystem>
 
 namespace engine {
     struct ShaderReturn {
@@ -13,20 +14,9 @@ namespace engine {
         uint32_t program;
         std::string path;
 
-        Shader(uint32_t program, const char* path) {
-            this->program = program;
-            this->path = path;
-        }
-
-        Shader(uint32_t program, std::string path) {
-            this->program = program;
-            this->path = path;
-        }
-
-        Shader() {
-            program = 0;
-            path = "UNSET";
-        }
+        Shader(uint32_t program, const char* path) : program(program), path(path) {}
+        Shader(uint32_t program, const std::string& path) : program(program), path(path) {}
+        Shader() : program(0), path("UNSET") {}
 
         operator uint32_t() const {
             return program;
@@ -37,13 +27,10 @@ namespace engine {
         }
 
         // Frees the shader program from OpenGL memory, makes the object useless
-        void free() {
-            glDeleteProgram(program);
-            DU_CORE_DEBUG_TRACE("Freed {}", path);
-            program = 0; path = "";
-        }
+        void free(); 
     };
-    Shader complie_shader_file(const char* path);
+
+    Shader complie_shader_file(const std::filesystem::path& path);
     Shader complie_shader_code(const ShaderReturn& source);
 
     void set_shader_b(const Shader& shader, const char* name,  const bool& value);

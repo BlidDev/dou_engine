@@ -23,14 +23,13 @@ if(MSVC)
     string(REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
   endforeach()
 
+  add_compile_options("/utf-8")
 else()
   set(CMAKE_CXX_FLAGS_DEBUG "-g")
   set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
+  add_compile_options(-finput-charset=UTF-8 -fexec-charset=UTF-8)
 endif()
 
-if(WIN32)
-    add_compile_options("/utf-8")
-endif()
 
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")

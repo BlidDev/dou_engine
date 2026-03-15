@@ -46,7 +46,7 @@ namespace engine {
             return registry.any_of<T>(entity);
         }
 
-        void register_shader(const char* path);
+        void register_shader(const std::filesystem::path& path);
 
         Shader& get_shader(const char* name);
         Texture& get_texture(const char* name);

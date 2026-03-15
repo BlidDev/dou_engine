@@ -90,15 +90,15 @@ namespace engine {
 
     namespace fs = std::filesystem;
 
-    void SceneManager::register_shader(const char* path) {
-        fs::path fs_path = fs::path(path);
-        if (!fs_path.is_absolute()) fs_path = root_path() / fs_path;
+    void SceneManager::register_shader(const fs::path& path) {
+        fs::path full_path = (path.is_absolute()) ? path : root_path() / path;
+        std::string filename = full_path.filename().string();
 
-        DU_ASSERT(shader_lib.contains(fs_path.filename()), "Shader [{}] already registered", path);
+        DU_ASSERT(shader_lib.contains(filename), "Shader [{}] already registered", path.c_str());
 
 
-        shader_lib.insert(std::make_pair(fs_path.filename().string(), complie_shader_file(fs_path.c_str())));
-        DU_CORE_DEBUG_TRACE("Registered shader {}", fs_path.filename().string());
+        shader_lib.insert(std::make_pair(filename, complie_shader_file(full_path)));
+        DU_CORE_DEBUG_TRACE("Registered shader {}", filename);
     }
 
     void SceneManager::register_shader(const char* name, const Shader& shader) {
@@ -108,14 +108,14 @@ namespace engine {
         DU_CORE_DEBUG_TRACE("Registered shader {}", name);
     }
 
-    void SceneManager::register_texture(const char* path, bool flip) {
-        fs::path fs_path = fs::path(path);
-        if (!fs_path.is_absolute()) fs_path = root_path() / fs_path;
+    void SceneManager::register_texture(const fs::path& path, bool flip) {
+        fs::path full_path = (path.is_absolute()) ? path : root_path() / path;
+        std::string filename = full_path.filename().string();
 
 
-        DU_ASSERT(texture_lib.contains(fs_path.filename()), "Texture [{}] already registered", path);
-        texture_lib.insert(std::make_pair(fs_path.filename().string(), load_texture_from_file(fs_path.c_str(), flip)));
-        DU_CORE_DEBUG_TRACE("Registered texture {}", fs_path.filename().string());
+        DU_ASSERT(texture_lib.contains(filename), "Texture [{}] already registered", path.c_str());
+        texture_lib.insert(std::make_pair(full_path, load_texture_from_file(full_path, flip)));
+        DU_CORE_DEBUG_TRACE("Registered texture {}", filename);
     }
 
     void SceneManager::register_texture(std::string name, Texture texture) {
@@ -132,14 +132,14 @@ namespace engine {
         DU_CORE_DEBUG_TRACE("Registered mesh {}", name);
     }
 
-    void SceneManager::register_script(const char* path) {
-        fs::path fs_path = fs::path(path);
-        if (!fs_path.is_absolute()) fs_path = root_path() / fs_path;
+    void SceneManager::register_script(const fs::path& path) {
+        fs::path full_path = (path.is_absolute()) ? path : root_path() / path;
+        std::string filename = full_path.filename().string();
 
-        DU_ASSERT(script_lib.contains(fs_path.filename()), "Script path [{}] already registered", path);
+        DU_ASSERT(script_lib.contains(filename), "Script path [{}] already registered", path.c_str());
 
-        script_lib.insert({fs_path.filename().string(), fs_path.string()});
-        DU_CORE_DEBUG_TRACE("Registered script {}", fs_path.filename().string());
+        script_lib.insert({filename, full_path.string()});
+        DU_CORE_DEBUG_TRACE("Registered script {}", filename);
     }
 
     LayerAtrb* SceneManager::get_layer_atrb(size_t layer) {
