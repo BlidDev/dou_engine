@@ -13,12 +13,12 @@ namespace engine {
         state.require_file("util", util_path);
     }
 
-    LuaUpdate::LuaUpdate(UUID self, Scene* scene, sol::state& state, std::string path) {
+    LuaUpdate::LuaUpdate(UUID self, Scene* scene, sol::state& state, const std::filesystem::path& path) {
         this->self = self;
-        this->path = std::filesystem::path(path).filename();
+        this->path = path.filename().string();
         inital_error = "";
         env = sol::environment(state,sol::create, state.globals());
-        auto result = state.safe_script_file(path, env, &sol::script_pass_on_error);
+        auto result = state.safe_script_file(path.string(), env, &sol::script_pass_on_error);
         if (!result.valid()) {
             sol::error e = result;
             inital_error = e.what();
@@ -95,15 +95,22 @@ namespace engine {
         this->scripts = scripts;
     }
 
-    LuaActionComp& LuaActionComp::add(Scene* scene, std::string path) {
-        if (find(path.c_str())) { DU_CORE_DEBUG_TRACE("{} is already attached to {}. Ignoring", path, self); return *this;}
+    LuaActionComp& LuaActionComp::add(Scene* scene, const std::filesystem::path& path) {
+        std::string filename = path.filename().string();
+        if (find(filename.c_str())) { 
+            DU_CORE_DEBUG_TRACE("{} is already attached to {}. Ignoring", filename, self); 
+            return *this;
+        }
 
-        scripts.push_back(LuaUpdate(self, scene,LuaManager::state,scene->get_script(path.c_str())));
+        scripts.push_back(LuaUpdate(self, scene,LuaManager::state,scene->get_script(filename.c_str())));
         return *this;
     }
 
     LuaActionComp& LuaActionComp::add(LuaUpdate update) {
-        if (find(update.path.c_str())) { DU_CORE_DEBUG_TRACE("{} is already attached to {}. Ignoring", update.path, self); return *this;}
+        if (find(update.path.c_str())) { 
+            DU_CORE_DEBUG_TRACE("{} is already attached to {}. Ignoring", update.path, self); 
+            return *this;
+        }
         scripts.push_back(update);
         return *this;
     }

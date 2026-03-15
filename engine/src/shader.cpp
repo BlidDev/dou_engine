@@ -21,7 +21,7 @@ namespace engine {
         std::stringstream streams[2];
 
         std::ifstream file(path);
-        DU_ASSERT(file.fail(), "Could not open file [{}]", path.c_str());
+        DU_ASSERT(file.fail(), "Could not open file [{}]", path);
 
         std::string line = "";
         while (std::getline(file, line)) {
@@ -41,9 +41,8 @@ namespace engine {
     }
 
     Shader complie_shader_file(const std::filesystem::path& path) {
-        const auto& cpath = path.c_str();
         ShaderReturn source = parse_shader_file(path);
-        DU_DEBUG_TRACE("Compiling shader {}...", cpath);
+        DU_DEBUG_TRACE("Compiling shader {}...", path);
         Shader tmp = complie_shader_code(source);
 
         if (tmp.program == 0) {

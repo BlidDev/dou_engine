@@ -94,7 +94,7 @@ namespace engine {
         fs::path full_path = (path.is_absolute()) ? path : root_path() / path;
         std::string filename = full_path.filename().string();
 
-        DU_ASSERT(shader_lib.contains(filename), "Shader [{}] already registered", path.c_str());
+        DU_ASSERT(shader_lib.contains(filename), "Shader [{}] already registered", path);
 
 
         shader_lib.insert(std::make_pair(filename, complie_shader_file(full_path)));
@@ -113,7 +113,7 @@ namespace engine {
         std::string filename = full_path.filename().string();
 
 
-        DU_ASSERT(texture_lib.contains(filename), "Texture [{}] already registered", path.c_str());
+        DU_ASSERT(texture_lib.contains(filename), "Texture [{}] already registered", path);
         texture_lib.insert(std::make_pair(filename, load_texture_from_file(full_path, flip)));
         DU_CORE_DEBUG_TRACE("Registered texture {}", filename);
     }
@@ -136,7 +136,7 @@ namespace engine {
         fs::path full_path = (path.is_absolute()) ? path : root_path() / path;
         std::string filename = full_path.filename().string();
 
-        DU_ASSERT(script_lib.contains(filename), "Script path [{}] already registered", path.c_str());
+        DU_ASSERT(script_lib.contains(filename), "Script path [{}] already registered", path);
 
         script_lib.insert({filename, full_path.string()});
         DU_CORE_DEBUG_TRACE("Registered script {}", filename);

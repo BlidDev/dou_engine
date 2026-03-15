@@ -30,6 +30,9 @@ else()
   add_compile_options(-finput-charset=UTF-8 -fexec-charset=UTF-8)
 endif()
 
+if (WIN32) 
+    add_compile_definitions(SPDLOG_WCHAR_TO_UTF8_SUPPORT)
+endif()
 
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")

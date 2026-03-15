@@ -36,10 +36,10 @@ namespace engine {
 
 
         stbi_set_flip_vertically_on_load(flip);
-        auto cpath = path.c_str();
-        unsigned char *data = stbi_load(cpath, &w, &h, &nrc, STBI_rgb_alpha);
+        std::string spath = path.string();
+        unsigned char *data = stbi_load(spath.c_str(), &w, &h, &nrc, STBI_rgb_alpha);
 
-        DU_ASSERT(!data, "Could not load texture [{}]", cpath);
+        DU_ASSERT(!data, "Could not load texture [{}]", path);
 
         auto format = GL_RGBA;
         glTexImage2D(GL_TEXTURE_2D, 0, format, w, h, 0, format, GL_UNSIGNED_BYTE, data);
@@ -48,7 +48,7 @@ namespace engine {
 
         Texture res;
         res.texture = texture;
-        res.path = std::filesystem::path(path).filename();
+        res.path = std::filesystem::path(path).filename().string();
         res.w = w; res.h = h; res.nrc = nrc;
 
         //DU_INFO("{} {} {} {}", texture, w, h, nrc);

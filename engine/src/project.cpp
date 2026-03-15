@@ -82,7 +82,7 @@ namespace engine {
             for (const auto& path : shaders) {
                 fs::path sh_dir = path.as<std::string>();
                 fs::path actual = p_data->root_path / sh_dir;
-                DU_ASSERT(!fs::is_directory(actual), "Trying to read shaders from {} no such directory", actual.string());
+                DU_ASSERT(!fs::is_directory(actual), "Trying to read shaders from {} no such directory", actual);
                 if(add_paths) p_data->shader_paths.push_back(sh_dir);
 
                 for (const auto & entry : fs::directory_iterator(actual)) {
@@ -100,7 +100,7 @@ namespace engine {
             for (const auto& path : textures) {
                 fs::path tx_dir = path.as<std::string>();
                 fs::path actual = p_data->root_path / tx_dir;
-                DU_ASSERT(!fs::is_directory(actual), "Trying to read textures from {} no such directory", actual.string());
+                DU_ASSERT(!fs::is_directory(actual), "Trying to read textures from {} no such directory", actual);
                 if(add_paths) p_data->texture_paths.push_back(tx_dir);
                 for (const auto & entry : fs::directory_iterator(actual)) {
                     fs::path tmp = entry.path();
@@ -117,13 +117,13 @@ namespace engine {
             for (const auto& path : meshs) {
                 fs::path md_dir = path.as<std::string>();
                 fs::path actual = p_data->root_path / md_dir;
-                DU_ASSERT(!fs::is_directory(actual), "Trying to read meshs from {} no such directory", actual.string());
+                DU_ASSERT(!fs::is_directory(actual), "Trying to read meshs from {} no such directory", actual);
                 if(add_paths) p_data->mesh_paths.push_back(md_dir);
                 for (const auto & entry : fs::directory_iterator(actual)) {
                     if (entry.path().extension() != ".sff") continue;
                     std::string mesh_name = "unnamed";
 
-                    Mesh mesh = mesh_from_file(entry.path().c_str(), &mesh_name);
+                    Mesh mesh = mesh_from_file(entry.path().string().c_str(), &mesh_name);
                     DU_ASSERT(mesh_name == "unnamed", "Mesh {} wasn't given any name");
                     manager->register_mesh(mesh_name.c_str(), mesh);
                 }
@@ -136,7 +136,7 @@ namespace engine {
             for (const auto& path : scripts) {
                 fs::path sh_dir = path.as<std::string>();
                 fs::path actual = p_data->root_path / sh_dir;
-                DU_ASSERT(!fs::is_directory(actual), "Trying to read scripts from {} no such directory", actual.string());
+                DU_ASSERT(!fs::is_directory(actual), "Trying to read scripts from {} no such directory", actual);
                 if(add_paths) p_data->script_paths.push_back(sh_dir);
 
                 for (const auto & entry : fs::directory_iterator(actual)) {
@@ -160,13 +160,13 @@ namespace engine {
         for (const auto& path : scenes) {
             fs::path sc_dir = path.as<std::string>();
             fs::path actual = manager->project_data.root_path / sc_dir;
-            DU_ASSERT(!fs::is_directory(actual), "Trying to read scenes from {} no such directory", actual.string());
+            DU_ASSERT(!fs::is_directory(actual), "Trying to read scenes from {} no such directory", actual);
             if(add_paths) manager->project_data.scene_paths.push_back(sc_dir);
 
             for (const auto& entry : fs::directory_iterator(actual)) {
                 fs::path tmp = entry.path();
                 if (tmp.extension() != ".scene") continue;
-                std::string name = extract_scene_name(tmp.c_str());
+                std::string name = extract_scene_name(tmp.string().c_str());
                 Scene* rt = manager->register_scene(name.c_str(), create_runtime_scene());
                 rt->name = name;
                 rt->file_path = tmp;

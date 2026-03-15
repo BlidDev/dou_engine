@@ -14,7 +14,7 @@ namespace engine {
 
     void DefaultRT::on_create() {
         if (!file_path.empty() && uuids.empty()) 
-            add_from_file(file_path.c_str());
+            add_from_file(file_path.string().c_str());
 
         if (main_camera != 0)
             viewer = uuid_to_entity(main_camera);
