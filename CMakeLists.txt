@@ -19,6 +19,7 @@ add_subdirectory("vendor/spdlog")
 add_subdirectory("vendor/glad")
 
 set(YAML_CPP_BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+set(YAML_CPP_MSVC_SHARED_RT OFF CACHE BOOL "" FORCE) 
 add_definitions(-DYAML_CPP_STATIC_DEFINE)
 add_subdirectory("vendor/yaml-cpp")
 
@@ -26,6 +27,7 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_STATIC ON CACHE BOOL "" FORCE)
+set(USE_MSVC_RUNTIME_LIBRARY_DLL OFF CACHE BOOL "" FORCE)
 add_subdirectory("vendor/glfw")
 
 add_subdirectory(engine)

@@ -12,16 +12,13 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 if(MSVC)
-  add_compile_options(/permissive-)
+  add_compile_options(/permissive- /bigobj)
   set(CMAKE_CXX_FLAGS_DEBUG "/Zi /Od")
   set(CMAKE_CXX_FLAGS_RELEASE "/O2 /DNDEBUG")
 
 
-  foreach(flag_var
-          CMAKE_C_FLAGS CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELEASE
-          CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE)
-    string(REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
-  endforeach()
+  set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+  set(CMAKE_VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
 
   add_compile_options("/utf-8")
 else()
@@ -35,10 +32,7 @@ if (WIN32)
 endif()
 
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    add_compile_definitions(DU_DEBUG)
-endif()
-
+add_compile_definitions($<$<CONFIG:Debug>:DU_DEBUG>)
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     set(DYNAMIC_SOURCE ${CMAKE_SOURCE_DIR})

@@ -1,11 +1,11 @@
 Scene: light
 Render Data:
-  Main Camera: 14382726490743136718
+  Main Camera: 11454651904792573134
   Ambient: [1, 1, 1]
   Ambient Strength: 0.1
-  Clear Color: [0, 0, 0, 0]
+  Clear Color: [0.05, 0.05, 0.05, 1]
 Entities:
-  - Entity: 3415190178200163820
+  - Entity: 11267145363839547359
     Transform:
       Position: [0, -0.5, 0]
       Size: [1000, 0, 1000]
@@ -18,24 +18,24 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 8608569500696304170
+  - Entity: 333732476876150706
     Transform:
       Position: [0, 1, 0]
       Size: [1, 1, 1]
       Rotation: [0, 0, 0]
     Model:
-      Mesh Name: cube_tex
+      Mesh Name: cube
       Layer: 0
       Immune: false
       Material:
-        Shader: textured.glsl
-        Ambient: [0, 0, 0]
-        Diffuse: [0, 0, 0]
-        Specular: [0, 0, 0]
+        Shader: basic.glsl
+        Ambient: [1, 1, 1]
+        Diffuse: [1, 1, 1]
+        Specular: [1, 1, 1]
         Shininess: 0
         Texture: proto.png
         Is Textured: true
-        Texture Repeats: [1, 1]
+        Texture Repeats: [2, 2]
     PhysicsBody:
       Gravity: 0
       Mass: 10
@@ -44,7 +44,7 @@ Entities:
       Is Solid: true
       Is Static: true
       Move Delta: [0, 0, 0]
-  - Entity: 14382726490743136718
+  - Entity: 11454651904792573134
     Transform:
       Position: [0, 2, -2]
       Size: [1, 1, 1]
@@ -53,7 +53,7 @@ Entities:
       - Name: SimpleAct
         Default: Default
     PhysicsBody:
-      Gravity: 0.2
+      Gravity: 9.8
       Mass: 10
       Slipperiness: 0.01
       Velocity: [0, 0, 0]
@@ -64,7 +64,7 @@ Entities:
       Pitch: 0
       Yaw: 0
       Up: [0, 1, 0]
-      FovY: 45
+      FovY: 70
       Projection: Perspective
       Max Distance: 30
       Present Shader: camerapresent.glsl

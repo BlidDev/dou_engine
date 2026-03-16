@@ -6,11 +6,13 @@ namespace engine {
     sol::state LuaManager::state;
 
 
-    void LuaManager::init(const char* util_path) {
+    void LuaManager::init(const std::filesystem::path& util_path) {
         state.open_libraries(sol::lib::string, sol::lib::base, sol::lib::coroutine, sol::lib::io, sol::lib::math, sol::lib::package);
         expose_env(state);
-        if (!util_path) return;
-        state.require_file("util", util_path);
+        if (util_path.empty()) return;
+        namespace fs = std::filesystem;
+        fs::path full_path = (util_path.is_absolute()) ? util_path : fs::current_path() / util_path;
+        state.require_file("util", full_path.string());
     }
 
     LuaUpdate::LuaUpdate(UUID self, Scene* scene, sol::state& state, const std::filesystem::path& path) {

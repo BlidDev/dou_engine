@@ -8,9 +8,9 @@ namespace engine {
             .shader = {},
             .texture = Texture(),
             .tex_repeat = {1.0f, 1.0f},
-            .ambient = {0.0f, 0.0f, 0.0f},
-            .diffuse = {0.0f, 0.0f, 0.0f},
-            .specular = {0.0f, 0.0f, 0.0f},
+            .ambient =  {1.0f, 1.0f, 1.0f},
+            .diffuse =  {1.0f, 1.0f, 1.0f},
+            .specular = {1.0f, 1.0f, 1.0f},
             .is_textured = false
         };
     }

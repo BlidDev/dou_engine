@@ -12,6 +12,8 @@ namespace engine {
         texture_lib = {};
         mesh_lib = {};
         script_lib = {};
+
+        b_should_close = false;
     }
 
     Scene* SceneManager::register_scene(const char* name, std::unique_ptr<Scene> scene) {
