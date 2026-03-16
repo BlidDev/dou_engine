@@ -75,6 +75,7 @@ vendor/*
 **/.vscode/
 **/.idea/
 **/*.code-workspace
+.vscode
 
 # ========================
 # Misc system/editor files
