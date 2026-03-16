@@ -40,7 +40,7 @@ namespace engine {
         void end_scene(Scene* scene);
         void end();
 
-        void write_scene_to_file(const char* path, Scene* scene);
+        void write_scene_to_file(const std::filesystem::path& path, Scene* scene);
 
         void register_shader(const std::filesystem::path& path);
         void register_shader(const char* name, const Shader& shader);
@@ -84,6 +84,6 @@ namespace engine {
         bool b_should_close;
     };
 
-    std::string extract_scene_name(const char* path);
+    std::string extract_scene_name(const std::filesystem::path& path);
 }
 

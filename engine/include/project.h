@@ -9,6 +9,7 @@ namespace engine {
     struct ProjectData {
         std::string name;
         std::string startup_scene;
+        std::filesystem::path prj_path;
         std::filesystem::path root_path;
         std::vector<std::filesystem::path> scene_paths;
         std::vector<std::filesystem::path> shader_paths;
@@ -20,10 +21,10 @@ namespace engine {
         ProjectData(std::string name = "");
     };
 
-    const ProjectData& read_project_file(const char* path, SceneManager* manager, bool add_paths = true, bool set_current = false);
+    const ProjectData& read_project_file(const std::filesystem::path& path, SceneManager* manager, bool add_paths = true, bool set_current = false);
 
 
-    void write_project_file(const char* path, ProjectData& data, LayerAtrb layes[] = nullptr, size_t nlayers = MAX_RENDER_LAYERS);
+    void write_project_file(const std::filesystem::path& path, ProjectData& data, LayerAtrb layes[] = nullptr, size_t nlayers = MAX_RENDER_LAYERS);
 
 
     extern std::unique_ptr<Scene> create_runtime_scene();

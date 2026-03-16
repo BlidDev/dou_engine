@@ -25,16 +25,17 @@ namespace engine {
     static void read_paths(YAML::Node& node, SceneManager* manager, bool add_paths);
     static void read_scenes(YAML::Node& node, SceneManager* manager, bool add_paths);
 
-    const ProjectData& read_project_file(const char* path, SceneManager* manager, bool add_paths, bool set_current) {
+    const ProjectData& read_project_file(const std::filesystem::path& path, SceneManager* manager, bool add_paths, bool set_current) {
         DU_ASSERT(!manager, "Trying to read project {} but SceneManager is null");
 
         std::ifstream file(path);
-        DU_ASSERT(file.fail(), "Project file path \"{}\" does not exist", path);
+        DU_ASSERT(file.fail() || !std::filesystem::exists(path), "Project file path \"{}\" does not exist", path);
         std::stringstream str_stream;
         str_stream<<file.rdbuf();
 
         YAML::Node data = YAML::Load(str_stream.str());
         ProjectData* p_data = &manager->project_data;
+        p_data->prj_path = path;
 
         DU_ASSERT(!data["Project Name"], "Project name not provided in \"{}\"", path);
         p_data->name = data["Project Name"].as<std::string>();
@@ -123,7 +124,7 @@ namespace engine {
                     if (entry.path().extension() != ".sff") continue;
                     std::string mesh_name = "unnamed";
 
-                    Mesh mesh = mesh_from_file(entry.path().string().c_str(), &mesh_name);
+                    Mesh mesh = mesh_from_file(entry.path(), &mesh_name);
                     DU_ASSERT(mesh_name == "unnamed", "Mesh {} wasn't given any name");
                     manager->register_mesh(mesh_name.c_str(), mesh);
                 }
@@ -166,7 +167,7 @@ namespace engine {
             for (const auto& entry : fs::directory_iterator(actual)) {
                 fs::path tmp = entry.path();
                 if (tmp.extension() != ".scene") continue;
-                std::string name = extract_scene_name(tmp.string().c_str());
+                std::string name = extract_scene_name(tmp);
                 Scene* rt = manager->register_scene(name.c_str(), create_runtime_scene());
                 rt->name = name;
                 rt->file_path = tmp;
@@ -177,10 +178,10 @@ namespace engine {
     }
 
 
-    void write_project_file(const char* path, ProjectData& data, LayerAtrb layers[], size_t nlayers) {
+    void write_project_file(const std::filesystem::path& path, ProjectData& data, LayerAtrb layers[], size_t nlayers) {
         namespace ym = YAML;
         std::ofstream file(path);
-        DU_ASSERT(!file.is_open(), "Could not open {}", path);
+        DU_ASSERT(!file.is_open() || !std::filesystem::exists(path), "Could not open {}", path);
         DU_CORE_DEBUG_TRACE("Writing to {}", path);
         ym::Emitter out;
         out<<ym::BeginMap;

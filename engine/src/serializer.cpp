@@ -502,7 +502,7 @@ namespace engine {
 
     }
 
-    void SceneManager::write_scene_to_file(const char* path, Scene* scene) {
+    void SceneManager::write_scene_to_file(const std::filesystem::path& path, Scene* scene) {
         std::ofstream file(path);
         DU_ASSERT(!file.is_open(), "Could not open {}", path);
         YAML::Emitter out;
@@ -551,14 +551,15 @@ namespace engine {
         }
     }
 
-    void Scene::add_from_file(const char* path, std::filesystem::path root) {
+    namespace fs = std::filesystem;
+    void Scene::add_from_file(const fs::path& path, const fs::path& root) {
         std::ifstream stream(path);
         std::stringstream str_stream;
         str_stream<<stream.rdbuf();
 
         YAML::Node data = YAML::Load(str_stream.str());
 
-        DU_ASSERT(!data["Scene"],"Cannot read {}, scene does not exist", path );
+        DU_ASSERT(!data["Scene"],"Cannot read {}, scene does not exist", path);
 
         std::string scene_name = safe_read<std::string>(data,"Scene");
         name = scene_name;
@@ -589,7 +590,7 @@ namespace engine {
     }
 
 
-    std::string extract_scene_name(const char* path) {
+    std::string extract_scene_name(const fs::path& path) {
         std::ifstream stream(path);
         DU_ASSERT(stream.fail(), "Could not extract scene name from {}", path);
         std::stringstream str_stream;

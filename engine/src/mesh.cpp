@@ -124,14 +124,14 @@ namespace engine {
         Name, Format, Vertices, Indices
     };
 
-    Mesh mesh_from_file(const char* path, std::string* name) {
+    Mesh mesh_from_file(const std::filesystem::path& path, std::string* name) {
         MeshBuilder mesh_builder;
         ReadIndex index = None;
 
         std::string tmp_name = "unnamed";
 
         std::ifstream file(path);
-        DU_ASSERT(!file.is_open(), "Could not open file [{}]", path);
+        DU_ASSERT(!file.is_open() || !std::filesystem::exists(path), "Could not open file [{}]", path);
 
         std::vector<float>vertices = {};
         std::vector<unsigned int>indices = {};
