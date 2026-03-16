@@ -197,23 +197,23 @@ namespace engine {
             
             out<<ym::Key<<"Paths"<<ym::BeginMap;
                 out<<ym::Key<<"Scenes"<<ym::BeginSeq;
-                    for (const auto& p : data.scene_paths) { out<<ym::Key<<p.c_str(); }
+                    for (const auto& p : data.scene_paths) { out<<ym::Key<<p.string(); }
                 out<<ym::EndSeq;
 
                 out<<ym::Key<<"Shaders"<<ym::BeginSeq;
-                    for (const auto& p : data.shader_paths) { out<<ym::Key<<p.c_str(); }
+                    for (const auto& p : data.shader_paths) { out<<ym::Key<<p.string(); }
                 out<<ym::EndSeq;
 
                 out<<ym::Key<<"Textures"<<ym::BeginSeq;
-                    for (const auto& p : data.texture_paths) { out<<ym::Key<<p.c_str(); }
+                    for (const auto& p : data.texture_paths) { out<<ym::Key<<p.string(); }
                 out<<ym::EndSeq;
 
                 out<<ym::Key<<"Meshes"<<ym::BeginSeq;
-                    for (const auto& p : data.mesh_paths) { out<<ym::Key<<p.c_str(); }
+                    for (const auto& p : data.mesh_paths) { out<<ym::Key<<p.string(); }
                 out<<ym::EndSeq;
 
                 out<<ym::Key<<"Scripts"<<ym::BeginSeq;
-                    for (const auto& p : data.script_paths) { out<<ym::Key<<p.c_str(); }
+                    for (const auto& p : data.script_paths) { out<<ym::Key<<p.string(); }
                 out<<ym::EndSeq;
             out<<ym::EndMap;
 
