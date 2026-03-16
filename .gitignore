@@ -75,6 +75,7 @@ vendor/*
 **/.vscode/
 **/.idea/
 **/*.code-workspace
+.vscode
 
 # ========================
 # Misc system/editor files
@@ -122,3 +123,4 @@ compile_commands.json
 
 
 *.sh
+CMakeSettings.json

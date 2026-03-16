@@ -1,11 +1,22 @@
 #include "shader.h"
+#include "log.h"
 
 namespace engine {
+
+    void Shader::free() {
+        glDeleteProgram(program);
+        DU_CORE_DEBUG_TRACE("Freed {}", path);
+        program = 0; path = "";
+    }
+
+
+
     enum ReadIndex {
         None = -1,
         Vertex, Fragment
     };
-    ShaderReturn parse_shader_file(const char* path) {
+
+    ShaderReturn parse_shader_file(const std::filesystem::path& path) {
         ReadIndex index = None;
         std::stringstream streams[2];
 
@@ -29,7 +40,7 @@ namespace engine {
         return ShaderReturn {v,f};
     }
 
-    Shader complie_shader_file(const char* path) {
+    Shader complie_shader_file(const std::filesystem::path& path) {
         ShaderReturn source = parse_shader_file(path);
         DU_DEBUG_TRACE("Compiling shader {}...", path);
         Shader tmp = complie_shader_code(source);
@@ -39,7 +50,7 @@ namespace engine {
             return {0, "ERROR"};
         }
 
-        return {tmp.program, std::filesystem::path(path).filename()};
+        return {tmp.program, path.filename().string()};
     }
 
     Shader complie_shader_code(const ShaderReturn& source) {

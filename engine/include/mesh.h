@@ -44,5 +44,5 @@ namespace engine {
 
     unsigned int apply_format(int format);
 
-    Mesh mesh_from_file(const char* path, std::string* name = nullptr);
+    Mesh mesh_from_file(const std::filesystem::path& path, std::string* name = nullptr);
 }

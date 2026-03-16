@@ -27,7 +27,7 @@ namespace engine {
         UUID entt_to_uuid(entt::entity id);
         void remove_entity(UUID uuid);
 
-        void add_from_file(const char* path, std::filesystem::path root = "");
+        void add_from_file(const std::filesystem::path& path, const std::filesystem::path& root = "");
 
         template <typename T>
         T& get_uuid_component(UUID uuid) {
@@ -46,7 +46,7 @@ namespace engine {
             return registry.any_of<T>(entity);
         }
 
-        void register_shader(const char* path);
+        void register_shader(const std::filesystem::path& path);
 
         Shader& get_shader(const char* name);
         Texture& get_texture(const char* name);

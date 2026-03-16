@@ -6,7 +6,7 @@
 namespace engine {
 
     struct LuaManager {
-        static void init(const char* util_path = nullptr);
+        static void init(const std::filesystem::path& util_path = {});
         static sol::state state;
     };
 
@@ -20,7 +20,7 @@ namespace engine {
     };
 
     struct LuaUpdate {
-        LuaUpdate(UUID self, Scene* scene, sol::state& state, std::string path);
+        LuaUpdate(UUID self, Scene* scene, sol::state& state, const std::filesystem::path& path);
         LuaUpdate();
         void on_init();
         void on_update(float dt);
@@ -46,10 +46,10 @@ namespace engine {
             scripts = {std::forward<Args>(args)...};
         }
 
-       LuaActionComp& add(Scene* scene, std::string path);
+       LuaActionComp& add(Scene* scene, const std::filesystem::path& path);
        LuaActionComp& add(LuaUpdate update);
 
-       void remove(std::string path);
+       void remove(const std::string_view path);
        bool find(const char* path);
 
        template<typename T>

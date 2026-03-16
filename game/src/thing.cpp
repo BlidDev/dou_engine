@@ -36,7 +36,6 @@ void ThingScene::on_create() {
 void ThingScene::on_update(float dt) {
     close = engine::is_key_pressed(GLFW_KEY_ESCAPE);
 
-
     engine::lua_action_update(this, dt);
     engine::fixed_physics(this, 50, dt);
 

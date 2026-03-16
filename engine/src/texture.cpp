@@ -1,8 +1,10 @@
 #include "texture.h"
+#include "log.h"
 
 #define STBI_NO_SIMD
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
+
 namespace engine {
 
     Texture::Texture() {
@@ -11,7 +13,15 @@ namespace engine {
         w = -1; h = -1; nrc = -1;
     }
 
-    Texture load_texture_from_file(const char* path, bool flip) {
+    void Texture::free() {
+        glDeleteTextures(1, &texture); 
+        DU_CORE_DEBUG_TRACE("Freed {}", path);
+        texture = 0;
+        path = "UNKNOWN";
+        w = -1; h = -1; nrc = -1;
+    }
+
+    Texture load_texture_from_file(const std::filesystem::path& path, bool flip) {
         uint32_t texture;
         int w, h, nrc;
 
@@ -26,7 +36,8 @@ namespace engine {
 
 
         stbi_set_flip_vertically_on_load(flip);
-        unsigned char *data = stbi_load(path, &w, &h, &nrc, STBI_rgb_alpha);
+        std::string spath = path.string();
+        unsigned char *data = stbi_load(spath.c_str(), &w, &h, &nrc, STBI_rgb_alpha);
 
         DU_ASSERT(!data, "Could not load texture [{}]", path);
 
@@ -37,7 +48,7 @@ namespace engine {
 
         Texture res;
         res.texture = texture;
-        res.path = std::filesystem::path(path).filename();
+        res.path = std::filesystem::path(path).filename().string();
         res.w = w; res.h = h; res.nrc = nrc;
 
         //DU_INFO("{} {} {} {}", texture, w, h, nrc);

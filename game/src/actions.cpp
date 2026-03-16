@@ -8,29 +8,30 @@ void SimpleAct::on_update(engine::Scene* scene, engine::Entity self, float dt) {
     engine::CameraComp& cam = self.get_component<engine::CameraComp>();
 
 
-    float speed = 0.5f;
+    float speed = 10.0f;
     float f = (float)(engine::is_key_pressed(GLFW_KEY_W) - engine::is_key_pressed(GLFW_KEY_S));
     float r = (float)(engine::is_key_pressed(GLFW_KEY_D) - engine::is_key_pressed(GLFW_KEY_A));
 
-    if (engine::is_key_pressed(GLFW_KEY_SPACE) && phy.move_delta.y == 0.0f) phy.velocity.y += 10.0f;
+    if (engine::is_key_pressed(GLFW_KEY_SPACE) && phy.move_delta.y == 0.0f) phy.velocity.y = 6.0f;
 
     bool affected = phy.gravity > 0.0f;
 
 
-    if (engine::is_key_pressed(GLFW_KEY_LEFT_CONTROL)) {phy.gravity = 0.0f; phy.velocity.y = 0.0f;}
     if (engine::is_key_clicked(GLFW_KEY_LEFT_ALT)) {
         if(affected){
             phy.gravity = 0.0f;
             phy.velocity.y = 0.0f;
             engine::DU_INFO("Off");
+            affected = false;
         }
         else {
-            phy.gravity = 0.2f;
+            phy.gravity = 9.8f;
             engine::DU_INFO("On");
+            affected = true;
         }
     }
 
-    if (engine::is_key_clicked(GLFW_KEY_F)) {
+    if (engine::is_key_clicked(GLFW_KEY_G)) {
         mouse = !mouse;
         int mode = (mouse) ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL;
         glfwSetInputMode(scene->manager->main_window, GLFW_CURSOR, mode);
@@ -49,7 +50,7 @@ void SimpleAct::on_update(engine::Scene* scene, engine::Entity self, float dt) {
 
     glm::vec3 move = (forward * f) + (right * r);
     move.y = 0.0f;
-    phy.velocity += move * speed;
+    phy.velocity += move * speed * dt;
 }
 
 engine::UpdateComp* SimpleAct::copy()  {

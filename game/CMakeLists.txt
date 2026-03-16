@@ -1,35 +1,19 @@
 set(NAME game)
 
-file(GLOB ${NAME}_SRC
+file(GLOB_RECURSE ${NAME}_SRC 
+    "src/*.cpp" 
     "src/*.c"
-    "src/*.cpp"
-    )
-
+    "include/*.h" 
+    "include/*.hpp"
+)
 add_executable(${NAME} ${${NAME}_SRC})
-
-set_target_properties(${NAME} 
-    PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${OUT_PATH}/${NAME}"
-)
+source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${${NAME}_SRC})
 
 
-target_include_directories(${NAME} PRIVATE
-    ${CMAKE_SOURCE_DIR}/engine/include
-    ${CMAKE_SOURCE_DIR}/${NAME}/include
-    ${CMAKE_SOURCE_DIR}/vendor/spdlog/include
-    ${CMAKE_SOURCE_DIR}/vendor/entt
-    ${CMAKE_SOURCE_DIR}/vendor/glfw/include
-    ${YAML_CPP_INCLUDE_DIRS}
-    ${CMAKE_SOURCE_DIR}/vendor/glad/include/
-    ${CMAKE_SOURCE_DIR}/vendor/glm
-)
+# Inherits all includes and dependencies from the engine target
+target_link_libraries(${NAME} PRIVATE engine)
 
+target_include_directories(${NAME} PRIVATE "${CMAKE_SOURCE_DIR}/${NAME}/include")
 
-set(HEADER_FILES PRIVATE 
-    "${CMAKE_SOURCE_DIR}/engine/include/engine.h")
-
-find_package(OpenGL REQUIRED)
-
-target_precompile_headers(${NAME} PRIVATE ${HEADER_FILES})
-
-target_link_libraries(${NAME} PRIVATE YAML_CPP glfw  OpenGL::GL engine)
+# Precompile a header from the engine to speed up game builds
+target_precompile_headers(${NAME} PRIVATE "${CMAKE_SOURCE_DIR}/engine/include/engine.h")

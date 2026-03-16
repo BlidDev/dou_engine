@@ -6,19 +6,21 @@ namespace engine {
     sol::state LuaManager::state;
 
 
-    void LuaManager::init(const char* util_path) {
+    void LuaManager::init(const std::filesystem::path& util_path) {
         state.open_libraries(sol::lib::string, sol::lib::base, sol::lib::coroutine, sol::lib::io, sol::lib::math, sol::lib::package);
         expose_env(state);
-        if (!util_path) return;
-        state.require_file("util", util_path);
+        if (util_path.empty()) return;
+        namespace fs = std::filesystem;
+        fs::path full_path = (util_path.is_absolute()) ? util_path : fs::current_path() / util_path;
+        state.require_file("util", full_path.string());
     }
 
-    LuaUpdate::LuaUpdate(UUID self, Scene* scene, sol::state& state, std::string path) {
+    LuaUpdate::LuaUpdate(UUID self, Scene* scene, sol::state& state, const std::filesystem::path& path) {
         this->self = self;
-        this->path = std::filesystem::path(path).filename();
+        this->path = path.filename().string();
         inital_error = "";
         env = sol::environment(state,sol::create, state.globals());
-        auto result = state.safe_script_file(path, env, &sol::script_pass_on_error);
+        auto result = state.safe_script_file(path.string(), env, &sol::script_pass_on_error);
         if (!result.valid()) {
             sol::error e = result;
             inital_error = e.what();
@@ -73,7 +75,7 @@ namespace engine {
         }
     }
 
-    void LuaActionComp::remove(std::string path) {
+    void LuaActionComp::remove(const std::string_view path) {
         const auto& it = std::find_if(scripts.begin(), scripts.end(), [&path] (const auto& s){ return s.path == path; });
 
         DU_ASSERT(it == scripts.end(), "Trying to remove non registered script {}", path);
@@ -95,15 +97,22 @@ namespace engine {
         this->scripts = scripts;
     }
 
-    LuaActionComp& LuaActionComp::add(Scene* scene, std::string path) {
-        if (find(path.c_str())) { DU_CORE_DEBUG_TRACE("{} is already attached to {}. Ignoring", path, self); return *this;}
+    LuaActionComp& LuaActionComp::add(Scene* scene, const std::filesystem::path& path) {
+        std::string filename = path.filename().string();
+        if (find(filename.c_str())) { 
+            DU_CORE_DEBUG_TRACE("{} is already attached to {}. Ignoring", filename, self); 
+            return *this;
+        }
 
-        scripts.push_back(LuaUpdate(self, scene,LuaManager::state,scene->get_script(path.c_str())));
+        scripts.push_back(LuaUpdate(self, scene,LuaManager::state,scene->get_script(filename.c_str())));
         return *this;
     }
 
     LuaActionComp& LuaActionComp::add(LuaUpdate update) {
-        if (find(update.path.c_str())) { DU_CORE_DEBUG_TRACE("{} is already attached to {}. Ignoring", update.path, self); return *this;}
+        if (find(update.path.c_str())) { 
+            DU_CORE_DEBUG_TRACE("{} is already attached to {}. Ignoring", update.path, self); 
+            return *this;
+        }
         scripts.push_back(update);
         return *this;
     }

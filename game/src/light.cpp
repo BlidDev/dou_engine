@@ -5,6 +5,7 @@ LightScene::LightScene() : Scene("light") { close = false; }
 
 using namespace engine;
 void LightScene::on_create() {
+    s_render_data.clear_color = { 0.05f, 0.05f, 0.05f, 1.0f };
     glfwSetInputMode(manager->main_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     player = create_entity();
     main_camera = player.uuid();
@@ -14,14 +15,15 @@ void LightScene::on_create() {
       engine::TransformBuilder().position({0.0f, 2.0f, -2.0f}));
 
     player.add_component<CameraComp>(
-      CameraBuilder().fovy(45.0f).pitch(0.0f).yaw(0.0f)
+      CameraBuilder().fovy(70.0f).pitch(0.0f).yaw(0.0f)
       .present_shader(get_shader("camerapresent.glsl"))
       .framebuffer_size(size.x, size.y).build());
 
     player.add_component<PhysicsBodyComp>(
-      PhysicsBodyBuilder().is_solid(true).is_static(true).gravity(0.2f));
+      PhysicsBodyBuilder().is_solid(true).is_static(true).gravity(9.8f));
 
     player.add_component<ActionsComp>().add("SimpleAct");
+
 
     //==================================================
 
@@ -29,10 +31,11 @@ void LightScene::on_create() {
     cube.add_component<TransformComp>(
       engine::TransformBuilder().position({0.0f, 1.0f, 0.0f}));
     cube.add_component<ModelComp>(
-      get_mesh("cube_tex"),
-      MaterialBuilder()
-          .set_texture(get_texture("proto.png"))
-          .set_shader(get_shader("textured.glsl")));
+        get_mesh("cube"),
+        MaterialBuilder()
+        .set_texture(get_texture("proto.png"))
+        .set_tex_repeat({2.0f,2.0f})
+          .set_shader(get_shader("basic.glsl")));
     cube.add_component<PhysicsBodyComp>(
       PhysicsBodyBuilder().is_solid(true).is_static(true));
 
@@ -48,18 +51,18 @@ void LightScene::on_create() {
     actions_init(this);
 }
 void LightScene::on_update(float dt) {
-    close = is_key_pressed(GLFW_KEY_ESCAPE);
+    close = engine::is_key_pressed(GLFW_KEY_ESCAPE);
 
+    engine::actions_update(this, dt);
+    engine::fixed_physics(this, 50, dt);
 
-    actions_update(this, dt);
-    if(physics(this, dt)) return;
-    glm::vec2 view = manager->main_window.size();
+    glm::vec2 view_size = manager->main_window.size();
 
-    rescale_camera_to_window(player.get_component<CameraComp>(), manager->main_window);
-    draw_to_camera(manager->render_data, view, player, registry, &s_render_data);
-    present_camera(player, get_mesh("quad_tex"));
-    glfwSwapBuffers(manager->main_window);
-    glfwPollEvents();
+    engine::rescale_camera_to_window(player.get_component<engine::CameraComp>(), manager->main_window);
+    engine::draw_to_camera(manager->render_data, view_size, player, registry, &s_render_data);
+    engine::present_camera(player, get_mesh("DefaultDisplayQuad"));
+
+    manager->main_window.swap_and_poll();
 }
 
 void LightScene::on_end() { 
