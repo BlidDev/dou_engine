@@ -8,15 +8,18 @@ namespace engine {
         UUID(uint64_t uuid);
         UUID(const UUID&) = default;
 
-        operator uint64_t() const {return uuid;}
+        constexpr operator uint64_t() const {return uuid;}
 
         std::ostream& operator<<(std::ostream& stream) {
             stream<<uuid;
             return stream;
         }
 
+        inline constexpr bool valid() const { return uuid != null; }
         inline uint64_t get_uuid() { return uuid; }
         inline void display() { DU_CORE_INFO("{}", uuid); }
+
+        static constexpr uint64_t null = 0;
     private:
         uint64_t uuid;
     };

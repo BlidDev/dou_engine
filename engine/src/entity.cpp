@@ -1,7 +1,5 @@
 #include "entity.h"
-#include "components/hierarchy.h"
-#include "components/physicbody.h"
-#include "components/tag.h"
+#include "component.h"
 
 namespace engine {
     Entity::Entity(Scene* scene, entt::entity id) 
@@ -122,5 +120,72 @@ namespace engine {
         bool is_b = is_ancestor_of(scene, b, a);
 
         return is_a - is_b;
+    }
+
+
+
+
+
+    template <typename T>
+    static void clone_component(Entity& src, Entity& target) {
+        if (!src.has_component<T>()) return;
+        target.add_component<T>(src.get_component<T>());
+    }
+
+    static void clone_camera(Entity& src, Entity& target) {
+        if (!src.has_component<CameraComp>()) return;
+
+        const CameraComp& cam = src.get_component<CameraComp>();
+        Shader tmp = {cam.present_shader.program, cam.present_shader.path};
+        const glm::vec2& view_size = cam.framebuffer.last_scale;
+
+        target.add_component<CameraComp>(
+                CameraBuilder()
+                .fovy(cam.fovy).pitch(cam.pitch()).yaw(cam.yaw())
+                .max_distance(cam.max_distance).projection_mode(cam.projection_mode)
+                .present_shader(tmp).framebuffer_size(view_size.x, view_size.y)
+                .build()
+                );
+    }
+
+
+    // FIXME: will probably crash but that's for later
+    static void clone_luaaction(Scene* scene, Entity& src, Entity& target) {
+        if (!src.has_component<LuaActionComp>()) return;
+        const LuaActionComp& src_act = src.get_component<LuaActionComp>();
+
+        LuaActionComp& act = target.add_component<LuaActionComp>(target.uuid());
+
+        for (const auto& script : src_act.scripts) {
+            act.add(scene,scene->get_script(script.path.c_str()));
+        }
+    }
+
+
+    UUID clone_entity_recursively(Scene* scene, const UUID& subject, float first) {
+        Entity target = scene->create_entity();
+        Entity src = scene->uuid_to_entity(subject);
+
+        clone_component<TagComp>(src, target);
+        clone_component<TransformComp>(src, target);
+        clone_component<PhysicsBodyComp>(src, target);
+        clone_luaaction(scene, target, target);
+        clone_camera(src, target);
+        clone_component<ModelComp>(src, target);
+        clone_component<DirLightComp>(src, target);
+        clone_component<PntLightComp>(src, target);
+        clone_component<SptLightComp>(src, target);
+
+        if (src.is_child() && first) 
+            target.make_child_of(src.get_parent().uuid());
+        
+        if (!src.is_parent()) return target.uuid();
+
+        for (const auto& src_child : src.get_children()) {
+            UUID child = clone_entity_recursively(scene, src_child, false);
+            target.add_child(child);
+        }
+
+        return target.uuid(); 
     }
 }

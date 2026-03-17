@@ -100,6 +100,10 @@ namespace engine {
      ** Returns 0 if the entities are not related
      */
     int get_entities_relation(Scene& scene, UUID a, UUID b);
+
+
+    // Exprimental - not campatible with Actions yet
+    UUID clone_entity_recursively(Scene* scene, const UUID& subject, float first);
 }
 
 

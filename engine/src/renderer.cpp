@@ -63,7 +63,7 @@ namespace engine {
 
 
     LayerAtrb::LayerAtrb() {
-        depth = false;
+        depth = true;
         wireframe = false;
     }
 

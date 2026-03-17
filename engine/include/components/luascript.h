@@ -37,49 +37,49 @@ namespace engine {
     };
 
     struct LuaActionComp {
-       LuaActionComp(UUID self);
-       LuaActionComp(UUID self, const std::vector<LuaUpdate>& scripts);
+        LuaActionComp(UUID self);
+        LuaActionComp(UUID self, const std::vector<LuaUpdate>& scripts);
 
         template<typename ...Args>
-        LuaActionComp(UUID self, Args&&... args) {
-            this->self = self;
-            scripts = {std::forward<Args>(args)...};
-        }
-
-       LuaActionComp& add(Scene* scene, const std::filesystem::path& path);
-       LuaActionComp& add(LuaUpdate update);
-
-       void remove(const std::string_view path);
-       bool find(const char* path);
-
-       template<typename T>
-       LuaActionComp& bind_field(std::string name, T value) {
-           scripts.back().env[name] = value;
-           return *this;
-       }
-
-        template<typename ...Args>
-        int call_at(const LuaCallback& callback, Args&&... args) {
-            auto script = std::find_if(scripts.begin(), scripts.end(), [&callback](const auto& s) {return s.path == callback.path;});
-            DU_ASSERT(script == scripts.end(), "No script ({}) attached to entity", callback.path);
-
-
-            
-            sol::function fn = script->env[callback.function];
-            DU_ASSERT(!fn, "The scripts {} does not contain {}", callback.path, callback.function);
-
-            auto result = fn(std::forward<Args>(args)...);
-            if (!result.valid()) {
-                sol::error e = result;
-                DU_ERROR("{}", e.what());
+            LuaActionComp(UUID self, Args&&... args) {
+                this->self = self;
+                scripts = {std::forward<Args>(args)...};
             }
-            return (int)result;
-        }
 
-       LuaUpdate& get_last();
+        LuaActionComp& add(Scene* scene, const std::filesystem::path& path);
+        LuaActionComp& add(LuaUpdate update);
 
-       std::vector<LuaUpdate> scripts;
-       UUID self;
+        void remove(const std::string_view path);
+        bool find(const char* path);
+
+        template<typename T>
+            LuaActionComp& bind_field(std::string name, T value) {
+                scripts.back().env[name] = value;
+                return *this;
+            }
+
+        template<typename ...Args>
+            int call_at(const LuaCallback& callback, Args&&... args) {
+                auto script = std::find_if(scripts.begin(), scripts.end(), [&callback](const auto& s) {return s.path == callback.path;});
+                DU_ASSERT(script == scripts.end(), "No script ({}) attached to entity", callback.path);
+
+
+
+                sol::function fn = script->env[callback.function];
+                DU_ASSERT(!fn, "The scripts {} does not contain {}", callback.path, callback.function);
+
+                auto result = fn(std::forward<Args>(args)...);
+                if (!result.valid()) {
+                    sol::error e = result;
+                    DU_ERROR("{}", e.what());
+                }
+                return (int)result;
+            }
+
+        LuaUpdate& get_last();
+
+        std::vector<LuaUpdate> scripts;
+        UUID self;
     };
 
 }
