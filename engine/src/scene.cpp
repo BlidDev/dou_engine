@@ -1,5 +1,4 @@
-#include "scene.h"
-#include "entity.h"
+#include "cache_helper.hpp"
 #include "manager.h"
 
 namespace engine {
