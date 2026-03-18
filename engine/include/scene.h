@@ -9,6 +9,10 @@ namespace engine {
 
     class SceneManager;
     class Entity;
+
+    template<size_t size>
+    using DeleteCache = std::array<UUID, size>;
+
     class Scene {
     public:
         Scene(const std::string name);
@@ -25,9 +29,16 @@ namespace engine {
         Entity uuid_to_entity(UUID uuid);
         entt::entity uuid_to_entt(UUID uuid);
         UUID entt_to_uuid(entt::entity id);
-        void remove_entity(UUID uuid);
+        void remove_entity(UUID uuid, bool delete_children = true);
 
-        void add_from_file(const std::filesystem::path& path, const std::filesystem::path& root = "");
+        static constexpr size_t MAX_DELETE_CACHE = 128;
+        template <size_t size>
+        void cache_remove_entity(UUID uuid,
+                                 DeleteCache<size>& cache,
+                                 size_t& index,
+                                 bool delete_children = true);
+
+        void add_from_file(const std::filesystem::path &path, const std::filesystem::path &root = "");
 
         template <typename T>
         T& get_uuid_component(UUID uuid) {
@@ -65,4 +76,39 @@ namespace engine {
     public:
         std::filesystem::path file_path;
     };
+
+    // ==========================================================
+
+    template <size_t size>
+    static void remove_entity_helper(Scene* scene, UUID uuid, DeleteCache<size> &cache, size_t &index, bool delete_children, bool first = true) {
+        Entity e = scene->uuid_to_entity(uuid);
+        DU_ASSERT(index >= size - 1, "Delete cache overflow ({}) for scene {}", size, scene->name);
+        if (e.is_child() && first) {
+            e.get_parent().remove_child(uuid);
+        }
+
+        if (e.is_parent()) {
+            if (delete_children) {
+                for (const auto &child : e.get_children())
+                    remove_entity_helper(scene, child, cache, index, true, false);
+            }
+            else {
+                e.remove_children();
+            }
+        }
+
+        scene->uuids.erase(uuid);
+        scene->registry.destroy(e.id());
+        cache[index++] = uuid;
+    }
+
+    template <size_t size>
+    void Scene::cache_remove_entity(UUID uuid,
+                                    DeleteCache<size> &cache,
+                                    size_t &index,
+                                    bool delete_children)
+    {
+        remove_entity_helper(this, uuid, cache, index, delete_children);
+    }
+
 }

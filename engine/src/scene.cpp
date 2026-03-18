@@ -41,14 +41,10 @@ namespace engine {
         return it->first;
     }
 
-    void Scene::remove_entity(UUID uuid) {
-        Entity e = uuid_to_entity(uuid);
-        if (e.is_child()) {
-            e.get_parent().remove_child(uuid);
-        }
-
-        uuids.erase(uuid);
-        registry.destroy(e.id());
+    void Scene::remove_entity(UUID uuid, bool delete_children) {
+        DeleteCache<MAX_DELETE_CACHE> cache; cache.fill(UUID::null);
+        size_t index = 0;
+        remove_entity_helper(this, uuid, cache, index, delete_children);
     }
 
     void Scene::register_shader(const std::filesystem::path& path) {

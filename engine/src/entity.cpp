@@ -35,12 +35,15 @@ namespace engine {
         Entity& old_parent = child.get_parent();
         UUID new_parent_uuid = new_parent.uuid();
 
-        DU_ASSERT(old_parent.uuid() == new_parent_uuid, "Trying to make {} a child of {} twice", child.uuid(), new_parent_uuid);
+        if(old_parent.uuid() == new_parent_uuid) {
+            DU_CORE_DEBUG_TRACE("Trying to make {} a child of {} twice, ingoring", child.uuid(), new_parent_uuid);
+            return;
+        }
         DU_CORE_DEBUG_TRACE("Entity {} already has a parent {}, changing ownership", child.uuid(), old_parent.uuid());
 
         auto& op_children = old_parent.get_children();
 
-        op_children.erase(std::remove(op_children.begin(), op_children.end(), child), op_children.end());
+        op_children.erase(std::remove(op_children.begin(), op_children.end(), child.uuid()), op_children.end());
 
         old_parent = new_parent;
     }
@@ -79,7 +82,7 @@ namespace engine {
     }
 
     void Entity::remove_children() {
-        const auto& children = get_children();
+        const auto children = get_children();
         for (const auto& child : children) {
             remove_child(child);
         }
@@ -88,19 +91,19 @@ namespace engine {
 
     void Entity::remove_child(UUID child) {
         auto& children = get_children();
-
         DU_ASSERT(std::find(children.begin(), children.end(), child) == children.end(), "remove_child(): Entity {} is not a child of {}", child, uuid());
+
         Entity child_e = scene->uuid_to_entity(child);
 
         physically_disown_child(child_e);
 
-        child_e.remove_parent();
+        child_e.remove_component<ParentComp>();
         children.erase(std::remove(children.begin(), children.end(), child), children.end());
     }
 
     void Entity::remove_parent() {
         DU_ASSERT(!is_child(), "Entity {} does not have a parent to remove", uuid());
-        remove_component<ParentComp>();
+        get_parent().remove_child(uuid());
     }
 
 
