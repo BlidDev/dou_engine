@@ -8,6 +8,7 @@ namespace engine {
             .shader = {},
             .texture = Texture(),
             .tex_repeat = {1.0f, 1.0f},
+            .tex_offset = {0.0f, 0.0f},
             .ambient =  {1.0f, 1.0f, 1.0f},
             .diffuse =  {1.0f, 1.0f, 1.0f},
             .specular = {1.0f, 1.0f, 1.0f},
@@ -62,6 +63,11 @@ namespace engine {
 
     MaterialBuilder& MaterialBuilder::set_tex_repeat(glm::vec2 repeat) {
         material.tex_repeat = repeat;
+        return *this;
+    }
+
+    MaterialBuilder& MaterialBuilder::set_tex_offset(glm::vec2 offset) {
+        material.tex_offset = offset;
         return *this;
     }
 

@@ -18,15 +18,19 @@ namespace engine {
         manager["set_current"] = &SceneManager::set_current;
         manager["set_should_close"] = &SceneManager::set_should_close;
         manager["should_close"] = &SceneManager::should_close;
+
         auto scene = env.new_usertype<Scene>("Scene");
         scene["uuid_to_entt"] = &Scene::uuid_to_entt;
         scene["manager"] = &Scene::manager;
         scene["get_shader"] = &Scene::get_shader;
         scene["get_mesh"] = &Scene::get_mesh;
+        scene["set_main_camera"] = &Scene::set_main_camera;
 
         auto uuid = env.new_usertype<UUID>("UUID",
-                 sol::constructors<UUID(), UUID(uint64_t)>());
-        uuid["uuid"] = sol::property(&UUID::get_uuid);
+                                        sol::constructors<UUID(), UUID(uint64_t)>(),
+                                        "uuid", sol::property(&UUID::get_uuid));
+        uuid["valid"] = &UUID::valid;
+        env["UUID"]["null"] = UUID(UUID::null);
 
         bind_glm(env);
 
@@ -212,6 +216,8 @@ namespace engine {
         mt["specular"]   = &Material::specular;
         mt["shininess"]  = &Material::shininess;
         mt["is_textured"] = &Material::is_textured;
+        mt["tex_repeat"] = &Material::tex_repeat;
+        mt["tex_offset"] = &Material::tex_offset;
         mt["print"]      = &Material::print;
 
         auto mtb = env.new_usertype<MaterialBuilder>( "MaterialBuilder", 
@@ -219,7 +225,8 @@ namespace engine {
 
         mtb["set_shader"]         = &MaterialBuilder::set_shader;
         mtb["set_texture"]        = &MaterialBuilder::set_texture;
-        mtb["set_tex_repeate"]    = &MaterialBuilder::set_tex_repeat;
+        mtb["set_tex_repeat"]    = &MaterialBuilder::set_tex_repeat;
+        mtb["set_tex_offset"]    = &MaterialBuilder::set_tex_offset;
         mtb["set_ambient"]        = &MaterialBuilder::set_ambient;
         mtb["set_diffuse"]        = &MaterialBuilder::set_diffuse;
         mtb["set_specular"]       = &MaterialBuilder::set_specular;

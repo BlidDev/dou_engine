@@ -57,6 +57,8 @@ namespace engine {
             return registry.any_of<T>(entity);
         }
 
+        void set_main_camera(const UUID& new_cam);
+
         void register_shader(const std::filesystem::path& path);
 
         Shader& get_shader(const char* name);

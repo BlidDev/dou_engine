@@ -16,7 +16,7 @@ namespace engine {
         }
 
         inline constexpr bool valid() const { return uuid != null; }
-        inline uint64_t get_uuid() { return uuid; }
+        inline uint64_t get_uuid() const { return uuid; }
         inline void display() { DU_CORE_INFO("{}", uuid); }
 
         static constexpr uint64_t null = 0;

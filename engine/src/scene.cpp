@@ -1,4 +1,6 @@
 #include "cache_helper.hpp"
+#include "components/camera.h"
+#include "components/transform.h"
 #include "manager.h"
 
 namespace engine {
@@ -44,6 +46,21 @@ namespace engine {
         DeleteCache<MAX_DELETE_CACHE> cache; cache.fill(UUID::null);
         size_t index = 0;
         remove_entity_helper(this, uuid, cache, index, delete_children);
+    }
+
+    void Scene::set_main_camera(const UUID& new_cam) {
+        Entity tmp = uuid_to_entity(new_cam);
+        if (!tmp.has_component<CameraComp>()) {
+            DU_CORE_ERROR("Trying to set {} as main camera but it has no Camera component attached", new_cam);
+            return;
+        }
+
+        if (!tmp.has_component<TransformComp>()) {
+            DU_CORE_ERROR("Trying to set {} as main camera but it has no Transform component attached", new_cam);
+            return;
+        }
+
+        main_camera = new_cam;
     }
 
     void Scene::register_shader(const std::filesystem::path& path) {
