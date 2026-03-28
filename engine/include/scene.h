@@ -58,6 +58,7 @@ namespace engine {
         }
 
         void set_main_camera(const UUID& new_cam);
+        inline constexpr const UUID&  get_main_camera() { return main_camera;};
 
         void register_shader(const std::filesystem::path& path);
 

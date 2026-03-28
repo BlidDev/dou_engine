@@ -114,6 +114,7 @@ namespace engine {
       fmt::dynamic_format_arg_store<fmt::format_context> store;
       for (const auto& a : args) {
           bool pushed = false;
+          pushed |= try_push_arg<bool>(a, store);
           pushed |= try_push_arg<int>(a, store);
           pushed |= try_push_arg<float>(a, store);
           pushed |= try_push_arg<std::string>(a, store);

@@ -74,6 +74,8 @@ namespace engine {
               glUseProgram(obj.material.shader);
 
               send_material(obj.material);
+
+              set_shader_f(obj.material.shader, "dou_time", glfwGetTime());
              
               glm::mat4 model = pos.get_model();
               set_shader_m4(obj.material.shader, "model", model);

@@ -166,6 +166,7 @@ namespace engine {
                     out<<YAML::Key<<"Texture"<<YAML::Value<<m.material.texture.path;
                     out<<YAML::Key<<"Is Textured"<<YAML::Value<<m.material.is_textured;
                     out<<YAML::Key<<"Texture Repeats"<<YAML::Value<<m.material.tex_repeat;
+                    out<<YAML::Key<<"Texture Offsets"<<YAML::Value<<m.material.tex_offset;
                 out<<YAML::EndMap;
 
 
@@ -350,6 +351,12 @@ namespace engine {
             m.material.tex_repeat = (tex_repeat) ? 
                                 tex_repeat.as<glm::vec2>() : 
                                 glm::vec2(1.0f);
+
+            auto tex_offset = material["Texture Offsets"];
+
+            m.material.tex_offset = (tex_offset) ? 
+                                tex_offset.as<glm::vec2>() : 
+                                glm::vec2(0.0f);
 
             if (m.material.is_textured)
                 m.material.texture = scene->get_texture(texture_path.c_str());

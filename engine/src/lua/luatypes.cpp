@@ -25,6 +25,7 @@ namespace engine {
         scene["get_shader"] = &Scene::get_shader;
         scene["get_mesh"] = &Scene::get_mesh;
         scene["set_main_camera"] = &Scene::set_main_camera;
+        scene["get_main_camera"] = &Scene::get_main_camera;
 
         auto uuid = env.new_usertype<UUID>("UUID",
                                         sol::constructors<UUID(), UUID(uint64_t)>(),
@@ -266,18 +267,44 @@ namespace engine {
         v2["x"] = &glm::vec2::x;
         v2["y"] = &glm::vec2::y;
 
-        v2[sol::meta_function::addition] = [](const glm::vec2* l, const glm::vec2* r) { return *l + *r; };
-        v2[sol::meta_function::subtraction] = [](const glm::vec2* l, const glm::vec2* r) { return *l - *r; };
-        v2[sol::meta_function::multiplication] = [](const glm::vec2* l, const glm::vec2& r) { return *l * r; };
-        v2[sol::meta_function::multiplication] = [](const glm::vec2* l, const float& r) { return *l * r; };
+        v2[sol::meta_function::addition] = [](const glm::vec2& l, const glm::vec2& r) { return l + r; };
+        v2[sol::meta_function::subtraction] = [](const glm::vec2& l, const glm::vec2& r) { return l - r; };
+        v2[sol::meta_function::multiplication] = sol::overload(
+                [](const glm::vec2& l, const glm::vec2& r) { return l * r; },
+                [](const glm::vec2& l, const float& r) { return l * r; },
+                [](const float& l, const glm::vec2& r) { return l * r; }
+        );
+
+
+        v2[sol::meta_function::division] = sol::overload(
+                [](const glm::vec2& l, const glm::vec2& r) { return l / r; },
+                [](const glm::vec2& l, float r) { return l / r; }
+        );
+
+        v2[sol::meta_function::equal_to] = [](const glm::vec2& l, const glm::vec2& r) { 
+                return l == r; 
+        };
 
         
         auto v3 = env.new_usertype<glm::vec3>( "vec3", 
                 sol::constructors<glm::vec3(glm::vec2, float), glm::vec3(float, float, float), glm::vec3(float), glm::vec3()>());
-        v3[sol::meta_function::addition] = [](const glm::vec3* l, const glm::vec3* r) { return *l + *r; };
-        v3[sol::meta_function::subtraction] = [](const glm::vec3* l, const glm::vec3* r) { return *l - *r; };
-        v3[sol::meta_function::multiplication] = [](const glm::vec3* l, const glm::vec3& r) { return *l * r; };
-        v3[sol::meta_function::multiplication] = [](const glm::vec3* l, const float& r) { return *l * r; };
+        v3[sol::meta_function::addition] = [](const glm::vec3& l, const glm::vec3& r) { return l + r; };
+        v3[sol::meta_function::subtraction] = [](const glm::vec3& l, const glm::vec3& r) { return l - r; };
+
+        v3[sol::meta_function::multiplication] = sol::overload(
+                [](const glm::vec3& l, const glm::vec3& r) { return l * r; },
+                [](const glm::vec3& l, const float& r) { return l * r; },
+                [](const float& l, const glm::vec3& r) { return l * r; }
+        );
+
+        v3[sol::meta_function::division] = sol::overload(
+                [](const glm::vec3& l, const glm::vec3& r) { return l / r; },
+                [](const glm::vec3& l, float r) { return l / r; }
+        );
+
+        v3[sol::meta_function::equal_to] = [](const glm::vec3& l, const glm::vec3& r) { 
+                return l == r; 
+        };
 
         v3["x"] = &glm::vec3::x;
         v3["y"] = &glm::vec3::y;
@@ -286,15 +313,29 @@ namespace engine {
         auto v4 = env.new_usertype<glm::vec4>( "vec4", 
                 sol::constructors<glm::vec4(glm::vec3, float),glm::vec4(float,float, float, float), glm::vec4(float), glm::vec4()>());
 
-        v4[sol::meta_function::addition] = [](const glm::vec4* l, const glm::vec4* r) { return *l + *r; };
-        v4[sol::meta_function::subtraction] = [](const glm::vec4* l, const glm::vec4* r) { return *l - *r; };
-        v4[sol::meta_function::multiplication] = [](const glm::vec4* l, const glm::vec4& r) { return *l * r; };
-        v4[sol::meta_function::multiplication] = [](const glm::vec4* l, const float& r) { return *l * r; };
+        v4[sol::meta_function::addition] = [](const glm::vec4& l, const glm::vec4& r) { return l + r; };
+        v4[sol::meta_function::subtraction] = [](const glm::vec4& l, const glm::vec4& r) { return l - r; };
+
+        v4[sol::meta_function::multiplication] = sol::overload(
+                [](const glm::vec4& l, const glm::vec4& r) { return l * r; },
+                [](const glm::vec4& l, const float& r) { return l * r; },
+                [](const float& l, const glm::vec4& r) { return l * r; }
+        );
 
         v4["x"] = &glm::vec4::x;
         v4["y"] = &glm::vec4::y;
         v4["z"] = &glm::vec4::z;
         v4["w"] = &glm::vec4::w;
+
+        v4[sol::meta_function::division] = sol::overload(
+                [](const glm::vec4& l, const glm::vec4& r) { return l / r; },
+                [](const glm::vec4& l, float r) { return l / r; }
+        );
+
+        v4[sol::meta_function::equal_to] = [](const glm::vec4& l, const glm::vec4& r) { 
+                return l == r; 
+        };
+
 
     }
 }
