@@ -7,6 +7,7 @@ namespace engine {
     extern glm::vec2 MOUSE_LAST_POS;
 
     extern std::array<int, GLFW_KEY_LAST - 32> key_query;
+    extern std::array<int, key_query.size()> middle_key_query;
     extern std::array<int, key_query.size()> old_key_query;
 
     void set_input_window(GLFWwindow* window);
@@ -19,4 +20,5 @@ namespace engine {
     bool is_mouse_released(const int button);
 
     void set_input_mode(Scene* scene, int value, int mode);
+    void swap_input_buffers();
 }

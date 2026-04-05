@@ -1,4 +1,5 @@
 #include "window.h"
+#include "input.h"
 
 
 namespace engine {
@@ -46,6 +47,7 @@ namespace engine {
     }
 
     void Window::swap_and_poll() {
+        swap_input_buffers();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

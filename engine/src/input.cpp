@@ -6,6 +6,7 @@ namespace engine {
     GLFWwindow* INPUT_WINDOW = nullptr;
     glm::vec2 MOUSE_LAST_POS = {0.0f,0.0f};
     std::array<int, GLFW_KEY_LAST - 32> key_query;
+    std::array<int, GLFW_KEY_LAST - 32> middle_key_query;
     std::array<int, GLFW_KEY_LAST - 32> old_key_query;
 
     void set_input_window(GLFWwindow* window) {
@@ -13,6 +14,7 @@ namespace engine {
 
         for (int i = 0; i < key_query.size(); i++) {
             key_query[i] = GLFW_RELEASE;
+            middle_key_query[i] = GLFW_RELEASE;
             old_key_query[i] = GLFW_RELEASE;
         }
 
@@ -22,7 +24,7 @@ namespace engine {
     void default_key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
         if (key == GLFW_KEY_UNKNOWN) return;
         size_t index = key - 32;
-        old_key_query[index] = key_query[index];
+        middle_key_query[index] = key_query[index];
         key_query[index] = action;
 
     }
@@ -32,7 +34,7 @@ namespace engine {
         size_t index = key - 32;
         bool pressed = (key_query[index] == GLFW_PRESS) || (key_query[index] == GLFW_REPEAT); 
         if(pressed)
-            old_key_query[index] = GLFW_PRESS;
+            middle_key_query[index] = GLFW_PRESS;
         return pressed;
     }
 
@@ -42,7 +44,7 @@ namespace engine {
         bool old_pressed = (old_key_query[index] == GLFW_PRESS) || (old_key_query[index] == GLFW_REPEAT);
 
         if (key_query[index] == GLFW_RELEASE && old_pressed) {
-            old_key_query[index] = GLFW_RELEASE;
+            middle_key_query[index] = GLFW_RELEASE;
             return true;
         }
         return false;
@@ -54,7 +56,7 @@ namespace engine {
         bool old_released = old_key_query[index] == GLFW_RELEASE;
 
         if (key_query[index] == GLFW_PRESS && old_released) {
-            old_key_query[index] = GLFW_PRESS;
+            middle_key_query[index] = GLFW_PRESS;
             return true;
         }
         return false;
@@ -81,6 +83,10 @@ namespace engine {
 
     void set_input_mode(Scene* scene, int value, int mode) {
         glfwSetInputMode(scene->manager->main_window, value, mode);
+    }
+
+    void swap_input_buffers() {
+        old_key_query = middle_key_query;
     }
 
 }
