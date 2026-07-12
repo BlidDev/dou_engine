@@ -30,6 +30,7 @@
 **/_build*/
 **/out*/
 **/bin/
+**/bin-int/
 **/lib/
 **/obj/
 
