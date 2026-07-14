@@ -28,6 +28,8 @@ local wire = false
 
 function on_update(dt)
     speed = init_speed
+    
+    --log_info("fps: {}", 1/dt)
 
     if is_key_clicked(util.KeyboardKey.LEFT_ALT)then
         if affected then

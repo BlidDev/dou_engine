@@ -30,6 +30,7 @@
 **/_build*/
 **/out*/
 **/bin/
+**/bin-int/
 **/lib/
 **/obj/
 
@@ -124,3 +125,7 @@ compile_commands.json
 
 *.sh
 CMakeSettings.json
+
+.ninja_deps
+.ninja_lock
+.ninja_log
