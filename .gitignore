@@ -125,3 +125,7 @@ compile_commands.json
 
 *.sh
 CMakeSettings.json
+
+.ninja_deps
+.ninja_lock
+.ninja_log

@@ -1,3 +1,4 @@
+
 newoption {
     trigger     = "build-game",
     description = "Builds the internal sandbox game project"
@@ -15,18 +16,20 @@ DOU_INCLUDES = {
     "vendor/yaml-cpp/include"
 }
 
+local DOU_ROOT = _MAIN_SCRIPT_DIR
+
 function link_dou_engine()
     links { "engine", "Glad", "YAML_CPP", "GLFW" }
 
     filter "system:windows"
         libdirs { "vendor/lua/windows" }
         links { "lua54", "opengl32", "gdi32", "user32", "shell32" }
-        postbuildcommands { "{COPY} \"%{wks.location}/vendor/lua/windows/liblua54.lib\" \"%{cfg.targetdir}/\"" }
+        postbuildcommands { "{COPY} \"" .. DOU_ROOT .. "/vendor/lua/windows/liblua54.lib\" \"%{cfg.targetdir}/\"" }
 
     filter "system:linux"
         libdirs { "vendor/lua/linux" }
         links { "lua54", "GL", "X11", "pthread", "dl", "m", "Xrandr", "Xi", "Xcursor", "Xinerama" }
-        postbuildcommands { "{COPY} \"%{wks.location}/vendor/lua/linux/liblua54.so\" \"%{cfg.targetdir}/\"" }
+        postbuildcommands { "{COPY} \"" .. DOU_ROOT .. "/vendor/lua/linux/liblua54.so\" \"%{cfg.targetdir}/\"" }
         linkoptions { "-Wl,-rpath,'$$ORIGIN'" }
         
     filter "system:macosx"
@@ -42,13 +45,14 @@ end
 workspace "DouEngine"
     architecture "x86_64"
     configurations { "Debug", "Release" }
-    
+
+    location ("build")
     pic "On" 
 
     -- COMPILER & BUILD SETTINGS 
-    debugdir "%{wks.location}"
+    debugdir "%{DOU_ROOT}"
     targetdir ("bin/%{cfg.buildcfg}")
-    objdir ("bin-int/%{cfg.buildcfg}/%{prj.name}")
+    objdir ("build/bin-int/%{cfg.buildcfg}/%{prj.name}")
 
     filter "configurations:Debug"
         defines { "DU_DEBUG" }
@@ -160,7 +164,7 @@ project "engine"
     language "C++"
     cppdialect "C++20"
     targetdir ("bin/%{cfg.buildcfg}")
-    objdir ("bin-int/%{cfg.buildcfg}/%{prj.name}")
+    objdir ("build/bin-int/%{cfg.buildcfg}/%{prj.name}")
 
     files {
         "engine/src/**.cpp", "engine/src/**.c",
@@ -189,7 +193,7 @@ if _OPTIONS["build-game"] then
         language "C++"
         cppdialect "C++20"
         targetdir ("bin/%{cfg.buildcfg}")
-        objdir ("bin-int/%{cfg.buildcfg}/%{prj.name}")
+        objdir ("build/bin-int/%{cfg.buildcfg}/%{prj.name}")
 
         files {
             "game/src/**.cpp", "game/src/**.c",
@@ -203,3 +207,5 @@ if _OPTIONS["build-game"] then
 
         pchheader "engine.h"
 end
+
+require "utils/ecc/ecc"
