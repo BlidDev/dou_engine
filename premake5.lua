@@ -208,4 +208,23 @@ if _OPTIONS["build-game"] then
         pchheader "engine.h"
 end
 
+project "btest"
+    kind "ConsoleApp"
+    language "C++"
+    cppdialect "C++20"
+    targetdir ("bin/%{cfg.buildcfg}")
+    objdir ("build/bin-int/%{cfg.buildcfg}/%{prj.name}")
+
+    files {
+        "btest/src/**.cpp", "btest/src/**.c",
+        "btest/include/**.h", "btest/include/**.hpp"
+    }
+
+    includedirs (DOU_INCLUDES)
+    includedirs { "btest/include" }
+
+    link_dou_engine()
+
+    pchheader "engine.h"
+
 require "utils/ecc/ecc"

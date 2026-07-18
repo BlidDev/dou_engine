@@ -232,4 +232,21 @@ namespace engine {
         }
 
     }
+
+
+    struct BatchCommand {
+        uint64_t key;
+
+        unsigned int vao;
+        unsigned int shader;
+        unsigned int texture;
+
+        glm::mat4 model;
+    };
+
+    void draw_to_camera_batched(RenderData& data, glm::vec2 view_size, Entity& viewer,
+                         entt::registry& registry, 
+                         SceneRenderData* s_render_data, bool external_clear) {
+
+    }
 } 
