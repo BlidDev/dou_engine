@@ -4,10 +4,27 @@
 #include "components/modelcomp.h"
 #include "components/transform.h"
 #include "renderer.h"
+#include <algorithm>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 namespace engine {
+    struct BatchCommand {
+        uint64_t sort_key;
+
+        size_t       layer;
+        unsigned int vao;
+        unsigned int shader;
+        unsigned int texture;
+
+        glm::mat4 model;
+        glm::mat3 normal;
+        ModelComp* model_cmp;
+    };
+
+    uint64_t generate_sort_key(unsigned int layer, unsigned int vao, unsigned int shader, unsigned int texture, unsigned int misc = 0);
+
+    void set_ubos(entt::registry& registry, RenderData& data, SceneRenderData* s_render_data, CameraComp& viewer_camera, TransformComp& viewer_trans,const glm::vec2& view_size, const bool& external_clear);
 
     void send_lights(entt::registry &registry, RenderData &data);
     void send_material(Material &material);
@@ -19,51 +36,60 @@ namespace engine {
       auto p_trans = viewer.get_component<TransformComp>();
       auto p_camera = viewer.get_component<CameraComp>();
       auto objects = registry.view<TransformComp, ModelComp>();
+      StateCounter counter(objects.size_hint());
 
-      glm::mat4 projection = p_camera.get_projection(view_size);
+      set_ubos(registry, data, s_render_data, p_camera, p_trans, view_size, external_clear);
 
-      glm::mat4 view = p_camera.get_view(p_trans.position());
+      std::vector<BatchCommand> commands;
+      commands.reserve(objects.size_hint());
 
-      glm::vec4 clear_color = (s_render_data) ? s_render_data->clear_color : glm::vec4(0.0f);
-      glm::vec3 ambient = (s_render_data) ? s_render_data->ambient : glm::vec3(1.0f);
-      float ambient_strength = (s_render_data) ? s_render_data->ambient_strength : 0.1f;
+      for (auto [_, pos, obj] : objects.each()) {
+          float distance = glm::distance(pos.position(), p_trans.position());
+          if((!obj.is_immune && distance > p_camera.max_distance)) continue;
 
+          uint64_t sort_key = generate_sort_key(obj.layer, obj.mesh.VAO, obj.material.shader, obj.material.texture);
 
-      if(!external_clear) {
-          clear_buffers(clear_color, data.clear_flags);
+          glm::mat4 model = pos.get_model();
+          glm::mat3 normal = (obj.mesh.normals()) ? glm::transpose(glm::inverse(model)): glm::mat4(1.0f);
+
+          commands.push_back(BatchCommand{
+                  sort_key, 
+                  obj.layer,
+                  obj.mesh.VAO, 
+                  obj.material.shader, 
+                  obj.material.texture,
+                  model,
+                  normal,
+                  &obj 
+                  });
       }
 
-      if (p_camera.framebuffer.last_scale != view_size) {
-          rescale_framebuffer(p_camera.framebuffer, view_size.x, view_size.y);
+      std::sort(commands.begin(), commands.end(), [](BatchCommand& a, BatchCommand& b){
+              return a.sort_key < b.sort_key;
+              });
+
+      uint64_t c_key = -1;
+      size_t c_layer = -1;
+      unsigned int c_shader = -1;
+      unsigned int c_vao = -1;
+      unsigned int c_tex = -1;
+
+      for (const BatchCommand& cmd : commands) {
+          if (c_key != cmd.sort_key) {
+
+          }
+
       }
-
-      glViewport(0,0, view_size.x, view_size.y);
-      glBindFramebuffer(GL_FRAMEBUFFER, p_camera.framebuffer);
-      glClear(data.clear_flags);
-
-
-
-      data.bind("Matrices")
-          .sub(0, sizeof(glm::mat4), glm::value_ptr(projection))
-          .sub(sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(view))
-          .unbind();
-
-      data.bind("Lighting")
-          .sub(0, sizeof(glm::vec3), glm::value_ptr(ambient))
-          .sub(sizeof(glm::vec3), sizeof(float), &ambient_strength)
-          .sub(sizeof(glm::vec4), sizeof(glm::vec3),
-               glm::value_ptr(p_trans.position_ref()))
-          .unbind();
-
-      send_lights(registry, data);
 
 
       for (int i = 0; i < MAX_RENDER_LAYERS; i++) {
           LayerAtrb atrb = data.layers_atrb[i];
 
 
-          if (!atrb.depth)
+          if (!atrb.depth) {
               glDisable(GL_DEPTH_TEST);
+              counter.add_global();
+          }
 
 
           for (auto [_, pos, obj] : objects.each()) {
@@ -72,6 +98,7 @@ namespace engine {
               if((!obj.is_immune && distance > p_camera.max_distance) || obj.layer != i) continue;
 
               glUseProgram(obj.material.shader);
+              counter.add_shader();
 
               send_material(obj.material);
 
@@ -88,30 +115,37 @@ namespace engine {
               }
 
 
-              if (obj.material.is_textured)
+              if (obj.material.is_textured) {
                   glBindTexture(GL_TEXTURE_2D, obj.material.texture);
+                  counter.add_texture();
+              }
 
 
-              if (atrb.wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+              if (atrb.wireframe) {glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); counter.add_global();}
               glBindVertexArray(obj.mesh.VAO);
+              counter.add_vao();
 
 
               if (obj.mesh.nindices > 0) {
                   glDrawElements(GL_TRIANGLES, obj.mesh.nindices, GL_UNSIGNED_INT, 0);
+                  counter.add_call();
               }
               else {
                   glDrawArrays(GL_TRIANGLES, 0, obj.mesh.nvertices);
+                  counter.add_call();
               }
 
-              if (atrb.wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+              if (atrb.wireframe) {glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); counter.add_global();}
           }
 
           if(!atrb.depth)
-              glEnable(GL_DEPTH_TEST);
+          {glEnable(GL_DEPTH_TEST); counter.add_global();}
       }
 
 
       glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+      counter.summery();
     }
 
     void send_lights(entt::registry &registry, RenderData &data) {
@@ -198,7 +232,6 @@ namespace engine {
 
 
 
-
     void present_camera(Entity& viewer, Mesh& mesh) {
         DU_ASSERT(!viewer.has_component<CameraComp>(), "Trying to present entity {} but it has no camera component", viewer.uuid());
         CameraComp& camera = viewer.get_component<CameraComp>();
@@ -233,20 +266,57 @@ namespace engine {
 
     }
 
+    void set_ubos(entt::registry& registry, RenderData& data, SceneRenderData* s_render_data, CameraComp& viewer_camera, TransformComp& viewer_trans,const glm::vec2& view_size, const bool& external_clear) {
 
-    struct BatchCommand {
-        uint64_t key;
+        glm::mat4 projection = viewer_camera.get_projection(view_size);
 
-        unsigned int vao;
-        unsigned int shader;
-        unsigned int texture;
+        glm::mat4 view = viewer_camera.get_view(viewer_trans.position());
 
-        glm::mat4 model;
-    };
+        glm::vec4 clear_color = (s_render_data) ? s_render_data->clear_color : glm::vec4(0.0f);
+        glm::vec3 ambient = (s_render_data) ? s_render_data->ambient : glm::vec3(1.0f);
+        float ambient_strength = (s_render_data) ? s_render_data->ambient_strength : 0.1f;
 
-    void draw_to_camera_batched(RenderData& data, glm::vec2 view_size, Entity& viewer,
-                         entt::registry& registry, 
-                         SceneRenderData* s_render_data, bool external_clear) {
 
+        if(!external_clear) {
+            clear_buffers(clear_color, data.clear_flags);
+        }
+
+        if (viewer_camera.framebuffer.last_scale != view_size) {
+            rescale_framebuffer(viewer_camera.framebuffer, view_size.x, view_size.y);
+        }
+
+        glViewport(0,0, view_size.x, view_size.y);
+        glBindFramebuffer(GL_FRAMEBUFFER, viewer_camera.framebuffer);
+        glClear(data.clear_flags);
+
+
+
+        data.bind("Matrices")
+            .sub(0, sizeof(glm::mat4), glm::value_ptr(projection))
+            .sub(sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(view))
+            .unbind();
+
+        data.bind("Lighting")
+            .sub(0, sizeof(glm::vec3), glm::value_ptr(ambient))
+            .sub(sizeof(glm::vec3), sizeof(float), &ambient_strength)
+            .sub(sizeof(glm::vec4), sizeof(glm::vec3),
+                    glm::value_ptr(viewer_trans.position_ref()))
+            .unbind();
+
+        send_lights(registry, data);
     }
+
+    // Sort Priority (Highest to Lowest):
+    // Layer (8 bits) | Shader (8 bits) | Texture (16 bits) | VAO (16 bits) | Misc (16 bits)
+    uint64_t generate_sort_key(unsigned int layer, unsigned int vao, unsigned int shader, unsigned int texture, unsigned int misc) {
+        return 
+                    (static_cast<uint64_t>(layer)<<56)   | // 8  bits
+                    (static_cast<uint64_t>(shader)<<48)  | // 16 bits
+                    (static_cast<uint64_t>(texture)<<32) | // 16 bits
+                    (static_cast<uint64_t>(vao)<<16)     | // 8  bits
+                    (static_cast<uint64_t>(misc));         // 16 bits
+                
+    }
+
+
 } 

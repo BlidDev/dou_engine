@@ -7,7 +7,7 @@ int engine::on_start(engine::SceneManager* manager) {
 
     unsigned int factor = 50;
     unsigned int ww = 16 * factor, wh = 9 * factor;
-    manager->main_window = Window("batched", ww, wh);
+    manager->main_window = Window("notray", ww, wh);
     manager->render_data.screen_w = ww;
     manager->render_data.screen_h = wh;
 
