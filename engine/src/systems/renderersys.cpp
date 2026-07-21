@@ -52,16 +52,7 @@ namespace engine {
           glm::mat4 model = pos.get_model();
           glm::mat3 normal = (obj.mesh.normals()) ? glm::transpose(glm::inverse(model)): glm::mat4(1.0f);
 
-          commands.push_back(BatchCommand{
-                  sort_key, 
-                  obj.layer,
-                  obj.mesh.VAO, 
-                  obj.material.shader, 
-                  obj.material.texture,
-                  model,
-                  normal,
-                  &obj 
-                  });
+          commands.push_back(BatchCommand{sort_key, obj.layer, obj.mesh.VAO, obj.material.texture,obj.material.shader, model,normal,&obj});
       }
 
       std::sort(commands.begin(), commands.end(), [](BatchCommand& a, BatchCommand& b){
@@ -74,15 +65,61 @@ namespace engine {
       unsigned int c_vao = -1;
       unsigned int c_tex = -1;
 
+      // TODO Maybe change the global state updates to be dynamic instead of constant
       for (const BatchCommand& cmd : commands) {
           if (c_key != cmd.sort_key) {
+              if (c_layer != cmd.layer) {
+                  c_layer = cmd.layer;
+                  LayerAtrb atrb = data.layers_atrb[c_layer];
+                  if (atrb.depth) glEnable(GL_DEPTH_TEST); else glDisable(GL_DEPTH_TEST); counter.add_global();
+                  glPolygonMode(GL_FRONT_AND_BACK, atrb.wireframe ? GL_LINE : GL_FILL); counter.add_global();
+              }
+              if (c_shader != cmd.shader) {
+                  c_shader = cmd.shader;
+                  glUseProgram(c_shader);
+                  counter.add_shader();
+              }
 
+              if (c_tex != cmd.texture && cmd.model_cmp->material.is_textured) {
+                  c_tex = cmd.texture;
+                  glBindTexture(GL_TEXTURE_2D, c_tex);
+                  counter.add_texture();
+              }
+              
+              if (c_vao != cmd.vao) {
+                  c_vao = cmd.vao;
+                  glBindVertexArray(c_vao);
+                  counter.add_vao();
+              }
+          }
+          Shader tmp(c_shader, "");
+          ModelComp* mc = cmd.model_cmp;
+
+          set_shader_f(tmp, "dou_time", glfwGetTime());
+          send_material(mc->material);
+
+          set_shader_m4(tmp, "model", cmd.model);
+
+          //bool filled = (obj.material.attributes & MODEL_FILLED) == MODEL_FILLED;
+
+          if (mc->mesh.normals()) {
+              glm::mat3 normal = glm::transpose(glm::inverse(cmd.model));
+              set_shader_m3(mc->material.shader, "normal_mat", normal);
+          }
+
+          if (mc->mesh.nindices > 0) {
+              glDrawElements(GL_TRIANGLES, mc->mesh.nindices, GL_UNSIGNED_INT, 0);
+              counter.add_call();
+          }
+          else {
+              glDrawArrays(GL_TRIANGLES, 0, mc->mesh.nvertices);
+              counter.add_call();
           }
 
       }
 
 
-      for (int i = 0; i < MAX_RENDER_LAYERS; i++) {
+      /*for (int i = 0; i < MAX_RENDER_LAYERS; i++) {
           LayerAtrb atrb = data.layers_atrb[i];
 
 
@@ -142,6 +179,7 @@ namespace engine {
           {glEnable(GL_DEPTH_TEST); counter.add_global();}
       }
 
+      */
 
       glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -306,7 +344,6 @@ namespace engine {
         send_lights(registry, data);
     }
 
-    // Sort Priority (Highest to Lowest):
     // Layer (8 bits) | Shader (8 bits) | Texture (16 bits) | VAO (16 bits) | Misc (16 bits)
     uint64_t generate_sort_key(unsigned int layer, unsigned int vao, unsigned int shader, unsigned int texture, unsigned int misc) {
         return 
