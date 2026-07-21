@@ -123,7 +123,7 @@ vendor/glad/*.vcxproj.filters
 compile_commands.json
 
 
-*.sh
+run.sh
 CMakeSettings.json
 
 .ninja_deps
