@@ -16,6 +16,8 @@ namespace engine {
         glm::mat4 model;
         glm::mat3 normal;
         ModelComp* model_cmp;
+
+        void status() const;
     };
 
     struct StateCounter {
