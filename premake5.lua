@@ -4,6 +4,11 @@ newoption {
     description = "Builds the internal sandbox game project"
 }
 
+newoption {
+    trigger     = "build-btest",
+    description = "DEBUG ONLY, WILL BE REMOVED. Builds the batching test project"
+}
+
 DOU_INCLUDES = {
     "engine/include",
     "vendor/spdlog/include",
@@ -208,7 +213,9 @@ if _OPTIONS["build-game"] then
         pchheader "engine.h"
 end
 
-project "btest"
+
+if _OPTIONS["build-btest"] then
+    project "btest"
     kind "ConsoleApp"
     language "C++"
     cppdialect "C++20"
@@ -226,5 +233,7 @@ project "btest"
     link_dou_engine()
 
     pchheader "engine.h"
+end
+
 
 require "utils/ecc/ecc"
