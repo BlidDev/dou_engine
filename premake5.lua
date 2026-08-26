@@ -9,7 +9,7 @@ newoption {
     description = "DEBUG ONLY, WILL BE REMOVED. Builds the batching test project"
 }
 
-DOU_INCLUDES = {
+local DOU_INCLUDES = {
     "engine/include",
     "vendor/spdlog/include",
     "vendor/entt",
@@ -23,18 +23,33 @@ DOU_INCLUDES = {
 
 local DOU_ROOT = _MAIN_SCRIPT_DIR
 
-function link_dou_engine()
+local M = {};
+
+function M.get_dou_includes(module_path)
+    local tmp = {}
+
+    for _, path in ipairs(DOU_INCLUDES) do
+        table.insert(tmp, module_path .."/" .. path)
+    end
+
+    return tmp
+end
+
+function link_dou_engine(dou_root)
     links { "engine", "Glad", "YAML_CPP", "GLFW" }
+
+    local root = dou_root or DOU_ROOT
+    print(root)
 
     filter "system:windows"
         libdirs { "vendor/lua/windows" }
         links { "lua54", "opengl32", "gdi32", "user32", "shell32" }
-        postbuildcommands { "{COPY} \"" .. DOU_ROOT .. "/vendor/lua/windows/liblua54.lib\" \"%{cfg.targetdir}/\"" }
+        postbuildcommands { "{COPY} \"" .. root .. "/vendor/lua/windows/liblua54.lib\" \"%{cfg.targetdir}/\"" }
 
     filter "system:linux"
         libdirs { "vendor/lua/linux" }
         links { "lua54", "GL", "X11", "pthread", "dl", "m", "Xrandr", "Xi", "Xcursor", "Xinerama" }
-        postbuildcommands { "{COPY} \"" .. DOU_ROOT .. "/vendor/lua/linux/liblua54.so\" \"%{cfg.targetdir}/\"" }
+        postbuildcommands { "{COPY} \"" .. root .. "/vendor/lua/linux/liblua54.so\" \"%{cfg.targetdir}/\"" }
         linkoptions { "-Wl,-rpath,'$$ORIGIN'" }
         
     filter "system:macosx"
@@ -237,3 +252,5 @@ end
 
 
 require "utils/ecc/ecc"
+
+return M
