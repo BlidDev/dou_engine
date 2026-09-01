@@ -1,3 +1,5 @@
+-- Make Dou generate a standalone workspace by default 
+if DOU_STANDALONE == nil then DOU_STANDALONE = true end
 
 newoption {
     trigger     = "build-game",
@@ -21,9 +23,8 @@ local DOU_INCLUDES = {
     "vendor/yaml-cpp/include"
 }
 
-local DOU_ROOT = _MAIN_SCRIPT_DIR
 
-local M = {};
+local API = {};
 
 function M.get_dou_includes(module_path)
     local tmp = {}
@@ -35,26 +36,32 @@ function M.get_dou_includes(module_path)
     return tmp
 end
 
+
+
+local DOU_ROOT = _MAIN_SCRIPT_DIR
+
 function link_dou_engine(dou_root)
     links { "engine", "Glad", "YAML_CPP", "GLFW" }
 
     local root = dou_root or DOU_ROOT
-    print(root)
+
+    local lua_win_src = path.getabsolute(root .. "/vendor/lua/windows/lua54.lib")
+    local lua_linux_src = path.getabsolute(root .. "/vendor/lua/linux/liblua54.so")
 
     filter "system:windows"
-        libdirs { "vendor/lua/windows" }
+        libdirs { root .. "/vendor/lua/windows" }
         links { "lua54", "opengl32", "gdi32", "user32", "shell32" }
-        postbuildcommands { "{COPY} \"" .. root .. "/vendor/lua/windows/liblua54.lib\" \"%{cfg.targetdir}/\"" }
+        postbuildcommands { "{COPY} \"" .. lua_win_src .. "\" \"%{cfg.targetdir}/\"" }
 
     filter "system:linux"
-        libdirs { "vendor/lua/linux" }
+        libdirs { root .."/vendor/lua/linux" }
         links { "lua54", "GL", "X11", "pthread", "dl", "m", "Xrandr", "Xi", "Xcursor", "Xinerama" }
-        postbuildcommands { "{COPY} \"" .. root .. "/vendor/lua/linux/liblua54.so\" \"%{cfg.targetdir}/\"" }
+        postbuildcommands { "{COPY} \"" .. lua_linux_src .. "\" \"%{cfg.targetdir}/\"" }
         linkoptions { "-Wl,-rpath,'$$ORIGIN'" }
         
-    filter "system:macosx"
-        libdirs { "vendor/lua/macos" } 
-        links { "lua54", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "CoreFoundation.framework", "OpenGL.framework" }
+  --filter "system:macosx"
+  --    libdirs { root .. "/vendor/lua/macos" } 
+  --    links { "lua54", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "CoreFoundation.framework", "OpenGL.framework" }
 
     filter "toolset:gcc or toolset:clang"
         linkoptions { "-fuse-ld=gold" }
@@ -62,42 +69,45 @@ function link_dou_engine(dou_root)
     filter {} 
 end
 
-workspace "DouEngine"
-    architecture "x86_64"
-    configurations { "Debug", "Release" }
 
-    location ("build")
-    pic "On" 
+if DOU_STANDALONE then
+    workspace "DouEngine"
+        architecture "x86_64"
+        configurations { "Debug", "Release" }
 
-    -- COMPILER & BUILD SETTINGS 
-    debugdir "%{DOU_ROOT}"
-    targetdir ("bin/%{cfg.buildcfg}")
-    objdir ("build/bin-int/%{cfg.buildcfg}/%{prj.name}")
+        location ("build")
+        pic "On" 
 
-    filter "configurations:Debug"
-        defines { "DU_DEBUG" }
-        symbols "On"
+        -- COMPILER & BUILD SETTINGS 
+        debugdir "%{DOU_ROOT}"
+        targetdir ("bin/%{cfg.buildcfg}")
+        objdir ("build/bin-int/%{cfg.buildcfg}/%{prj.name}")
 
-    filter "configurations:Release"
-        defines { "NDEBUG" }
-        optimize "Speed"
+        filter "configurations:Debug"
+            defines { "DU_DEBUG" }
+            symbols "On"
 
-    filter "system:windows"
-        defines { "SPDLOG_WCHAR_TO_UTF8_SUPPORT" }
+        filter "configurations:Release"
+            defines { "NDEBUG" }
+            optimize "Speed"
 
-    filter "toolset:msc"
-        staticruntime "On" 
-        buildoptions { "/permissive-", "/bigobj", "/utf-8" }
+        filter "system:windows"
+            defines { "SPDLOG_WCHAR_TO_UTF8_SUPPORT" }
 
-    filter "toolset:gcc or toolset:clang"
-        buildoptions { "-finput-charset=UTF-8", "-fexec-charset=UTF-8" }
+        filter "toolset:msc"
+            staticruntime "On" 
+            buildoptions { "/permissive-", "/bigobj", "/utf-8" }
 
-    filter "toolset:gcc"
-        buildoptions { "-fdiagnostics-color=always" }
-    filter "toolset:clang"
-        buildoptions { "-fcolor-diagnostics" }
+        filter "toolset:gcc or toolset:clang"
+            buildoptions { "-finput-charset=UTF-8", "-fexec-charset=UTF-8" }
 
-    filter {} 
+        filter "toolset:gcc"
+            buildoptions { "-fdiagnostics-color=always" }
+        filter "toolset:clang"
+            buildoptions { "-fcolor-diagnostics" }
+
+        filter {} 
+end
 
 -- ==============================================================================
 project "Glad"
@@ -204,8 +214,7 @@ project "engine"
 
     links { "Glad", "YAML_CPP", "GLFW" }
 
--- ==============================================================================
--- GAME PROJECT (Clean Client Implementation)
+
 -- ==============================================================================
 if _OPTIONS["build-game"] then
     project "game"
@@ -229,6 +238,7 @@ if _OPTIONS["build-game"] then
 end
 
 
+-- ==============================================================================
 if _OPTIONS["build-btest"] then
     project "btest"
     kind "ConsoleApp"
@@ -251,6 +261,8 @@ if _OPTIONS["build-btest"] then
 end
 
 
+
+-- = COMPILE COMMANDS PREMAKE EXTENTION =========================================
 require "utils/ecc/ecc"
 
-return M
+return API
