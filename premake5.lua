@@ -69,6 +69,24 @@ function link_dou_engine(dou_root)
     filter {} 
 end
 
+function API.utf8_filter()
+    -- Catches Visual Studio IDE -OR- VS Code when explicitly using the MSVC compiler (premake5 --cc=msc gmake2)
+    filter "action:vs* or toolset:msc"
+        staticruntime "On" 
+        characterset "MBCS"
+        buildoptions { "/permissive-", "/bigobj", "/utf-8" }
+
+    -- Catches MinGW (GCC/Clang) on Windows, as well as native Linux/macOS compilers
+    filter { "not action:vs*", "not toolset:msc" }
+        characterset "MBCS"
+        buildoptions { "-finput-charset=UTF-8", "-fexec-charset=UTF-8" }
+
+    filter {}
+end
+
+
+
+
 
 if DOU_STANDALONE then
     workspace "DouEngine"
@@ -93,13 +111,7 @@ if DOU_STANDALONE then
 
         filter "system:windows"
             defines { "SPDLOG_WCHAR_TO_UTF8_SUPPORT" }
-
-        filter "toolset:msc"
-            staticruntime "On" 
-            buildoptions { "/permissive-", "/bigobj", "/utf-8" }
-
-        filter "toolset:gcc or toolset:clang"
-            buildoptions { "-finput-charset=UTF-8", "-fexec-charset=UTF-8" }
+            characterset "ASCII"
 
         filter "toolset:gcc"
             buildoptions { "-fdiagnostics-color=always" }
@@ -121,6 +133,8 @@ project "Glad"
         removebuildoptions { "/permissive-" }
     filter {}
 
+    API.utf8_filter()
+
 project "YAML_CPP"
     kind "StaticLib"
     language "C++"
@@ -130,6 +144,7 @@ project "YAML_CPP"
     defines { "YAML_CPP_STATIC_DEFINE" }
     files { "vendor/yaml-cpp/src/**.cpp" }
     includedirs { "vendor/yaml-cpp/include", "vendor/yaml-cpp/src" }
+    API.utf8_filter()
 
 project "GLFW"
     kind "StaticLib"
@@ -187,6 +202,7 @@ project "GLFW"
         removebuildoptions { "/permissive-" }
         
     filter {}
+    API.utf8_filter()
 
 -- ==============================================================================
 project "engine"
@@ -210,9 +226,11 @@ project "engine"
     }
 
     pchheader "espch.h"
+    pchsource "engine/src/espch.cpp"
     defines { "YAML_CPP_STATIC_DEFINE" }
 
     links { "Glad", "YAML_CPP", "GLFW" }
+    API.utf8_filter()
 
 
 -- ==============================================================================
@@ -234,7 +252,9 @@ if _OPTIONS["build-game"] then
 
         link_dou_engine()
 
-        pchheader "engine.h"
+        pchheader "epch.h"
+        pchsource "engine/source/epch.cpp"
+        API.utf8_filter()
 end
 
 
@@ -257,7 +277,16 @@ if _OPTIONS["build-btest"] then
 
     link_dou_engine()
 
-    pchheader "engine.h"
+    pchheader "epch.h"
+    pchsource "engine/source/epch.cpp"
+
+    filter "files:vendor/**.cpp"
+        enablepch "Off"
+    
+    filter "files:vendor/**.c"
+        enablepch "Off"
+
+    API.utf8_filter()
 end
 
 

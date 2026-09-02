@@ -67,7 +67,7 @@ namespace engine {
 
     void ubos_shaders_bind(RenderData& data, std::unordered_map<std::string, Shader>& shaders);
 
-    struct SceneManager;
+    class SceneManager;
     void set_layer_depth(RenderData& data, size_t layer, bool flag);
     void set_layer_wireframe(RenderData& data, size_t layer, bool flag);
     void set_clear_flags(RenderData& data, int flags);
