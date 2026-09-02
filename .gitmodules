@@ -13,3 +13,6 @@
 [submodule "vendor/glfw"]
 	path = vendor/glfw
 	url = https://github.com/glfw/glfw
+[submodule "utils/ecc"]
+	path = utils/ecc
+	url = https://github.com/MattBystrin/premake-ecc

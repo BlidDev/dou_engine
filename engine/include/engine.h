@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ENGINE_H
+#define ENGINE_H
 #include "scene.h"
 #include "manager.h"
 #include "input.h"
@@ -15,3 +16,4 @@
 #include "entry_point.h"
 #include "timer.h"
 #include "cache_helper.hpp"
+#endif

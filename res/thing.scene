@@ -14,7 +14,7 @@ Entities:
       Rotation: [0, -0, 0]
     Model:
       Layer: 0
-      Mesh Name: cube
+      Mesh Name: quad_tex
       Immune: false
       Material:
         Shader: basic.glsl
