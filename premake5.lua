@@ -26,7 +26,7 @@ local DOU_INCLUDES = {
 
 local API = {};
 
-function M.get_dou_includes(module_path)
+function API.get_dou_includes(module_path)
     local tmp = {}
 
     for _, path in ipairs(DOU_INCLUDES) do
