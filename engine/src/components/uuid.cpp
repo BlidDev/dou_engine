@@ -1,3 +1,4 @@
+#include "espch.h"
 #include "components/uuid.h"
 
 #include <random>

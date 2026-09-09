@@ -1,3 +1,4 @@
+#include "espch.h"
 #include "systems/luasys.h"
 #include "scene.h"
 #include "components/luascript.h"

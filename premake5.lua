@@ -252,8 +252,8 @@ if _OPTIONS["build-game"] then
 
         link_dou_engine()
 
-        pchheader "epch.h"
-        pchsource "engine/source/epch.cpp"
+        pchheader "gpch.h"
+        pchsource "game/src/gpch.cpp"
         API.utf8_filter()
 end
 
@@ -276,9 +276,6 @@ if _OPTIONS["build-btest"] then
     includedirs { "btest/include" }
 
     link_dou_engine()
-
-    pchheader "epch.h"
-    pchsource "engine/source/epch.cpp"
 
     filter "files:vendor/**.cpp"
         enablepch "Off"

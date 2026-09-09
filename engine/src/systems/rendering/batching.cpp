@@ -1,3 +1,4 @@
+#include "espch.h"
 #include "systems/rendering/batching.h"
 
 namespace engine {

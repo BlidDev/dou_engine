@@ -1,3 +1,4 @@
+#include "espch.h"
 #include "components/camera.h"
 #include "formatting.h"
 #include "util.h"

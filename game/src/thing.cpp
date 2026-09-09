@@ -1,3 +1,4 @@
+#include <gpch.h>
 #include "thing.h"
 #include "renderer.h"
 

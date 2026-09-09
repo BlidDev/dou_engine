@@ -1,3 +1,4 @@
+#include "espch.h"
 #include "input.h"
 #include "log.h"
 #include "luawrapper.h"

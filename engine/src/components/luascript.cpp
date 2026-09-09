@@ -1,3 +1,4 @@
+#include "espch.h"
 #include "components/luascript.h"
 #include "log.h"
 #include "luawrapper.h"

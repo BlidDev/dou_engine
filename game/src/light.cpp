@@ -1,5 +1,5 @@
+#include <gpch.h>
 #include "light.h"
-#include <engine.h>
 
 LightScene::LightScene() : Scene("light") { close = false; }
 

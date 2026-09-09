@@ -1,3 +1,4 @@
+#include "espch.h"
 #include "manager.h"
 #include "luawrapper.h"
 #include "component.h"

@@ -1,3 +1,4 @@
+#include "espch.h"
 #include "components/action.h"
 #include "egassert.h"
 #include "entity.h"

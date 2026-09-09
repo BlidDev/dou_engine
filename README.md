@@ -70,7 +70,7 @@ Check out the [First Project](engine/include/engine.h) wiki page in order to cre
 <br>
 
 ## Documentation 
-You can find everything over on the [Dou wiki](engine/include/epch.h). If you encounter something that's not documented let me know and I'll add a wiki page as soon a possible.
+You can find everything over on the [Dou wiki](). If you encounter something that's not documented let me know and I'll add a wiki page as soon a possible.
 
 <hr style="border:2px solid darkgray">
 <br>

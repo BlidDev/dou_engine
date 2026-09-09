@@ -1,3 +1,4 @@
+#include "espch.h"
 #include "components/modelcomp.h"
 #include "renderer.h"
 
