@@ -276,13 +276,6 @@ if _OPTIONS["build-btest"] then
     includedirs { "btest/include" }
 
     link_dou_engine()
-
-    filter "files:vendor/**.cpp"
-        enablepch "Off"
-    
-    filter "files:vendor/**.c"
-        enablepch "Off"
-
     API.utf8_filter()
 end
 
