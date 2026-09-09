@@ -114,7 +114,7 @@ namespace engine {
 
       glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-      counter.summery();
+      //counter.summery();
     }
 
 
